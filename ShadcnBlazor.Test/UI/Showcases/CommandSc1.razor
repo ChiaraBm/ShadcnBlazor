@@ -1,0 +1,73 @@
+@using ShadcnBlazor.Command
+@using ShadcnBlazor.Dialogs
+@using ShadcnBlazor.Kbds
+
+
+
+<Command className="rounded-lg border shadow-md md:min-w-[450px]">
+    <CommandInput placeholder="Type a command or search..."/>
+    <CommandList>
+        <CommandEmpty>No results found.</CommandEmpty>
+        <CommandGroup Heading="Suggestions">
+            <CommandItem Name="Calendar">
+                <span>Calendar</span>
+            </CommandItem>
+            <CommandItem Name="Search Emoji">
+                <span>Search Emoji</span>
+            </CommandItem>
+            <CommandItem Name="Calculator" Disabled="true">
+                <span>Calculator</span>
+            </CommandItem>
+        </CommandGroup>
+        <CommandSeparator/>
+        <CommandGroup Heading="Settings">
+            <CommandItem Name="Profile">
+                <span>Profile</span>
+                <CommandShortcut>⌘P</CommandShortcut>
+            </CommandItem>
+            <CommandItem Name="Billing">
+                <span>Billing</span>
+                <CommandShortcut>⌘B</CommandShortcut>
+            </CommandItem>
+            <CommandItem Name="Settings">
+                <span>Settings</span>
+                <CommandShortcut>⌘S</CommandShortcut>
+            </CommandItem>
+        </CommandGroup>
+    </CommandList>
+</Command>
+
+<br/><br/><br/><br/>
+
+<CommandDialog DefaultOpen="true" Title="Command" Description="Cool Command Dialog">
+    <CommandInput placeholder="Type a command or search..."/>
+    <CommandList>
+        <CommandEmpty>No results found.</CommandEmpty>
+        <CommandGroup heading="Suggestions">
+            <CommandItem>
+                <span>Calendar</span>
+            </CommandItem>
+            <CommandItem>
+                <span>Search Emoji</span>
+            </CommandItem>
+            <CommandItem>
+                <span>Calculator</span>
+            </CommandItem>
+        </CommandGroup>
+        <CommandSeparator/>
+        <CommandGroup heading="Settings">
+            <CommandItem>
+                <span>Profile</span>
+                <CommandShortcut>⌘P</CommandShortcut>
+            </CommandItem>
+            <CommandItem>
+                <span>Billing</span>
+                <CommandShortcut>⌘B</CommandShortcut>
+            </CommandItem>
+            <CommandItem>
+                <span>Settings</span>
+                <CommandShortcut>⌘S</CommandShortcut>
+            </CommandItem>
+        </CommandGroup>
+    </CommandList>
+</CommandDialog>

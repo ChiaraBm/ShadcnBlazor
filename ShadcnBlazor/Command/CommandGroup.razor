@@ -1,0 +1,42 @@
+@inherits ShadcnBase
+
+<div
+    data-slot="command-group"
+    @attributes="Props"
+    class="@Classes"
+    aria-hidden="@Hidden"
+    hidden="@Hidden"
+>
+    @if (Heading != null)
+    {
+        <div>
+            @Heading
+        </div>
+    }
+    @ChildContent
+</div>
+
+@code {
+    [CascadingParameter] public Command Command { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public string? Heading { get; set; }
+
+    private string? Classes;
+    private bool Hidden = false;
+
+    protected override void OnParametersSet()
+    {
+        Command.CommandGroups.Add(this);
+
+        Classes = Cn(
+            "text-foreground text-muted-foreground overflow-hidden p-1 px-2 py-1.5 text-xs font-medium",
+            ClassName
+        );
+    }
+
+    public void ApplyVisibility()
+    {
+        Hidden = Command.FilteredItems.Count == 0;
+    }
+
+}

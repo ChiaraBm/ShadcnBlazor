@@ -14,30 +14,30 @@ else
 @code
 {
     [CascadingParameter] public HoverCard HoverCard { get; set; }
-    
+
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public RenderFragment<Dictionary<string, object?>>? Slot { get; set; }
 
     internal ElementReference TriggerElement { get; private set; }
     internal bool IsInHover { get; private set; }
-    
+
     private Dictionary<string, object?> Attributes;
 
     protected override void OnParametersSet()
     {
         HoverCard.Trigger = this;
-        
+
         Attributes = new();
 
         Attributes["data-slot"] = "hover-card-trigger";
         Attributes["data-state"] = HoverCard.IsOpen ? "open" : "closed";
-        
+
         Attributes["onmouseenter"] = EventCallback.Factory.Create(this, async () =>
         {
             IsInHover = true;
             await HoverCard.OnMouseEnterAsync();
         });
-        
+
         Attributes["onmouseleave"] = EventCallback.Factory.Create(this, async () =>
         {
             IsInHover = false;

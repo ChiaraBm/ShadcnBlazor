@@ -1,0 +1,32 @@
+@inherits ShadcnBase
+@using ShadcnBlazor.Dialogs
+
+<Dialog @attributes="@Props" OnOpenChange="OnOpenChange" DefaultOpen="DefaultOpen">
+    <DialogHeader class="sr-only">
+        <DialogTitle>@Title</DialogTitle>
+        <DialogDescription>@Description</DialogDescription>
+    </DialogHeader>
+    <DialogContent
+
+        ShowCloseButton="ShowCloseButton">
+        <Command
+            class="text-muted-foreground h-12 px-2 font-medium px-2 :pt-0 h-5 w-5 h-12 px-2 py-3 h-5 w-5"
+        >
+            @ChildContent
+        </Command>
+    </DialogContent>
+</Dialog>
+
+@code {
+
+    // TODO: Fix Dialog Open State (maybe set "open" as Parameter).
+    // TODO: Fix Css for Dialog and Command.
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public string Title { get; set; } = "Command Palette";
+    [Parameter] public string Description { get; set; } = "Search for a command to run...";
+    [Parameter] public bool ShowCloseButton { get; set; } = true;
+
+    [Parameter] public EventCallback<bool> OnOpenChange { get; set; }
+    [Parameter] public bool DefaultOpen { get; set; }
+
+}
