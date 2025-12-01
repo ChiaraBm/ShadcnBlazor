@@ -1,0 +1,36 @@
+@inherits ShadcnBase
+
+<div
+    data-slot="command-empty"
+    @attributes="Props"
+    class="@Classes"
+    aria-hidden="@Hidden"
+    hidden="@Hidden"
+>
+    @ChildContent
+</div>
+
+@code {
+    [CascadingParameter] public Command Command { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+
+    private string? Classes;
+    private bool Hidden = true;
+
+    protected override void OnParametersSet()
+    {
+        Command.EmptyCommand = this;
+
+        Classes = Cn(
+            "py-6 text-center text-sm",
+            ClassName
+        );
+    }
+
+    public void ApplyVisibility()
+    {
+        Hidden = Command.FilteredItems.Count != 0;
+    }
+
+}

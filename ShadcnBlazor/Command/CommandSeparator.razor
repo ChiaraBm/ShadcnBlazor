@@ -1,0 +1,32 @@
+@inherits ShadcnBase
+
+<div
+    data-slot="command-separator"
+    @attributes="Props"
+    class="@Classes"
+    aria-hidden="@Hidden"
+    hidden="@Hidden"
+></div>
+
+@code {
+    [CascadingParameter] public Command Command { get; set; }
+
+    private string? Classes;
+    private bool Hidden = true;
+
+    protected override void OnParametersSet()
+    {
+        Command.CommandSeparator = this;
+
+        Classes = Cn(
+            "bg-border -mx-1 h-px",
+            ClassName
+        );
+    }
+
+    public void ApplyVisibility()
+    {
+        Hidden = Command.FilteredItems.Count == 0;
+    }
+
+}

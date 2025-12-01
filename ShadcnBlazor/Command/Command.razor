@@ -1,0 +1,62 @@
+@inherits ShadcnBase
+
+<div @attributes="Attributes" class="@Classes">
+    <CascadingValue TValue="Command" Value="this" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
+</div>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    public List<string> Items { get; set; } = [];
+    public List<string> FilteredItems { get; set; } = [];
+
+    internal CommandEmpty EmptyCommand { get; set; }
+    internal CommandSeparator CommandSeparator { get; set; }
+    internal List<CommandGroup> CommandGroups { get; set; } = [];
+    internal List<CommandItem> CommandItems { get; set; } = [];
+
+    private string? Classes;
+    private Dictionary<string, object?> Attributes;
+
+    protected override void OnParametersSet()
+    {
+        Attributes = new();
+
+        Attributes["data-slot"] = "command";
+
+        Classes = Cn(
+            "bg-popover text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-md",
+            ClassName
+        );
+
+        if (Props == null)
+            return;
+
+        foreach (var prop in Props)
+            Attributes[prop.Key] = prop.Value;
+    }
+
+    public async Task UpdateFilteredItems(ChangeEventArgs eventArgs)
+    {
+        var search = eventArgs.Value?.ToString();
+        FilteredItems = string.IsNullOrEmpty(search) ? Items : Items.Where(s => s.Contains(search, StringComparison.OrdinalIgnoreCase)).ToList();
+
+        foreach (var commandItem in CommandItems)
+        {
+            commandItem.ApplyVisibility();
+        }
+
+        foreach (var commandItem in CommandGroups)
+        {
+            commandItem.ApplyVisibility();
+        }
+
+        EmptyCommand.ApplyVisibility();
+        CommandSeparator.ApplyVisibility();
+        await InvokeAsync(StateHasChanged);
+    }
+
+}
