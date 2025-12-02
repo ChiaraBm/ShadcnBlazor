@@ -28,10 +28,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="wwwroot\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <None Include="..\Assets\logo.png">
         <Pack>True</Pack>
         <PackagePath>/</PackagePath>

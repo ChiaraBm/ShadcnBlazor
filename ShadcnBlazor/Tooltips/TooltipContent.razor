@@ -3,6 +3,7 @@
 
 @inherits ShadcnBase
 
+@inject InteropService InteropService
 @inject PositionService PositionService
 
 @if (Tooltip.ShouldRenderContent)
@@ -62,8 +63,8 @@
 
         PositionStyle = $"left: {position.X.ToString(CultureInfo.InvariantCulture)}px; top: {position.Y.ToString(CultureInfo.InvariantCulture)}px";
 
-        var contentBox = await PositionService.GetBoundingBoxAsync(PositionElement);
-        var arrowBox = await PositionService.GetBoundingBoxAsync(ArrowElement);
+        var contentBox = await InteropService.GetBoundingBoxAsync(PositionElement);
+        var arrowBox = await InteropService.GetBoundingBoxAsync(ArrowElement);
 
         double left = 0;
         double bottom = 0;

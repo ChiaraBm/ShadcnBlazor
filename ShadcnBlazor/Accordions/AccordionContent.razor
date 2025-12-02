@@ -2,7 +2,7 @@
 
 @inherits ShadcnBase
 
-@inject PositionService PositionService
+@inject InteropService InteropService
 
 <div data-state="@(Item.IsOpen ? "open" : "closed")"
      role="region"
@@ -44,7 +44,7 @@
 
     public async Task OnOpened()
     {
-        BoundingBox = await PositionService.GetBoundingBoxAsync(ContentContainer);
+        BoundingBox = await InteropService.GetBoundingBoxAsync(ContentContainer);
         await InvokeAsync(StateHasChanged);
     }
 }
