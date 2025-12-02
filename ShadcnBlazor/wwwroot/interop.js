@@ -1,4 +1,4 @@
-﻿window.interop = {
+﻿window.shadcnBlazor = {
     getBoundingBox: function (element) {
         return element.getBoundingClientRect();
     },
@@ -11,7 +11,6 @@
     },
     
     getMatchMedia(query) {
-        console.log(query);
         return window.matchMedia(query).matches;
     }
 }

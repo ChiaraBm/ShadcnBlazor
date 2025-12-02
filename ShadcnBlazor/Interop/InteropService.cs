@@ -14,16 +14,16 @@ public class InteropService
     
     public async Task<DomRect> GetBoundingBoxAsync(ElementReference element)
     {
-        return await JsRuntime.InvokeAsync<DomRect>("interop.getBoundingBox", element);
+        return await JsRuntime.InvokeAsync<DomRect>("shadcnBlazor.getBoundingBox", element);
     }
 
     public async Task<ViewportSize> GetViewportSizeAsync()
     {
-        return await JsRuntime.InvokeAsync<ViewportSize>("interop.getViewport");
+        return await JsRuntime.InvokeAsync<ViewportSize>("shadcnBlazor.getViewport");
     }
 
     public async Task<bool> GetMatchMediaAsync(string query)
     {
-        return await JsRuntime.InvokeAsync<bool>("interop.getMatchMedia", query);
+        return await JsRuntime.InvokeAsync<bool>("shadcnBlazor.getMatchMedia", query);
     }
 }

@@ -7,6 +7,11 @@ public class PositionService
 {
     private readonly InteropService InteropService;
 
+    public PositionService(InteropService interopService)
+    {
+        InteropService = interopService;
+    }
+
     public async Task<Position> PositionAtWithinViewportAsync(
         ElementReference element,
         double cursorX,
