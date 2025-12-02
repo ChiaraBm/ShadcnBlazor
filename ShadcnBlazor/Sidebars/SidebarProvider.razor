@@ -17,9 +17,11 @@
     [Parameter] public bool DefaultOpen { get; set; }
 
     public bool IsMobile { get; private set; }
-    public bool OpenMobile { get; private set; }
+    public bool OpenMobile { get; set; }
     public bool IsOpen { get; private set; }
     public bool IsExpanded { get; private set; }
+    
+    internal Sidebar Sidebar { get; set; }
 
     internal string SidebarWidth = "16rem";
     internal string SidebarWidthMobile = "16rem";
@@ -29,22 +31,18 @@
 
     protected override void OnInitialized()
     {
-        OpenMobile = DefaultOpen;
         IsOpen = DefaultOpen;
+        IsExpanded = IsOpen;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if(!firstRender)
+        if (!firstRender)
             return;
 
-        Console.WriteLine(await InteropService.GetMatchMediaAsync("\"(width >= 48rem)\""));
-
-        Task.Run(async () =>
-        {
-            await Task.Delay(4000);
-            Console.WriteLine(await InteropService.GetMatchMediaAsync("\"(width >= 48rem)\""));
-        });
+        IsMobile = !await InteropService.GetMatchMediaAsync("(width >= 48rem");
+        
+        await InvokeAsync(StateHasChanged);
     }
 
     protected override void OnParametersSet()
@@ -54,16 +52,21 @@
             ClassName
         );
     }
-    
+
     public async Task ToggleSidebarAsync()
     {
         if (IsMobile)
+        {
             OpenMobile = !OpenMobile;
+
+            if (OpenMobile)
+                await Sidebar.OpenMobileAsync();
+        }
         else
             IsOpen = !IsOpen;
 
         IsExpanded = IsOpen;
-        
+
         await InvokeAsync(StateHasChanged);
     }
 }

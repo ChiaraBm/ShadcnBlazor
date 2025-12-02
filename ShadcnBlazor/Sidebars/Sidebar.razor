@@ -20,7 +20,7 @@ else
             _ => SheetSide.Left
         };
 
-        <Sheet DefaultOpen="SidebarProvider.OpenMobile" OnOpenChange="SetOpenMobileAsync" @attributes="Props">
+        <Sheet @ref="MobileNavigation" OnOpenChange="SetOpenMobileAsync" @attributes="Props">
             <SheetContent data-sidebar="sidebar"
                           data-slot="sidebar"
                           data-mobile="true"
@@ -77,6 +77,13 @@ else
     private string? MainClasses;
     private string? SidebarGapClasses;
 
+    private Sheet? MobileNavigation;
+
+    protected override void OnInitialized()
+    {
+        SidebarProvider.Sidebar = this;
+    }
+
     protected override void OnParametersSet()
     {
         if (Collapsible == SidebarCollapsible.None)
@@ -111,7 +118,17 @@ else
         );
     }
 
-    private async Task SetOpenMobileAsync(bool toggle)
+    private Task SetOpenMobileAsync(bool toggle)
     {
+        SidebarProvider.OpenMobile = toggle;
+        return Task.CompletedTask;
+    }
+
+    internal async Task OpenMobileAsync()
+    {
+        if (MobileNavigation == null)
+            return;
+
+        await MobileNavigation.OpenAsync();
     }
 }
