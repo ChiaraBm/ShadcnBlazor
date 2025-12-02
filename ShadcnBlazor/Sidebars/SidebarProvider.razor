@@ -1,12 +1,52 @@
-<div class="group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar flex min-h-svh w-full"
-     style="--sidebar-width: @SidebarWidth; --sidebar-width-icon: @SidebarWidthIcon">
-    @ChildContent
+@inherits ShadcnBase
+
+<div class="@Classes"
+     style="@($"--sidebar-width: {SidebarWidth}; --sidebar-width-icon: {SidebarWidthIcon}")"
+     @attributes="Props">
+    <CascadingValue TValue="SidebarProvider" Value="this">
+        @ChildContent
+    </CascadingValue>
 </div>
 
 @code
 {
     [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public bool DefaultOpen { get; set; }
 
-    private string SidebarWidth = "16rem";
-    private string SidebarWidthIcon = "3rem";
+    public bool IsMobile { get; private set; }
+    public bool OpenMobile { get; private set; }
+    public bool IsOpen { get; private set; }
+    public bool IsExpanded { get; private set; }
+
+    internal string SidebarWidth = "16rem";
+    internal string SidebarWidthMobile = "16rem";
+    internal string SidebarWidthIcon = "3rem";
+
+    private string? Classes;
+
+    protected override void OnInitialized()
+    {
+        OpenMobile = DefaultOpen;
+        IsOpen = DefaultOpen;
+    }
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar flex min-h-svh w-full",
+            ClassName
+        );
+    }
+    
+    public async Task ToggleSidebarAsync()
+    {
+        if (IsMobile)
+            OpenMobile = !OpenMobile;
+        else
+            IsOpen = !IsOpen;
+
+        IsExpanded = IsOpen;
+        
+        await InvokeAsync(StateHasChanged);
+    }
 }

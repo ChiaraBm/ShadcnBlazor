@@ -1,76 +1,117 @@
+@using ShadcnBlazor.Sheets
+@inherits ShadcnBase
+
 @if (Collapsible == SidebarCollapsible.None)
 {
-  <div
-    data-slot="sidebar"
-    class="bg-sidebar text-sidebar-foreground flex h-full w-(--sidebar-width) flex-col @CssClasses">
-    @ChildContent
-  </div>
+    <div
+        data-slot="sidebar"
+        class="@MainClasses"
+        @attributes="Props">
+        @ChildContent
+    </div>
 }
 else
 {
-  if (false)
-  {
-    @*Mobile design. Depends on not yet implemented Sheets*@
-  }
-  else
-  {
-    <div class="group peer text-sidebar-foreground hidden md:block"
-         data-state="expanded"
-         data-collapsible="none"
-         data-variant="@Variant.ToString().ToLower()"
-         data-side="@Side.ToString().ToLower()"
-         data-slot="sidebar">
-      @* This is what handles the sidebar gap on desktop *@
+    if (SidebarProvider.IsMobile)
+    {
+        var sheetSide = Side switch
+        {
+            SidebarSide.Right => SheetSide.Right,
+            _ => SheetSide.Left
+        };
 
-      @{
-        var gapClasses = "relative w-(--sidebar-width) bg-transparent transition-[width] duration-200 ease-linear " +
-                           "group-data-[collapsible=offcanvas]:w-0 " +
-                           "group-data-[side=right]:rotate-180 " +
-                           (
-                             Variant is SidebarVariant.Floating or SidebarVariant.Inset
-                               ? "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]"
-                               : "group-data-[collapsible=icon]:w-(--sidebar-width-icon)"
-                           );
-      }
+        <Sheet DefaultOpen="SidebarProvider.OpenMobile" OnOpenChange="SetOpenMobileAsync" @attributes="Props">
+            <SheetContent data-sidebar="sidebar"
+                          data-slot="sidebar"
+                          data-mobile="true"
+                          ClassName="bg-sidebar text-sidebar-foreground w-(--sidebar-width) p-0 [&>button]:hidden"
+                          style="@($"--sidebar-width: {SidebarProvider.SidebarWidthMobile}")"
+                          Side="sheetSide">
+                <SheetHeader ClassName="sr-only">
+                    <SheetTitle>Sidebar</SheetTitle>
+                    <SheetDescription>Displays the mobile sidebar.</SheetDescription>
+                </SheetHeader>
+                <div class="flex h-full w-full flex-col">
+                    @ChildContent
+                </div>
+            </SheetContent>
+        </Sheet>
+    }
+    else
+    {
+        <div class="group peer text-sidebar-foreground hidden md:block"
+             data-state="@(SidebarProvider.IsExpanded ? "expanded" : "collapsed")"
+             data-collapsible="@(!SidebarProvider.IsExpanded ? Collapsible.ToString().ToLower() : "")"
+             data-variant="@(Variant.ToString().ToLower())"
+             data-side="@(Side.ToString().ToLower())"
+             data-slot="sidebar">
 
-      <div
-        data-slot="sidebar-gap"
-        class="@gapClasses">
-        @{
-          var containerClasses = "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex " +
-                                   (
-                                     Side == SidebarSide.Left
-                                       ? "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)] "
-                                       : "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)] "
-                                   )
-                                   +
-                                   (Variant is SidebarVariant.Floating or SidebarVariant.Inset
-                                     ? "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)] "
-                                     : "group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l "
-                                   ) +
-                                   CssClasses;
-        }
+            <div data-slot="sidebar-gap"
+                 class="@SidebarGapClasses">
+            </div>
 
-        <div
-          data-slot="sidebar-container"
-          class="@containerClasses">
-          <div
-            data-sidebar="sidebar"
-            data-slot="sidebar-inner"
-            class="bg-sidebar group-data-[variant=floating]:border-sidebar-border flex h-full w-full flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow-sm">
-            @ChildContent
-          </div>
+            <div data-slot="sidebar-container"
+                 class="@MainClasses"
+                 @attributes="Props">
+                <div
+                    data-sidebar="sidebar"
+                    data-slot="sidebar-inner"
+                    class="bg-sidebar group-data-[variant=floating]:border-sidebar-border flex h-full w-full flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow-sm">
+                    @ChildContent
+                </div>
+            </div>
+
         </div>
-      </div>
-    </div>
-  }
+    }
 }
 
 @code
 {
-  [Parameter] public RenderFragment ChildContent { get; set; }
-  [Parameter] public SidebarSide Side { get; set; } = SidebarSide.Left;
-  [Parameter] public SidebarVariant Variant { get; set; } = SidebarVariant.Sidebar;
-  [Parameter] public SidebarCollapsible Collapsible { get; set; } = SidebarCollapsible.OffCanvas;
-  [Parameter] public string CssClasses { get; set; }
+    [CascadingParameter] public SidebarProvider SidebarProvider { get; set; }
+
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public SidebarSide Side { get; set; } = SidebarSide.Left;
+    [Parameter] public SidebarVariant Variant { get; set; } = SidebarVariant.Sidebar;
+    [Parameter] public SidebarCollapsible Collapsible { get; set; } = SidebarCollapsible.OffCanvas;
+
+    private string? MainClasses;
+    private string? SidebarGapClasses;
+
+    protected override void OnParametersSet()
+    {
+        if (Collapsible == SidebarCollapsible.None)
+        {
+            MainClasses = Cn(
+                "bg-sidebar text-sidebar-foreground flex h-full w-(--sidebar-width) flex-col",
+                ClassName
+            );
+
+            return;
+        }
+
+        SidebarGapClasses = Cn(
+            "relative w-(--sidebar-width) bg-transparent transition-[width] duration-200 ease-linear",
+            "group-data-[collapsible=offcanvas]:w-0",
+            "group-data-[side=right]:rotate-180",
+            Variant is SidebarVariant.Floating or SidebarVariant.Inset
+                ? "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]"
+                : "group-data-[collapsible=icon]:w-(--sidebar-width-icon)"
+        );
+
+        MainClasses = Cn(
+            "fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex",
+            Side == SidebarSide.Left
+                ? "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]"
+                : "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]",
+            // Adjust the padding for floating and inset variants.
+            Variant is SidebarVariant.Floating or SidebarVariant.Inset
+                ? "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]"
+                : "group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l",
+            ClassName
+        );
+    }
+
+    private async Task SetOpenMobileAsync(bool toggle)
+    {
+    }
 }
