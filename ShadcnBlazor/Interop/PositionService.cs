@@ -5,12 +5,7 @@ namespace ShadcnBlazor.Interop;
 
 public class PositionService
 {
-    private readonly IJSRuntime JsRuntime;
-
-    public PositionService(IJSRuntime jsRuntime)
-    {
-        JsRuntime = jsRuntime;
-    }
+    private readonly InteropService InteropService;
 
     public async Task<Position> PositionAtWithinViewportAsync(
         ElementReference element,
@@ -18,7 +13,7 @@ public class PositionService
         double cursorY
     )
     {
-        var rect = await GetBoundingBoxAsync(element);
+        var rect = await InteropService.GetBoundingBoxAsync(element);
 
         const double offsetX = 10; // distance from cursor
         const double offsetY = 10;
@@ -29,7 +24,7 @@ public class PositionService
         var y = cursorY + offsetY;
 
         // Viewport size
-        var viewportSize = await GetViewportSizeAsync();
+        var viewportSize = await InteropService.GetViewportSizeAsync();
 
         // If dropdown overflowed to the right, move left
         if (x + rect.Width + margin > viewportSize.Width - tolerance)
@@ -47,11 +42,7 @@ public class PositionService
         x = Math.Min(Math.Max(x, margin), viewportSize.Width - rect.Width - margin);
         y = Math.Min(Math.Max(y, margin), viewportSize.Height - rect.Height - margin);
 
-        return new Position()
-        {
-            X = x,
-            Y = y
-        };
+        return new Position(x, y);
     }
 
     public async Task<Position> PositionAroundAsync(
@@ -62,13 +53,13 @@ public class PositionService
         double offset = 4
     )
     {
-        var triggerRect = await GetBoundingBoxAsync(aroundElement);
-        var submenuRect = await GetBoundingBoxAsync(elementToPosition);
+        var triggerRect = await InteropService.GetBoundingBoxAsync(aroundElement);
+        var submenuRect = await InteropService.GetBoundingBoxAsync(elementToPosition);
 
         const double margin = 8; // distance from viewport edges
         const double tolerance = 2;
 
-        var viewportSize = await GetViewportSizeAsync();
+        var viewportSize = await InteropService.GetViewportSizeAsync();
 
         Position position;
 
@@ -216,18 +207,7 @@ public class PositionService
         return new Position(x, y);
     }
 
-
-    public async Task<DomRect> GetBoundingBoxAsync(ElementReference element)
-    {
-        return await JsRuntime.InvokeAsync<DomRect>("testy.getBoundingBox", element);
-    }
-
-    private async Task<ViewportSize> GetViewportSizeAsync()
-    {
-        return await JsRuntime.InvokeAsync<ViewportSize>("testy.getViewport");
-    }
-
-    public struct Position
+    public record Position
     {
         public double X { get; set; }
         public double Y { get; set; }

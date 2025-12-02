@@ -1,4 +1,7 @@
+@using ShadcnBlazor.Interop
 @inherits ShadcnBase
+
+@inject InteropService InteropService
 
 <div class="@Classes"
      style="@($"--sidebar-width: {SidebarWidth}; --sidebar-width-icon: {SidebarWidthIcon}")"
@@ -28,6 +31,20 @@
     {
         OpenMobile = DefaultOpen;
         IsOpen = DefaultOpen;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(!firstRender)
+            return;
+
+        Console.WriteLine(await InteropService.GetMatchMediaAsync("\"(width >= 48rem)\""));
+
+        Task.Run(async () =>
+        {
+            await Task.Delay(4000);
+            Console.WriteLine(await InteropService.GetMatchMediaAsync("\"(width >= 48rem)\""));
+        });
     }
 
     protected override void OnParametersSet()
