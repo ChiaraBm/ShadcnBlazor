@@ -6,6 +6,7 @@
         data-disabled="@(RadioGroup.Disabled || Disabled)"
         data-state="@(IsChecked ? "checked" : "unchecked")"
         @onclick="OnClickAsync"
+        type="button"
         @attributes="Props">
     
     @if (IsChecked)
