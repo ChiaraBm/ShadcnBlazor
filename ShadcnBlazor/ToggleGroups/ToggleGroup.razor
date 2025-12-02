@@ -1,0 +1,62 @@
+﻿@using ShadcnBlazor.Toggles
+
+@inherits ShadcnBase
+
+<div data-slot="toggle-group"
+     data-variant="@Size.ToString().ToLower()"
+     data-size="@Size.ToString().ToLower()"
+     data-spacing="@Spacing.ToString()"
+     style="--gap: @Spacing"
+     class="@Classes"
+     @attributes="Props">
+    <CascadingValue TValue="ToggleGroup" IsFixed="true" Value="this">
+        @ChildContent
+    </CascadingValue>
+</div>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public ToggleSize Size { get; set; }
+    [Parameter] public ToggleVariant Variant { get; set; }
+    [Parameter] public ToggleGroupType Type { get; set; }
+    [Parameter] public int Spacing { get; set; }
+
+    [Parameter] public List<string> Values { get; set; } = new();
+    [Parameter] public EventCallback OnValuesChanged { get; set; }
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "group/toggle-group flex w-fit items-center gap-[--spacing(var(--gap))] rounded-md data-[spacing=default]:data-[variant=outline]:shadow-xs",
+            ClassName
+        );
+    }
+
+    internal async Task OnPressedAsync(string value)
+    {
+        if (Type == ToggleGroupType.Single)
+        {
+            if (Values.Contains(value))
+                Values.Remove(value);
+            else
+            {
+                if(Values.Count > 0)
+                    Values.Clear();
+            
+                Values.Add(value);
+            }
+        }
+        else
+        {
+            if (Values.Contains(value))
+                Values.Remove(value);
+            else
+                Values.Add(value);
+        }
+
+        await InvokeAsync(StateHasChanged);
+    }
+}
