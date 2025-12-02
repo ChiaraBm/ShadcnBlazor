@@ -1,0 +1,23 @@
+﻿@inherits ShadcnBase
+
+<div data-slot="sheet-overlay"
+     data-state="@(Sheet.IsOpen ? "open" : "closed")"
+     class="@Classes"
+     @attributes="Props">
+    
+</div>
+
+@code
+{
+    [CascadingParameter] public Sheet Sheet { get; set; }
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50",
+            ClassName
+        );
+    }
+}
