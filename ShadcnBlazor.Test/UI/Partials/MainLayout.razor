@@ -2,11 +2,11 @@
 
 @inherits LayoutComponentBase
 
-<SidebarProvider>
+<SidebarProvider DefaultOpen="true">
     <AppSidebar />
     
     <SidebarInset>
-        <div class="mx-8 my-8 w-fit">
+        <div class="mx-8 my-8 max-w-fit">
             <SidebarTrigger />
             @Body
         </div>
