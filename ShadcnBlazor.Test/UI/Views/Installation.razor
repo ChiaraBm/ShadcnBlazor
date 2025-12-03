@@ -57,6 +57,14 @@
                 <Highlight Language="bash" Content="@InstallNugetContent" />
             </CardContent>
         </Card>
+        
+        3. Finally add the service collection extension call to your Program.cs file
+        
+        <Card ClassName="my-2.5 p-1">
+            <CardContent ClassName="px-0">
+                <Highlight Language="csharp" Content="@ServiceCollectionContent" />
+            </CardContent>
+        </Card>
     </CardContent>
 </Card>
 
@@ -102,4 +110,5 @@
     private const string NpmInstallPostcssContent = "npm install tailwindcss @tailwindcss/postcss postcss";
     private const string HtmlContent = "...\n    <link rel=\"stylesheet\" href=\"/style.min.css\"/>\n...";
     private const string BuildCommandContent = "npx postcss styles.css -o ../wwwroot/style.min.cs";
+    private const string ServiceCollectionContent = "using ShadcnBlazor;\n\nbuilder.Services.AddShadcnBlazor();";
 }
