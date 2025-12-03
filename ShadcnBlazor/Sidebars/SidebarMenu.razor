@@ -3,7 +3,7 @@
 <ul
     data-slot="sidebar-menu"
     data-sidebar="menu"
-    class="@Cn("flex w-full min-w-0 flex-col gap-1", ClassName)"
+    class="@Classes"
     @attributes="Props">
     @ChildContent
 </ul>
@@ -11,4 +11,11 @@
 @code
 {
     [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn("flex w-full min-w-0 flex-col gap-1", ClassName);
+    }
 }

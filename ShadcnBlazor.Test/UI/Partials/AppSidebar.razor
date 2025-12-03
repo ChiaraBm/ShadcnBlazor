@@ -1,4 +1,5 @@
-﻿@using ShadcnBlazor.Sidebars
+﻿@using ShadcnBlazor.Avatars
+@using ShadcnBlazor.Sidebars
 
 @inject NavigationManager Navigation
 
@@ -8,21 +9,20 @@
     var url = new Uri(Navigation.Uri);
 }
 
-<Sidebar Variant="SidebarVariant.Inset" Collapsible="SidebarCollapsible.OffCanvas">
+<Sidebar Variant="SidebarVariant.Inset" Collapsible="SidebarCollapsible.Icon">
     <SidebarHeader>
         <SidebarMenu>
             <SidebarMenuItem>
-                <SidebarMenuButton
-                    ClassName="data-[slot=sidebar-menu-button]:p-1.5!">
+                <SidebarMenuButton>
                     <a href="#" class="flex flex-row items-center">
-                        <img alt="Logo" src="shadcnblazor.svg" class="size-8" />
+                        <img alt="Logo" src="shadcnblazor.svg" class="size-6"/>
                         <span class="ms-2.5 text-lg font-semibold">ShadcnBlazor</span>
                     </a>
                 </SidebarMenuButton>
             </SidebarMenuItem>
         </SidebarMenu>
     </SidebarHeader>
-        
+
     <SidebarContent>
         <SidebarGroup>
             <SidebarGroupLabel>Fancy Group</SidebarGroupLabel>
@@ -33,7 +33,7 @@
                         var isActive = item.IsExactPath
                             ? item.Path == url.LocalPath
                             : url.LocalPath.StartsWith(item.Path, StringComparison.OrdinalIgnoreCase);
-                            
+
                         <SidebarMenuItem @key="item">
                             <SidebarMenuButton IsActive="@isActive">
                                 <Slot>
@@ -49,6 +49,10 @@
             </SidebarGroupContent>
         </SidebarGroup>
     </SidebarContent>
+
+    <SidebarFooter>
+        <NavUser />
+    </SidebarFooter>
 </Sidebar>
 
 @code
@@ -80,7 +84,7 @@
                 IsExactPath = false
             },
         ]);
-        
+
         Navigation.LocationChanged += OnLocationChanged;
     }
 

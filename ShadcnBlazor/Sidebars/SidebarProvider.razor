@@ -14,7 +14,8 @@
 @code
 {
     [Parameter] public RenderFragment ChildContent { get; set; }
-    [Parameter] public bool DefaultOpen { get; set; }
+    [Parameter] public bool DefaultOpen { get; set; } = true;
+    [Parameter] public EventCallback<bool> OnOpenChange { get; set; }
 
     public bool IsMobile { get; private set; }
     public bool OpenMobile { get; set; }
@@ -23,16 +24,16 @@
     
     internal Sidebar Sidebar { get; set; }
 
-    internal string SidebarWidth = "16rem";
-    internal string SidebarWidthMobile = "16rem";
-    internal string SidebarWidthIcon = "3rem";
+    internal const string SidebarWidth = "16rem";
+    internal const string SidebarWidthMobile = "16rem";
+    internal const string SidebarWidthIcon = "3rem";
 
     private string? Classes;
 
     protected override void OnInitialized()
     {
         IsOpen = DefaultOpen;
-        IsExpanded = IsOpen;
+        IsExpanded = DefaultOpen;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -40,6 +41,7 @@
         if (!firstRender)
             return;
 
+        // Enable mobile mode when smaller than tailwinds md size
         IsMobile = !await InteropService.GetMatchMediaAsync("(width >= 48rem");
         
         await InvokeAsync(StateHasChanged);
@@ -61,12 +63,23 @@
 
             if (OpenMobile)
                 await Sidebar.OpenMobileAsync();
+
+            await OnOpenChange.InvokeAsync(OpenMobile);
         }
         else
+        {
             IsOpen = !IsOpen;
+            IsExpanded = IsOpen;
 
-        IsExpanded = IsOpen;
+            await OnOpenChange.InvokeAsync(IsOpen);
+        }
 
         await InvokeAsync(StateHasChanged);
+    }
+
+    internal async Task OnMobileSidebarClosed()
+    {
+        OpenMobile = false;
+        await OnOpenChange.InvokeAsync(false);
     }
 }

@@ -3,7 +3,7 @@
 <div
     data-slot="sidebar-header"
     data-sidebar="header"
-    class="@Cn("flex flex-col gap-2 p-2", ClassName)"
+    class="@Classes"
     @attributes="Props">
     @ChildContent
 </div>
@@ -11,4 +11,11 @@
 @code
 {
     [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn("flex flex-col gap-2 p-2", ClassName);
+    }
 }

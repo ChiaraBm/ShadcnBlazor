@@ -1,0 +1,52 @@
+﻿@using ShadcnBlazor.Inputs
+@inherits ShadcnBase
+
+@if (Slot != null)
+{
+    <InputField data-slot="sidebar-input"
+                data-sidebar="input"
+                ClassName="@Classes">
+        <Slot>
+            @Slot.Invoke(context)
+        </Slot>
+    </InputField>
+}
+else
+{
+    <InputField data-slot="sidebar-input"
+                data-sidebar="input"
+                ClassName="@Classes"
+                @bind-Value="Value">
+    </InputField>
+}
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public RenderFragment<Dictionary<string, object?>>? Slot { get; set; }
+    
+    [Parameter]
+    public string Value
+    {
+        get => _value;
+        set
+        {
+            if (_value == value) return;
+
+            _value = value;
+            ValueChanged.InvokeAsync(value);
+        }
+    }
+
+    [Parameter]
+    public EventCallback<string> ValueChanged { get; set; }
+
+    private string _value;
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn("bg-background h-8 w-full shadow-none", ClassName);
+    }
+}
