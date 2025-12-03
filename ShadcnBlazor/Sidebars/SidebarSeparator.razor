@@ -5,7 +5,7 @@
 <Separator
     data-slot="sidebar-separator"
     data-sidebar="separator"
-    ClassName="@Cn("bg-sidebar-border mx-2 w-auto", ClassName)"
+    ClassName="@Classes"
     @attributes="Props">
     @ChildContent
 </Separator>
@@ -13,4 +13,11 @@
 @code
 {
     [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn("bg-sidebar-border mx-2 w-auto", ClassName);
+    }
 }

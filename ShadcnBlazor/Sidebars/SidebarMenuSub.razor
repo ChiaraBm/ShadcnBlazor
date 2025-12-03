@@ -1,12 +1,12 @@
-@inherits ShadcnBase
+﻿@inherits ShadcnBase
 
-<div
-    data-slot="sidebar-content"
-    data-sidebar="content"
+<ul
+    data-slot="sidebar-menu-sub"
+    data-sidebar="menu-sub"
     class="@Classes"
     @attributes="Props">
     @ChildContent
-</div>
+</ul>
 
 @code
 {
@@ -17,7 +17,8 @@
     protected override void OnParametersSet()
     {
         Classes = Cn(
-            "flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden",
+            "border-sidebar-border mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l px-2.5 py-0.5",
+            "group-data-[collapsible=icon]:hidden",
             ClassName
         );
     }

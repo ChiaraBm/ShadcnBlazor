@@ -1,0 +1,42 @@
+﻿@using ShadcnBlazor.Skeletons
+@inherits ShadcnBase
+
+<div
+    data-slot="sidebar-menu-skeleton"
+    data-sidebar="menu-skeleton"
+    class="@Classes"
+    @attributes="Props">
+
+    @if (ShowIcon)
+    {
+        <Skeleton
+            data-sidebar="menu-skeleton-icon"
+            ClassName="size-4 rounded-md"/>
+    }
+
+    <Skeleton
+        ClassName="h-4 max-w-(--skeleton-width) flex-1"
+        data-sidebar="menu-skeleton-text"
+        style="@($"--skeleton-width: {Width}%")"/>
+</div>
+
+@code
+{
+    [Parameter] public bool ShowIcon { get; set; }
+
+    private int Width;
+    private string? Classes;
+
+    protected override void OnInitialized()
+    {
+        Width = Random.Shared.Next(50, 90);
+    }
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "flex h-8 items-center gap-2 rounded-md px-2",
+            ClassName
+        );
+    }
+}

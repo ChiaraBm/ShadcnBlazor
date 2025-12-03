@@ -1,0 +1,23 @@
+﻿@inherits ShadcnBase
+
+<li
+    data-slot="sidebar-menu-sub-item"
+    data-sidebar="menu-sub-item"
+    class="@Classes">
+   @ChildContent 
+</li>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "group/menu-sub-item relative",
+            ClassName
+        );
+    }
+}

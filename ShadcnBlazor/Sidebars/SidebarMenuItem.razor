@@ -3,7 +3,7 @@
 <li
     data-slot="sidebar-menu-item"
     data-sidebar="menu-item"
-    class="@Cn("group/menu-item relative", ClassName)"
+    class="@Classes"
     @attributes="Props">
     @ChildContent
 </li>
@@ -11,4 +11,11 @@
 @code
 {
     [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn("group/menu-item relative", ClassName);
+    }
 }

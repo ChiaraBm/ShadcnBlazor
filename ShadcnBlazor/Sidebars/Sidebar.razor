@@ -20,7 +20,7 @@ else
             _ => SheetSide.Left
         };
 
-        <Sheet @ref="MobileNavigation" OnOpenChange="SetOpenMobileAsync" @attributes="Props">
+        <Sheet @ref="MobileNavigation" OnOpenChange="OnMobileSidebarChanged" @attributes="Props">
             <SheetContent data-sidebar="sidebar"
                           data-slot="sidebar"
                           data-mobile="true"
@@ -118,10 +118,12 @@ else
         );
     }
 
-    private Task SetOpenMobileAsync(bool toggle)
+    private async Task OnMobileSidebarChanged(bool toggle)
     {
-        SidebarProvider.OpenMobile = toggle;
-        return Task.CompletedTask;
+        if (toggle)
+            return;
+
+        await SidebarProvider.OnMobileSidebarClosed();
     }
 
     internal async Task OpenMobileAsync()
