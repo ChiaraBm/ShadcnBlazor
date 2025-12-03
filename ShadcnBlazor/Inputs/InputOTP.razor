@@ -1,11 +1,114 @@
 @using System.ComponentModel.DataAnnotations
+
 @inherits ShadcnBase
+
+
+<div data-input-otp-container="true"
+     style="--root-height: 36px;"
+     class="@Classes">
+    <CascadingValue Value="this">
+        @ChildContent
+    </CascadingValue>
+    <div style="position:absolute;inset:0;pointer-events:none">
+        <input
+            data-slot="input-otp"
+            data-input-otp="true"
+            data-input-otp-placeholder-shown="true"
+            inputmode="numeric"
+            class="absolute inset-0 w-full w-full fkex text-left opacity-100 text-transparent pointer-events-auto bg-transparent caret-transparent border-0 outline-0 shadow-none leading-none tracking-[-0.5em] font-mono tabular-nums"
+            maxlength="@MaxLenght" data-input-otp-mss="0" data-input-otp-mse="0" @onfocusin="OnFocusIn"
+            @onfocusout="OnFocusOut" @bind:event="oninput" @bind:after="OnInput" @bind="Value"/>
+    </div>
+</div>
 
 @code {
 
-    [Parameter]
-    [Range(1, int.MaxValue)]
-    public int MaxLenght { get; set; } 
-    
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    [Parameter] [Range(1, int.MaxValue)] public int MaxLenght { get; set; }
+
+    [Parameter] public EventCallback<string> OnInputValid { get; set; }
+
+    private string? Classes;
+
+    private readonly Dictionary<int, InputOTPSlot> Slots = new();
+
+    private string Value = "";
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "relative flex items-center gap-2 has-disabled:opacity-50",
+            ClassName);
+    }
+
+    public void RegisterSlot(InputOTPSlot slot)
+    {
+        Slots.TryAdd(slot.Index, slot);
+    }
+
+    private async Task OnFocusIn()
+    {
+        await ResetSlots();
+
+        int index;
+        
+        if (Value.Length >= MaxLenght)
+            index = MaxLenght - 1;
+        else 
+            index = Value.Length;
+        
+        if (Slots.TryGetValue(index, out var slot))
+        {
+            await slot.SetStatus(true);
+            await slot.SetCaret(true);
+        }
+    }
+
+    private async Task OnFocusOut()
+    {
+        await ResetSlots();
+    }
+
+    private async Task OnInput()
+    {
+        // letters
+        foreach (var kvp in Slots)
+        {
+            char? c = Value.Length >= kvp.Key + 1 ? Value[kvp.Key] : null;
+
+            await kvp.Value.SetSlot(c);
+        }
+        
+        // form validation
+        if (Value.Length >= MaxLenght)
+            await OnInputValid.InvokeAsync(Value.Substring(0,MaxLenght)); 
+            // we use substring to make sure that if someone tampered with the HTML in inspector, we still get somewhat correct data
+        
+        // visual
+        await ResetSlots();
+
+        int index;
+
+        if (Value.Length >= MaxLenght)
+            index = MaxLenght - 1;
+        else
+            index = Value.Length;
+
+        if (Slots.TryGetValue(index, out var slot))
+        {
+            await slot.SetStatus(true);
+            await slot.SetCaret(true);
+        }
+    }
+
+    private async Task ResetSlots()
+    {
+        foreach (var slot in Slots.Where(x => x.Value.IsActive || x.Value.ShowCaret).Select(x => x.Value))
+        {
+            await slot.SetStatus(false);
+            await slot.SetCaret(false);
+        }
+    }
 
 }
