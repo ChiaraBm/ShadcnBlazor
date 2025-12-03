@@ -1,0 +1,17 @@
+﻿@inherits ShadcnBase
+
+<div data-slot="input-otp-separator" role="separator" class="@ClassName">
+    <i class="icon-minus"></i>
+</div>
+
+@code {
+    [CascadingParameter] public InputOTP? Parent { get; set; }
+    
+    
+    protected override void OnParametersSet()
+    {
+        if (Parent is null)
+            throw new NullReferenceException("The InputOTPSlot cannot be used outside of a InputOTP component.");
+    }
+
+}
