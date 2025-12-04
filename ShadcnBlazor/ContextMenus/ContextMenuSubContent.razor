@@ -28,7 +28,7 @@
     [Parameter] public RenderFragment ChildContent { get; set; }
     
     private ElementReference PositionElement;
-    private string PositionStyle = "";
+    private string PositionStyle = PositionService.Position.OffCanvasCss;
     private string? Classes;
 
     protected override void OnInitialized()
