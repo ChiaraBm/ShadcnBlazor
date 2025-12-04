@@ -1,10 +1,57 @@
-﻿@using ShadcnBlazor.Menu
+﻿@implements IDropdownMenuItem
+@implements IDropdownMenuParent
 
-<MenuSub>
+<CascadingValue TValue="DropdownMenuSub" IsFixed="true" Value="this">
     @ChildContent
-</MenuSub>
+</CascadingValue>
 
 @code
 {
+    [CascadingParameter] public IDropdownMenuParent Parent { get; set; }
+    
     [Parameter] public RenderFragment ChildContent { get; set; }
+
+    public bool IsOpen => Parent.IsOpen && IsFocused;
+    public bool ShouldRenderContent { get; private set; }
+
+    internal DropdownMenuSubContent Content { get; set; }
+    internal DropdownMenuSubTrigger Trigger { get; set; }
+    
+    private bool IsFocused = false;
+    private IDropdownMenuItem? FocusedItem;
+
+    public async Task OnFocusAsync()
+    {
+        await Parent.ChangeFocusAsync(this);
+
+        IsFocused = true;
+        ShouldRenderContent = true;
+
+        await InvokeAsync(StateHasChanged).ContinueWith(async _ =>
+        {
+            await Content.OnOpenedAsync();
+        });
+    }
+
+    public async Task ChangeFocusAsync(IDropdownMenuItem item)
+    {
+        if (FocusedItem != null && FocusedItem != item)
+            await FocusedItem.OnUnfocusAsync();
+
+        FocusedItem = item;
+    }
+    
+    public async Task OnUnfocusAsync()
+    {
+        IsFocused = false;
+        await InvokeAsync(StateHasChanged).ContinueWith(async _ =>
+        {
+            await Task.Delay(100);
+
+            ShouldRenderContent = false;
+            await InvokeAsync(StateHasChanged);
+        });
+    }
+
+    public Task CloseMenuAsync() => Parent.CloseMenuAsync();
 }

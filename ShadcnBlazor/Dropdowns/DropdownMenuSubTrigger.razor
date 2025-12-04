@@ -1,15 +1,13 @@
-﻿@using ShadcnBlazor.Menu
+﻿@inherits ShadcnBase
 
-@inherits ShadcnBase
-
-<div @ref="TriggerReference"
+<div @ref="TriggerElement"
      data-slot="dropdown-menu-sub-trigger"
      data-inset="@Inset"
-     data-state="@(MenuSub.IsOpen ? "open" : "closed")"
+     data-state="@(Sub.IsOpen ? "open" : "closed")"
      class="@Classes"
      tabindex="-1"
      data-orientation="vertical"
-     @onfocusin="OnFocusInAsync"
+     @onfocusin="Sub.OnFocusAsync"
      onmouseover="this.focus()"
      @attributes="Props">
     @ChildContent
@@ -19,12 +17,19 @@
 
 @code
 {
-    [CascadingParameter(Name = "MenuSub")] public MenuSub MenuSub { get; set; }
+    [CascadingParameter] public DropdownMenuSub Sub { get; set; }
+    
     [Parameter] public bool Inset { get; set; }
     [Parameter] public RenderFragment ChildContent { get; set; }
 
+    internal ElementReference TriggerElement { get; private set; }
+    
     private string? Classes;
-    private ElementReference TriggerReference;
+
+    protected override void OnInitialized()
+    {
+        Sub.Trigger = this;
+    }
 
     protected override void OnParametersSet()
     {
@@ -33,13 +38,5 @@
             "hover:cursor-pointer",
             ClassName
         );
-    }
-
-    private async Task OnFocusInAsync()
-    {
-        if (MenuSub.IsOpen)
-            return;
-
-        await MenuSub.OpenAsync(TriggerReference);
     }
 }

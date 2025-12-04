@@ -1,14 +1,58 @@
-﻿@using ShadcnBlazor.Menu
+﻿@using Microsoft.AspNetCore.Components.Sections
+@implements IDropdownMenuParent
 
-<Menu>
-    <CascadingValue Value="this" Name="DropdownMenu" IsFixed="true">
-        @ChildContent
-    </CascadingValue>
-</Menu>
+<CascadingValue Value="this" IsFixed="true">
+    @ChildContent
+</CascadingValue>
+
+<SectionOutlet SectionId="@ContentSectionId" />
+<SectionOutlet SectionId="@SubContentSectionId" />
 
 @code
 {
     [Parameter] public RenderFragment ChildContent { get; set; }
+    
+    public bool IsOpen { get; private set; }
+    public bool ShouldRenderContent { get; private set; }
+    
+    internal DropdownMenuTrigger Trigger { get; set; }
+    internal DropdownMenuContent Content { get; set; }
 
-    public ElementReference TriggerElement { get; set; }
+    internal string ContentSectionId => $"dropdown-menu-content-{GetHashCode()}";
+    internal string SubContentSectionId => $"dropdown-menu-subcontent-{GetHashCode()}";
+
+    private IDropdownMenuItem? FocusedItem;
+
+    public async Task OpenAsync()
+    {
+        IsOpen = true;
+        ShouldRenderContent = true;
+
+        await InvokeAsync(StateHasChanged).ContinueWith(async _ =>
+        {
+            await Content.OnOpenedAsync();
+        });
+    }
+
+    public async Task CloseAsync()
+    {
+        IsOpen = false;
+        await InvokeAsync(StateHasChanged).ContinueWith(async _ =>
+        {
+            await Task.Delay(100);
+
+            ShouldRenderContent = false;
+            await InvokeAsync(StateHasChanged);
+        });
+    }
+    
+    public async Task ChangeFocusAsync(IDropdownMenuItem item)
+    {
+        if (FocusedItem != null && FocusedItem != item)
+            await FocusedItem.OnUnfocusAsync();
+
+        FocusedItem = item;
+    }
+
+    public Task CloseMenuAsync() => CloseAsync();
 }

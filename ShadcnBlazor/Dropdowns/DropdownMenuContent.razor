@@ -1,33 +1,45 @@
-﻿@using ShadcnBlazor.Interop
-@using ShadcnBlazor.Menu
+﻿@using Microsoft.AspNetCore.Components.Sections
+@using ShadcnBlazor.Interop
 
 @inherits ShadcnBase
 
 @inject PositionService PositionService
 
-<MenuContent PositionCallback="OnPositionAsync">
-    <div data-slot="dropdown-menu-content"
-         data-state="@(Menu.IsOpen ? "open" : "closed")"
-         data-side="@(Side.ToString().ToLowerInvariant())"
-         data-align="@(Align.ToString().ToLowerInvariant())"
-         class="@Classes"
-         @attributes="Props">
-        @ChildContent
-    </div>
-</MenuContent>
+@if (DropdownMenu.ShouldRenderContent)
+{
+    <SectionContent SectionName="@DropdownMenu.ContentSectionId">
+        <div class="fixed inset-0 z-50" @onclick="DropdownMenu.CloseAsync">
+
+        </div>
+
+        <div @ref="PositionElement" class="min-w-max z-50 fixed top-0 left-0" style="@PositionStyle">
+            <div data-slot="dropdown-menu-content"
+                 data-state="@(DropdownMenu.IsOpen ? "open" : "closed")"
+                 class="@Classes"
+                 @attributes="Props">
+                @ChildContent
+            </div>
+        </div>
+    </SectionContent>
+}
 
 @code
 {
-    [CascadingParameter(Name = "DropdownMenu")]
-    public DropdownMenu Context { get; set; }
-    
-    [CascadingParameter(Name = "Menu")] public Menu Menu { get; set; }
+    [CascadingParameter] public DropdownMenu DropdownMenu { get; set; }
 
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public PositionSide Side { get; set; } = PositionSide.Bottom;
     [Parameter] public PositionAlignment Align { get; set; } = PositionAlignment.Start;
+    [Parameter] public double SideOffset { get; set; } = 12;
 
     private string? Classes;
+    private ElementReference PositionElement;
+    private string PositionStyle = PositionService.Position.OffCanvasCss;
+
+    protected override void OnInitialized()
+    {
+        DropdownMenu.Content = this;
+    }
 
     protected override void OnParametersSet()
     {
@@ -37,12 +49,18 @@
         );
     }
 
-    private async Task<PositionService.Position> OnPositionAsync(ElementReference dropdownElement)
+    internal async Task OnOpenedAsync()
     {
-        return await PositionService.PositionAroundAsync(
-            Context.TriggerElement,
-            dropdownElement,
-            Side
+        var position = await PositionService.PositionAroundAsync(
+            DropdownMenu.Trigger.TriggerElement,
+            PositionElement,
+            Side,
+            Align,
+            SideOffset
         );
+
+        PositionStyle = position.ToCssStyle();
+
+        await InvokeAsync(StateHasChanged);
     }
 }

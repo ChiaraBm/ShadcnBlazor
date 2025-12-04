@@ -1,23 +1,38 @@
-﻿@using ShadcnBlazor.Menu
+﻿@using Microsoft.AspNetCore.Components.Sections
+@using ShadcnBlazor.Interop
+
 @inherits ShadcnBase
 
-<MenuSubContent>
-    <div data-slot="dropdown-menu-sub-content"
-         data-state="@(MenuSub.IsOpen ? "open" : "closed")"
-         class="@Classes"
-         @attributes="Props">
-        @ChildContent
-    </div>
-</MenuSubContent>
+@inject PositionService PositionService
 
-
+@if (Sub.ShouldRenderContent)
+{
+    <SectionContent SectionId="@Menu.SubContentSectionId">
+        <div @ref="PositionElement" class="min-w-max z-50 fixed top-0 left-0" style="@PositionStyle">
+            <div data-slot="dropdown-menu-sub-content"
+                 data-state="@(Sub.IsOpen ? "open" : "closed")"
+                 class="@Classes">
+                @ChildContent
+            </div>
+        </div>
+    </SectionContent>
+}
 
 @code
 {
-    [CascadingParameter(Name = "MenuSub")] public MenuSub MenuSub { get; set; }
+    [CascadingParameter] public DropdownMenu Menu { get; set; }
+    [CascadingParameter] public DropdownMenuSub Sub { get; set; }
+
     [Parameter] public RenderFragment ChildContent { get; set; }
 
     private string? Classes;
+    private ElementReference PositionElement;
+    private string PositionStyle = PositionService.Position.OffCanvasCss;
+
+    protected override void OnInitialized()
+    {
+        Sub.Content = this;
+    }
 
     protected override void OnParametersSet()
     {
@@ -25,5 +40,18 @@
             "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 min-w-[8rem] origin-(--radix-dropdown-menu-content-transform-origin) overflow-hidden rounded-md border p-1 shadow-lg",
             ClassName
         );
+    }
+
+    internal async Task OnOpenedAsync()
+    {
+        var position = await PositionService.PositionAroundAsync(
+            Sub.Trigger.TriggerElement,
+            PositionElement,
+            PositionSide.Right
+        );
+
+        PositionStyle = position.ToCssStyle();
+
+        await InvokeAsync(StateHasChanged);
     }
 }

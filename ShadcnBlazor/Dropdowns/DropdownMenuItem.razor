@@ -1,8 +1,6 @@
-﻿@using ShadcnBlazor.Menu
+﻿@inherits ShadcnBase
 
-@inherits ShadcnBase
-
-@implements IMenuItem
+@implements IDropdownMenuItem
 
 @if (Slot != null)
 {
@@ -17,8 +15,7 @@ else
 
 @code
 {
-    [CascadingParameter(Name = "MenuParent")]
-    public IMenuParent Parent { get; set; }
+    [CascadingParameter] public IDropdownMenuParent Parent { get; set; }
 
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public RenderFragment<Dictionary<string, object?>>? Slot { get; set; }
@@ -49,7 +46,7 @@ else
         Attributes["tabindex"] = "-1";
         Attributes["data-orientation"] = "vertical";
         Attributes["onclick"] = EventCallback.Factory.Create(this, OnClickAsync);
-        Attributes["onfocusin"] = EventCallback.Factory.Create(this, OnFocusInAsync);
+        Attributes["onfocusin"] = EventCallback.Factory.Create(this, OnFocusAsync);
         Attributes["onmouseover"] = "this.focus()";
 
         if(Props == null)
@@ -58,10 +55,7 @@ else
         foreach (var prop in Props)
             Attributes[prop.Key] = prop.Value;
     }
-
-    public Task OnUnfocusedAsync()
-        => Task.CompletedTask;
-
+    
     private async Task OnClickAsync()
     {
         if (Disabled)
@@ -71,6 +65,8 @@ else
         await OnClick.InvokeAsync();
     }
 
-    private async Task OnFocusInAsync()
+    private async Task OnFocusAsync()
         => await Parent.ChangeFocusAsync(this);
+
+    public Task OnUnfocusAsync() => Task.CompletedTask;
 }
