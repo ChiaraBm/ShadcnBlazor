@@ -1,41 +1,36 @@
 ﻿@inherits ShadcnBase
 
-@if (Parent is not null)
-{
-    <div data-slot="input-otp-slot" data-active="@(IsActive ? "true" : "false")" class="@Classes">
-        @if (ShowCaret && Value == null)
-        {
-            <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
-                <div class="animate-caret-blink bg-foreground h-4 w-px duration-1000">
-                </div>
-            </div>
-        }
-        else
-        {
-            @Value
-        }
-    </div>
+@{
+    char? value = Parent.Value.Length - 1 >= Index ? Parent.Value[Index] : null;
+    var isActive = Parent.IsFocused && Parent.Value.Length == Index;
 }
 
-@code {
+<div data-slot="input-otp-slot" data-active="@(isActive ? "true" : "false")" class="@Classes" @attributes="Props">
+    @if (isActive && value == null)
+    {
+        <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <div class="animate-caret-blink bg-foreground h-4 w-px duration-1000">
+            </div>
+        </div>
+    }
+    else
+    {
+        @value
+    }
+</div>
+
+@code
+{
+    [CascadingParameter] public InputOTP Parent { get; set; }
+    
     [Parameter] public int Index { get; set; }
 
-    [CascadingParameter] public InputOTP? Parent { get; set; }
-
-    public bool IsActive { get; private set; }
-
-    public bool ShowCaret { get; private set; }
-
     private string? Classes;
-
-    private char? Value;
 
     protected override void OnParametersSet()
     {
         if (Parent is null)
-            throw new NullReferenceException("The InputOTPSlot cannot be used outside of a InputOTP component.");
-
-        Parent.RegisterSlot(this);
+            throw new NullReferenceException($"{nameof(InputOTPSlot)} cannot be used outside of a {nameof(InputOTP)} component.");
 
         Classes = Cn(
             "relative data-[active=true]:border-ring data-[active=true]:ring-ring/50 data-[active=true]:aria-invalid:ring-destructive/20",
@@ -43,28 +38,7 @@
             "dark:bg-input/30 border-input flex h-9 w-9 items-center justify-center border-y border-r text-sm shadow-xs transition-all outline-none",
             "first:rounded-l-md first:border-l last:rounded-r-md data-[active=true]:z-10 data-[active=true]:ring-[3px] [appearance:textfield] ",
             "[&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-center",
-            ClassName);
+            ClassName
+        );
     }
-
-    public async Task SetStatus(bool isActive)
-    {
-        IsActive = isActive;
-
-        await InvokeAsync(StateHasChanged);
-    }
-
-    public async Task SetSlot(char? value)
-    {
-        Value = value;
-
-        await InvokeAsync(StateHasChanged);
-    }
-
-    public async Task SetCaret(bool value)
-    {
-        ShowCaret = value;
-
-        await InvokeAsync(StateHasChanged);
-    }
-
 }

@@ -1,28 +1,26 @@
 ﻿@inherits ShadcnBase
 
-<div data-slot="input-otp-group" class="flex items-center">
+<div data-slot="input-otp-group" class="@Classes" @attributes="Props">
     @ChildContent
 </div>
 
 
-@code {
+@code
+{
+    [CascadingParameter] public InputOTP? Parent { get; set; }
 
     [Parameter] public RenderFragment ChildContent { get; set; }
     
-
-    [CascadingParameter]
-    public InputOTP? Parent { get; set; }
-
     private string? Classes;
 
     protected override void OnParametersSet()
     {
         if (Parent is null)
-            throw new NullReferenceException("The InputOTPGroup cannot be used outside of a InputOTP component.");
-        
+            throw new NullReferenceException($"{nameof(InputOTPGroup)} cannot be used outside of a {nameof(InputOTP)} component.");
+
         Classes = Cn(
             "flex items-center",
-            ClassName);
+            ClassName
+        );
     }
-    
 }

@@ -2,7 +2,6 @@
 @using ShadcnBlazor.Inputs
 @using ShadcnBlazor.Buttons
 
-
 <InputOTP MaxLenght="6" OnInputValid="OnInputValid">
     <InputOTPGroup>
         <InputOTPSlot Index="0"/>
@@ -39,10 +38,9 @@
 </Dialog>
 
 
-@code {
-
+@code
+{
     private Dialog Dialog;
-
     private string OneTimePasscode = "";
     
     private async Task OnInputValid(string otp)
@@ -51,5 +49,4 @@
         
         await Dialog.OpenAsync();
     }
-
 }

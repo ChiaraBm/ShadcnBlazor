@@ -4,14 +4,13 @@
     <i class="icon-minus"></i>
 </div>
 
-@code {
+@code
+{
     [CascadingParameter] public InputOTP? Parent { get; set; }
-    
     
     protected override void OnParametersSet()
     {
         if (Parent is null)
-            throw new NullReferenceException("The InputOTPSlot cannot be used outside of a InputOTP component.");
+            throw new NullReferenceException($"{nameof(InputOPTSeparator)} cannot be used outside of a {nameof(InputOTP)} component.");
     }
-
 }
