@@ -1,0 +1,21 @@
+﻿@using ShadcnBlazor.Cards
+@using ShadcnBlazor.Carousels
+
+<Carousel ClassName="w-full max-w-xs mx-3">
+    <CarouselContent>
+        @foreach (var i in Enumerable.Range(0, 5))
+        {
+            <CarouselItem @key="i">
+                <div class="p-1">
+                    <Card>
+                        <CardContent ClassName="flex aspect-square items-center justify-center p-6">
+                            <span class="text-4xl font-semibold">@(i + 1)</span>
+                        </CardContent>
+                    </Card>
+                </div>
+            </CarouselItem>
+        }
+    </CarouselContent>
+    <CarouselPrevious/>
+    <CarouselNext/>
+</Carousel>

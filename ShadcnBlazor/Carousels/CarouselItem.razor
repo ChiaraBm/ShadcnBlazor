@@ -1,0 +1,27 @@
+﻿@inherits ShadcnBase
+
+<div class="@Classes" @attributes="Props">
+   @ChildContent
+</div>
+
+@code
+{
+    [CascadingParameter] public Carousel Carousel { get; set; }
+
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private string? Classes;
+
+    protected override void OnInitialized()
+    {
+        Carousel.MoveIndex();
+    }
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "w-full shrink-0 pl-4",
+            ClassName
+        );
+    }
+}

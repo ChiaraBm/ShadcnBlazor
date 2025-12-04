@@ -1,0 +1,47 @@
+﻿@inherits ShadcnBase
+
+<div role="region"
+     aria-roledescription="carousel"
+     data-slot="carousel"
+     class="@Classes"
+     @attributes="Props">
+    <div class="overflow-hidden">
+        <CascadingValue TValue="Carousel" Value="this">
+            @ChildContent
+        </CascadingValue>
+    </div>
+
+</div>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    public int CurrentIndex { get; private set; }
+    public int NextItemIndex { get; private set; }
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn("relative", ClassName);
+    }
+
+    public async Task NavigateAsync(int diff)
+    {
+        CurrentIndex += diff;
+
+        // Safeguards
+        if (CurrentIndex < 0)
+            CurrentIndex = 0;
+        else if (CurrentIndex > NextItemIndex - 1)
+            CurrentIndex = NextItemIndex - 1;
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+    internal void MoveIndex()
+    {
+        NextItemIndex++;
+    }
+}

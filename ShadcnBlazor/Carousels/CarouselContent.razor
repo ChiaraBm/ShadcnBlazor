@@ -1,0 +1,21 @@
+﻿@inherits ShadcnBase
+
+<div class="@Classes"
+     style="@($"transform: translateX(-{Carousel.CurrentIndex * 100}%)")"
+     @attributes="Props">
+    @ChildContent
+</div>
+
+@code
+{
+    [CascadingParameter] public Carousel Carousel { get; set; }
+    
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn("flex transition-transform duration-500 ease-in-out -ml-4", ClassName);
+    }
+}
