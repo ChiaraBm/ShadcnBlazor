@@ -1,0 +1,36 @@
+﻿@using ShadcnBlazor.Buttons
+
+@inherits ShadcnBase
+
+<Button data-slot="carousel-previous"
+        Variant="Variant"
+        Size="Size"
+        ClassName="@Classes"
+        @onclick="() => Carousel.NavigateAsync(1)"
+        disabled="@(Carousel.CurrentIndex == Carousel.NextItemIndex - 1)"
+        @attributes="Props">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    
+    <span class="sr-only">Next slide</span>
+    
+</Button>
+
+@code
+{
+    [CascadingParameter] public Carousel Carousel { get; set; }
+    
+    [Parameter] public ButtonVariant Variant { get; set; } = ButtonVariant.Outline;
+    [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Icon;
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "absolute size-8 rounded-full",
+            "top-1/2 -right-12 -translate-y-1/2",
+            ClassName
+        );
+    }
+}
