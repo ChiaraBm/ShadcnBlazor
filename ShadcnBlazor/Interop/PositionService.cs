@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -222,5 +223,12 @@ public class PositionService
             X = x;
             Y = y;
         }
+
+        public string ToCssStyle()
+        {
+            return $"left: {X.ToString(CultureInfo.InvariantCulture)}px; top: {Y.ToString(CultureInfo.InvariantCulture)}px";
+        }
+
+        public const string OffCanvasCss = "left: -1000px; top: -1000px";
     }
 }
