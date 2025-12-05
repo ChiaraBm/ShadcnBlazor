@@ -24,6 +24,8 @@
         {
             await Content.OnOpenedAsync();
         });
+
+        await OnOpenChange.InvokeAsync(IsOpen);
     }
 
     public async Task CloseAsync()
@@ -37,5 +39,7 @@
             ShouldRenderContent = false;
             await InvokeAsync(StateHasChanged);
         });
+        
+        await OnOpenChange.InvokeAsync(IsOpen);
     }
 }
