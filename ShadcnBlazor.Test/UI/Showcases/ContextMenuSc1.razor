@@ -5,20 +5,20 @@
         Right click here
     </ContextMenuTrigger>
     <ContextMenuContent ClassName="w-52">
-        <ContextMenuItem>
+        <ContextMenuItem Inset="true">
             Back
             <ContextMenuShortcut>⌘[</ContextMenuShortcut>
         </ContextMenuItem>
-        <ContextMenuItem Disabled="true">
+        <ContextMenuItem Disabled="true" Inset="true">
             Forward
             <ContextMenuShortcut>⌘]</ContextMenuShortcut>
         </ContextMenuItem>
-        <ContextMenuItem>
+        <ContextMenuItem Inset="true">
             Reload
             <ContextMenuShortcut>⌘R</ContextMenuShortcut>
         </ContextMenuItem>
         <ContextMenuSub>
-            <ContextMenuSubTrigger>More Tools</ContextMenuSubTrigger>
+            <ContextMenuSubTrigger Inset="true">More Tools</ContextMenuSubTrigger>
             <ContextMenuSubContent ClassName="w-44">
                 <ContextMenuItem>Save Page...</ContextMenuItem>
                 <ContextMenuItem>Create Shortcut...</ContextMenuItem>
@@ -30,8 +30,26 @@
             </ContextMenuSubContent>
         </ContextMenuSub>
         <ContextMenuSeparator />
-        <ContextMenuItem>Not yet implemented</ContextMenuItem>
+        <ContextMenuCheckboxItem @bind-Value="ShowBookmarks">
+            Show Bookmarks
+        </ContextMenuCheckboxItem>
+        <ContextMenuCheckboxItem @bind-Value="ShowFullUrls">
+            Show Full URLs
+        </ContextMenuCheckboxItem>
         <ContextMenuSeparator />
-        <ContextMenuItem>Not yet implemented</ContextMenuItem>
+        <ContextMenuRadioGroup @bind-Value="People">
+            <ContextMenuLabel Inset="true">People</ContextMenuLabel>
+            <ContextMenuRadioItem Value="pedro">
+                Pedro Duarte
+            </ContextMenuRadioItem>
+            <ContextMenuRadioItem Value="colm">Colm Tuite</ContextMenuRadioItem>
+        </ContextMenuRadioGroup>
     </ContextMenuContent>
 </ContextMenu>
+
+@code
+{
+    private string People = "pedro";
+    private bool ShowBookmarks = true;
+    private bool ShowFullUrls = false;
+}
