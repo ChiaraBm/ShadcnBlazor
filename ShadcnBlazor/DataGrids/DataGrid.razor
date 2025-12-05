@@ -1,0 +1,221 @@
+﻿@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Dropdowns
+@using ShadcnBlazor.Emptys
+@using ShadcnBlazor.Inputs
+@using ShadcnBlazor.Popovers
+@using ShadcnBlazor.Spinners
+@using ShadcnBlazor.Labels
+@using ShadcnBlazor.Paginations
+@using ShadcnBlazor.Tabels
+
+@inherits ShadcnBase
+
+@typeparam TGridItem
+
+<CascadingValue TValue="DataGrid<TGridItem>" IsFixed="true" Value="this">
+    @ChildContent
+</CascadingValue>
+
+@if (IsInitialized)
+{
+    <div class="flex items-center py-4 gap-x-1.5">
+        <InputGroup ClassName="max-w-xs">
+            <InputGroupAddon>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="lucide lucide-search-icon lucide-search">
+                    <path d="m21 21-4.34-4.34"/>
+                    <circle cx="11" cy="11" r="8"/>
+                </svg>
+            </InputGroupAddon>
+            <InputGroupInput placeholder="Search..."/>
+        </InputGroup>
+        <span class="ml-auto">
+            <Popover>
+                <PopoverTrigger>
+                    <Slot>
+                        <Button @attributes="context" Variant="ButtonVariant.Outline">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round"
+                                 class="lucide lucide-sliders-horizontal-icon lucide-sliders-horizontal">
+                                <path
+                                    d="M10 5H3"/><path d="M12 19H3"/><path d="M14 3v4"/><path d="M16 17v4"/>
+                                <path
+                                    d="M21 12h-9"/><path d="M21 19h-5"/><path d="M21 5h-7"/><path d="M8 10v4"/>
+                                <path
+                                    d="M8 12H3"/></svg>
+                            <span class="hidden md:block">Filter</span>
+                        </Button>
+                    </Slot>
+                </PopoverTrigger>
+                <PopoverContent>
+                    <div class="grid gap-2">
+                        @foreach (var keyVal in FilteredColumns)
+                        {
+                            if (string.IsNullOrWhiteSpace(keyVal.Key.Title))
+                                continue;
+
+                            <div class="grid grid-cols-3 items-center gap-4" @key="keyVal.Key">
+                                <Label for="@keyVal.Key.Title">
+                                    @keyVal.Key.Title
+                                </Label>
+                                <InputField
+                                    id="@keyVal.Key.Title"
+                                    placeholder="Filter for..."
+                                    Value="@keyVal.Value"
+                                    ValueChanged="val => SetColumnFilterAsync(keyVal.Key, val)"
+                                    ClassName="col-span-2 h-8"/>
+                            </div>
+                        }
+
+                        <div class="flex justify-center items-center">
+                            <Button @onclick="() => RefreshAsync()"
+                                    Size="ButtonSize.Sm">
+                                Apply
+                            </Button>
+                        </div>
+                    </div>
+                </PopoverContent>
+            </Popover>
+        </span>
+        <DropdownMenu>
+            <DropdownMenuTrigger>
+                <Slot>
+                    <Button Variant="ButtonVariant.Outline" @attributes="context">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="lucide lucide-columns3-cog-icon lucide-columns-3-cog">
+                            <path d="M10.5 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5.5"/>
+                            <path d="m14.3 19.6 1-.4"/>
+                            <path d="M15 3v7.5"/>
+                            <path d="m15.2 16.9-.9-.3"/>
+                            <path d="m16.6 21.7.3-.9"/>
+                            <path d="m16.8 15.3-.4-1"/>
+                            <path d="m19.1 15.2.3-.9"/>
+                            <path d="m19.6 21.7-.4-1"/>
+                            <path d="m20.7 16.8 1-.4"/>
+                            <path d="m21.7 19.4-.9-.3"/>
+                            <path d="M9 3v18"/>
+                            <circle cx="18" cy="18" r="3"/>
+                        </svg>
+                        <span class="hidden md:block">Columns</span>
+                    </Button>
+                </Slot>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+                @foreach (var column in VisibleColumns)
+                {
+                    if (string.IsNullOrWhiteSpace(column.Key.Title))
+                        continue;
+
+                    <DropdownMenuCheckboxItem Value="@column.Value"
+                                              ValueChanged="toggle => SetColumnVisibleAsync(column.Key, toggle)"
+                                              @key="column">
+                        @column.Key.Title
+                    </DropdownMenuCheckboxItem>
+                }
+            </DropdownMenuContent>
+        </DropdownMenu>
+    </div>
+
+    <div class="@Classes">
+        <Table @attributes="Props">
+            <TableHeader>
+                <TableRow>
+                    @HeaderFragment
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                @if (IsLoading)
+                {
+                    <tr>
+                        <td colspan="99999">
+                            <div class="w-full flex items-center justify-center p-5">
+                                <Spinner ClassName="size-10"/>
+                            </div>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    if (Items.Length == 0)
+                    {
+                        <tr>
+                            <td colspan="99999">
+                                <div class="w-full flex items-center justify-center p-5">
+                                    <Empty>
+                                        <EmptyHeader>
+                                            <EmptyMedia Variant="EmptyMediaVariant.Icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                     class="lucide lucide-search-icon lucide-search">
+                                                    <path d="m21 21-4.34-4.34"/>
+                                                    <circle cx="11" cy="11" r="8"/>
+                                                </svg>
+                                            </EmptyMedia>
+                                            <EmptyTitle>No items found</EmptyTitle>
+                                            <EmptyDescription>
+                                                No items have been found for your request
+                                            </EmptyDescription>
+                                        </EmptyHeader>
+                                    </Empty>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var item in Items)
+                        {
+                            <TableRow @key="item">
+                                @CellFragment.Invoke(item)
+                            </TableRow>
+                        }
+                    }
+                }
+            </TableBody>
+        </Table>
+    </div>
+    
+    <Pagination ClassName="mt-3 justify-end">
+        <PaginationContent>
+            <PaginationItem>
+                <PaginationPrevious Size="ButtonSize.Sm" ClassName="pointer-events-none opacity-50" href="#" />
+            </PaginationItem>
+            <PaginationItem>
+                <PaginationLink Size="ButtonSize.Sm" href="#" IsActive="true">1</PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+                <PaginationLink Size="ButtonSize.Sm" href="#">
+                    2
+                </PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+                <PaginationLink Size="ButtonSize.Sm" href="#">3</PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+                <PaginationEllipsis />
+            </PaginationItem>
+            <PaginationItem>
+                <PaginationNext Size="ButtonSize.Sm" href="#" />
+            </PaginationItem>
+        </PaginationContent>
+    </Pagination>
+}
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "overflow-hidden rounded-md border",
+            ClassName
+        );
+    }
+}

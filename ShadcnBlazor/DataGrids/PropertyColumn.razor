@@ -1,0 +1,30 @@
+﻿@using System.Linq.Expressions
+@using Microsoft.AspNetCore.Components.Rendering
+@using ShadcnBlazor.DataGrids.Abstractions
+@using ShadcnBlazor.Tabels
+
+@typeparam TGridItem
+@inherits ColumnBase<TGridItem>
+
+@code
+{
+    [Parameter] public Expression<Func<TGridItem, object>> Field { get; set; }
+    [Parameter] public string CellClassName { get; set; }
+
+    private Func<TGridItem, object> InnerField;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        
+        Title = Helper.GetPropertyName(Field);
+        InnerField = Field.Compile();
+    }
+
+    public override void RenderCell(RenderTreeBuilder __builder, TGridItem item)
+    {
+        <TableCell ClassName="@CellClassName">
+            @InnerField.Invoke(item).ToString()
+        </TableCell>
+    }
+}

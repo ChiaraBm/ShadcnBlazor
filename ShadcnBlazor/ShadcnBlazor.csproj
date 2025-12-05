@@ -34,4 +34,10 @@
         <Link>logo.png</Link>
       </None>
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="DataGrids\DataGrid.Loading.cs">
+        <DependentUpon>DataGrid.razor</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>
