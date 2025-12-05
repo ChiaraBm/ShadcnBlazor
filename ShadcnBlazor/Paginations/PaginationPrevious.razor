@@ -2,7 +2,7 @@
 @inherits ShadcnBase
 
 <PaginationLink aria-label="Go to previous page"
-                Size="ButtonSize.Default"
+                Size="Size"
                 ClassName="@Classes"
                 @attributes="Props">
     
@@ -13,6 +13,8 @@
 
 @code
 {
+    [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Default;
+    
     private string? Classes;
 
     protected override void OnParametersSet()
