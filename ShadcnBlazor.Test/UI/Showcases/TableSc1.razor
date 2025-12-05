@@ -1,0 +1,45 @@
+﻿@using ShadcnBlazor.Tabels
+<Table>
+    <TableCaption>A list of your recent invoices.</TableCaption>
+    <TableHeader>
+        <TableRow>
+            <TableHead ClassName="w-[100px]">Invoice</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead>Method</TableHead>
+            <TableHead ClassName="text-right">Amount</TableHead>
+        </TableRow>
+    </TableHeader>
+    <TableBody>
+        @foreach (var item in Items)
+        {
+            <TableRow @key="item">
+                <TableCell ClassName="font-medium">@item.Name</TableCell>
+                <TableCell>@item.PaymentStatus</TableCell>
+                <TableCell>@item.PaymentMethod</TableCell>
+                <TableCell ClassName="text-right">@item.Amount</TableCell>
+            </TableRow>
+        }
+    </TableBody>
+    <TableFooter>
+        <TableRow>
+            <TableCell colspan="3">Total</TableCell>
+            <TableCell ClassName="text-right">$2,500.00</TableCell>
+        </TableRow>
+    </TableFooter>
+</Table>
+
+@code
+{
+    private readonly List<Item> Items = new()
+    {
+        new Item("INV001", "Paid", "$250.00", "Credit Card"),
+        new Item("INV002", "Pending", "$150.00", "PayPal"),
+        new Item("INV003", "Unpaid", "$350.00", "Bank Transfer"),
+        new Item("INV004", "Paid", "$450.00", "Credit Card"),
+        new Item("INV005", "Paid", "$550.00", "PayPal"),
+        new Item("INV006", "Pending", "$200.00", "Bank Transfer"),
+        new Item("INV007", "Unpaid", "$300.00", "Credit Card"),
+    };
+    
+    record Item(string Name, string PaymentStatus, string Amount, string PaymentMethod);
+}

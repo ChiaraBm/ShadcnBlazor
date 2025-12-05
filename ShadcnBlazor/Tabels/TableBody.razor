@@ -1,0 +1,19 @@
+﻿@inherits ShadcnBase
+
+<tbody data-slot="table-body"
+       class="@Classes"
+       @attributes="Props">
+@ChildContent
+</tbody>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn("[&_tr:last-child]:border-0", ClassName);
+    }
+}
