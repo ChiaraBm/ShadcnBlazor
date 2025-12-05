@@ -63,6 +63,7 @@
             return;
 
         Value = !Value;
+        await InvokeAsync(StateHasChanged);
 
         if (CloseOnClick)
             await Parent.CloseMenuAsync();

@@ -32,12 +32,9 @@
     internal async Task ChangeValueAsync(string value)
     {
         Value = value;
-        await InvokeAsync(StateHasChanged).ContinueWith(async _ =>
-        {
-            await Task.Delay(50);
-            
-            if (CloseOnClick)
-                await Parent.CloseMenuAsync();
-        });
+        await InvokeAsync(StateHasChanged);
+        
+        if (CloseOnClick)
+            await Parent.CloseMenuAsync();
     }
 }
