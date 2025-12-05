@@ -1,0 +1,19 @@
+﻿@inherits ShadcnBase
+
+<thead data-slot="table-header"
+       class="@Classes"
+       @attributes="Props">
+@ChildContent
+</thead>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn("[&_tr]:border-b", ClassName);
+    }
+}

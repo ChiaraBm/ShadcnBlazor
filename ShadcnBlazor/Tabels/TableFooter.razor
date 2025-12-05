@@ -1,0 +1,22 @@
+﻿@inherits ShadcnBase
+
+<tfoot data-slot="table-footer"
+       class="@Classes"
+       @attributes="Props">
+@ChildContent
+</tfoot>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "bg-muted/50 border-t font-medium [&>tr]:last:border-b-0",
+            ClassName
+        );
+    }
+}

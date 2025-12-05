@@ -1,0 +1,23 @@
+﻿@inherits ShadcnBase
+
+<td
+    data-slot="table-cell"
+    class="@Classes"
+    @attributes="Props">
+    @ChildContent
+</td>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+            ClassName
+        );
+    }
+}
