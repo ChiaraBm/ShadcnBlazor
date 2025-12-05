@@ -5,17 +5,19 @@
 @inject HttpClient HttpClient
 
 <div class="border border-card-foreground/10 rounded-lg xl:min-w-2xl 2xl:min-w-4xl">
-    <div class="h-96 overflow-y-scroll border-b border-b-card-foreground/10 py-8 px-12 scrollbar-thin">
+    <div class="max-h-[50vh] overflow-y-scroll border-b border-b-card-foreground/10 py-8 px-12 scrollbar-thin">
         <DynamicComponent Type="typeof(T)"/>
     </div>
-    <div class="h-96 overflow-y-scroll scrollbar-thin @(ContentLoaded ? "" : "flex justify-center items-center")">
+    <div class="max-h-[50vh] overflow-y-scroll scrollbar-thin @(ContentLoaded ? "" : "flex justify-center items-center")">
         @if (ContentLoaded)
         {
             <Highlight Content="@Content"/>
         }
         else
         {
-            <Spinner ClassName="size-10"/>
+            <div class="p-5">
+                <Spinner ClassName="size-10"/>
+            </div>
         }
     </div>
 </div>
