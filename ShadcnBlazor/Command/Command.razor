@@ -1,17 +1,21 @@
 @inherits ShadcnBase
 
 <div @attributes="Attributes" class="@Classes">
-    <CascadingValue TValue="Command" Value="this" IsFixed="true">
+    <CascadingValue TValue="Command" Value="this">
         @ChildContent
     </CascadingValue>
 </div>
 
 @code
 {
+    
+    // TODO: CommandGroup Filtering
+    // TODO: CommandItem Selection via mouseover...
+    
     [Parameter] public RenderFragment ChildContent { get; set; }
 
     public List<string> Items { get; set; } = [];
-    public List<string> FilteredItems { get; set; } = [];
+    public string[] FilteredItems { get; set; } = [];
 
     internal CommandEmpty EmptyCommand { get; set; }
     internal CommandSeparator CommandSeparator { get; set; }
@@ -41,17 +45,25 @@
 
     public async Task UpdateFilteredItems(ChangeEventArgs eventArgs)
     {
-        var search = eventArgs.Value?.ToString();
-        FilteredItems = string.IsNullOrEmpty(search) ? Items : Items.Where(s => s.Contains(search, StringComparison.OrdinalIgnoreCase)).ToList();
+        var search = eventArgs.Value?.ToString() ?? "";
+
+        if (string.IsNullOrEmpty(search) || Items.Count < 1)
+        {
+            FilteredItems = Items.ToArray();
+        }
+        else
+        {
+            FilteredItems = Items.Where(s => s.Contains(search, StringComparison.OrdinalIgnoreCase)).ToArray();
+        }
 
         foreach (var commandItem in CommandItems)
         {
             commandItem.ApplyVisibility();
         }
 
-        foreach (var commandItem in CommandGroups)
+        foreach (var commandGroup in CommandGroups)
         {
-            commandItem.ApplyVisibility();
+            commandGroup.ApplyVisibility();
         }
 
         EmptyCommand.ApplyVisibility();
