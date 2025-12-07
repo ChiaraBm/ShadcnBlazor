@@ -43,28 +43,28 @@
     <CommandInput placeholder="Type a command or search..."/>
     <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
-        <CommandGroup heading="Suggestions">
-            <CommandItem>
+        <CommandGroup Heading="Suggestions">
+            <CommandItem Name="Calendar">
                 <span>Calendar</span>
             </CommandItem>
-            <CommandItem>
+            <CommandItem Name="Search Emoji">
                 <span>Search Emoji</span>
             </CommandItem>
-            <CommandItem>
+            <CommandItem Name="Calculator" Disabled="true">
                 <span>Calculator</span>
             </CommandItem>
         </CommandGroup>
         <CommandSeparator/>
-        <CommandGroup heading="Settings">
-            <CommandItem>
+        <CommandGroup Heading="Settings">
+            <CommandItem Name="Profile">
                 <span>Profile</span>
                 <CommandShortcut>⌘P</CommandShortcut>
             </CommandItem>
-            <CommandItem>
+            <CommandItem Name="Billing">
                 <span>Billing</span>
                 <CommandShortcut>⌘B</CommandShortcut>
             </CommandItem>
-            <CommandItem>
+            <CommandItem Name="Settings">
                 <span>Settings</span>
                 <CommandShortcut>⌘S</CommandShortcut>
             </CommandItem>

@@ -13,30 +13,40 @@
             @Heading
         </div>
     }
-    @ChildContent
+    <CascadingValue
+        TValue="CommandGroup"
+        Value="this"
+    >
+        @ChildContent
+    </CascadingValue>
 </div>
 
 @code {
     [CascadingParameter] public Command Command { get; set; }
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public string? Heading { get; set; }
-
+    internal List<string> IncludedItems { get; set; } = [];
     private string? Classes;
     private bool Hidden = false;
 
-    protected override void OnParametersSet()
+    protected override void OnInitialized()
     {
         Command.CommandGroups.Add(this);
+    }
 
-        Classes = Cn(
-            "text-foreground text-muted-foreground overflow-hidden p-1 px-2 py-1.5 text-xs font-medium",
-            ClassName
-        );
+    protected override void OnParametersSet()
+    {
+        Classes = Cn("text-foreground text-muted-foreground overflow-hidden p-1 px-2 py-1.5 text-xs font-medium", ClassName);
     }
 
     public void ApplyVisibility()
     {
-        Hidden = Command.FilteredItems.Count == 0;
+        Hidden = Command.FilteredItems.Length == 0;
+
+        foreach (var item in IncludedItems)
+        {
+            Hidden = !Command.FilteredItems.Contains(item);
+        }
     }
 
 }

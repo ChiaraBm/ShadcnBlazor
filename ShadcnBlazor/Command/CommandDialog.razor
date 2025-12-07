@@ -7,7 +7,8 @@
         <DialogDescription>@Description</DialogDescription>
     </DialogHeader>
     <DialogContent
-
+        CloseOnBackdropClick="true"
+        ClassName="p-0 overflow-hidden"
         ShowCloseButton="ShowCloseButton">
         <Command
             class="text-muted-foreground h-12 px-2 font-medium px-2 :pt-0 h-5 w-5 h-12 px-2 py-3 h-5 w-5"
@@ -18,9 +19,6 @@
 </Dialog>
 
 @code {
-
-    // TODO: Fix Dialog Open State (maybe set "open" as Parameter).
-    // TODO: Fix Css for Dialog and Command.
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public string Title { get; set; } = "Command Palette";
     [Parameter] public string Description { get; set; } = "Search for a command to run...";

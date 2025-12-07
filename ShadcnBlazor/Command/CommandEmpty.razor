@@ -18,10 +18,13 @@
     private string? Classes;
     private bool Hidden = true;
 
-    protected override void OnParametersSet()
+    protected override void OnInitialized()
     {
         Command.EmptyCommand = this;
+    }
 
+    protected override void OnParametersSet()
+    {
         Classes = Cn(
             "py-6 text-center text-sm",
             ClassName
@@ -30,7 +33,7 @@
 
     public void ApplyVisibility()
     {
-        Hidden = Command.FilteredItems.Count != 0;
+        Hidden = Command.FilteredItems.Length != 0;
     }
 
 }
