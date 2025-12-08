@@ -1,0 +1,23 @@
+@inherits ShadcnBase
+
+<span data-slot="menubar-shortcut"
+     class="@Classes"
+     @attributes="Props">
+    @ChildContent
+</span>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public bool Inset { get; set; }
+    
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "text-muted-foreground ml-auto text-xs tracking-widest",
+            ClassName
+        );
+    }
+}

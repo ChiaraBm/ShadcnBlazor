@@ -4,9 +4,11 @@
      class="@Classes"
      data-disabled="@Disabled"
      disabled="@Disabled"
+     tabindex="-1"
+     onmouseover="this.focus()"
      @onclick="() => Group.ChangeValueAsync(Value)"
      @attributes="Props">
-    <span className="pointer-events-none absolute left-2 flex size-3.5 items-center justify-center">
+    <span class="pointer-events-none absolute left-2 flex size-3.5 items-center justify-center">
         @if (Group.Value == Value)
         {
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-icon lucide-circle size-2 fill-current"><circle cx="12" cy="12" r="10"/></svg>
@@ -29,7 +31,7 @@
     protected override void OnParametersSet()
     {
         Classes = Cn(
-            "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-xs py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+            "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
             ClassName
         );
     }
