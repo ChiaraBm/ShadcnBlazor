@@ -27,33 +27,18 @@
     [Parameter] public string? Heading { get; set; }
 
 
-    internal List<CommandItem> IncludedItems { get; set; } = [];
-    private CommandItem FocusedItem { get; set; }
+    public List<CommandItem> CommandItems { get; set; } = [];
     private string? Classes;
-    private bool Hidden = false;
-
-    protected override void OnInitialized()
-    {
-        Command.CommandGroups.Add(this);
-    }
+    public bool Hidden;
 
     protected override void OnParametersSet()
     {
         Classes = Cn("text-foreground text-muted-foreground overflow-hidden p-1 px-2 py-1.5 text-xs font-medium", ClassName);
     }
 
-    public void ApplyVisibility()
+    public void OnHide(bool expr)
     {
-        Hidden = IncludedItems.Count <= 1 || Command.FilteredItems.Length == 0;
+        Hidden = expr;
     }
-
-    public async Task OnFocusUpdateAsync(CommandItem item)
-    {
-        if (FocusedItem != null && FocusedItem != item)
-            await FocusedItem.OnUnfocusAsync();
-
-        FocusedItem = item;
-    }
-
 
 }
