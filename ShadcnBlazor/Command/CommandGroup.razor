@@ -25,7 +25,10 @@
     [CascadingParameter] public Command Command { get; set; }
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public string? Heading { get; set; }
-    internal List<string> IncludedItems { get; set; } = [];
+
+
+    internal List<CommandItem> IncludedItems { get; set; } = [];
+    private CommandItem FocusedItem { get; set; }
     private string? Classes;
     private bool Hidden = false;
 
@@ -41,12 +44,16 @@
 
     public void ApplyVisibility()
     {
-        Hidden = Command.FilteredItems.Length == 0;
-
-        foreach (var item in IncludedItems)
-        {
-            Hidden = !Command.FilteredItems.Contains(item);
-        }
+        Hidden = IncludedItems.Count <= 1 || Command.FilteredItems.Length == 0;
     }
+
+    public async Task OnFocusUpdateAsync(CommandItem item)
+    {
+        if (FocusedItem != null && FocusedItem != item)
+            await FocusedItem.OnUnfocusAsync();
+
+        FocusedItem = item;
+    }
+
 
 }
