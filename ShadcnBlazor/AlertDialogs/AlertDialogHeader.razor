@@ -1,0 +1,19 @@
+﻿@inherits ShadcnBase
+
+<div data-slot="alert-dialog-header"
+     class="@Classes"
+     @attributes="Props">
+    @ChildContent
+</div>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private string? Classes;
+    
+    protected override void OnParametersSet()
+    {
+        Classes = Cn("flex flex-col gap-2 text-center sm:text-left", ClassName);
+    }
+}

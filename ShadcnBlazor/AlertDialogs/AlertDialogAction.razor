@@ -1,0 +1,20 @@
+﻿@using ShadcnBlazor.Buttons
+@inherits ShadcnBase
+
+<Button @onclick="OnClickAsync" ClassName="@ClassName" @attributes="Props">
+    @ChildContent
+</Button>
+
+@code
+{
+    [CascadingParameter] public AlertDialog AlertDialog { get; set; }
+    
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public EventCallback OnClick { get; set; }
+
+    private async Task OnClickAsync()
+    {
+        await OnClick.InvokeAsync();
+        await AlertDialog.CloseAsync();
+    }
+}

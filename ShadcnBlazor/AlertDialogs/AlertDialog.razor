@@ -1,0 +1,49 @@
+﻿@inherits ShadcnBase
+
+<CascadingValue Value="this" IsFixed="true">
+    @ChildContent
+</CascadingValue>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public EventCallback<bool> OnOpenChange { get; set; }
+    [Parameter] public bool DefaultOpen { get; set; }
+
+    public bool IsOpen { get; private set; }
+    internal bool ShouldRenderContent { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+
+        if (DefaultOpen)
+            await OpenAsync();
+    }
+
+    public async Task OpenAsync()
+    {
+        IsOpen = true;
+        ShouldRenderContent = true;
+
+        await InvokeAsync(StateHasChanged);
+
+        await OnOpenChange.InvokeAsync(IsOpen);
+    }
+
+    public async Task CloseAsync()
+    {
+        IsOpen = false;
+
+        await InvokeAsync(StateHasChanged).ContinueWith(async _ =>
+        {
+            await Task.Delay(100);
+            
+            ShouldRenderContent = false;
+            await InvokeAsync(StateHasChanged);
+        });
+
+        await OnOpenChange.InvokeAsync(IsOpen);
+    }
+}
