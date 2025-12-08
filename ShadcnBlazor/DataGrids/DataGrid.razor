@@ -5,7 +5,6 @@
 @using ShadcnBlazor.Popovers
 @using ShadcnBlazor.Spinners
 @using ShadcnBlazor.Labels
-@using ShadcnBlazor.Paginations
 @using ShadcnBlazor.Tabels
 
 @inherits ShadcnBase
@@ -18,105 +17,152 @@
 
 @if (IsInitialized)
 {
+    var columnsWithTitle = Columns
+        .Where(x => !string.IsNullOrWhiteSpace(x.Title))
+        .ToArray();
+
+    var filterableColumns = columnsWithTitle
+        .Where(x => x.IsFilterable)
+        .ToArray();
+
     <div class="flex items-center py-4 gap-x-1.5">
-        <InputGroup ClassName="max-w-xs">
-            <InputGroupAddon>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                     class="lucide lucide-search-icon lucide-search">
-                    <path d="m21 21-4.34-4.34"/>
-                    <circle cx="11" cy="11" r="8"/>
-                </svg>
-            </InputGroupAddon>
-            <InputGroupInput placeholder="Search..."/>
-        </InputGroup>
-        <span class="ml-auto">
-            <Popover>
-                <PopoverTrigger>
-                    <Slot>
-                        <Button @attributes="context" Variant="ButtonVariant.Outline">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                 stroke-linejoin="round"
-                                 class="lucide lucide-sliders-horizontal-icon lucide-sliders-horizontal">
-                                <path
-                                    d="M10 5H3"/><path d="M12 19H3"/><path d="M14 3v4"/><path d="M16 17v4"/>
-                                <path
-                                    d="M21 12h-9"/><path d="M21 19h-5"/><path d="M21 5h-7"/><path d="M8 10v4"/>
-                                <path
-                                    d="M8 12H3"/></svg>
-                            <span class="hidden md:block">Filter</span>
-                        </Button>
-                    </Slot>
-                </PopoverTrigger>
-                <PopoverContent>
-                    <div class="grid gap-2">
-                        @foreach (var keyVal in FilteredColumns)
-                        {
-                            if (string.IsNullOrWhiteSpace(keyVal.Key.Title))
-                                continue;
-
-                            <div class="grid grid-cols-3 items-center gap-4" @key="keyVal.Key">
-                                <Label for="@keyVal.Key.Title">
-                                    @keyVal.Key.Title
-                                </Label>
-                                <InputField
-                                    id="@keyVal.Key.Title"
-                                    placeholder="Filter for..."
-                                    Value="@keyVal.Value"
-                                    ValueChanged="val => SetColumnFilterAsync(keyVal.Key, val)"
-                                    ClassName="col-span-2 h-8"/>
-                            </div>
-                        }
-
-                        <div class="flex justify-center items-center">
-                            <Button @onclick="() => RefreshAsync()"
-                                    Size="ButtonSize.Sm">
-                                Apply
-                            </Button>
-                        </div>
-                    </div>
-                </PopoverContent>
-            </Popover>
-        </span>
-        <DropdownMenu>
-            <DropdownMenuTrigger>
-                <Slot>
-                    <Button Variant="ButtonVariant.Outline" @attributes="context">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                             class="lucide lucide-columns3-cog-icon lucide-columns-3-cog">
-                            <path d="M10.5 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5.5"/>
-                            <path d="m14.3 19.6 1-.4"/>
-                            <path d="M15 3v7.5"/>
-                            <path d="m15.2 16.9-.9-.3"/>
-                            <path d="m16.6 21.7.3-.9"/>
-                            <path d="m16.8 15.3-.4-1"/>
-                            <path d="m19.1 15.2.3-.9"/>
-                            <path d="m19.6 21.7-.4-1"/>
-                            <path d="m20.7 16.8 1-.4"/>
-                            <path d="m21.7 19.4-.9-.3"/>
-                            <path d="M9 3v18"/>
-                            <circle cx="18" cy="18" r="3"/>
-                        </svg>
-                        <span class="hidden md:block">Columns</span>
-                    </Button>
-                </Slot>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-                @foreach (var column in VisibleColumns)
+        @if (EnableSearch)
+        {
+            <InputGroup ClassName="max-w-xs">
+                <InputGroupAddon>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="lucide lucide-search-icon lucide-search">
+                        <path d="m21 21-4.34-4.34"/>
+                        <circle cx="11" cy="11" r="8"/>
+                    </svg>
+                </InputGroupAddon>
+                @if (EnableLiveSearch)
                 {
-                    if (string.IsNullOrWhiteSpace(column.Key.Title))
-                        continue;
-
-                    <DropdownMenuCheckboxItem Value="@column.Value"
-                                              ValueChanged="toggle => SetColumnVisibleAsync(column.Key, toggle)"
-                                              @key="column">
-                        @column.Key.Title
-                    </DropdownMenuCheckboxItem>
+                    <InputGroupInput>
+                        <Slot>
+                            <input @bind="SearchTerm"
+                                   @bind:event="oninput"
+                                   @bind:after="OnSearchChangedAsync"
+                                   placeholder="Search..."
+                                   type="search"
+                                   @attributes="context"/>
+                        </Slot>
+                    </InputGroupInput>
                 }
-            </DropdownMenuContent>
-        </DropdownMenu>
+                else
+                {
+                    <InputGroupInput>
+                        <Slot>
+                            <input @bind="SearchTerm"
+                                   @bind:after="OnSearchChangedAsync"
+                                   placeholder="Search..."
+                                   type="search"
+                                   @attributes="context"/>
+                        </Slot>
+                    </InputGroupInput>
+                }
+            </InputGroup>
+        }
+        <div class="ml-auto flex gap-x-1.5">
+            @if (filterableColumns.Length > 0)
+            {
+                <Popover @ref="FilterPopover">
+                    <PopoverTrigger>
+                        <Slot>
+                            <Button @attributes="context" Variant="ButtonVariant.Outline">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round"
+                                     class="lucide lucide-sliders-horizontal-icon lucide-sliders-horizontal">
+                                    <path
+                                        d="M10 5H3"/>
+                                    <path d="M12 19H3"/>
+                                    <path d="M14 3v4"/>
+                                    <path d="M16 17v4"/>
+                                    <path
+                                        d="M21 12h-9"/>
+                                    <path d="M21 19h-5"/>
+                                    <path d="M21 5h-7"/>
+                                    <path d="M8 10v4"/>
+                                    <path
+                                        d="M8 12H3"/>
+                                </svg>
+                                <span class="hidden md:block">Filter</span>
+                            </Button>
+                        </Slot>
+                    </PopoverTrigger>
+                    <PopoverContent>
+                        <div class="grid gap-2">
+                            @foreach (var column in filterableColumns)
+                            {
+                                if (string.IsNullOrWhiteSpace(column.Title))
+                                    continue;
+
+                                <div class="grid grid-cols-3 items-center gap-4" @key="column">
+                                    <Label for="@column.Title">
+                                        @column.Title
+                                    </Label>
+                                    <InputField
+                                        id="@column.Title"
+                                        placeholder="Filter for..."
+                                        @bind-Value="column.Filter"
+                                        ClassName="col-span-2 h-8"/>
+                                </div>
+                            }
+
+                            <div class="flex justify-center items-center">
+                                <Button @onclick="ApplyFilterAsync"
+                                        Size="ButtonSize.Sm">
+                                    Apply
+                                </Button>
+                            </div>
+                        </div>
+                    </PopoverContent>
+                </Popover>
+            }
+
+            @if (ColumnVisibility)
+            {
+                <DropdownMenu>
+                    <DropdownMenuTrigger>
+                        <Slot>
+                            <Button Variant="ButtonVariant.Outline" @attributes="context">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round"
+                                     class="lucide lucide-columns3-cog-icon lucide-columns-3-cog">
+                                    <path d="M10.5 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5.5"/>
+                                    <path d="m14.3 19.6 1-.4"/>
+                                    <path d="M15 3v7.5"/>
+                                    <path d="m15.2 16.9-.9-.3"/>
+                                    <path d="m16.6 21.7.3-.9"/>
+                                    <path d="m16.8 15.3-.4-1"/>
+                                    <path d="m19.1 15.2.3-.9"/>
+                                    <path d="m19.6 21.7-.4-1"/>
+                                    <path d="m20.7 16.8 1-.4"/>
+                                    <path d="m21.7 19.4-.9-.3"/>
+                                    <path d="M9 3v18"/>
+                                    <circle cx="18" cy="18" r="3"/>
+                                </svg>
+                                <span class="hidden md:block">Columns</span>
+                            </Button>
+                        </Slot>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        @foreach (var column in columnsWithTitle)
+                        {
+                            <DropdownMenuCheckboxItem DefaultValue="@column.IsVisible"
+                                                      ValueChanged="b => SetColumnVisibleAsync(column, b)"
+                                                      @key="column">
+                                @column.Title
+                            </DropdownMenuCheckboxItem>
+                        }
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            }
+        </div>
     </div>
 
     <div class="@Classes">
@@ -167,6 +213,8 @@
                     }
                     else
                     {
+                        @RowFragment
+
                         foreach (var item in Items)
                         {
                             <TableRow @key="item">
@@ -178,31 +226,60 @@
             </TableBody>
         </Table>
     </div>
-    
-    <Pagination ClassName="mt-3 justify-end">
-        <PaginationContent>
-            <PaginationItem>
-                <PaginationPrevious Size="ButtonSize.Sm" ClassName="pointer-events-none opacity-50" href="#" />
-            </PaginationItem>
-            <PaginationItem>
-                <PaginationLink Size="ButtonSize.Sm" href="#" IsActive="true">1</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-                <PaginationLink Size="ButtonSize.Sm" href="#">
-                    2
-                </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-                <PaginationLink Size="ButtonSize.Sm" href="#">3</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-                <PaginationEllipsis />
-            </PaginationItem>
-            <PaginationItem>
-                <PaginationNext Size="ButtonSize.Sm" href="#" />
-            </PaginationItem>
-        </PaginationContent>
-    </Pagination>
+
+    <div class="flex items-center justify-end md:justify-between mt-1.5">
+        <div class="hidden md:block text-muted-foreground">
+            Showing @(StartIndex + 1)-@(StartIndex + Items.Length) of @(TotalItems) items
+        </div>
+        <div class="flex items-center gap-x-1">
+            <Button disabled="@(IsLoading || CurrentPage == 0)"
+                    @onclick="NavigateToStartAsync"
+                    Variant="ButtonVariant.Outline"
+                    Size="ButtonSize.IconSm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="lucide lucide-chevrons-left-icon lucide-chevrons-left">
+                    <path d="m11 17-5-5 5-5"/>
+                    <path d="m18 17-5-5 5-5"/>
+                </svg>
+            </Button>
+
+            <Button disabled="@(IsLoading || CurrentPage == 0)"
+                    @onclick="() => NavigateAsync(-1)"
+                    Variant="ButtonVariant.Outline"
+                    Size="ButtonSize.Sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="lucide lucide-chevron-left-icon lucide-chevron-left">
+                    <path d="m15 18-6-6 6-6"/>
+                </svg>
+                <span class="hidden md:block">Previous</span>
+            </Button>
+
+            <Button disabled="@(IsLoading || CurrentPage == MaximumPage)"
+                    @onclick="() => NavigateAsync(1)"
+                    Variant="ButtonVariant.Outline"
+                    Size="ButtonSize.Sm">
+                <span class="hidden md:block">Next</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="lucide lucide-chevron-right-icon lucide-chevron-right">
+                    <path d="m9 18 6-6-6-6"/>
+                </svg>
+            </Button>
+            <Button disabled="@(IsLoading || CurrentPage == MaximumPage)"
+                    @onclick="NavigateToEndAsync"
+                    Variant="ButtonVariant.Outline"
+                    Size="ButtonSize.IconSm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="lucide lucide-chevrons-right-icon lucide-chevrons-right">
+                    <path d="m6 17 5-5-5-5"/>
+                    <path d="m13 17 5-5-5-5"/>
+                </svg>
+            </Button>
+        </div>
+    </div>
 }
 
 @code

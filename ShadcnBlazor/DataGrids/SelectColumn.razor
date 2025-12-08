@@ -1,0 +1,60 @@
+﻿@using Microsoft.AspNetCore.Components.Rendering
+@using ShadcnBlazor.Checkboxes
+@using ShadcnBlazor.DataGrids.Abstractions
+@using ShadcnBlazor.Tabels
+
+@typeparam TGridItem
+@inherits ColumnBase<TGridItem>
+
+@code
+{
+    [Parameter] public List<TGridItem> Items { get; set; } = new();
+    [Parameter] public EventCallback OnChanged { get; set; }
+    
+    private async Task ToggleAllAsync(bool value)
+    {
+        Items.Clear();
+        
+        if(value)
+            Items.AddRange(Grid.Items);
+
+        await OnChanged.InvokeAsync();
+        await Grid.RenderAsync(); // We need to rerender here cause values got updated outside the current scope
+    }
+
+    private async Task ToggleAsync(TGridItem item, bool value)
+    {
+        if (value)
+            Items.Add(item);
+        else
+            Items.Remove(item);
+        
+        await OnChanged.InvokeAsync();
+        await Grid.RenderAsync(); // We need to rerender here cause values might got updated outside the current scope (select all handling)
+    }
+    
+    public override async Task ResetAsync()
+    {
+        Items.Clear();
+        await OnChanged.InvokeAsync();
+        
+        // No manual rerender as this is called within the refresh function and will trigger a rerender anyway
+    }
+    
+    public override void RenderHead(RenderTreeBuilder __builder)
+    {
+        <TableHead>
+            <Checkbox ClassName="ms-2" Value="@(Items.Count == Grid.Items.Length)" ValueChanged="ToggleAllAsync" />
+        </TableHead>
+    }
+
+    public override void RenderCell(RenderTreeBuilder __builder, TGridItem item)
+    {
+        var isSelected = Items.Contains(item);
+        
+        <TableCell>
+            <Checkbox ClassName="ms-2" Value="isSelected" ValueChanged="b => ToggleAsync(item, b)" />
+        </TableCell>
+    }
+}
+
