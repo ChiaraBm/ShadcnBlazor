@@ -1,0 +1,57 @@
+﻿@using System.Globalization
+
+@inherits ShadcnBase
+
+<div class="@Classes" data-disabled="@Disabled">
+    <div class="w-full h-1.5 bg-muted rounded-full"></div>
+
+    <div
+        class="absolute h-1.5 bg-primary rounded-l-full"
+        style="@($"width: {ValuePercent.ToString(CultureInfo.InvariantCulture)}%;")">
+    </div>
+
+    <div
+        class="absolute top-1/2 size-4 -translate-y-1/2 rounded-full bg-white border border-primary shadow-sm 
+              hover:ring-4 hover:ring-ring/50 focus-visible:ring-4 focus-visible:ring-ring/50"
+        style="@($"left: {ValuePercent.ToString(CultureInfo.InvariantCulture)}%;")">
+    </div>
+
+    <input type="range"
+           disabled="@Disabled"
+           class="absolute inset-0 w-full h-6 opacity-0 cursor-pointer appearance-none"
+           min="@Min"
+           max="@Max"
+           @bind="Value" @bind:event="oninput" @bind:after="OnValueChanged"
+           @attributes="Props"/>
+</div>
+
+@code
+{
+    [Parameter] public int Min { get; set; }
+    [Parameter] public int Max { get; set; } = 100;
+    
+    [Parameter] public int Value { get; set; }
+    [Parameter] public EventCallback<int> ValueChanged { get; set; }
+    [Parameter] public int? DefaultValue { get; set; }
+    
+    [Parameter] public bool Disabled { get; set; }
+
+    private double ValuePercent => (double)(Value - Min) / (Max - Min) * 100;
+    private string? Classes;
+
+    protected override void OnInitialized()
+    {
+        if (DefaultValue.HasValue)
+            Value = DefaultValue.Value;
+    }
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn("relative w-full h-6 flex items-center data-[disabled]:opacity-50 data-[disabled]:pointer-events-none", ClassName);
+    }
+
+    private async Task OnValueChanged()
+    {
+        await ValueChanged.InvokeAsync(Value);
+    }
+}
