@@ -19,29 +19,14 @@
     [Parameter] public bool Disabled { get; set; }
     [Parameter] public string DefaultValue { get; set; }
 
-    [Parameter]
-    public string Value
-    {
-        get => _value;
-        set
-        {
-            if (_value == value) return;
-
-            _value = value;
-            ValueChanged.InvokeAsync(value);
-        }
-    }
-
-    [Parameter]
-    public EventCallback<string> ValueChanged { get; set; }
-
-    private string _value;
+    [Parameter] public string Value { get; set; }
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
     
     private string? Classes;
 
     protected override void OnInitialized()
     {
-        _value = DefaultValue;
+        Value = DefaultValue;
     }
 
     protected override void OnParametersSet()
@@ -52,6 +37,7 @@
     public async Task SetValueAsync(string value)
     {
         Value = value;
+        await ValueChanged.InvokeAsync(value);
         await InvokeAsync(StateHasChanged);
     }
 }

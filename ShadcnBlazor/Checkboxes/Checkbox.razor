@@ -16,29 +16,16 @@
 
 @code
 {
-
-    #region Binder
-
-    [Parameter]
-    public bool Value
-    {
-        get => _value;
-        set
-        {
-            if (_value == value) return;
-
-            _value = value;
-            ValueChanged.InvokeAsync(value);
-        }
-    }
-
+    [Parameter] public bool Value { get; set; }
     [Parameter] public EventCallback<bool> ValueChanged { get; set; }
-
-    private bool _value;
-
-    #endregion
+    [Parameter] public bool DefaultValue { get; set; }
 
     private string? Classes;
+    
+    protected override void OnInitialized()
+    {
+        Value = DefaultValue;
+    }
 
     protected override void OnParametersSet()
     {
@@ -51,9 +38,8 @@
 
     private async Task ToggleAsync()
     {
-        Console.WriteLine("Toggle");
-        
         Value = !Value;
+        await ValueChanged.InvokeAsync(Value);
         await InvokeAsync(StateHasChanged);
     }
 }

@@ -30,24 +30,16 @@
     [Parameter] public bool CloseOnClick { get; set; } = true;
     [Parameter] public RenderFragment ChildContent { get; set; }
 
-    [Parameter]
-    public bool Value
-    {
-        get => _value;
-        set
-        {
-            if (_value == value) return;
-
-            _value = value;
-            ValueChanged.InvokeAsync(value);
-        }
-    }
-
+    [Parameter] public bool Value { get; set; }
     [Parameter] public EventCallback<bool> ValueChanged { get; set; }
-
-    private bool _value;
+    [Parameter] public bool DefaultValue { get; set; }
 
     private string? Classes;
+
+    protected override void OnInitialized()
+    {
+        Value = DefaultValue;
+    }
 
     protected override void OnParametersSet()
     {
@@ -63,6 +55,7 @@
             return;
 
         Value = !Value;
+        await ValueChanged.InvokeAsync(Value);
         await InvokeAsync(StateHasChanged);
 
         if (CloseOnClick)

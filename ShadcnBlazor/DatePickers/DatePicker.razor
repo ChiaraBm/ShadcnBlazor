@@ -14,13 +14,13 @@
                 ClassName="@Classes"
                 @attributes="@(Props == null ? context : context.Concat(Props))">
                 
-                @if (_value == default)
+                @if (Value == default)
                 {
                     <span>Select date</span>
                 }
                 else
                 {
-                    @_value.ToShortDateString();
+                    @Value.ToShortDateString();
                 }
                 
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down-icon lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>
@@ -40,35 +40,24 @@
 
     private CalendarEntry[] Entries;
     
-    [Parameter]
-    public DateOnly Value
-    {
-        get => _value;
-        set
-        {
-            if (_value == value) return;
+    [Parameter] public DateOnly Value { get; set; }
+    [Parameter] public EventCallback<DateOnly> ValueChanged { get; set; }
+    [Parameter] public DateOnly DefaultValue { get; set; }
 
-            _value = value;
-            ValueChanged.InvokeAsync(value);
-        }
-    }
-
-    [Parameter]
-    public EventCallback<DateOnly> ValueChanged { get; set; }
-
-    private DateOnly _value;
     private Popover Popover;
     private string? Classes;
 
     protected override void OnInitialized()
     {
-        if (_value == default)
+        Value = DefaultValue;
+        
+        if (Value == default)
         {
             Entries = [];
             return;
         }
 
-        Entries = [new CalendarEntry(_value, _value, true)];
+        Entries = [new CalendarEntry(Value, Value, true)];
     }
 
     protected override void OnParametersSet()
@@ -84,6 +73,8 @@
         Entries = [new CalendarEntry(value, value, true)];
         StartDate = value;
         Value = value;
+        
+        await ValueChanged.InvokeAsync(value);
 
         await Popover.CloseAsync();
         await InvokeAsync(StateHasChanged);

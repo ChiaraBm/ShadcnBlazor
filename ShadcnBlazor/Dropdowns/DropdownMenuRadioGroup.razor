@@ -11,27 +11,19 @@
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public bool CloseOnClick { get; set; } = true;
     
-    [Parameter]
-    public string Value
+    [Parameter] public string Value { get; set; }
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
+    [Parameter] public string DefaultValue { get; set; }
+    
+    protected override void OnInitialized()
     {
-        get => _value;
-        set
-        {
-            if (_value == value) return;
-
-            _value = value;
-            ValueChanged.InvokeAsync(value);
-        }
+        Value = DefaultValue;
     }
-
-    [Parameter]
-    public EventCallback<string> ValueChanged { get; set; }
-
-    private string _value;
 
     internal async Task ChangeValueAsync(string value)
     {
         Value = value;
+        await ValueChanged.InvokeAsync(value);
         await InvokeAsync(StateHasChanged);
         
         if (CloseOnClick)
