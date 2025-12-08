@@ -26,8 +26,6 @@
         Value = value;
         await ValueChanged.InvokeAsync(value);
         await InvokeAsync(StateHasChanged);
-
-        Console.WriteLine("A: " + Value);
         
         if (CloseOnClick)
             await Parent.CloseMenuAsync();
