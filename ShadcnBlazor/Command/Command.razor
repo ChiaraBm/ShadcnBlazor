@@ -17,7 +17,6 @@
 
     internal CommandEmpty EmptyCommand { get; set; }
     internal CommandSeparator CommandSeparator { get; set; }
-    internal List<CommandGroup> CommandGroups { get; set; } = [];
     internal List<CommandItem> CommandItems { get; set; } = [];
 
     private string? Classes;
@@ -56,12 +55,7 @@
 
         foreach (var commandItem in CommandItems)
         {
-            commandItem.ApplyVisibility();
-        }
-
-        foreach (var commandGroup in CommandGroups)
-        {
-            commandGroup.ApplyVisibility();
+            await commandItem.ApplyVisibility();
         }
 
         EmptyCommand.ApplyVisibility();

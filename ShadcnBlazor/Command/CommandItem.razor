@@ -1,18 +1,21 @@
 @inherits ShadcnBase
 
+
 <div
-    data-slot="command-item"
     @attributes="Props"
-    class="@Classes"
-    aria-disabled="@Disabled"
-    data-disabled="@Disabled"
+    data-slot="command-item"
+    data-disabled="@Disabled.ToString().ToLowerInvariant()"
+    aria-disabled="@Disabled.ToString().ToLowerInvariant()"
     aria-hidden="@Hidden"
     hidden="@Hidden"
-    onmouseenter="this.focus()"
-    @onfocus="OnFocusAsync"
+    data-selected="@Selected.ToString().ToLowerInvariant()"
+    @onmouseenter="OnMouseEnterAsync"
+    @onmouseleave="OnMouseLeaveAsync"
+    class="@Classes"
 >
     @ChildContent
 </div>
+
 
 @code {
     [CascadingParameter] public Command Command { get; set; }
@@ -22,49 +25,43 @@
     [Parameter] public bool Disabled { get; set; }
 
     private string? Classes;
-    private bool Hidden { get; set; }
+    private bool Hidden;
+    private bool Selected;
 
     protected override void OnInitialized()
     {
         Command.CommandItems.Add(this);
         Command.Items.Add(Name);
-        CommandGroup.IncludedItems.Add(this);
+        CommandGroup.CommandItems.Add(this);
     }
 
     protected override void OnParametersSet()
     {
         Classes = Cn(
-            "focus:bg-accent focus:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+            "data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
             ClassName
         );
     }
 
-    public void ApplyVisibility()
+    public async Task ApplyVisibility()
     {
         Hidden = !Command.FilteredItems.Contains(Name);
+        CommandGroup.OnHide(CommandGroup.Hidden = Command.FilteredItems.Length == 0);
+        CommandGroup.OnHide(CommandGroup.CommandItems.All(item => !Command.FilteredItems.Contains(item.Name)));
 
-        if (!Command.FilteredItems.Contains(Name))
-        {
-            CommandGroup.IncludedItems.Remove(this);
-        }
-        else
-        {
-            CommandGroup.IncludedItems.Add(this);
-        }
-
-        CommandGroup.ApplyVisibility();
+        await InvokeAsync(StateHasChanged);
     }
 
-    private async Task OnFocusAsync()
+    private async Task OnMouseEnterAsync()
     {
-        if (Disabled) return;
-
-        await CommandGroup.OnFocusUpdateAsync(this);
+        Selected = true;
+        await InvokeAsync(StateHasChanged);
     }
 
-    public Task OnUnfocusAsync()
+    private async Task OnMouseLeaveAsync()
     {
-        return Task.CompletedTask;
+        Selected = false;
+        await InvokeAsync(StateHasChanged);
     }
 
 }
