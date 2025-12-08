@@ -1,0 +1,18 @@
+﻿@using ShadcnBlazor.Buttons
+@inherits ShadcnBase
+
+<Button Variant="ButtonVariant.Outline"
+        ClassName="@ClassName"
+        @onclick="OnClickAsync"
+        @attributes="Props">
+    @ChildContent
+</Button>
+
+@code
+{
+    [CascadingParameter] public AlertDialog Dialog { get; set; }
+    
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private Task OnClickAsync() => Dialog.CloseAsync();
+}

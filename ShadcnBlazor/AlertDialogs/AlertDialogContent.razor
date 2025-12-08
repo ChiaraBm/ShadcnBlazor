@@ -1,0 +1,39 @@
+﻿@inherits ShadcnBase
+
+@if (Parent.ShouldRenderContent)
+{
+    <AlertDialogOverlay @onclick="OnBackdropClickedAsync"/>
+
+    <div data-slot="alert-dialog-content"
+         data-state="@(Parent.IsOpen ? "open" : "closed")"
+         class="@Classes"
+         @attributes="Props">
+
+        @ChildContent
+    </div>
+}
+
+@code
+{
+    [CascadingParameter] public AlertDialog Parent { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public bool CloseOnBackdropClick { get; set; }
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border p-6 shadow-lg duration-200 sm:max-w-lg",
+            ClassName
+        );
+    }
+
+    private async Task OnBackdropClickedAsync()
+    {
+        if(!CloseOnBackdropClick)
+            return;
+
+        await Parent.CloseAsync();
+    }
+}
