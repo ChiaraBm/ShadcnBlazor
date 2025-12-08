@@ -1,4 +1,4 @@
-﻿namespace ShadcnBlazor.Menubar;
+﻿namespace ShadcnBlazor.Menubars;
 
 public interface IMenubarItem
 {
