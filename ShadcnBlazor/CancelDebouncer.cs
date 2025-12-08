@@ -1,16 +1,16 @@
 ﻿namespace ShadcnBlazor;
 
-public class CancelDebouncer
+internal class CancelDebouncer
 {
     private readonly TimeSpan Delay;
     private CancellationTokenSource Cts = new();
 
-    public CancelDebouncer(TimeSpan delay)
+    internal CancelDebouncer(TimeSpan delay)
     {
         Delay = delay;
     }
 
-    public void Start(Func<Task> action)
+    internal void Start(Func<Task> action)
     {
         var cts = new CancellationTokenSource();
         Cts = cts;
@@ -29,7 +29,7 @@ public class CancelDebouncer
         });
     }
 
-    public async Task CancelAsync()
+    internal async Task CancelAsync()
     {
         await Cts.CancelAsync();
         Cts = new();
