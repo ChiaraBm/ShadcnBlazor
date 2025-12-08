@@ -1,0 +1,60 @@
+@using ShadcnBlazor.AlertDialogs
+
+@inject AlertDialogService AlertService
+
+@foreach (var model in Models)
+{
+    <AlertDialog @ref="model.Dialog" DefaultOpen="true" OnOpenChange="b => OnOpenChangeAsync(model, b)" @key="model">
+        <AlertDialogContent CloseOnBackdropClick="model.CloseOnBackdropClick">
+            <DynamicComponent Type="model.ComponentType" Parameters="model.Attributes" />
+        </AlertDialogContent>
+    </AlertDialog>
+}
+
+@code
+{
+    private readonly List<AlertDialogModel> Models = new();
+    
+    protected override void OnInitialized()
+    {
+        AlertService.SetLauncher(this);
+    }
+
+    public async Task<AlertDialogModel> LaunchAsync<T>(Action<Dictionary<string, object?>>? callback = null) where T : AlertDialogBase
+    {
+        var model = new AlertDialogModel()
+        {
+            ComponentType = typeof(T)
+        };
+        
+        model.Attributes = new Dictionary<string, object?>
+        {
+            [nameof(AlertDialogBase.Model)] = model
+        };
+
+        callback?.Invoke(model.Attributes);
+        
+        Models.Add(model);
+
+        await InvokeAsync(StateHasChanged);
+
+        return model;
+    }
+
+    public async Task CloseAsync(AlertDialogModel model)
+    {
+        if(!Models.Contains(model))
+            return;
+        
+        await model.Dialog.CloseAsync();
+    }
+
+    private async Task OnOpenChangeAsync(AlertDialogModel model, bool toggle)
+    {
+        if(toggle)
+            return;
+
+        Models.Remove(model);
+        await InvokeAsync(StateHasChanged);
+    }
+}

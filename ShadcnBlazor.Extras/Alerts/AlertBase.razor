@@ -1,0 +1,9 @@
+@inject AlertService AlertService
+
+@code
+{
+    [Parameter] public AlertModel Model { get; set; }
+
+    protected Task CloseAsync()
+        => AlertService.CloseAsync(Model);
+}

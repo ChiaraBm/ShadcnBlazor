@@ -1,0 +1,62 @@
+@using ShadcnBlazor.Spinners
+
+@inherits ShadcnBase
+
+@if (IsLoading)
+{
+    <div class="flex flex-col justify-center items-center p-5 text-center">
+        <Spinner ClassName="@Classes" @attributes="Props" />
+        @if (!string.IsNullOrWhiteSpace(Text))
+        {
+            <div class="text-foreground text-sm mt-1.5">
+                @Text
+            </div>
+        }
+    </div>
+}
+else
+{
+    @ChildContent
+}
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public Func<LazyLoader, Task> Load { get; set; }
+    
+    private bool IsLoading = true;
+    private string? Text;
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn("size-10", ClassName);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(!firstRender)
+            return;
+
+        await ReloadAsync();
+    }
+
+    public async Task SetTextAsync(string text)
+    {
+        Text = text;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public async Task ReloadAsync()
+    {
+        IsLoading = true;
+        Text = null;
+        await InvokeAsync(StateHasChanged);
+        
+        // TODO: Error handling
+        await Load.Invoke(this);
+
+        IsLoading = false;
+        await InvokeAsync(StateHasChanged);
+    }
+}

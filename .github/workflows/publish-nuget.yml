@@ -5,13 +5,18 @@ on:
   push:
     paths:
       - "ShadcnBlazor/**.csproj"
+      - "ShadcnBlazor.Extras/**.csproj"
     branches:
       - main
 
 jobs:
-  
   publish:
     runs-on: ubuntu-latest
+    
+    strategy:
+      matrix: 
+        projectName: [ShadcnBlazor]
+    
     
     steps:
       # Checkout code
@@ -28,6 +33,6 @@ jobs:
       - name: Publish on version change
         uses: alirezanet/publish-nuget@v3.1.0
         with:
-          PROJECT_FILE_PATH: ShadcnBlazor/ShadcnBlazor.csproj
+          PROJECT_FILE_PATH: {{ matrix.projectName }}/{{ matrix.projectName }}.csproj
           TAG_COMMIT: false
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}

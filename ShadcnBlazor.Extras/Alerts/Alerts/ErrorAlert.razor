@@ -1,0 +1,35 @@
+@using ShadcnBlazor.Alerts
+@using ShadcnBlazor.Buttons
+
+@inherits AlertBase
+
+<Alert ClassName="w-full flex flex-row items-center gap-3 border-red-500/80 bg-red-500/5 text-red-500">
+    <div class="flex shrink-0 items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+             class="lucide lucide-circle-x-icon lucide-circle-x size-6 text-red-500/60">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="m15 9-6 6"/>
+            <path d="m9 9 6 6"/>
+        </svg>
+    </div>
+    <div class="flex flex-1 items-center justify-between gap-4">
+        <div class="flex flex-col gap-0.5">
+            <AlertTitle>@Title</AlertTitle>
+            <AlertDescription ClassName="text-red-500/80">
+                @Description
+            </AlertDescription>
+        </div>
+        <div class="flex items-center shrink-0 gap-2">
+            <Button @onclick="CloseAsync" Size="ButtonSize.Sm" Variant="ButtonVariant.Outline">
+                Dismiss
+            </Button>
+        </div>
+    </div>
+</Alert>
+
+@code
+{
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string Description { get; set; }
+}

@@ -1,0 +1,68 @@
+@inject AlertService AlertService
+
+@inherits ShadcnBase
+
+@if (Alerts.Count > 0)
+{
+    <div class="@Classes" @attributes="Props">
+        @foreach (var alert in Alerts)
+        {
+            <DynamicComponent Type="alert.ComponentType" Parameters="alert.Attributes" />
+        }
+    </div>
+}
+
+@code
+{
+    private readonly List<AlertModel> Alerts = new();
+    
+    private string? Classes;
+
+    protected override void OnInitialized()
+    {
+        AlertService.SetLauncher(this);
+    }
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "flex flex-col w-full gap-y-2.5 mb-5",
+            ClassName
+        );
+    }
+
+    public async Task<AlertModel> LaunchAsync<T>(Action<Dictionary<string, object?>>? callback = null, int hideDelay = -1) where T : AlertBase
+    {
+        var model = new AlertModel()
+        {
+            ComponentType = typeof(T)
+        };
+
+        model.Attributes = new Dictionary<string, object?>()
+        {
+            [nameof(AlertBase.Model)] = model
+        };
+        
+        callback?.Invoke(model.Attributes);
+        
+        Alerts.Add(model);
+        await InvokeAsync(StateHasChanged);
+
+        if (hideDelay != -1)
+        {
+            Task.Run(async () =>
+            {
+                await Task.Delay(hideDelay);
+                await CloseAsync(model);
+            });
+        }
+        
+        return model;
+    }
+
+    public async Task CloseAsync(AlertModel model)
+    {
+        Alerts.Remove(model);
+        await InvokeAsync(StateHasChanged);
+    }
+}

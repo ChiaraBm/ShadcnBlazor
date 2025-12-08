@@ -1,0 +1,11 @@
+@using ShadcnBlazor.AlertDialogs
+
+@code
+{
+    [CascadingParameter] public AlertDialog AlertDialog { get; set; }
+
+    [Parameter] public AlertDialogModel Model { get; set; }
+
+    protected async Task CloseAsync()
+        => await AlertDialog.CloseAsync();
+}

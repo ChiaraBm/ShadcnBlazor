@@ -12,6 +12,10 @@
 @source "../../ShadcnBlazor/**/*.cs";
 @source "../../ShadcnBlazor/**/*.html";
 
+@source "../../ShadcnBlazor.Extras/**/*.razor";
+@source "../../ShadcnBlazor.Extras/**/*.cs";
+@source "../../ShadcnBlazor.Extras/**/*.html";
+
 @custom-variant dark (&:is(.dark *));
 
 #blazor-error-ui {

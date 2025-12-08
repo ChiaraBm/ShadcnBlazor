@@ -1,0 +1,56 @@
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Spinners
+
+@inherits ShadcnBase
+
+@if (IsWorking)
+{
+    if (string.IsNullOrWhiteSpace(Text))
+    {
+        <Button Size="ButtonSize.Icon" Variant="Variant" ClassName="@ClassName" disabled="disabled" @onclick="HandleAsync" @attributes="Props">
+            <Spinner />
+        </Button>
+    }
+    else
+    {
+        <Button Size="Size" Variant="Variant" ClassName="@ClassName" disabled="disabled" @onclick="HandleAsync" @attributes="Props">
+            <Spinner />
+            <span>@Text</span>
+        </Button>
+    }
+}
+else
+{
+    <Button Size="Size" Variant="Variant" ClassName="@ClassName" @onclick="HandleAsync" @attributes="Props">
+        @ChildContent
+    </Button>
+}
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Default;
+    [Parameter] public ButtonVariant Variant { get; set; } = ButtonVariant.Default;
+    [Parameter] public EventCallback<WButtom> OnClick { get; set; }
+
+    private bool IsWorking;
+    private string? Text;
+
+    private async Task HandleAsync()
+    {
+        IsWorking = true;
+        Text = null;
+        await InvokeAsync(StateHasChanged);
+
+        await OnClick.InvokeAsync(this);
+        
+        IsWorking = false;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public async Task SetTextAsync(string text)
+    {
+        Text = text;
+        await InvokeAsync(StateHasChanged);
+    }
+}

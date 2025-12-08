@@ -1,4 +1,6 @@
-﻿@using ShadcnBlazor.Sidebars
+﻿@using ShadcnBlazor.Extras.AlertDialogs
+@using ShadcnBlazor.Extras.Alerts
+@using ShadcnBlazor.Sidebars
 
 @inherits LayoutComponentBase
 
@@ -7,8 +9,13 @@
     
     <SidebarInset>
         <AppHeader />
-        <div class="mx-8 my-8 max-w-fit">
+        
+        <div class="mx-8 my-8 max-w-full">
+            <AlertLauncher />
+            
             @Body
         </div>
+        
+        <AlertDialogLauncher />
     </SidebarInset>
 </SidebarProvider>
