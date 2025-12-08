@@ -1,49 +1,58 @@
 ﻿using Microsoft.AspNetCore.Components;
 using ShadcnBlazor.DataGrids.Abstractions;
+using ShadcnBlazor.Popovers;
 
 namespace ShadcnBlazor.DataGrids;
 
 [CascadingTypeParameter(nameof(TGridItem))]
 public partial class DataGrid<TGridItem>
 {
-    private readonly List<ColumnBase<TGridItem>> RegisteredColumns = new();
-    private Dictionary<ColumnBase<TGridItem>, bool> VisibleColumns = new();
-    private Dictionary<ColumnBase<TGridItem>, string> FilteredColumns = new();
+    [Parameter] public bool ColumnVisibility { get; set; } = true;
+    
+    private readonly List<ColumnBase<TGridItem>> Columns = new();
+    private readonly List<RowBase<TGridItem>> Rows = new();
 
+    private RenderFragment RowFragment;
     private RenderFragment HeaderFragment;
     private RenderFragment<TGridItem> CellFragment;
     
     private bool IsInitialized = false;
 
+    private Popover FilterPopover;
+
     internal void RegisterColumn(ColumnBase<TGridItem> column)
-        => RegisteredColumns.Add(column);
+        => Columns.Add(column);
+    
+    internal void RegisterRow(RowBase<TGridItem> row)
+        => Rows.Add(row);
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if(!firstRender)
             return;
         
-        VisibleColumns = RegisteredColumns
-            .OrderBy(x => x.Order)
-            .ToDictionary(x => x, x => x.DefaultVisible);
-
-        FilteredColumns = RegisteredColumns
-            .OrderBy(x => x.Order)
-            .ToDictionary(x => x, x => string.Empty);
-
+        Columns.Sort((x, y) => x.Order - y.Order);
+        Rows.Sort((x, y) => x.Order - y.Order);
+        
         HeaderFragment = builder =>
         {
-            foreach (var column in VisibleColumns.Where(x => x.Value))
-                column.Key.RenderHead(builder);
+            foreach (var column in Columns.Where(x => x.IsVisible))
+                column.RenderHead(builder);
         };
 
         CellFragment = value =>
         {
             return builder =>
             {
-                foreach (var column in VisibleColumns.Where(x => x.Value))
-                    column.Key.RenderCell(builder, value);
+                foreach (var column in Columns.Where(x => x.IsVisible))
+                    column.RenderCell(builder, value);
             };
+        };
+
+        RowFragment = builder =>
+        {
+            foreach (var row in Rows)
+                row.RenderRow(builder);
         };
 
         IsInitialized = true;
@@ -54,13 +63,18 @@ public partial class DataGrid<TGridItem>
 
     private async Task SetColumnVisibleAsync(ColumnBase<TGridItem> column, bool toggle)
     {
-        VisibleColumns[column] = toggle;
+        column.IsVisible = toggle;
         await InvokeAsync(StateHasChanged);
     }
 
-    private async Task SetColumnFilterAsync(ColumnBase<TGridItem> column, string filter)
+    private async Task ApplyFilterAsync()
     {
-        FilteredColumns[column] = filter;
-        await InvokeAsync(StateHasChanged);
+        await FilterPopover.CloseAsync();
+        
+        CurrentPage = 0;
+        await RefreshAsync();
     }
+
+    // Call for columns and rows to rerender the whole table
+    public async Task RenderAsync() => await InvokeAsync(StateHasChanged);
 }

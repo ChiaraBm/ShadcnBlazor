@@ -39,5 +39,8 @@
       <Compile Update="DataGrids\DataGrid.Loading.cs">
         <DependentUpon>DataGrid.razor</DependentUpon>
       </Compile>
+      <Compile Update="DataGrids\DataGrid.Search.cs">
+        <DependentUpon>DataGrid.razor</DependentUpon>
+      </Compile>
     </ItemGroup>
 </Project>

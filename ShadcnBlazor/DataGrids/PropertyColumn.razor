@@ -9,7 +9,7 @@
 @code
 {
     [Parameter] public Expression<Func<TGridItem, object>> Field { get; set; }
-    [Parameter] public string CellClassName { get; set; }
+    [Parameter] public string CellClassName { get; set; } = "text-right";
 
     private Func<TGridItem, object> InnerField;
 
