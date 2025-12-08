@@ -1,0 +1,48 @@
+﻿@inherits ShadcnBase
+
+@implements IMenubarItem
+
+<div data-slot="menubar-item"
+     data-inset="@Inset"
+     data-variant="@Variant.ToString().ToLowerInvariant()"
+     class="@Classes"
+     tabindex="-1"
+     onmouseover="this.focus()"
+     @onfocusin="OnFocusAsync"
+     @onclick="OnClickAsync"
+     @attributes="Props">
+    @ChildContent
+</div>
+
+@code
+{
+    [CascadingParameter] public IMenubarParent Parent { get; set; }
+    
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public bool Inset { get; set; }
+    [Parameter] public MenubarItemVariant Variant { get; set; } = MenubarItemVariant.Default;
+    [Parameter] public EventCallback OnClick { get; set; }
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+            ClassName
+        );
+    }
+
+    private async Task OnFocusAsync()
+    {
+        await Parent.ChangeFocusAsync(this);
+    }
+
+    private async Task OnClickAsync()
+    {
+        await OnClick.InvokeAsync();
+        await Parent.CloseMenuAsync();
+    }
+    
+    public Task OnUnfocusAsync() => Task.CompletedTask;
+}

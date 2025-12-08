@@ -1,0 +1,67 @@
+﻿@using Microsoft.AspNetCore.Components.Sections
+
+@inherits ShadcnBase
+
+<div data-slot="menubar"
+     class="@Classes"
+     @attributes="Props">
+    <CascadingValue IsFixed="true" Value="this">
+        @ChildContent
+    </CascadingValue>
+</div>
+
+@if (ShouldRenderContent)
+{
+    <div class="fixed inset-0 z-50" @onclick="CloseAsync">
+
+    </div>
+    
+    <SectionOutlet SectionName="@ContentSectionId" />
+    <SectionOutlet SectionName="@SubContentSectionId" />
+}
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    public bool IsOpen { get; private set; }
+    internal bool ShouldRenderContent { get; private set; }
+    
+    internal string ContentSectionId => $"menubar-content-{GetHashCode()}";
+    internal string SubContentSectionId => $"menubar-sub-content-{GetHashCode()}";
+
+    private MenubarMenu? FocusedMenu;
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn("bg-background flex h-9 items-center gap-1 rounded-md border p-1 shadow-xs", ClassName);
+    }
+
+    public async Task CloseAsync()
+    {
+        IsOpen = false;
+        await InvokeAsync(StateHasChanged).ContinueWith(async _ =>
+        {
+            await Task.Delay(100);
+            
+            ShouldRenderContent = false;
+            await InvokeAsync(StateHasChanged);
+        });
+    }
+
+    public async Task OnOpenAsync(MenubarMenu menu)
+    {
+        if (!IsOpen)
+        {
+            IsOpen = true;
+            ShouldRenderContent = true;
+            await InvokeAsync(StateHasChanged);
+        }
+        
+        if (FocusedMenu != null && FocusedMenu != menu)
+            await FocusedMenu.CloseAsync();
+
+        FocusedMenu = menu;
+    }
+}

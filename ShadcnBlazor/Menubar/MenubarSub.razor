@@ -1,0 +1,56 @@
+﻿@implements IMenubarParent
+@implements IMenubarItem
+
+<CascadingValue IsFixed="true" Value="this">
+    @ChildContent
+</CascadingValue>
+
+@code
+{
+    [CascadingParameter] public IMenubarParent Parent { get; set; }
+    
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    public bool IsOpen => Parent.IsOpen && IsFocused;
+    internal bool ShouldRenderContent { get; private set; }
+    
+    internal MenubarSubTrigger Trigger { get; set; }
+    internal MenubarSubContent Content { get; set; }
+
+    private bool IsFocused;
+    private IMenubarItem? FocusedItem;
+
+    internal async Task OnFocusAsync()
+    {
+        IsFocused = true;
+        ShouldRenderContent = true;
+        await Parent.ChangeFocusAsync(this);
+
+        await InvokeAsync(StateHasChanged).ContinueWith(async _ =>
+        {
+            await Content.OnOpenedAsync();
+        });
+    }
+    
+    public async Task OnUnfocusAsync()
+    {
+        IsFocused = false;
+        await InvokeAsync(StateHasChanged).ContinueWith(async _ =>
+        {
+            await Task.Delay(100);
+
+            ShouldRenderContent = false;
+            await InvokeAsync(StateHasChanged);
+        });
+    }
+    
+    public async Task ChangeFocusAsync(IMenubarItem item)
+    {
+        if (FocusedItem != null && FocusedItem != item)
+            await FocusedItem.OnUnfocusAsync();
+
+        FocusedItem = item;
+    }
+
+    public Task CloseMenuAsync() => Parent.CloseMenuAsync();
+}
