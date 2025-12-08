@@ -1,0 +1,64 @@
+﻿@using Microsoft.AspNetCore.Components.Sections
+@using ShadcnBlazor.Interop
+
+@inherits ShadcnBase
+
+@inject PositionService PositionService
+
+@if (Menu.ShouldRenderContent)
+{
+    <SectionContent SectionName="@Menubar.ContentSectionId">
+        <div @ref="PositionElement" class="min-w-max z-50 fixed top-0 left-0" style="@PositionStyle">
+            <div  data-slot="menubar-content"
+                  align="@Align.ToString().ToLowerInvariant()"
+                  alignOffset="-4"
+                  sideOffset="@SideOffset"
+                  class="@Classes"
+                  data-state="@(Menu.IsOpen ? "open" : "closed")"
+                  data-side="@Side.ToString().ToLowerInvariant()"
+                  @attributes="Props">
+                @ChildContent
+            </div>
+        </div>
+    </SectionContent>
+}
+
+@code
+{
+    [CascadingParameter] public MenubarMenu Menu { get; set; }
+    [CascadingParameter] public Menubar Menubar { get; set; }
+    
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public PositionAlignment Align { get; set; } = PositionAlignment.Start;
+    [Parameter] public PositionSide Side { get; set; } = PositionSide.Bottom;
+    [Parameter] public double SideOffset { get; set; } = 8;
+
+    private ElementReference PositionElement;
+    private string PositionStyle = PositionService.Position.OffCanvasCss;
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Menu.Content = this;
+        
+        Classes = Cn(
+            "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 min-w-[12rem] origin-(--radix-menubar-content-transform-origin) overflow-hidden rounded-md border p-1 shadow-md",
+            ClassName
+        );
+    }
+
+    internal async Task OnOpenedAsync()
+    {
+        var position = await PositionService.PositionAroundAsync(
+            Menu.Trigger.TriggerElement,
+                PositionElement,
+                Side,
+                Align,
+                SideOffset
+        );
+
+        PositionStyle = position.ToCssStyle();
+        await InvokeAsync(StateHasChanged);
+    }
+}

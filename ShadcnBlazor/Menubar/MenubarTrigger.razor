@@ -1,0 +1,42 @@
+﻿@inherits ShadcnBase
+
+<div @ref="TriggerElement"
+     data-slot="menubar-trigger"
+     class="@Classes"
+     data-state="@(Menu.IsOpen ? "open" : "closed")"
+     tabindex="-1"
+     @onmouseover="OnMouseOverAsync"
+     @onclick="Menu.OpenAsync"
+     @onfocus="Menu.OpenAsync"
+     @attributes="Props">
+    @ChildContent
+</div>
+
+@code
+{
+    [CascadingParameter] public Menubar Menubar { get; set; }
+    [CascadingParameter] public MenubarMenu Menu { get; set; }
+    
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    
+    internal ElementReference TriggerElement { get; private set; }
+    
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Menu.Trigger = this;
+
+        Classes = Cn(
+            "focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground flex items-center rounded-sm px-2 py-1 text-sm font-medium outline-hidden select-none",
+            Menubar.IsOpen ? "z-75" : "",
+            ClassName
+        );
+    }
+
+    private async Task OnMouseOverAsync()
+    {
+        if (Menubar.IsOpen)
+            await TriggerElement.FocusAsync();
+    }
+}

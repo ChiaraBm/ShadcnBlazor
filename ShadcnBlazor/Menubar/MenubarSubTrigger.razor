@@ -1,0 +1,36 @@
+﻿@inherits ShadcnBase
+
+<div data-slot="menubar-sub-trigger"
+     data-inset="@Inset"
+     class="@Classes"
+     data-state="@(Sub.IsOpen ? "open" : "closed")"
+     @ref="TriggerElement"
+     tabindex="-1"
+     onmouseover="this.focus()"
+     @onfocusin="Sub.OnFocusAsync">
+    @ChildContent
+    
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right-icon lucide-chevron-right ml-auto h-4 w-4"><path d="m9 18 6-6-6-6"/></svg>
+</div>
+
+@code
+{
+    [CascadingParameter] public MenubarSub Sub { get; set; }
+    
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public bool Inset { get; set; }
+
+    internal ElementReference TriggerElement { get; private set; }
+    
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Sub.Trigger = this;
+        
+        Classes = Cn(
+            "focus:bg-accent focus:text-accent-foreground data-[state=open]:bg-accent data-[state=open]:text-accent-foreground flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-none select-none data-[inset]:pl-8",
+            ClassName
+        );
+    }
+}
