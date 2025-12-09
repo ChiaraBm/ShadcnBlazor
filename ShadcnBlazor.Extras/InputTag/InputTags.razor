@@ -1,0 +1,51 @@
+﻿@inherits ShadcnBase
+
+<div class="@Classes">
+    @foreach (var tag in Value)
+    {
+        <span @onclick="() => RemoveAsync(tag)" class="inline-flex items-center justify-center rounded-full border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] overflow-hidden border-transparent bg-primary text-primary-foreground [a&]:hover:bg-primary/90 cursor-pointer">
+            @tag
+        </span>
+    }
+    <input @bind="Input" @bind:event="oninput" @onkeydown="OnKeyDownAsync" class="bg-transparent ring-0 border-0 outline-0 min-w-0 grow" @attributes="Props"/>
+</div>
+
+@code
+{
+    [Parameter] public List<string> Value { get; set; } = new();
+    [Parameter] public EventCallback<List<string>> ValueChanged { get; set; }
+    
+    private string? Classes;
+    private string Input = "";
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input min-h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+            "focus-within:border-ring focus-within:ring-ring/50 focus-within:ring-[3px]",
+            "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+            "inline-flex flex-wrap items-center gap-x-1.5 gap-y-1",
+            ClassName
+        );
+    }
+
+    private async Task OnKeyDownAsync(KeyboardEventArgs eventArgs)
+    {
+        if(eventArgs.Code != "Enter" && eventArgs.Code != "Space")
+            return;
+        
+        if(string.IsNullOrWhiteSpace(Input))
+            return;
+        
+        Value.Add(Input.Trim());
+        Input = "";
+
+        await ValueChanged.InvokeAsync(Value);
+    }
+
+    private async Task RemoveAsync(string tag)
+    {
+        Value.Remove(tag);
+        await ValueChanged.InvokeAsync(Value);
+    }
+}
