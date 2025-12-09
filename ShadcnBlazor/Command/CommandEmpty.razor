@@ -2,26 +2,20 @@
 
 <div
     data-slot="command-empty"
-    @attributes="Props"
     class="@Classes"
-    aria-hidden="@Hidden"
-    hidden="@Hidden"
->
+    aria-hidden="@((!Command.IsEmpty).ToString().ToLowerInvariant())"
+    hidden="@(!Command.IsEmpty)"
+    @attributes="Props">
     @ChildContent
 </div>
 
-@code {
+@code
+{
     [CascadingParameter] public Command Command { get; set; }
+    
     [Parameter] public RenderFragment ChildContent { get; set; }
-
-
+    
     private string? Classes;
-    private bool Hidden = true;
-
-    protected override void OnInitialized()
-    {
-        Command.EmptyCommand = this;
-    }
 
     protected override void OnParametersSet()
     {
@@ -30,10 +24,4 @@
             ClassName
         );
     }
-
-    public void ApplyVisibility()
-    {
-        Hidden = Command.FilteredItems.Length != 0;
-    }
-
 }

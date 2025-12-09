@@ -1,23 +1,18 @@
 @inherits ShadcnBase
 
 <div
+    cmdk-separator
     data-slot="command-separator"
-    @attributes="Props"
     class="@Classes"
-    aria-hidden="@Hidden"
-    hidden="@Hidden"
-></div>
+    hidden="@Command.IsSearching"
+    @attributes="Props">
+</div>
 
-@code {
+@code
+{
     [CascadingParameter] public Command Command { get; set; }
 
     private string? Classes;
-    private bool Hidden = true;
-
-    protected override void OnInitialized()
-    {
-        Command.CommandSeparator = this;
-    }
 
     protected override void OnParametersSet()
     {
@@ -26,10 +21,4 @@
             ClassName
         );
     }
-
-    public void ApplyVisibility()
-    {
-        Hidden = Command.FilteredItems.Length == 0;
-    }
-
 }

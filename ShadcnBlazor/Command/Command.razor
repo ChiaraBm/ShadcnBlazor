@@ -1,6 +1,6 @@
 @inherits ShadcnBase
 
-<div @attributes="Attributes" class="@Classes">
+<div cmdk-root data-slot="command" class="@Classes" @attributes="Props">
     <CascadingValue TValue="Command" Value="this">
         @ChildContent
     </CascadingValue>
@@ -8,59 +8,45 @@
 
 @code
 {
-    // TODO: CommandItem Selection via mouseover...
-
     [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public EventCallback<CommandItem> OnItemClicked { get; set; }
 
-    public List<string> Items { get; set; } = [];
-    public string[] FilteredItems { get; set; } = [];
-
-    internal CommandEmpty EmptyCommand { get; set; }
-    internal CommandSeparator CommandSeparator { get; set; }
-    internal List<CommandItem> CommandItems { get; set; } = [];
+    public bool IsSearching { get; private set; }
+    public bool IsEmpty { get; private set; }
+    
+    private readonly List<CommandItem> Items = new();
+    private readonly List<CommandGroup> Groups = new();
 
     private string? Classes;
-    private Dictionary<string, object?> Attributes;
 
     protected override void OnParametersSet()
     {
-        Attributes = new();
-
-        Attributes["data-slot"] = "command";
-
         Classes = Cn(
             "bg-popover text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-md",
             ClassName
         );
-
-        if (Props == null)
-            return;
-
-        foreach (var prop in Props)
-            Attributes[prop.Key] = prop.Value;
     }
 
-    public async Task UpdateFilteredItems(ChangeEventArgs eventArgs)
+    public async Task UpdateFilteredItemsAsync(ChangeEventArgs eventArgs)
     {
-        var search = eventArgs.Value?.ToString() ?? "";
+        var searchTerm = eventArgs.Value?.ToString() ?? "";
 
-        if (string.IsNullOrEmpty(search) || Items.Count < 1)
-        {
-            FilteredItems = Items.ToArray();
-        }
-        else
-        {
-            FilteredItems = Items.Where(s => s.Contains(search, StringComparison.OrdinalIgnoreCase)).ToArray();
-        }
+        IsSearching = !string.IsNullOrWhiteSpace(searchTerm);
 
-        foreach (var commandItem in CommandItems)
-        {
-            await commandItem.ApplyVisibility();
-        }
+        foreach (var item in Items)
+            item.HandleSearch(searchTerm);
 
-        EmptyCommand.ApplyVisibility();
-        CommandSeparator.ApplyVisibility();
+        foreach (var group in Groups)
+            group.HandleSearch(searchTerm);
+
+        IsEmpty = Items.All(x => !x.IsVisible);
+
         await InvokeAsync(StateHasChanged);
     }
 
+    internal async Task HandleItemClickedAsync(CommandItem item)
+        => await OnItemClicked.InvokeAsync(item);
+
+    internal void RegisterItem(CommandItem item) => Items.Add(item);
+    internal void RegisterGroup(CommandGroup group) => Groups.Add(group);
 }
