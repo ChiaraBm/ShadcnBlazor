@@ -1,44 +1,60 @@
 @inherits ShadcnBase
 
 <div
+    cmdk-group
     data-slot="command-group"
-    @attributes="Props"
     class="@Classes"
-    aria-hidden="@Hidden"
-    hidden="@Hidden"
->
+    aria-hidden="@((!IsVisible).ToString().ToLowerInvariant())"
+    hidden="@(!IsVisible)"
+    @attributes="Props">
+    
     @if (Heading != null)
     {
-        <div>
+        <div cmdk-group-heading>
             @Heading
         </div>
     }
-    <CascadingValue
-        TValue="CommandGroup"
-        Value="this"
-    >
-        @ChildContent
-    </CascadingValue>
+    
+    <div cmdk-group-items>
+        <CascadingValue
+            TValue="CommandGroup"
+            Value="this">
+            @ChildContent
+        </CascadingValue>
+    </div>
+    
 </div>
 
-@code {
+@code
+{
     [CascadingParameter] public Command Command { get; set; }
+    
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public string? Heading { get; set; }
 
+    public bool IsVisible { get; private set; } = true;
+    
+    private readonly List<CommandItem> Items = new();
 
-    public List<CommandItem> CommandItems { get; set; } = [];
     private string? Classes;
-    public bool Hidden;
+
+    protected override void OnInitialized()
+    {
+        Command.RegisterGroup(this);
+    }
 
     protected override void OnParametersSet()
     {
-        Classes = Cn("text-foreground text-muted-foreground overflow-hidden p-1 px-2 py-1.5 text-xs font-medium", ClassName);
+        Classes = Cn(
+            "text-foreground [&_[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium",
+            ClassName
+        );
     }
-
-    public void OnHide(bool expr)
+    
+    internal void HandleSearch(string _)
     {
-        Hidden = expr;
+        IsVisible = Items.Any(x => x.IsVisible);
     }
 
+    internal void RegisterItem(CommandItem item) => Items.Add(item);
 }

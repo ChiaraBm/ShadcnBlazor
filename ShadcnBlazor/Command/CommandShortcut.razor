@@ -2,13 +2,13 @@
 
 <span
     data-slot="command-shortcut"
-    @attributes="Props"
     class="@Classes"
->
+    @attributes="Props">
     @ChildContent
 </span>
 
-@code {
+@code
+{
     [Parameter] public RenderFragment ChildContent { get; set; }
 
     private string? Classes;
@@ -20,5 +20,4 @@
             ClassName
         );
     }
-
 }

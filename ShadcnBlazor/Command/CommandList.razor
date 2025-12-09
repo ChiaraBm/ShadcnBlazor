@@ -1,14 +1,16 @@
 @inherits ShadcnBase
 
-<div
-    data-slot="command-list"
-    @attributes="Props"
-    class="@Classes"
->
-    @ChildContent
+<div data-slot="command-list"
+     cmdk-list
+     class="@Classes"
+     @attributes="Props">
+    <div cmdk-list-sizer>
+        @ChildContent
+    </div>
 </div>
 
-@code {
+@code
+{
     [Parameter] public RenderFragment ChildContent { get; set; }
 
     private string? Classes;
@@ -20,5 +22,4 @@
             ClassName
         );
     }
-
 }
