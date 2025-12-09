@@ -1,4 +1,4 @@
-using ShadcnBlazor.Extras.Alerts.Alerts;
+using ShadcnBlazor.Extras.Alerts.Designs;
 
 namespace ShadcnBlazor.Extras.Alerts;
 

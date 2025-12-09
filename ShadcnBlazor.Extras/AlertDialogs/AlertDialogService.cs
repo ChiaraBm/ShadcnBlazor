@@ -1,4 +1,4 @@
-using ShadcnBlazor.Extras.AlertDialogs.AlertDesigns;
+using ShadcnBlazor.Extras.AlertDialogs.Designs;
 
 namespace ShadcnBlazor.Extras.AlertDialogs;
 
