@@ -1,0 +1,35 @@
+@using ShadcnBlazor.Combobox
+@using ShadcnBlazor.Command
+
+<Combobox
+    Items="Items"
+    Placeholder="Search for Fruits"
+    ItemPlaceholder="Select a Fruit"
+>
+</Combobox>
+
+@code {
+
+    private List<CommandItem> Items { get; set; } =
+    [
+        new CommandItem()
+        {
+            Name = "Apples"
+        },
+        new CommandItem()
+        {
+            Name = "Bananas"
+        },
+        new CommandItem()
+        {
+            Name = "Oranges"
+        },
+        new CommandItem()
+        {
+            Name = "Strawberry"
+        }
+    ];
+
+
+}
+    
