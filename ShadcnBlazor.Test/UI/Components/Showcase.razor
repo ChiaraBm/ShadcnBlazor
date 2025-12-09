@@ -24,6 +24,8 @@
 
 @code
 {
+    [Parameter] public string Folder { get; set; }
+    
     private string Content;
     private bool ContentLoaded = false;
     private bool ContentLoadedFailed = false;
@@ -46,7 +48,7 @@
             var typeName = typeof(T).Name;
             
             Content = await HttpClient.GetStringAsync(
-                $"https://raw.githubusercontent.com/{Repository}/refs/heads/{Branch}/ShadcnBlazor.Test/UI/Showcases/{typeName}.razor"
+                $"https://raw.githubusercontent.com/{Repository}/refs/heads/{Branch}/ShadcnBlazor.Test/UI/{Folder}/{typeName}.razor"
             );
             
             ContentLoaded = true;
