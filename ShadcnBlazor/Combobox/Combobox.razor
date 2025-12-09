@@ -1,0 +1,76 @@
+@inherits ShadcnBase
+
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Command
+@using ShadcnBlazor.Popovers
+
+<Popover @ref="Popover">
+    <PopoverTrigger>
+        <Slot>
+            <Button
+                Variant="ButtonVariant.Outline"
+                role="combobox"
+                aria-expanded="@Popover.IsOpen.ToString().ToLowerInvariant()"
+                ClassName="@Classes"
+                @attributes="@(Props == null ? context : context.Concat(Props))"
+            >
+                @(SelectedItem?.Name ?? ItemPlaceholder)
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="lucide lucide-chevrons-up-down-icon lucide-chevrons-up-down opacity-50">
+                    <path d="m7 15 5 5 5-5"/>
+                    <path d="m7 9 5-5 5 5"/>
+                </svg>
+            </Button>
+        </Slot>
+    </PopoverTrigger>
+    <PopoverContent ClassName="w-[200px] p-0">
+        <Command OnItemClicked="OnItemClickedAsync">
+            <CommandInput placeholder="@Placeholder" ClassName="h-9"/>
+            <CommandList>
+                <CommandEmpty>@SearchNotFound</CommandEmpty>
+                <CommandGroup>
+                    @foreach (var item in Items)
+                    {
+                        <CommandItem
+                            Name="@item.Name"
+                        >
+                            @item.Name
+                        </CommandItem>
+                    }
+                </CommandGroup>
+            </CommandList>
+        </Command>
+    </PopoverContent>
+</Popover>
+
+@code
+{
+    [Parameter] public string Placeholder { get; set; } = "Type to search";
+    [Parameter] public string ItemPlaceholder { get; set; } = "Noting selected...";
+    [Parameter] public string SearchNotFound { get; set; } = "Noting found...";
+    [Parameter] public EventCallback<CommandItem> ValueChanged { get; set; }
+    [Parameter] public List<CommandItem> Items { get; set; }
+
+    private Popover Popover;
+    private CommandItem SelectedItem { get; set; } = null;
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "w-[200px] justify-between",
+            ClassName
+        );
+    }
+
+    private async Task OnItemClickedAsync(CommandItem commandItem)
+    {
+        SelectedItem = commandItem;
+        await ValueChanged.InvokeAsync(commandItem);
+
+        await Popover.CloseAsync();
+        await ValueChanged.InvokeAsync(commandItem);
+    }
+}
