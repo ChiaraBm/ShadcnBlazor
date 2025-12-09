@@ -1,0 +1,19 @@
+@using ShadcnBlazor.ScrollArea
+@using ShadcnBlazor.Separators
+<ScrollArea ClassName="h-72 w-48 rounded-md border">
+    <div class="p-4">
+        <h4 class="mb-4 text-sm leading-none font-medium">Tags</h4>
+        @foreach (var tag in tags)
+        {
+            <div>
+                <span class="text-sm">@tag</span>
+                <Separator class="my-2"/>
+            </div>
+        }
+    </div>
+</ScrollArea>
+
+@code
+{
+    private List<string> tags = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22"];
+}

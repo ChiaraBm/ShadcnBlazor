@@ -1,0 +1,45 @@
+@inherits ShadcnBase
+
+<div
+    data-slot="scroll-area-scrollbar"
+    @attributes="Props"
+    data-orientation="@Orientation.ToString().ToLowerInvariant()"
+    data-state="@IsVisible.ToString().ToLowerInvariant()"
+    class="@Classes"
+    @onpointerenter="OnPointerEnterAsync"
+    @onpointerleave="OnPointerLeaveAsync"
+>
+    <div
+        data-slot="scroll-area-thumb"
+        class="bg-border relative flex-1 rounded-full"
+    >
+    </div>
+</div>
+
+@code
+{
+    [Parameter] public ScrollAreaOrientation Orientation { get; set; } = ScrollAreaOrientation.Vertical;
+    [Parameter] public int ScrollHideDelay { get; set; } = 300;
+
+    private bool IsVisible;
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "flex touch-none p-px transition-colors select-none",
+            (Orientation == ScrollAreaOrientation.Vertical ? "h-full w-2.5 border-l border-l-transparent" : ""),
+            (Orientation == ScrollAreaOrientation.Vertical ? "h-2.5 flex-col border-t border-t-transparent" : ""),
+            ClassName
+        );
+    }
+
+    private async Task OnPointerEnterAsync(PointerEventArgs args)
+    {
+    }
+
+    private async Task OnPointerLeaveAsync(PointerEventArgs args)
+    {
+    }
+
+}

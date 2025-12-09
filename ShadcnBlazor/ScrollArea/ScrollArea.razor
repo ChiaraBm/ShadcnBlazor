@@ -1,0 +1,49 @@
+@inherits ShadcnBase
+
+<div
+    data-slot="scroll-area"
+    class="@Classes"
+    @attributes="Props"
+    style="overflow: hidden scroll;">
+
+    <style>
+        [data-radix-scroll-area-viewport] {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        [data-radix-scroll-area-viewport]::-webkit-scrollbar {
+            display: none
+        }
+    </style>
+
+    <div
+        data-radix-scroll-area-viewport
+        data-slot="scroll-area-viewport"
+        class="focus-visible:ring-ring/50 size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:outline-1"
+    >
+        @ChildContent
+    </div>
+
+    <ScrollBar/>
+
+    <div>
+    </div>
+</div>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public int ScrollHideDelay { get; set; } = 300;
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "relative",
+            ClassName
+        );
+    }
+}
