@@ -1,0 +1,64 @@
+﻿@using ShadcnBlazor.Sonners
+@inject ToastService ToastService
+
+<div class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-sm flex flex-col items-center gap-2 p-4 z-75 pointer-events-none">
+    @foreach (var toast in Toasts)
+    {
+        <Sonner data-state="@(toast.IsOpen ? "open" : "closed")"
+                ClassName="data-[state=open]:animate-in fade-in slide-in-from-top-2 duration-200 ease-in-out data-[state=closed]:animate-out slide-out-to-top-2 pointer-events-auto">
+            <DynamicComponent Type="toast.ComponentType" Parameters="toast.Attributes" />
+        </Sonner>
+    }
+</div>
+
+@code
+{
+    private readonly List<ToastModel> Toasts = new();
+    
+    protected override void OnInitialized()
+    {
+        ToastService.SetLauncher(this);
+    }
+
+    public async Task<ToastModel> LaunchAsync<T>(Action<Dictionary<string, object?>>? callback = null, int hideDelay = -1) where T : ToastBase
+    {
+        var model = new ToastModel()
+        {
+            ComponentType = typeof(T),
+            IsOpen = true
+        };
+
+        model.Attributes = new Dictionary<string, object?>()
+        {
+            [nameof(ToastBase.Model)] = model
+        };
+        
+        callback?.Invoke(model.Attributes);
+        
+        Toasts.Add(model);
+        await InvokeAsync(StateHasChanged);
+        
+        if (hideDelay != -1)
+        {
+            Task.Run(async () =>
+            {
+                await Task.Delay(hideDelay);
+                await CloseAsync(model);
+            });
+        }
+
+        return model;
+    }
+    
+    public async Task CloseAsync(ToastModel model)
+    {
+        model.IsOpen = false;
+        await InvokeAsync(StateHasChanged).ContinueWith(async _ =>
+        {
+            await Task.Delay(100);
+
+            Toasts.Remove(model);
+            await InvokeAsync(StateHasChanged);
+        });
+    }
+}

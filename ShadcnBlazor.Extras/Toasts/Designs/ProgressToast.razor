@@ -1,0 +1,44 @@
+﻿@using ShadcnBlazor.Sonners
+@using ShadcnBlazor.Spinners
+
+@inherits ToastBase
+
+<Spinner ClassName="size-6" />
+
+<SonnerHeader>
+    <SonnerTitle>@InternalTitle</SonnerTitle>
+    <SonnerDescription>@InternalDescription</SonnerDescription>
+</SonnerHeader>
+
+@code
+{
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string Description { get; set; }
+    [Parameter] public Func<ProgressToast, Task> Callback { get; set; }
+
+    private string InternalTitle;
+    private string InternalDescription;
+
+    protected override void OnInitialized()
+    {
+        InternalTitle = Title;
+        InternalDescription = Description;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(!firstRender)
+            return;
+
+        await Callback.Invoke(this);
+        await CloseAsync();
+    }
+
+    public async Task UpdateAsync(string title, string description)
+    {
+        InternalTitle = title;
+        InternalDescription = description;
+
+        await InvokeAsync(StateHasChanged);
+    }
+}
