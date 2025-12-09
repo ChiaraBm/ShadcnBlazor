@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using ShadcnBlazor.Extras.AlertDialogs;
 using ShadcnBlazor.Extras.Alerts;
+using ShadcnBlazor.Extras.Toasts;
 
 namespace ShadcnBlazor.Extras;
 
@@ -10,5 +11,6 @@ public static class Extensions
     {
         collection.AddScoped<AlertDialogService>();
         collection.AddScoped<AlertService>();
+        collection.AddScoped<ToastService>();
     }
 }

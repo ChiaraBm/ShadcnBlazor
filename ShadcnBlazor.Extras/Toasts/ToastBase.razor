@@ -1,0 +1,9 @@
+﻿@inject ToastService ToastService
+
+@code
+{
+    [Parameter] public ToastModel Model { get; set; }
+
+    protected async Task CloseAsync()
+        => await ToastService.CloseAsync(Model);
+}
