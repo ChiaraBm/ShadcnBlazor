@@ -1,3 +1,4 @@
+@using LucideBlazor
 @using ShadcnBlazor.Buttons
 @using ShadcnBlazor.Command
 @using ShadcnBlazor.Interop
@@ -22,12 +23,7 @@
                 {
                     <span>@Value</span>
                 }
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                     class="lucide lucide-chevrons-up-down-icon lucide-chevrons-up-down opacity-50">
-                    <path d="m7 15 5 5 5-5"/>
-                    <path d="m7 9 5-5 5 5"/>
-                </svg>
+                <ChevronsUpDownIcon ClassName="opacity-50" />
             </Button>
         </Slot>
     </PopoverTrigger>
@@ -45,11 +41,7 @@
                             @value
                             @if (Value == value)
                             {
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" class="lucide lucide-check-icon lucide-check ml-auto">
-                                    <path d="M20 6 9 17l-5-5"/>
-                                </svg>
+                                <CheckIcon ClassName="ml-auto"/>
                             }
                         </CommandItem>
                     }
@@ -61,8 +53,6 @@
 
 @code
 {
-    [Parameter] public RenderFragment ChildContent { get; set; }
-    
     [Parameter] public PositionAlignment Alignment { get; set; } = PositionAlignment.Center;
     [Parameter] public PositionSide Side { get; set; } = PositionSide.Bottom;
     
