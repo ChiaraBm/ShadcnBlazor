@@ -1,4 +1,5 @@
-﻿@using LucideBlazor
+﻿@using System.Diagnostics.CodeAnalysis
+@using LucideBlazor
 @using ShadcnBlazor.Sidebars
 
 @inject NavigationManager Navigation
@@ -112,6 +113,10 @@
         public string Name { get; set; }
         public string Path { get; set; }
         public bool IsExactPath { get; set; }
+        
+        // Used to prevent the IL-Trimming from removing this type as its dynamically assigned a type and we
+        // need it to work properly
+        [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
         public Type IconType { get; set; }
     }
 
