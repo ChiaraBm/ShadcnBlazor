@@ -1,51 +1,10 @@
 @using ShadcnBlazor.Combobox
 @using ShadcnBlazor.Command
 
-<Combobox
-    Items="Items"
-    Placeholder="Search for Fruits"
-    ItemPlaceholder="Select a Fruit"
-    ValueChanged="OnItemClickedAsync"
->
+<Combobox @bind-Value="Selected" Values="Values" SelectPlaceholder="Select frameworks..." />
 
-    @(SelectedItem?.Name ?? "Noting selected...")
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-         class="lucide lucide-chevrons-up-down-icon lucide-chevrons-up-down opacity-50">
-        <path d="m7 15 5 5 5-5"/>
-        <path d="m7 9 5-5 5 5"/>
-    </svg>
-    
-</Combobox>
-
-@code {
-
-    private CommandItem SelectedItem { get; set; }
-
-    private List<CommandItem> Items { get; set; } =
-    [
-        new CommandItem()
-        {
-            Name = "Apples"
-        },
-        new CommandItem()
-        {
-            Name = "Bananas"
-        },
-        new CommandItem()
-        {
-            Name = "Oranges"
-        },
-        new CommandItem()
-        {
-            Name = "Strawberry"
-        }
-    ];
-
-    private async Task OnItemClickedAsync(CommandItem commandItem)
-    {
-        SelectedItem = commandItem;
-    }
-
+@code
+{
+    private string Selected = "";
+    private string[] Values = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"];
 }
-    

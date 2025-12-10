@@ -1,9 +1,9 @@
-@inherits ShadcnBase
-
 @using ShadcnBlazor.Buttons
 @using ShadcnBlazor.Command
 @using ShadcnBlazor.Interop
 @using ShadcnBlazor.Popovers
+
+@inherits ShadcnBase
 
 <Popover @ref="Popover">
     <PopoverTrigger>
@@ -13,24 +13,44 @@
                 role="combobox"
                 aria-expanded="@Popover.IsOpen.ToString().ToLowerInvariant()"
                 ClassName="@Classes"
-                @attributes="@(Props == null ? context : context.Concat(Props))"
-            >
-                @ChildContent
+                @attributes="@(Props == null ? context : context.Concat(Props))">
+                @if (string.IsNullOrWhiteSpace(Value))
+                {
+                    <span>@SelectPlaceholder</span>
+                }
+                else
+                {
+                    <span>@Value</span>
+                }
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="lucide lucide-chevrons-up-down-icon lucide-chevrons-up-down opacity-50">
+                    <path d="m7 15 5 5 5-5"/>
+                    <path d="m7 9 5-5 5 5"/>
+                </svg>
             </Button>
         </Slot>
     </PopoverTrigger>
     <PopoverContent Align="Alignment" Side="Side" ClassName="w-[200px] p-0">
         <Command OnItemClicked="OnItemClickedAsync">
-            <CommandInput placeholder="@Placeholder" ClassName="h-9"/>
+            <CommandInput placeholder="@SearchPlaceholder" ClassName="h-9"/>
             <CommandList>
-                <CommandEmpty>@SearchNotFound</CommandEmpty>
+                <CommandEmpty>
+                    @SearchNotFound
+                </CommandEmpty>
                 <CommandGroup>
-                    @foreach (var item in Items)
+                    @foreach (var value in Values)
                     {
-                        <CommandItem
-                            Name="@item.Name"
-                        >
-                            @item.Name
+                        <CommandItem Name="@value">
+                            @value
+                            @if (Value == value)
+                            {
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="lucide lucide-check-icon lucide-check ml-auto">
+                                    <path d="M20 6 9 17l-5-5"/>
+                                </svg>
+                            }
                         </CommandItem>
                     }
                 </CommandGroup>
@@ -42,16 +62,27 @@
 @code
 {
     [Parameter] public RenderFragment ChildContent { get; set; }
-    [Parameter] public PositionAlignment Alignment { get; set; } = PositionAlignment.Start;
-    [Parameter] public PositionSide Side { get; set; } = PositionSide.Right;
-    [Parameter] public string Placeholder { get; set; } = "Type to search";
+    
+    [Parameter] public PositionAlignment Alignment { get; set; } = PositionAlignment.Center;
+    [Parameter] public PositionSide Side { get; set; } = PositionSide.Bottom;
+    
+    [Parameter] public string SearchPlaceholder { get; set; } = "Type to search";
     [Parameter] public string SearchNotFound { get; set; } = "Noting found...";
-    [Parameter] public EventCallback<CommandItem> ValueChanged { get; set; }
-    [Parameter] public List<CommandItem> Items { get; set; }
 
-    private ElementReference PositionElement;
+    [Parameter] public string SelectPlaceholder { get; set; } = "Select value...";
+    [Parameter] public string? DefaultValue { get; set; }
+    [Parameter] public string Value { get; set; }
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
+    [Parameter] public IEnumerable<string> Values { get; set; }
+
     private Popover Popover;
     private string? Classes;
+
+    protected override void OnInitialized()
+    {
+        if (DefaultValue != null)
+            Value = DefaultValue;
+    }
 
     protected override void OnParametersSet()
     {
@@ -63,9 +94,9 @@
 
     private async Task OnItemClickedAsync(CommandItem commandItem)
     {
-        await ValueChanged.InvokeAsync(commandItem);
+        Value = commandItem.Name;
+        await ValueChanged.InvokeAsync(Value);
 
         await Popover.CloseAsync();
-        await ValueChanged.InvokeAsync(commandItem);
     }
 }
