@@ -1,4 +1,5 @@
-﻿@using ShadcnBlazor.Alerts
+﻿@using LucideBlazor
+@using ShadcnBlazor.Alerts
 @using ShadcnBlazor.Buttons
 @using ShadcnBlazor.DataGrids
 @using ShadcnBlazor.Dropdowns
@@ -22,28 +23,13 @@
             <TableCell ClassName="flex justify-end items-center">
                 <ButtonGroup>
                     <Button Variant="ButtonVariant.Outline" Size="ButtonSize.IconSm">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                             class="lucide lucide-play-icon lucide-play">
-                            <path
-                                d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/>
-                        </svg>
+                        <PlayIcon/>
                     </Button>
                     <Button Variant="ButtonVariant.Destructive" Size="ButtonSize.IconSm">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                             class="lucide lucide-square-icon lucide-square">
-                            <rect width="18" height="18" x="3" y="3" rx="2"/>
-                        </svg>
+                        <SquareIcon/>
                     </Button>
                     <Button Variant="ButtonVariant.Outline" Size="ButtonSize.IconSm">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                             class="lucide lucide-square-arrow-out-up-right-icon lucide-square-arrow-out-up-right">
-                            <path d="M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"/>
-                            <path d="m21 3-9 9"/>
-                            <path d="M15 3h6v6"/>
-                        </svg>
+                        <SquareArrowOutUpRightIcon/>
                     </Button>
                 </ButtonGroup>
             </TableCell>
@@ -58,13 +44,7 @@
                             <div class="flex justify-end items-center me-5">
                                 <Button ClassName="h-8 w-8 p-0" Variant="ButtonVariant.Ghost" Size="ButtonSize.IconSm"
                                         @attributes="dropdownContext">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                         stroke-linejoin="round" class="lucide lucide-ellipsis-icon lucide-ellipsis">
-                                        <circle cx="12" cy="12" r="1"/>
-                                        <circle cx="19" cy="12" r="1"/>
-                                        <circle cx="5" cy="12" r="1"/>
-                                    </svg>
+                                    <EllipsisIcon/>
                                 </Button>
                             </div>
 

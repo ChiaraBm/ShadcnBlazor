@@ -1,3 +1,4 @@
+@using LucideBlazor
 @using ShadcnBlazor.Alerts
 @using ShadcnBlazor.Buttons
 
@@ -5,13 +6,7 @@
 
 <Alert ClassName="w-full flex flex-row items-center gap-3 border-yellow-500/80 bg-yellow-500/5 text-yellow-500">
     <div class="flex shrink-0 items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-             class="lucide lucide-triangle-alert-icon lucide-triangle-alert size-6 text-yellow-500/60">
-            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/>
-            <path d="M12 9v4"/>
-            <path d="M12 17h.01"/>
-        </svg>
+        <TriangleAlertIcon ClassName="size-6 text-yellow-500/60" />
     </div>
     <div class="flex flex-1 items-center justify-between gap-4">
         <div class="flex flex-col gap-0.5">

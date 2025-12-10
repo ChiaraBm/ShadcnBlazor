@@ -1,4 +1,5 @@
-﻿@using ShadcnBlazor.Avatars
+﻿@using LucideBlazor
+@using ShadcnBlazor.Avatars
 @using ShadcnBlazor.Dropdowns
 @using ShadcnBlazor.Interop
 @using ShadcnBlazor.Sidebars
@@ -20,12 +21,8 @@
                             <span class="truncate font-medium">Ghost</span>
                             <span class="truncate text-xs">ghost@github.com</span>
                         </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                             class="lucide lucide-chevrons-up-down-icon lucide-chevrons-up-down ml-auto size-4">
-                            <path d="m7 15 5 5 5-5"/>
-                            <path d="m7 9 5-5 5 5"/>
-                        </svg>
+                        
+                        <ChevronsUpDownIcon ClassName="ml-auto size-4" />
                     </SidebarMenuButton>
                 </Slot>
             </DropdownMenuTrigger>
@@ -48,59 +45,28 @@
                 <DropdownMenuSeparator/>
                 <DropdownMenuGroup>
                     <DropdownMenuItem>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                             class="lucide lucide-sparkles-icon lucide-sparkles">
-                            <path
-                                d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/>
-                            <path d="M20 2v4"/>
-                            <path d="M22 4h-4"/>
-                            <circle cx="4" cy="20" r="2"/>
-                        </svg>
+                        <SparklesIcon />
                         Upgrade to Pro
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator/>
                 <DropdownMenuGroup>
                     <DropdownMenuItem>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                             class="lucide lucide-badge-check-icon lucide-badge-check">
-                            <path
-                                d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/>
-                            <path d="m9 12 2 2 4-4"/>
-                        </svg>
+                        <BadgeCheckIcon />
                         Account
                     </DropdownMenuItem>
                     <DropdownMenuItem>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                             class="lucide lucide-credit-card-icon lucide-credit-card">
-                            <rect width="20" height="14" x="2" y="5" rx="2"/>
-                            <line x1="2" x2="22" y1="10" y2="10"/>
-                        </svg>
+                        <CreditCardIcon />
                         Billing
                     </DropdownMenuItem>
                     <DropdownMenuItem>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                             class="lucide lucide-bell-icon lucide-bell">
-                            <path d="M10.268 21a2 2 0 0 0 3.464 0"/>
-                            <path
-                                d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"/>
-                        </svg>
+                        <BellIcon/>
                         Notifications
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator/>
                 <DropdownMenuItem>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                         class="lucide lucide-log-out-icon lucide-log-out">
-                        <path d="m16 17 5-5-5-5"/>
-                        <path d="M21 12H9"/>
-                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                    </svg>
+                    <LogOutIcon />
                     Log out
                 </DropdownMenuItem>
             </DropdownMenuContent>

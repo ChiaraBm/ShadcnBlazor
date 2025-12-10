@@ -1,4 +1,5 @@
-﻿@using ShadcnBlazor.Drawers
+﻿@using LucideBlazor
+@using ShadcnBlazor.Drawers
 @using ShadcnBlazor.Buttons
 
 <Drawer>
@@ -18,7 +19,7 @@
                         Variant="ButtonVariant.Outline"
                         Size="ButtonSize.Icon"
                         ClassName="h-8 w-8 shrink-0 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-minus-icon lucide-minus"><path d="M5 12h14"/></svg>
+                        <MinusIcon/>
                         <span class="sr-only">Decrease</span>
                     </Button>
                     <div class="flex-1 text-center">
@@ -34,7 +35,7 @@
                         Variant="ButtonVariant.Outline"
                         Size="ButtonSize.Icon"
                         ClassName="h-8 w-8 shrink-0 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-icon lucide-plus"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                        <PlusIcon/>
                         <span class="sr-only">Increase</span>
                     </Button>
                 </div>
