@@ -1,0 +1,8 @@
+﻿@using ShadcnBlazor.Buttons
+
+<Button @onclick="TriggerException" Variant="ButtonVariant.Outline">Trigger application wide crash handler</Button>
+
+@code
+{
+    private void TriggerException() => throw new Exception("Global test exception. Refresh to recover");
+}
