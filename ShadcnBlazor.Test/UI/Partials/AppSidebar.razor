@@ -1,4 +1,4 @@
-﻿@using ShadcnBlazor.Avatars
+﻿@using LucideBlazor
 @using ShadcnBlazor.Sidebars
 
 @inject NavigationManager Navigation
@@ -38,7 +38,7 @@
                             <SidebarMenuButton IsActive="@isActive">
                                 <Slot>
                                     <a href="@item.Path" @attributes="context">
-                                        <i class="@item.Icon"></i>
+                                        <DynamicComponent Type="item.IconType" />
                                         <span>@item.Name</span>
                                     </a>
                                 </Slot>
@@ -65,28 +65,28 @@
             new()
             {
                 Name = "Overview",
-                Icon = "icon-layout-dashboard",
+                IconType = typeof(LayoutDashboardIcon),
                 Path = "/",
                 IsExactPath = true
             },
             new()
             {
                 Name = "Installation",
-                Icon = "icon-wrench",
+                IconType = typeof(WrenchIcon),
                 Path = "/installation",
                 IsExactPath = true
             },
             new()
             {
                 Name = "Components",
-                Icon = "icon-shapes",
+                IconType = typeof(ShapesIcon),
                 Path = "/components",
                 IsExactPath = false
             },
             new()
             {
                 Name = "Extras",
-                Icon = "icon-sparkles",
+                IconType = typeof(SparklesIcon),
                 Path = "/extras",
                 IsExactPath = false
             },
@@ -110,9 +110,9 @@
     private record SidebarItem
     {
         public string Name { get; set; }
-        public string Icon { get; set; }
         public string Path { get; set; }
         public bool IsExactPath { get; set; }
+        public Type IconType { get; set; }
     }
 
     public void Dispose()
