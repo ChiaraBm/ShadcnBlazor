@@ -6,17 +6,34 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <PropertyGroup Label="Nuget Settings">
+        <Title>ShadcnBlazor.Extras</Title>
+        <Authors>ChiaraBm</Authors>
+        <Description>Additional utilities and components for ShadcnBlazor</Description>
+        <Copyright>ChiaraBm</Copyright>
+        <PackageProjectUrl>https://github.com/ChiaraBm/ShadcnBlazor</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/ChiaraBm/ShadcnBlazor/blob/main/LICENSE.md</PackageLicenseUrl>
+        <PackageIcon>logo.png</PackageIcon>
+        <RepositoryUrl>https://github.com/ChiaraBm/ShadcnBlazor</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>shadcn,blazor</PackageTags>
+        <Version>1.0.3</Version>
+    </PropertyGroup>
 
+    <ItemGroup>
+        <None Include="..\Assets\logo.png">
+            <Pack>True</Pack>
+            <PackagePath>/</PackagePath>
+            <Link>logo.png</Link>
+        </None>
+    </ItemGroup>
+    
     <ItemGroup>
         <SupportedPlatform Include="browser"/>
     </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.11"/>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="wwwroot\" />
     </ItemGroup>
 
     <ItemGroup>

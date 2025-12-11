@@ -1,6 +1,6 @@
 {
   "name": "shadcnblazor",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "ShadcnBlazor helper package",
   "main": "index.js",
   "scripts": {},

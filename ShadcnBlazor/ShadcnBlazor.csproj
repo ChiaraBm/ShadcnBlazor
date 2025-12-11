@@ -4,6 +4,9 @@
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+    
+    <PropertyGroup Label="Nuget Settings">
         <Title>ShadcnBlazor</Title>
         <Authors>ChiaraBm</Authors>
         <Description>A port of shadcn to blazor</Description>
@@ -14,9 +17,8 @@
         <RepositoryUrl>https://github.com/ChiaraBm/ShadcnBlazor</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>shadcn,blazor</PackageTags>
-        <Version>1.0.2</Version>
+        <Version>1.0.3</Version>
     </PropertyGroup>
-
 
     <ItemGroup>
         <SupportedPlatform Include="browser"/>
