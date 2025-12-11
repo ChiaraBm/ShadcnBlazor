@@ -1,0 +1,11 @@
+﻿@using ShadcnBlazor.Dialogs
+
+@code
+{
+    [CascadingParameter] public Dialog Dialog { get; set; }
+    
+    [Parameter] public DialogModel Model { get; set; }
+    
+    protected async Task CloseAsync()
+        => await Dialog.CloseAsync();
+}
