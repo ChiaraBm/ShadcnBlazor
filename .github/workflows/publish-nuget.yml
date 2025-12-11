@@ -15,7 +15,7 @@ jobs:
     
     strategy:
       matrix: 
-        projectName: [ShadcnBlazor]
+        projectName: [ShadcnBlazor, ShadcnBlazor.Extras]
     
     
     steps:
