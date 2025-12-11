@@ -8,6 +8,11 @@ on:
     branches:
       - main
 
+# OIDC for npm publishing
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   
   publish:
@@ -28,5 +33,4 @@ jobs:
 
       - uses: JS-DevTools/npm-publish@v4
         with:
-          token: ${{ secrets.NPM_TOKEN }}
           package: "ShadcnBlazor.Test/Styles/shadcnblazor"
