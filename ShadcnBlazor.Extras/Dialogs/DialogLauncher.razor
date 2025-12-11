@@ -1,0 +1,66 @@
+﻿@using ShadcnBlazor.Dialogs
+
+@inject DialogService DialogService
+
+@foreach (var dialog in Dialogs)
+{
+    <Dialog DefaultOpen="true" OnOpenChange="b => OnOpenChangeAsync(dialog, b)" @key="dialog" @ref="dialog.Dialog">
+        <DialogContent ClassName="@dialog.ClassName"
+                       ShowCloseButton="dialog.ShowCloseButton"
+                       CloseOnBackdropClick="dialog.CloseOnBackdropClick">
+            <DynamicComponent Type="dialog.ComponentType" Parameters="dialog.Attributes"/>
+        </DialogContent>
+    </Dialog>
+}
+
+@code
+{
+    private readonly List<DialogModel> Dialogs = new();
+
+    protected override void OnInitialized()
+    {
+        DialogService.SetLauncher(this);
+    }
+
+    public async Task<DialogModel> LaunchAsync<T>(
+        Action<Dictionary<string, object?>>? parameters = null,
+        Action<DialogModel>? onConfigure = null
+    ) where T : DialogBase
+    {
+        var model = new DialogModel()
+        {
+            ComponentType = typeof(T)
+        };
+        
+        onConfigure?.Invoke(model);
+
+        model.Attributes = new()
+        {
+            [nameof(DialogBase.Model)] = model
+        };
+        
+        parameters?.Invoke(model.Attributes);
+        
+        Dialogs.Add(model);
+        await InvokeAsync(StateHasChanged);
+        
+        return model;
+    }
+
+    public async Task CloseAsync(DialogModel model)
+    {
+        if(!Dialogs.Contains(model))
+            return;
+        
+        await model.Dialog.CloseAsync();
+    }
+
+    private async Task OnOpenChangeAsync(DialogModel model, bool toggle)
+    {
+        if(toggle)
+            return;
+
+        Dialogs.Remove(model);
+        await InvokeAsync(StateHasChanged);
+    }
+}
