@@ -1,5 +1,4 @@
 @using System.Globalization
-@using Microsoft.AspNetCore.Components.Sections
 @using ShadcnBlazor.Interop
 
 @inherits ShadcnBase
@@ -8,16 +7,14 @@
 
 @if (Sub.ShouldRenderContent)
 {
-    <SectionContent SectionName="@Root.SubContentOutletId">
-        <div @ref="PositionElement" class="min-w-max z-50 fixed top-0 left-0" style="@PositionStyle">
-            <div data-slot="context-menu-sub-content"
-                 data-state="@(Sub.IsOpen ? "open" : "closed")"
-                 class="@Classes"
-                 @attributes="Props">
-                @ChildContent
-            </div>
+    <div @ref="PositionElement" class="min-w-max z-50 fixed top-0 left-0" style="@PositionStyle">
+        <div data-slot="context-menu-sub-content"
+             data-state="@(Sub.IsOpen ? "open" : "closed")"
+             class="@Classes"
+             @attributes="Props">
+            @ChildContent
         </div>
-    </SectionContent>
+    </div>
 }
 
 @code
@@ -29,6 +26,8 @@
     
     private ElementReference PositionElement;
     private string PositionStyle = PositionService.Position.OffCanvasCss;
+    private bool IsPositioned;
+    
     private string? Classes;
 
     protected override void OnInitialized()
@@ -44,16 +43,22 @@
         );
     }
 
-    public async Task OnOpenedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        var position = await PositionService.PositionAroundAsync(
-            Sub.Trigger.TriggerElement,
-            PositionElement,
-            PositionSide.Right
-        );
+        if (Sub.ShouldRenderContent && !IsPositioned)
+        {
+            var position = await PositionService.PositionAroundAsync(
+                Sub.Trigger.TriggerElement,
+                PositionElement,
+                PositionSide.Right
+            );
         
-        PositionStyle = $"left: {position.X.ToString(CultureInfo.InvariantCulture)}px; top: {position.Y.ToString(CultureInfo.InvariantCulture)}px";
-
-        await InvokeAsync(StateHasChanged);
+            PositionStyle = $"left: {position.X.ToString(CultureInfo.InvariantCulture)}px; top: {position.Y.ToString(CultureInfo.InvariantCulture)}px";
+            IsPositioned = true;
+            
+            await InvokeAsync(StateHasChanged);
+        }
+        else
+            IsPositioned = false;
     }
 }

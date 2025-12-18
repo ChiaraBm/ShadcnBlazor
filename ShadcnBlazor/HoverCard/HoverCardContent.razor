@@ -36,7 +36,8 @@
     internal bool IsInHover { get; private set; }
 
     private ElementReference PositionElement;
-    private string PositionStyle;
+    private string PositionStyle = PositionService.Position.OffCanvasCss;
+    private bool IsPositioned;
     
     private string? Classes;
 
@@ -50,19 +51,25 @@
         );
     }
 
-    internal async Task OnOpenedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        var position = await PositionService.PositionAroundAsync(
-            HoverCard.Trigger.TriggerElement,
+        if (HoverCard.ShouldRenderContent && !IsPositioned)
+        {
+            var position = await PositionService.PositionAroundAsync(
+                HoverCard.Trigger.TriggerElement,
                 PositionElement,
                 Side,
                 Align,
                 SideOffset
-        );
+            );
 
-        PositionStyle = $"left: {position.X.ToString(CultureInfo.InvariantCulture)}px; top: {position.Y.ToString(CultureInfo.InvariantCulture)}px";
+            PositionStyle = $"left: {position.X.ToString(CultureInfo.InvariantCulture)}px; top: {position.Y.ToString(CultureInfo.InvariantCulture)}px";
+            IsPositioned = true;
 
-        await InvokeAsync(StateHasChanged);
+            await InvokeAsync(StateHasChanged);
+        }
+        else
+            IsPositioned = false;
     }
 
     private async Task OnMouseEnterAsync()

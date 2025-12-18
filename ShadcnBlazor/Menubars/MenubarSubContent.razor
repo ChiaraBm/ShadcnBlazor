@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Components.Sections
-@using ShadcnBlazor.Interop
+﻿@using ShadcnBlazor.Interop
 
 @inherits ShadcnBase
 
@@ -7,16 +6,14 @@
 
 @if (Sub.ShouldRenderContent)
 {
-    <SectionContent SectionName="@Menubar.SubContentSectionId">
-        <div @ref="PositionElement" class="min-w-max z-50 fixed top-0 left-0" style="@PositionStyle">
-            <div  data-slot="menubar-sub-content"
-                  class="@Classes"
-                  data-state="@(Sub.IsOpen ? "open" : "closed")"
-                  @attributes="Props">
-                @ChildContent
-            </div>
+    <div @ref="PositionElement" class="min-w-max z-50 fixed top-0 left-0" style="@PositionStyle">
+        <div  data-slot="menubar-sub-content"
+              class="@Classes"
+              data-state="@(Sub.IsOpen ? "open" : "closed")"
+              @attributes="Props">
+            @ChildContent
         </div>
-    </SectionContent>
+    </div>
 }
 
 @code
@@ -30,6 +27,7 @@
 
     private ElementReference PositionElement;
     private string PositionStyle = PositionService.Position.OffCanvasCss;
+    private bool IsPositioned;
 
     protected override void OnParametersSet()
     {
@@ -41,15 +39,22 @@
         );
     }
 
-    internal async Task OnOpenedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        var position = await PositionService.PositionAroundAsync(
-            Sub.Trigger.TriggerElement,
+        if (Sub.ShouldRenderContent && !IsPositioned)
+        {
+            var position = await PositionService.PositionAroundAsync(
+                Sub.Trigger.TriggerElement,
                 PositionElement,
                 PositionSide.Right
-        );
+            );
 
-        PositionStyle = position.ToCssStyle();
-        await InvokeAsync(StateHasChanged);
+            PositionStyle = position.ToCssStyle();
+            IsPositioned = true;
+
+            await InvokeAsync(StateHasChanged);
+        }
+        else
+            IsPositioned = false;
     }
 }

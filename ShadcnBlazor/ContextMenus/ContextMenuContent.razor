@@ -1,5 +1,4 @@
 @using System.Globalization
-@using Microsoft.AspNetCore.Components.Sections
 @using ShadcnBlazor.Interop
 
 @inherits ShadcnBase
@@ -8,20 +7,18 @@
 
 @if (ContextMenu.ShouldRenderContent)
 {
-    <SectionContent SectionName="@ContextMenu.ContentOutletId">
-        <div class="fixed inset-0 z-50" @onclick="ContextMenu.CloseAsync">
+    <div class="fixed inset-0 z-50" @onclick="ContextMenu.CloseAsync">
 
-        </div>
+    </div>
 
-        <div @ref="PositionElement" class="min-w-max z-50 fixed top-0 left-0" style="@PositionStyle">
-            <div data-slot="context-menu-content"
-                 data-state="@(ContextMenu.IsOpen ? "open" : "closed")"
-                 class="@Classes"
-                 @attributes="Props">
-                @ChildContent
-            </div>
+    <div @ref="PositionElement" class="min-w-max z-50 fixed top-0 left-0" style="@PositionStyle">
+        <div data-slot="context-menu-content"
+             data-state="@(ContextMenu.IsOpen ? "open" : "closed")"
+             class="@Classes"
+             @attributes="Props">
+            @ChildContent
         </div>
-    </SectionContent>
+    </div>
 }
 
 @code
@@ -32,6 +29,8 @@
 
     private ElementReference PositionElement;
     private string PositionStyle = PositionService.Position.OffCanvasCss;
+    private bool IsPositioned;
+    
     private string? Classes;
 
     protected override void OnParametersSet()
@@ -44,9 +43,9 @@
         );
     }
 
-    internal async Task OnOpenStateChangedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (ContextMenu.IsOpen)
+        if (ContextMenu.ShouldRenderContent && !IsPositioned)
         {
             var position = await PositionService.PositionAtWithinViewportAsync(
                 PositionElement,
@@ -55,8 +54,11 @@
             );
 
             PositionStyle = $"left: {position.X.ToString(CultureInfo.InvariantCulture)}px; top: {position.Y.ToString(CultureInfo.InvariantCulture)}px";
+            IsPositioned = true;
 
             await InvokeAsync(StateHasChanged);
         }
+        else
+            IsPositioned = false;
     }
 }

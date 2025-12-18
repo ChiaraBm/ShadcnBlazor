@@ -28,7 +28,7 @@
         isOpen = true;
         shouldRenderContent = true;
 
-        await InvokeAsync(StateHasChanged).ContinueWith(async _ => { await Content.OnOpenedAsync(); });
+        await InvokeAsync(StateHasChanged);
     }
 
     public async Task CloseAsync()

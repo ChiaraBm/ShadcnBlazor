@@ -29,6 +29,8 @@
     [Parameter] public RenderFragment ChildContent { get; set; }
 
     private ElementReference ContentContainer;
+    private bool IsPositioned;
+    
     private DomRect BoundingBox = new();
     private string? Classes;
 
@@ -42,9 +44,15 @@
         Classes = Cn("pt-0 pb-4", ClassName);
     }
 
-    public async Task OnOpened()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        BoundingBox = await InteropService.GetBoundingBoxAsync(ContentContainer);
-        await InvokeAsync(StateHasChanged);
+        if (Item.ShouldRenderContent && !IsPositioned)
+        {
+            BoundingBox = await InteropService.GetBoundingBoxAsync(ContentContainer);
+            IsPositioned = true;
+            await InvokeAsync(StateHasChanged);
+        }
+        else
+            IsPositioned = false;
     }
 }
