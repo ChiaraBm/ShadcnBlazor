@@ -7,10 +7,10 @@ public partial class DataGrid<TGridItem>
     [Parameter] public Func<DataGridRequest<TGridItem>, Task<DataGridResponse<TGridItem>>> Loader { get; set; }
 
     [Parameter] public int PageSize { get; set; } = 25;
-    
+
     public int CurrentPage { get; private set; }
     public int MaximumPage { get; private set; }
-    
+
     public int StartIndex { get; private set; }
     public int TotalItems { get; private set; }
 
@@ -31,13 +31,9 @@ public partial class DataGrid<TGridItem>
 
         StartIndex = CurrentPage * PageSize;
 
-        var response = await Loader.Invoke(new DataGridRequest<TGridItem>()
-        {
-            StartIndex = CurrentPage * PageSize,
-            Length = PageSize,
-            Filters = filters,
-            SearchTerm = SearchTerm
-        });
+        var response = await Loader.Invoke(
+            new DataGridRequest<TGridItem>(CurrentPage * PageSize, PageSize, filters, SearchTerm)
+        );
 
         Items = response.Data;
         TotalItems = response.TotalLength;

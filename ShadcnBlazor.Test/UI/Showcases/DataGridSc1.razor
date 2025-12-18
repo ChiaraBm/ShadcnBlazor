@@ -109,10 +109,6 @@
             .Take(request.Length)
             .ToArray();
 
-        return new DataGridResponse<Payment>()
-        {
-            Data = data,
-            TotalLength = Payments.Count
-        };
+        return new DataGridResponse<Payment>(data, Payments.Count);
     }
 }
