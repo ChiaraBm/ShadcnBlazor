@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Components.Sections
-@using ShadcnBlazor.Interop
+﻿@using ShadcnBlazor.Interop
 
 @inherits ShadcnBase
 
@@ -7,20 +6,18 @@
 
 @if (DropdownMenu.ShouldRenderContent)
 {
-    <SectionContent SectionName="@DropdownMenu.ContentSectionId">
-        <div class="fixed inset-0 z-50" @onclick="DropdownMenu.CloseAsync">
+    <div class="fixed inset-0 z-50" @onclick="DropdownMenu.CloseAsync">
 
-        </div>
+    </div>
 
-        <div @ref="PositionElement" class="min-w-max z-50 fixed top-0 left-0" style="@PositionStyle">
-            <div data-slot="dropdown-menu-content"
-                 data-state="@(DropdownMenu.IsOpen ? "open" : "closed")"
-                 class="@Classes"
-                 @attributes="Props">
-                @ChildContent
-            </div>
+    <div @ref="PositionElement" class="min-w-max z-50 fixed top-0 left-0" style="@PositionStyle">
+        <div data-slot="dropdown-menu-content"
+             data-state="@(DropdownMenu.IsOpen ? "open" : "closed")"
+             class="@Classes"
+             @attributes="Props">
+            @ChildContent
         </div>
-    </SectionContent>
+    </div>
 }
 
 @code
@@ -33,8 +30,10 @@
     [Parameter] public double SideOffset { get; set; } = 12;
 
     private string? Classes;
+    
     private ElementReference PositionElement;
     private string PositionStyle = PositionService.Position.OffCanvasCss;
+    private bool IsPositined;
 
     protected override void OnInitialized()
     {
@@ -49,18 +48,24 @@
         );
     }
 
-    internal async Task OnOpenedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        var position = await PositionService.PositionAroundAsync(
-            DropdownMenu.Trigger.TriggerElement,
-            PositionElement,
-            Side,
-            Align,
-            SideOffset
-        );
+        if (DropdownMenu.ShouldRenderContent && !IsPositined)
+        {
+            var position = await PositionService.PositionAroundAsync(
+                DropdownMenu.Trigger.TriggerElement,
+                PositionElement,
+                Side,
+                Align,
+                SideOffset
+            );
 
-        PositionStyle = position.ToCssStyle();
+            PositionStyle = position.ToCssStyle();
+            IsPositined = true;
 
-        await InvokeAsync(StateHasChanged);
+            await InvokeAsync(StateHasChanged);
+        }
+        else
+            IsPositined = false;
     }
 }

@@ -6,9 +6,6 @@
     @ChildContent
 </CascadingValue>
 
-<SectionOutlet SectionName="@ContentOutletId" />
-<SectionOutlet SectionName="@SubContentOutletId" />
-
 @code
 {
     [Parameter] public RenderFragment ChildContent { get; set; }
@@ -18,9 +15,6 @@
 
     internal double ClientX { get; private set; }
     internal double ClientY { get; private set; }
-
-    internal string ContentOutletId => $"context-menu-content-{GetHashCode()}";
-    internal string SubContentOutletId => $"context-menu-subcontent-{GetHashCode()}";
 
     internal ContextMenuContent Content { get; set; }
 
@@ -34,10 +28,7 @@
         IsOpen = true;
         ShouldRenderContent = true;
 
-        await InvokeAsync(StateHasChanged).ContinueWith(async _ =>
-        {
-            await Content.OnOpenStateChangedAsync();
-        });
+        await InvokeAsync(StateHasChanged);
     }
 
     public async Task CloseAsync()

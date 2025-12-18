@@ -34,6 +34,7 @@
     private string? Classes;
     private ElementReference PositionElement;
     private string PositionStyle;
+    private bool IsPositioned;
 
     protected override void OnParametersSet()
     {
@@ -46,14 +47,20 @@
         );
     }
 
-    internal async Task OnOpenedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        var aroundElement = Popover.Anchor?.AnchorReference ?? Popover.Trigger.TriggerElement;
+        if (Popover.ShouldRenderContent && !IsPositioned)
+        {
+            var aroundElement = Popover.Anchor?.AnchorReference ?? Popover.Trigger.TriggerElement;
 
-        var position = await PositionService.PositionAroundAsync(aroundElement, PositionElement, Side, Align, SideOffset);
-        PositionStyle = $"left: {position.X.ToString(CultureInfo.InvariantCulture)}px; top: {position.Y.ToString(CultureInfo.InvariantCulture)}px";
+            var position = await PositionService.PositionAroundAsync(aroundElement, PositionElement, Side, Align, SideOffset);
+            PositionStyle = $"left: {position.X.ToString(CultureInfo.InvariantCulture)}px; top: {position.Y.ToString(CultureInfo.InvariantCulture)}px";
 
-        await InvokeAsync(StateHasChanged);
+            IsPositioned = true;
+            await InvokeAsync(StateHasChanged);
+        }
+        else
+            IsPositioned = false;
     }
 
     private async Task OnBackdropClickAsync()

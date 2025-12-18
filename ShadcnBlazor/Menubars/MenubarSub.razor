@@ -26,10 +26,7 @@
         ShouldRenderContent = true;
         await Parent.ChangeFocusAsync(this);
 
-        await InvokeAsync(StateHasChanged).ContinueWith(async _ =>
-        {
-            await Content.OnOpenedAsync();
-        });
+        await InvokeAsync(StateHasChanged);
     }
     
     public async Task OnUnfocusAsync()

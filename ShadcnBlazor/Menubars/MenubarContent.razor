@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Components.Sections
-@using ShadcnBlazor.Interop
+﻿@using ShadcnBlazor.Interop
 
 @inherits ShadcnBase
 
@@ -7,20 +6,18 @@
 
 @if (Menu.ShouldRenderContent)
 {
-    <SectionContent SectionName="@Menubar.ContentSectionId">
-        <div @ref="PositionElement" class="min-w-max z-50 fixed top-0 left-0" style="@PositionStyle">
-            <div  data-slot="menubar-content"
-                  align="@Align.ToString().ToLowerInvariant()"
-                  alignOffset="-4"
-                  sideOffset="@SideOffset"
-                  class="@Classes"
-                  data-state="@(Menu.IsOpen ? "open" : "closed")"
-                  data-side="@Side.ToString().ToLowerInvariant()"
-                  @attributes="Props">
-                @ChildContent
-            </div>
+    <div @ref="PositionElement" class="min-w-max z-50 fixed top-0 left-0" style="@PositionStyle">
+        <div  data-slot="menubar-content"
+              align="@Align.ToString().ToLowerInvariant()"
+              alignOffset="-4"
+              sideOffset="@SideOffset"
+              class="@Classes"
+              data-state="@(Menu.IsOpen ? "open" : "closed")"
+              data-side="@Side.ToString().ToLowerInvariant()"
+              @attributes="Props">
+            @ChildContent
         </div>
-    </SectionContent>
+    </div>
 }
 
 @code
@@ -35,6 +32,7 @@
 
     private ElementReference PositionElement;
     private string PositionStyle = PositionService.Position.OffCanvasCss;
+    private bool IsPositioned;
 
     private string? Classes;
 
@@ -48,17 +46,24 @@
         );
     }
 
-    internal async Task OnOpenedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        var position = await PositionService.PositionAroundAsync(
-            Menu.Trigger.TriggerElement,
+        if (Menu.ShouldRenderContent && !IsPositioned)
+        {
+            var position = await PositionService.PositionAroundAsync(
+                Menu.Trigger.TriggerElement,
                 PositionElement,
                 Side,
                 Align,
                 SideOffset
-        );
+            );
 
-        PositionStyle = position.ToCssStyle();
-        await InvokeAsync(StateHasChanged);
+            PositionStyle = position.ToCssStyle();
+            IsPositioned = true;
+
+            await InvokeAsync(StateHasChanged);
+        }
+        else
+            IsPositioned = false;
     }
 }

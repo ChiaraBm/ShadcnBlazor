@@ -28,7 +28,6 @@
         ShouldRenderContent = true;
 
         await InvokeAsync(StateHasChanged);
-
         await OnOpenChange.InvokeAsync(IsOpen);
     }
 

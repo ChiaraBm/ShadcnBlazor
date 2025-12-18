@@ -1,12 +1,8 @@
-﻿@using Microsoft.AspNetCore.Components.Sections
-@implements IDropdownMenuParent
+﻿@implements IDropdownMenuParent
 
 <CascadingValue Value="this" IsFixed="true">
     @ChildContent
 </CascadingValue>
-
-<SectionOutlet SectionId="@ContentSectionId" />
-<SectionOutlet SectionId="@SubContentSectionId" />
 
 @code
 {
@@ -18,9 +14,6 @@
     internal DropdownMenuTrigger Trigger { get; set; }
     internal DropdownMenuContent Content { get; set; }
 
-    internal string ContentSectionId => $"dropdown-menu-content-{GetHashCode()}";
-    internal string SubContentSectionId => $"dropdown-menu-subcontent-{GetHashCode()}";
-
     private IDropdownMenuItem? FocusedItem;
 
     public async Task OpenAsync()
@@ -28,10 +21,7 @@
         IsOpen = true;
         ShouldRenderContent = true;
 
-        await InvokeAsync(StateHasChanged).ContinueWith(async _ =>
-        {
-            await Content.OnOpenedAsync();
-        });
+        await InvokeAsync(StateHasChanged);
     }
 
     public async Task CloseAsync()
