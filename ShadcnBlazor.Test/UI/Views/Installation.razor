@@ -81,7 +81,7 @@
             </CardContent>
         </Card>
         
-        2. Add a link tag to your generated style sheet into the head section of your index.html. <br/>
+        2. Add a link tag to your generated style sheet into the head section of your index.html and add the interop script import before the blazor was assembly script import<br/>
         
         <Card ClassName="my-3 p-1">
             <CardContent ClassName="px-0">
@@ -107,8 +107,8 @@
     private const string InstallNugetContent = "dotnet add package ShadcnBlazor";
     private const string InstallNpmContent = "npm install shadcnblazor";
     private const string NpmInitContent = "mkdir Styles\nnpm init";
-    private const string NpmInstallPostcssContent = "npm install tailwindcss @tailwindcss/postcss postcss";
-    private const string HtmlContent = "...\n    <link rel=\"stylesheet\" href=\"/style.min.css\"/>\n...";
-    private const string BuildCommandContent = "npx postcss styles.css -o ../wwwroot/style.min.cs";
+    private const string NpmInstallPostcssContent = "npm install tailwindcss @tailwindcss/postcss postcss postcss-cli tw-animate-css";
+    private const string HtmlContent = "...\n<link rel=\"stylesheet\" href=\"/style.min.css\"/>\n...\n\n\n...\n<script src=\"/_content/ShadcnBlazor/interop.js\" defer></script>\n...";
+    private const string BuildCommandContent = "npx postcss styles.css -o ../wwwroot/style.min.css --watch";
     private const string ServiceCollectionContent = "using ShadcnBlazor;\n\nbuilder.Services.AddShadcnBlazor();";
 }
