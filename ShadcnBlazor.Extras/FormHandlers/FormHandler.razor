@@ -1,0 +1,68 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using ShadcnBlazor.Spinners
+
+@inherits ShadcnBase
+
+@inject IServiceProvider ServiceProvider
+
+<CascadingValue TValue="FormHandler" Value="this">
+    @if (IsProcessing)
+    {
+        <div class="@Classes" @attributes="Props">
+            <Spinner ClassName="size-10" />
+        </div>
+    }
+    else
+    {
+        @ChildContent
+    }
+</CascadingValue>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    
+    [Parameter] public object Model { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] public EventCallback OnInvalidSubmit { get; set; }
+    [Parameter] public EventCallback<bool> OnSubmit { get; set; }
+
+    public IReadOnlyList<ValidationResult> ValidationResults => InternalResults;
+    public bool IsValid { get; private set; } = true;
+
+    private readonly List<ValidationResult> InternalResults = new();
+    private bool IsProcessing;
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn("flex justify-center items-center p-5", ClassName);
+    }
+
+    public async Task SubmitAsync()
+    {
+        IsProcessing = true;
+        await InvokeAsync(StateHasChanged);
+        
+        Validate();
+
+        await OnSubmit.InvokeAsync(IsValid);
+
+        if (IsValid)
+            await OnValidSubmit.InvokeAsync();
+        else
+            await OnInvalidSubmit.InvokeAsync();
+
+        IsProcessing = false;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private void Validate()
+    {
+        var context = new ValidationContext(Model, ServiceProvider, items: null);
+        InternalResults.Clear();
+        
+        IsValid = Validator.TryValidateObject(Model, context, InternalResults, true);
+    }
+}
