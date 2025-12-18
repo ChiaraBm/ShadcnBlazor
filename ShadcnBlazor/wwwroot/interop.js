@@ -1,6 +1,9 @@
 ﻿window.shadcnBlazor = {
     getBoundingBox: function (element) {
-        return element.getBoundingClientRect();
+        if(element instanceof HTMLElement)
+            return element.getBoundingClientRect();
+        
+        return {};
     },
     
     getViewport: function () {
