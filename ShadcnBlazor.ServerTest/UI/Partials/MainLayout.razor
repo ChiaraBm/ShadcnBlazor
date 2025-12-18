@@ -1,0 +1,25 @@
+﻿@using ShadcnBlazor.Extras.AlertDialogs
+@using ShadcnBlazor.Extras.Alerts
+@using ShadcnBlazor.Extras.Dialogs
+@using ShadcnBlazor.Extras.Toasts
+@using ShadcnBlazor.Sidebars
+
+@inherits LayoutComponentBase
+
+<SidebarProvider DefaultOpen="true">
+    <AppSidebar />
+    
+    <SidebarInset>
+        <AppHeader />
+        
+        <div class="mx-8 my-8 max-w-full">
+            <AlertLauncher />
+            
+            @Body
+        </div>
+        
+        <ToastLauncher />
+        <DialogLauncher/>
+        <AlertDialogLauncher />
+    </SidebarInset>
+</SidebarProvider>

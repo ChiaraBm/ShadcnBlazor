@@ -1,0 +1,21 @@
+{
+  "name": "shadcnblazor",
+  "version": "1.0.3",
+  "description": "ShadcnBlazor helper package",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChiaraBm/ShadcnBlazor.git"
+  },
+  "keywords": [
+    "blazor",
+    "shadcn"
+  ],
+  "author": "ChiaraBm",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ChiaraBm/ShadcnBlazor/issues"
+  },
+  "homepage": "https://github.com/ChiaraBm/ShadcnBlazor#readme"
+}

@@ -1,0 +1,10 @@
+@using ShadcnBlazor.Combobox
+@using ShadcnBlazor.Command
+
+<Combobox @bind-Value="Selected" Values="Values" SelectPlaceholder="Select frameworks..." />
+
+@code
+{
+    private string Selected = "";
+    private string[] Values = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"];
+}

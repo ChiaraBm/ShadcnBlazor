@@ -1,0 +1,45 @@
+﻿@using ShadcnBlazor.Dialogs
+@using ShadcnBlazor.Inputs
+@using ShadcnBlazor.Labels
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Extras.AlertDialogs
+@using ShadcnBlazor.Extras.Dialogs
+
+@inherits DialogBase
+
+@inject AlertDialogService AlertDialogService
+
+<DialogHeader>
+    <DialogTitle>Share your feedback</DialogTitle>
+    <DialogDescription>
+        We'd love to hear your thoughts on how we can improve.
+    </DialogDescription>
+</DialogHeader>
+<div class="space-y-2">
+    <Label for="feedback">Your feedback</Label>
+    <TextareaField
+          ClassName="min-h-[120px]"
+          id="feedback"
+          placeholder="Tell us what you think..."/>
+</div>
+<DialogFooter>
+    <DialogClose>
+        <Slot>
+            <Button Type="button" Variant="ButtonVariant.Outline" @attributes="context">
+                Cancel
+            </Button>
+        </Slot>
+    </DialogClose>
+    <Button @onclick="OnSubmitAsync" Type="button">
+        Submit Feedback
+    </Button>
+</DialogFooter>
+
+@code
+{
+    private async Task OnSubmitAsync()
+    {
+        await AlertDialogService.InfoAsync("Feedback has been submitted", "Some random next further explaining something");
+        await Dialog.CloseAsync();
+    }
+}

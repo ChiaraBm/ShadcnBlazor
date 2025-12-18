@@ -1,0 +1,50 @@
+﻿@using ShadcnBlazor.Cards
+@using ShadcnBlazor.Inputs
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Labels
+
+<Card ClassName="w-full max-w-sm">
+        <CardHeader>
+            <CardTitle>Login to your account</CardTitle>
+            <CardDescription>
+                Enter your email below to login to your account
+            </CardDescription>
+            <CardAction>
+                <Button Variant="ButtonVariant.Link">Sign Up</Button>
+            </CardAction>
+        </CardHeader>
+        <CardContent>
+            <form>
+                <div class="flex flex-col gap-6">
+                    <div class="grid gap-2">
+                        <Label for="email">Email</Label>
+                        <InputField
+                            id="email"
+                            Type="email"
+                            placeholder="m@example.com"
+                            required
+                        />
+                    </div>
+                    <div class="grid gap-2">
+                        <div class="flex items-center">
+                            <Label for="password">Password</Label>
+                            <a
+                                href="#"
+                                class="ml-auto inline-block text-sm underline-offset-4 hover:underline">
+                                Forgot your password?
+                            </a>
+                        </div>
+                        <InputField id="password" Type="password" required />
+                    </div>
+                </div>
+            </form>
+        </CardContent>
+        <CardFooter ClassName="flex-col gap-2">
+            <Button type="submit" ClassName="w-full">
+                Login
+            </Button>
+            <Button Variant="ButtonVariant.Outline" ClassName="w-full">
+                Login with Google
+            </Button>
+        </CardFooter>
+    </Card>

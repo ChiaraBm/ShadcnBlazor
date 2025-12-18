@@ -1,0 +1,14 @@
+@using ShadcnBlazor.Extras.Common
+
+<WButtom OnClick="Work1Async">Testy</WButtom>
+
+@code
+{
+
+    private async Task Work1Async(WButtom buttom)
+    {
+        await Task.Delay(2000);
+        await buttom.SetTextAsync("Doing long task");
+        await Task.Delay(4000);
+    }
+}

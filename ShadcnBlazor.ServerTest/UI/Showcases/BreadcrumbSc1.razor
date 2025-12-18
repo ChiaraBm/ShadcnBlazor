@@ -1,0 +1,45 @@
+﻿@using ShadcnBlazor.Breadcrumbs
+@using ShadcnBlazor.Dropdowns
+@using ShadcnBlazor.Interop
+
+<Breadcrumb>
+    <BreadcrumbList>
+        <BreadcrumbItem>
+            <BreadcrumbLink>
+                <Slot>
+                    <a href="/" @attributes="context">Home</a>
+                </Slot>
+            </BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator/>
+        <BreadcrumbItem>
+            <DropdownMenu>
+                <DropdownMenuTrigger>
+                    <Slot>
+                        <button class="flex items-center gap-1 hover:cursor-pointer" @attributes="context">
+                            <BreadcrumbEllipsis ClassName="size-4"/>
+                        </button>
+                    </Slot>
+                </DropdownMenuTrigger>
+
+                <DropdownMenuContent Align="PositionAlignment.Start">
+                    <DropdownMenuItem>Documentation</DropdownMenuItem>
+                    <DropdownMenuItem>Themes</DropdownMenuItem>
+                    <DropdownMenuItem>GitHub</DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator/>
+        <BreadcrumbItem>
+            <BreadcrumbLink>
+                <Slot>
+                    <a href="/docs/components" @attributes="context">Components</a>
+                </Slot>
+            </BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator/>
+        <BreadcrumbItem>
+            <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+        </BreadcrumbItem>
+    </BreadcrumbList>
+</Breadcrumb>

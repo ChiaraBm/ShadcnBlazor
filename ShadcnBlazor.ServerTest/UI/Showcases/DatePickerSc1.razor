@@ -1,0 +1,9 @@
+﻿@using ShadcnBlazor.DatePickers
+
+<DatePicker ViewStart="new DateOnly(Now.Year - 1, 1, 1)"
+            ViewEnd="new DateOnly(Now.Year + 1, 12, 31)"/>
+    
+@code
+{
+    private DateOnly Now = DateOnly.FromDateTime(DateTime.Now);
+}

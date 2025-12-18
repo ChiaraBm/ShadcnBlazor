@@ -1,0 +1,8 @@
+@using ShadcnBlazor.Buttons
+
+<Button @onclick="Testy" Variant="ButtonVariant.Outline">Trigger error</Button>
+
+@code
+{
+    private void Testy() => throw new Exception("AAAA");
+}

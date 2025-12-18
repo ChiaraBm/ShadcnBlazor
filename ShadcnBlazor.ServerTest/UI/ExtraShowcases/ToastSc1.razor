@@ -1,0 +1,35 @@
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Extras.Toasts
+
+@inject ToastService ToastService
+
+<Button Variant="ButtonVariant.Outline" @onclick="LaunchAsync">
+    Launch
+</Button>
+
+<Button Variant="ButtonVariant.Outline" @onclick="Launch2Async">
+    Launch Progress
+</Button>
+
+@code
+{
+    private async Task LaunchAsync()
+    {
+        await ToastService.InfoAsync("Operation has been performed", "Something. I dont fucking know anymore");
+        await ToastService.SuccessAsync("Operation has been performed", "Something. I dont fucking know anymore");
+        await ToastService.WarningAsync("Operation has been performed", "Something. I dont fucking know anymore");
+        await ToastService.ErrorAsync("Operation has been performed", "Something. I dont fucking know anymore");
+    }
+
+    private async Task Launch2Async()
+    {
+        await ToastService.ProgressAsync("Operation is performing", "I will progress stuff", async toast =>
+        {
+            await Task.Delay(2000);
+
+            await toast.UpdateAsync("Another operation is performing", "This can take time i guess");
+
+            await Task.Delay(2000);
+        });
+    }
+}

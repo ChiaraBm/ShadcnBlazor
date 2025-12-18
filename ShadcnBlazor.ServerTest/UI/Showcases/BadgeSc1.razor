@@ -1,0 +1,31 @@
+﻿@using ShadcnBlazor.Badges
+
+<div class="flex flex-col items-center gap-2">
+    <div class="flex w-full flex-wrap gap-2">
+        <Badge>Badge</Badge>
+        <Badge Variant="BadgeVariant.Secondary">Secondary</Badge>
+        <Badge Variant="BadgeVariant.Destructive">Destructive</Badge>
+        <Badge Variant="BadgeVariant.Outline">Outline</Badge>
+    </div>
+    <div class="flex w-full flex-wrap gap-2">
+        <Badge
+            Variant="BadgeVariant.Secondary"
+            ClassName="bg-blue-500 text-white dark:bg-blue-600">
+            <i class="icon-badge-check"></i>
+            Verified
+        </Badge>
+        <Badge ClassName="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">
+            8
+        </Badge>
+        <Badge
+            ClassName="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums"
+            Variant="BadgeVariant.Destructive">
+            99
+        </Badge>
+        <Badge
+            ClassName="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums"
+            Variant="BadgeVariant.Outline">
+            20+
+        </Badge>
+    </div>
+</div>

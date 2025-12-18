@@ -1,0 +1,16 @@
+﻿@using ShadcnBlazor.Items
+@using ShadcnBlazor.Spinners
+
+<div class="flex w-full max-w-xs flex-col gap-4 [--radius:1rem]">
+    <Item Variant="ItemVariant.Muted">
+        <ItemMedia>
+            <Spinner />
+        </ItemMedia>
+        <ItemContent>
+            <ItemTitle ClassName="line-clamp-1">Processing payment...</ItemTitle>
+        </ItemContent>
+        <ItemContent ClassName="flex-none justify-end">
+            <span class="text-sm tabular-nums">$100.00</span>
+        </ItemContent>
+    </Item>
+</div>

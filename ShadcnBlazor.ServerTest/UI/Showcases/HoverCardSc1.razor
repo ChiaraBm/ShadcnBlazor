@@ -1,0 +1,26 @@
+@using ShadcnBlazor.Avatars
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.HoverCard
+
+
+<HoverCard>
+    <HoverCardTrigger>
+        <Button Variant="ButtonVariant.Link">@@Blazor</Button>
+    </HoverCardTrigger>
+    <HoverCardContent ClassName="w-80">
+        <div class="flex justify-between gap-4">
+            <div class="flex items-center">
+                <Avatar ClassName="ml-4">
+                    <AvatarImage src="/shadcnblazor.svg"/>
+                    <AvatarFallback>VC</AvatarFallback>
+                </Avatar>
+                <h4 class="text-sm font-semibold mr-4 ml-4">@@Blazor</h4>
+            </div>
+            <div class="space-y-1">
+                <p class="text-sm">
+                    Super cool and fast framework for dotnet.
+                </p>
+            </div>
+        </div>
+    </HoverCardContent>
+</HoverCard>

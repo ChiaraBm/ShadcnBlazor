@@ -1,0 +1,56 @@
+﻿@using ShadcnBlazor.Popovers
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Inputs
+@using ShadcnBlazor.Labels
+
+<Popover>
+    <PopoverTrigger>
+        <Slot>
+            <Button @attributes="context" Variant="ButtonVariant.Outline">Open popover</Button>
+        </Slot>
+    </PopoverTrigger>
+    <PopoverContent ClassName="w-80">
+        <div class="grid gap-4">
+            <div class="space-y-2">
+                <h4 class="leading-none font-medium">Dimensions</h4>
+                <p class="text-muted-foreground text-sm">
+                    Set the dimensions for the layer.
+                </p>
+            </div>
+            <div class="grid gap-2">
+                <div class="grid grid-cols-3 items-center gap-4">
+                    <Label for="width">Width</Label>
+                    <InputField
+                        id="width"
+                        Value="100%"
+                        ClassName="col-span-2 h-8"
+                    />
+                </div>
+                <div class="grid grid-cols-3 items-center gap-4">
+                    <Label for="maxWidth">Max. width</Label>
+                    <InputField
+                        id="maxWidth"
+                        Value="300px"
+                        ClassName="col-span-2 h-8"
+                    />
+                </div>
+                <div class="grid grid-cols-3 items-center gap-4">
+                    <Label for="height">Height</Label>
+                    <InputField
+                        id="height"
+                        Value="25px"
+                        ClassName="col-span-2 h-8"
+                    />
+                </div>
+                <div class="grid grid-cols-3 items-center gap-4">
+                    <Label for="maxHeight">Max. height</Label>
+                    <InputField
+                        id="maxHeight"
+                        Value="none"
+                        ClassName="col-span-2 h-8"
+                    />
+                </div>
+            </div>
+        </div>
+    </PopoverContent>
+</Popover>

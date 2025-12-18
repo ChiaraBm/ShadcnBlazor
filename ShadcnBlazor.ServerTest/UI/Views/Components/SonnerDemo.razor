@@ -1,0 +1,23 @@
+﻿@page "/components/sonner"
+@using LucideBlazor
+@using ShadcnBlazor.Alerts
+@using ShadcnBlazor.ServerTest.UI.Components
+@using ShadcnBlazor.ServerTest.UI.Showcases
+
+<h1 class="text-xl font-semibold">Sonner</h1>
+<div class="text-muted-foreground">
+    An opinionated toast component for Blazor.
+</div>
+
+<Alert ClassName="mt-5">
+    <TriangleAlertIcon/>
+    <AlertTitle>
+        The main library only includes Sonners as base components. An interactive way to launch them can be found in the ShadcnBlazor.Extra package
+    </AlertTitle>
+</Alert>
+
+<div class="mt-8">
+    <div class="max-w-6xl">
+        <Showcase Folder="Showcases" T="SonnerSc1" />
+    </div>
+</div>
