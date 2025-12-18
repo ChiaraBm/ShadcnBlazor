@@ -1,0 +1,23 @@
+@using ShadcnBlazor.Calendars
+
+<Calendar StartDate="Now"
+          ViewStart="new DateOnly(2025, 2, 1)"
+          ViewEnd="Now"
+          Entries="Entries"/>
+
+@code
+{
+    private readonly DateOnly Now = DateOnly.FromDateTime(DateTime.Now);
+
+    private CalendarEntry[] Entries;
+
+    protected override void OnInitialized()
+    {
+        Entries =
+        [
+            new(Now, Now, true),
+            new(new DateOnly(2025, 12, 14), new DateOnly(2025, 12, 26), false),
+            new(new DateOnly(2025, 11, 7), new DateOnly(2025, 11, 9), false)
+        ];
+    }
+}

@@ -1,0 +1,30 @@
+﻿@using ShadcnBlazor.Progresses
+
+@implements IDisposable
+
+<Progress Value="Value" Max="100"></Progress>
+
+@code
+{
+    private int Value;
+    private Timer? Timer;
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return Task.CompletedTask;
+
+        Timer = new Timer(async _ =>
+        {
+            Value = Random.Shared.Next(0, 101);
+            await InvokeAsync(StateHasChanged);
+        }, null, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+
+        return Task.CompletedTask;
+    }
+
+    public void Dispose()
+    {
+        Timer?.Dispose();
+    }
+}

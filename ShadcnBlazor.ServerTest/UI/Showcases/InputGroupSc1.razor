@@ -1,0 +1,54 @@
+﻿@using LucideBlazor
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Inputs
+@using ShadcnBlazor.Separators
+
+<div class="grid w-full max-w-sm gap-6">
+    <InputGroup>
+        <InputGroupInput placeholder="Search..."/>
+        <InputGroupAddon>
+            <SearchIcon/>
+        </InputGroupAddon>
+        <InputGroupAddon Align="InputGroupAddonAlign.InlineEnd">12 results</InputGroupAddon>
+    </InputGroup>
+    <InputGroup>
+        <InputGroupInput placeholder="example.com" ClassName="!pl-1"/>
+        <InputGroupAddon>
+            <InputGroupText>https://</InputGroupText>
+        </InputGroupAddon>
+        <InputGroupAddon Align="InputGroupAddonAlign.InlineEnd">
+            <InputGroupButton ClassName="rounded-full" Size="InputGroupButtonSize.IconXs">
+                <InfoIcon/>
+            </InputGroupButton>
+        </InputGroupAddon>
+    </InputGroup>
+    <InputGroup>
+        <InputGroupTextarea placeholder="Ask, Search or Chat..."/>
+        <InputGroupAddon Align="InputGroupAddonAlign.BlockEnd">
+            <InputGroupButton
+                Variant="ButtonVariant.Outline"
+                ClassName="rounded-full"
+                Size="InputGroupButtonSize.IconXs">
+                <PlusIcon/>
+            </InputGroupButton>
+            <InputGroupText ClassName="ml-auto">52% used</InputGroupText>
+            <Separator Orientation="SeparatorOrientation.Vertical" ClassName="!h-4"/>
+            <InputGroupButton
+                Variant="ButtonVariant.Default"
+                ClassName="rounded-full"
+                Size="InputGroupButtonSize.IconXs"
+                disabled>
+                <ArrowUpIcon/>
+                <span class="sr-only">Send</span>
+            </InputGroupButton>
+        </InputGroupAddon>
+    </InputGroup>
+    <InputGroup>
+        <InputGroupInput placeholder="shadcn"/>
+        <InputGroupAddon Align="InputGroupAddonAlign.InlineEnd">
+            <div class="bg-primary text-primary-foreground flex size-4 items-center justify-center rounded-full">
+                <CheckIcon ClassName="size-3" />
+            </div>
+        </InputGroupAddon>
+    </InputGroup>
+</div>

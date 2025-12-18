@@ -1,0 +1,32 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "./shadcnblazor/default-theme.css";
+
+@import "./shadcnblazor/scrollbar.css";
+
+@source "../**/*.razor";
+@source "../**/*.cs";
+@source "../**/*.html";
+
+@source "../../ShadcnBlazor/**/*.razor";
+@source "../../ShadcnBlazor/**/*.cs";
+@source "../../ShadcnBlazor/**/*.html";
+
+@source "../../ShadcnBlazor.Extras/**/*.razor";
+@source "../../ShadcnBlazor.Extras/**/*.cs";
+@source "../../ShadcnBlazor.Extras/**/*.html";
+
+@custom-variant dark (&:is(.dark *));
+
+#blazor-error-ui {
+    display: none;
+}
+
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
+}

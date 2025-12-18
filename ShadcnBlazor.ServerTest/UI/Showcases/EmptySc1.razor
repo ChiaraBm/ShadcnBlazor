@@ -1,0 +1,33 @@
+﻿@using LucideBlazor
+@using ShadcnBlazor.Emptys
+@using ShadcnBlazor.Buttons
+
+<Empty>
+    <EmptyHeader>
+        <EmptyMedia Variant="EmptyMediaVariant.Icon">
+            <FolderOpenIcon/>
+        </EmptyMedia>
+        <EmptyTitle>No Projects Yet</EmptyTitle>
+        <EmptyDescription>
+            You haven&apos;t created any projects yet. Get started by creating
+            your first project.
+        </EmptyDescription>
+    </EmptyHeader>
+    <EmptyContent>
+        <div class="flex gap-2">
+            <Button>Create Project</Button>
+            <Button Variant="ButtonVariant.Outline">Import Project</Button>
+        </div>
+    </EmptyContent>
+    <Button
+        Variant="ButtonVariant.Link"
+        ClassName="text-muted-foreground"
+        Size="ButtonSize.Sm">
+        <Slot>
+            <a href="#" @attributes="context">
+                Learn More
+                <ArrowUpIcon/>
+            </a>
+        </Slot>
+    </Button>
+</Empty>

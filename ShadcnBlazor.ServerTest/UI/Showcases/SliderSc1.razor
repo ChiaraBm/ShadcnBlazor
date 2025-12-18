@@ -1,0 +1,18 @@
+﻿@using ShadcnBlazor.Sliders
+
+<div class="mb-1">
+    Slider value: @Value
+</div>
+
+<Slider Min="7" Max="69" @bind-Value="Value" @bind-Value:after="Callback" />
+
+
+@code
+{
+    private int Value = 42;
+
+    private async Task Callback()
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+}

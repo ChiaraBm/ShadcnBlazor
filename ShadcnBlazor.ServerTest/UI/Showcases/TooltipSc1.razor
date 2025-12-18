@@ -1,0 +1,14 @@
+﻿@using ShadcnBlazor.Tooltips
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Interop
+
+<Tooltip>
+    <TooltipTrigger>
+        <Slot>
+            <Button Variant="ButtonVariant.Outline" @attributes="context">Hover</Button>
+        </Slot>
+    </TooltipTrigger>
+    <TooltipContent Side="PositionSide.Top">
+        <p>Add to library</p>
+    </TooltipContent>
+</Tooltip>

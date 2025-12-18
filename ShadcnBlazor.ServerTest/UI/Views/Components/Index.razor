@@ -1,0 +1,110 @@
+﻿@page "/components"
+@using LucideBlazor
+@using ShadcnBlazor.Items
+
+<h1 class="text-xl font-semibold">Components</h1>
+<div class="text-muted-foreground">
+    Here you can find all the components available in the library. We are working on porting more components.
+</div>
+
+<div class="grid grid-col-1 md:grid-cols-4 2xl:grid-cols-6 gap-8 mt-8">
+    @foreach (var item in Items)
+    {
+        <div class="col-span-1">
+
+            @if (item.InProgress)
+            {
+                <Item Variant="ItemVariant.Outline" Size="ItemSize.Sm"
+                      ClassName="pointer-events-none opacity-50 w-full">
+                    <Slot>
+                        <div @attributes="context">
+                            <ItemContent>
+                                <ItemTitle>@item.Name</ItemTitle>
+                            </ItemContent>
+                            <ItemActions>
+                                <ChevronRightIcon ClassName="size-4"/>
+                            </ItemActions>
+                        </div>
+                    </Slot>
+                </Item>
+            }
+            else
+            {
+                <Item Variant="ItemVariant.Outline" Size="ItemSize.Sm" ClassName="w-full">
+                    <Slot>
+                        <a href="/components/@item.Url" @attributes="context">
+                            <ItemContent>
+                                <ItemTitle>@item.Name</ItemTitle>
+                            </ItemContent>
+                            <ItemActions>
+                                <ChevronRightIcon ClassName="size-4" />
+                            </ItemActions>
+                        </a>
+                    </Slot>
+                </Item>
+            }
+        </div>
+    }
+</div>
+
+@code
+{
+    private readonly List<ComponentItem> Items =
+    [
+        new(false, "accordion", "Accordion"),
+        new(false, "alertDialog", "Alert Dialog"),
+        new(false, "alert", "Alert"),
+        new(false, "avatar", "Avatar"),
+        new(false, "badge", "Badge"),
+        new(false, "breadcrumb", "Breadcrumb"),
+        new(false, "buttonGroup", "Button Group"),
+        new(false, "button", "Button"),
+        new(false, "calendar", "Calendar"),
+        new(false, "card", "Card"),
+        new(false, "carousel", "Carousel"),
+        new(true, "chart", "Chart"),
+        new(false, "checkbox", "Checkbox"),
+        new(false, "collapsible", "Collapsible"),
+        new(false, "command", "Command"),
+        new(false, "combobox", "Combobox"),
+        new(false, "contextMenu", "Context Menu"),
+        new(false, "dataTable", "Data Table"),
+        new(false, "datePicker", "Date Picker"),
+        new(false, "dialog", "Dialog"),
+        new(false, "drawer", "Drawer"),
+        new(false, "dropdownMenu", "Dropdown Menu"),
+        new(false, "empty", "Empty"),
+        new(true, "field", "Field"),
+        new(false, "hoverCard", "Hover Card"),
+        new(false, "inputGroup", "Input Group"),
+        new(false, "inputOtp", "Input OTP"),
+        new(false, "input", "Input"),
+        new(false, "item", "Item"),
+        new(false, "kbd", "Kbd"),
+        new(false, "label", "Label"),
+        new(false, "menubar", "Menubar"),
+        new(false, "nativeSelect", "Native Select"),
+        new(true, "navigationMenu", "Navigation Menu"),
+        new(false, "pagination", "Pagination"),
+        new(false, "popover", "Popover"),
+        new(false, "progress", "Progress"),
+        new(false, "radioGroup", "Radio Group"),
+        new(true, "resizeable", "Resizable"),
+        new(true, "scrollArea", "Scroll Area"),
+        new(true, "select", "Select"),
+        new(false, "separator", "Separator"),
+        new(false, "sheet", "Sheet"),
+        new(false, "skeleton", "Skeleton"),
+        new(false, "slider", "Slider"),
+        new(false, "sonner", "Sonner"),
+        new(false, "spinner", "Spinner"),
+        new(false, "table", "Table"),
+        new(false, "tabs", "Tabs"),
+        new(false, "textarea", "Textarea"),
+        new(false, "toggleGroup", "Toggle Group"),
+        new(false, "toggle", "Toggle"),
+        new(false, "tooltip", "Tooltip"),
+    ];
+
+    record ComponentItem(bool InProgress, string Url, string Name);
+}

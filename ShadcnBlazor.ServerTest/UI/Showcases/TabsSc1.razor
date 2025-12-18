@@ -1,0 +1,62 @@
+﻿@using ShadcnBlazor.Cards
+@using ShadcnBlazor.Tab
+@using ShadcnBlazor.Labels
+@using ShadcnBlazor.Inputs
+@using ShadcnBlazor.Buttons
+
+<div class="flex w-full max-w-sm flex-col gap-6">
+    <Tabs DefaultValue="account">
+        <TabsList>
+            <TabsTrigger Value="account">Account</TabsTrigger>
+            <TabsTrigger Value="password">Password</TabsTrigger>
+        </TabsList>
+        <TabsContent Value="account">
+            <Card>
+                <CardHeader>
+                    <CardTitle>Account</CardTitle>
+                    <CardDescription>
+                        Make changes to your account here. Click save when you&apos;re
+                        done.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent className="grid gap-6">
+                    <div class="grid gap-3">
+                        <Label for="tabs-demo-name">Name</Label>
+                        <InputField id="tabs-demo-name" Value="Pedro Duarte"/>
+                    </div>
+                    <div class="grid gap-3">
+                        <Label for="tabs-demo-username">Username</Label>
+                        <InputField id="tabs-demo-username" Value="@("@peduarte")"/>
+                    </div>
+                </CardContent>
+                <CardFooter>
+                    <Button>Save changes</Button>
+                </CardFooter>
+            </Card>
+        </TabsContent>
+        <TabsContent Value="password">
+            <Card>
+                <CardHeader>
+                    <CardTitle>Password</CardTitle>
+                    <CardDescription>
+                        Change your password here. After saving, you&apos;ll be logged
+                        out.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent ClassName="grid gap-6">
+                    <div class="grid gap-3">
+                        <Label for="tabs-demo-current">Current password</Label>
+                        <InputField id="tabs-demo-current" type="password"/>
+                    </div>
+                    <div class="grid gap-3">
+                        <Label for="tabs-demo-new">New password</Label>
+                        <InputField id="tabs-demo-new" type="password"/>
+                    </div>
+                </CardContent>
+                <CardFooter>
+                    <Button>Save password</Button>
+                </CardFooter>
+            </Card>
+        </TabsContent>
+    </Tabs>
+</div>
