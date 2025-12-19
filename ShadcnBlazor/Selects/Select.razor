@@ -1,0 +1,27 @@
+﻿@using ShadcnBlazor.Popovers
+@typeparam T
+
+<CascadingValue Value="this">
+    <Popover @ref="Popover">
+        @ChildContent
+    </Popover>
+</CascadingValue>
+
+@code {
+
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    [Parameter] public T? Value { get; set; }
+
+    [Parameter] public EventCallback<T?> ValueChanged { get; set; }
+
+    [Parameter] public Func<T, string> DisplayName { get; set; }
+    
+    [Parameter] public Func<T?, string> KeySelector { get; set; }
+
+    public bool Opened => Popover.IsOpen;
+
+    internal Popover Popover;
+
+    internal SelectValue<T> SelectValue;
+}
