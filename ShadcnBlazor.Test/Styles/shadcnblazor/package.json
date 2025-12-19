@@ -1,8 +1,7 @@
 {
   "name": "shadcnblazor",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "ShadcnBlazor helper package",
-  "main": "index.js",
   "scripts": {},
   "repository": {
     "type": "git",
