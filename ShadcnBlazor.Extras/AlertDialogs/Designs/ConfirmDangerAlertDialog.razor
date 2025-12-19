@@ -1,0 +1,33 @@
+@using LucideBlazor
+@using ShadcnBlazor.AlertDialogs
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Extras.Common
+
+@inherits AlertDialogBase
+
+<AlertDialogHeader>
+    <div class="flex items-center gap-2">
+        <TriangleAlertIcon ClassName="size-5 text-destructive" />
+        <AlertDialogTitle>@Title</AlertDialogTitle>
+    </div>
+    <AlertDialogDescription>
+        @Description
+    </AlertDialogDescription>
+</AlertDialogHeader>
+<AlertDialogFooter>
+    <AlertDialogCancel>Cancel</AlertDialogCancel>
+    <WButtom Variant="ButtonVariant.Destructive" OnClick="CallbackAsync">Confirm</WButtom>
+</AlertDialogFooter>
+
+@code
+{
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string Description { get; set; }
+    [Parameter] public Func<Task> OnConfirm { get; set; }
+
+    private async Task CallbackAsync()
+    {
+        await OnConfirm.Invoke();
+        await AlertDialog.CloseAsync();
+    }
+}

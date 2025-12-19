@@ -17,11 +17,18 @@
             async () =>
             {
                 await Task.Delay(1500);
-                
-                await AlertDialogService.InfoAsync("Operation has been performed", "Something. I dont fucking know anymore");
-                await AlertDialogService.SuccessAsync("Operation has been performed", "Something. I dont fucking know anymore");
-                await AlertDialogService.WarningAsync("Operation has been performed", "Something. I dont fucking know anymore");
-                await AlertDialogService.ErrorAsync("Operation has been performed", "Something. I dont fucking know anymore");
+
+                await AlertDialogService.ConfirmDangerAsync(
+                    "Are you really sure???",
+                    "I just wanted to show of the confirm danger variant :). Just press confirm again",
+                    async () =>
+                    {
+                        await AlertDialogService.InfoAsync("Operation has been performed", "Something. I dont fucking know anymore");
+                        await AlertDialogService.SuccessAsync("Operation has been performed", "Something. I dont fucking know anymore");
+                        await AlertDialogService.WarningAsync("Operation has been performed", "Something. I dont fucking know anymore");
+                        await AlertDialogService.ErrorAsync("Operation has been performed", "Something. I dont fucking know anymore");
+                    }
+                );
             }
         );
     }
