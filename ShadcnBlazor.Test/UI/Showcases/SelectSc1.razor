@@ -1,7 +1,6 @@
 ﻿@using ShadcnBlazor.Cards
 @using ShadcnBlazor.Selects
 
-@* @bind-Value="SelectedFruit" *@
 
 <Select T="Fruit" DisplayName='fruit => fruit.Name +  " - "  + fruit.Price + " $"' KeySelector="fruit => fruit.Name.ToLowerInvariant()" @bind-Value="SelectedFruit">
     <SelectTrigger T="Fruit">
@@ -10,7 +9,6 @@
     <SelectContent T="Fruit">
         <SelectGroup>
             <SelectLabel>Fruits</SelectLabel>
-            
             @foreach (var fruit in Fruits)
             {
                 <SelectItem T="Fruit" Value="fruit"/>
@@ -19,22 +17,23 @@
     </SelectContent>
 </Select>
 
-@* @if (SelectedFruit is not null) *@
-@* { *@
-@*     <Card> *@
-@*         <CardHeader> *@
-@*             Selected Fruit: @SelectedFruit.Name *@
-@*         </CardHeader> *@
-@*          *@
-@*         <CardDescription> *@
-@*             It costs a whopping @SelectedFruit.Price $, thats expensive! *@
-@*         </CardDescription> *@
-@*     </Card> *@
-@* } *@
+@if (SelectedFruit is not null)
+{
+    <Card ClassName="mt-4">
+        <CardHeader>
+            Selected Fruit: @SelectedFruit.Name
+        </CardHeader>
+        <CardContent>
+            <CardDescription>
+                It costs a whopping @SelectedFruit.Price $, thats expensive!
+            </CardDescription> 
+        </CardContent>
+    </Card>
+}
 
 @code {
 
-    public Fruit? SelectedFruit;
+    private Fruit? SelectedFruit;
     
     public class Fruit
     {

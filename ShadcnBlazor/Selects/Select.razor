@@ -11,13 +11,33 @@
 
     [Parameter] public RenderFragment ChildContent { get; set; }
 
-    [Parameter] public T? Value { get; set; }
+    private T? _value;
+    
+    [Parameter] public T? Value 
+    { 
+        get => _value; 
+        set
+        {
+            if (value is null)
+                return;
+            
+            if (_value is not null && KeySelector.Invoke(value) == KeySelector.Invoke(_value))
+                return;
+            
+            _value = value;  
+            
+            if(ValueChanged.HasDelegate)
+            {
+               _ = ValueChanged.InvokeAsync(value);
+            }  
+        }
+    }
 
     [Parameter] public EventCallback<T?> ValueChanged { get; set; }
 
     [Parameter] public Func<T, string> DisplayName { get; set; }
     
-    [Parameter] public Func<T?, string> KeySelector { get; set; }
+    [Parameter] public Func<T, string> KeySelector { get; set; }
 
     public bool Opened => Popover.IsOpen;
 
