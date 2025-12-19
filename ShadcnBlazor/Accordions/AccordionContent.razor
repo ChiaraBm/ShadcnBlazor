@@ -34,11 +34,6 @@
     private DomRect BoundingBox = new();
     private string? Classes;
 
-    protected override void OnInitialized()
-    {
-        Item.SetContentRef(this);
-    }
-
     protected override void OnParametersSet()
     {
         Classes = Cn("pt-0 pb-4", ClassName);

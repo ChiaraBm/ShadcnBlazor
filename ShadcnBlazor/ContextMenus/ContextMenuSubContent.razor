@@ -29,12 +29,7 @@
     private bool IsPositioned;
     
     private string? Classes;
-
-    protected override void OnInitialized()
-    {
-        Sub.Content = this;
-    }
-
+    
     protected override void OnParametersSet()
     {
         Classes = Cn(

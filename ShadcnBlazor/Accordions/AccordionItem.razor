@@ -21,7 +21,6 @@
     public bool ShouldRenderContent { get; private set; }
 
     private string? Classes;
-    private AccordionContent ContentRef;
 
     protected override void OnInitialized()
     {
@@ -63,7 +62,4 @@
             await InvokeAsync(StateHasChanged);
         });
     }
-
-    internal void SetContentRef(AccordionContent content)
-        => ContentRef = content;
 }
