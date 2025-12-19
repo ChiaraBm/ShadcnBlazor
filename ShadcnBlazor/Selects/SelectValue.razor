@@ -1,0 +1,39 @@
+﻿@inherits ShadcnBase
+
+@typeparam T
+
+<span data-slot="select-value" class="@Classes">
+    @if (Parent.Value is not null)
+    {
+        @Parent.DisplayName.Invoke(Parent.Value)
+    }
+    else
+    {
+        @Placeholder
+    }
+</span>
+
+@code {
+
+    [CascadingParameter] public Select<T>? Parent { get; set; }
+
+    [Parameter] public string Placeholder { get; set; }
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        if (Parent is null)
+            throw new NullReferenceException($"{nameof(SelectValue<T>)} cannot be used outside of a {nameof(Select<T>)} component.");
+
+        Parent.SelectValue = this;
+
+        Classes = Cn("pointer-events-none", ClassName);
+    }
+
+    internal async Task UpdateDisplay()
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+
+}

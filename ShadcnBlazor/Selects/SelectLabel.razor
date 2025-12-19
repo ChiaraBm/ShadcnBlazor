@@ -1,0 +1,19 @@
+﻿@inherits ShadcnBase
+
+<div data-slot="select-label" class="@Classes">
+    @ChildContent
+</div>
+
+@code {
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private string? Classes;
+    
+    protected override void OnParametersSet()
+    {
+        Classes = Cn("text-muted-foreground px-2 py-1.5 text-xs", ClassName);
+
+    }
+
+}

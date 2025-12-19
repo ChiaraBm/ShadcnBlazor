@@ -1,0 +1,51 @@
+﻿@inherits ShadcnBase
+
+@using LucideBlazor
+@using ShadcnBlazor.Popovers
+@using ShadcnBlazor.Buttons
+
+@typeparam T
+
+<PopoverTrigger>
+    <Slot>
+        <Button
+            Variant="ButtonVariant.Outline"
+            role="combobox"
+            aria-expanded="@Parent.Popover.IsOpen.ToString().ToLowerInvariant()"
+            data-placeholder="@((Parent.Value == null).ToString().ToLowerInvariant())"
+            aria-autocomplete="none"
+            dir="ltr"
+            data-state="@(Parent.Opened ? "open" : "closed")"
+            data-slot="select-trigger"
+            data-size="default"
+            ClassName="@Classes"
+            @attributes="@(Props == null ? context : context.Concat(Props))">
+            @ChildContent
+            <ChevronDownIcon ClassName="size-4 opacity-50" aria-hidden="true"></ChevronDownIcon>
+        </Button>
+    </Slot>
+</PopoverTrigger>
+
+
+
+@code{
+
+    
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+    
+    [CascadingParameter] public Select<T>? Parent { get; set; }
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        if (Parent is null)
+            throw new NullReferenceException($"{nameof(SelectTrigger<T>)} cannot be used outside of a {nameof(Select<T>)} component.");
+
+        Classes = Cn("w-[200px] justify-between data-[placeholder=true]:text-muted-foreground font-normal",
+            ClassName
+        );
+    }
+
+} 
