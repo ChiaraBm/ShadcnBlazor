@@ -1,73 +1,52 @@
-﻿@inherits ShadcnBase
-
 @using LucideBlazor
-@typeparam T
+
+@inherits ShadcnBase
 
 <div role="option"
-     data-selected="@Hovering.ToString().ToLowerInvariant()"
-     aria-selected="@Hovering.ToString().ToLowerInvariant()"
-     data-state="unchecked"
      tabindex="-1"
      data-slot="select-item"
-     data-disabled="@(Disabled ? "true" : "false")"
      class="@Classes"
-     @onmouseenter="OnMouseEnterAsync"
-     @onmouseleave="OnMouseLeaveAsync"
-     @onclick="OnClickAsync">
-    <span data-slot="select-item-indicator" class="absolute right-2 flex size-3.5 items-center justify-center">
-        @if (Parent.Value is not null && Parent.KeySelector.Invoke(Value) == Parent.KeySelector.Invoke(Parent.Value))
+     data-disabled="@Disabled"
+     disabled="@Disabled"
+     onmouseover="this.focus()"
+     @onclick="OnClickAsync"
+     @attributes="Props">
+    
+    <span
+        data-slot="select-item-indicator"
+        class="absolute right-2 flex size-3.5 items-center justify-center">
+        @if (Select.Value == Value)
         {
-            <CheckIcon aria-hidden="true"/>
+            <CheckIcon className="size-4"/>
         }
     </span>
-    <span>@Parent.DisplayName.Invoke(Value)</span>
+
+    @ChildContent
 </div>
 
-@code {
+@code
+{
+    [CascadingParameter] public Select Select { get; set; }
 
-    [CascadingParameter] public Select<T>? Parent { get; set; }
-
-    [Parameter] public required T Value { get; set; }
-
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public string Value { get; set; }
     [Parameter] public bool Disabled { get; set; }
-
-    private bool Hovering;
 
     private string? Classes;
 
     protected override void OnParametersSet()
     {
-        if (Parent is null)
-            throw new NullReferenceException($"{nameof(SelectItem<T>)} cannot be used outside of a {nameof(Select<T>)} component.");
-
         Classes = Cn(
-            "data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex w-full [&_svg]:pointer-events-none",
-            "cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50",
-            "[&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
-            ClassName);
-    }
-
-    private Task OnMouseEnterAsync()
-    {
-        Hovering = true;
-
-        return Task.CompletedTask;
-    }
-
-    private Task OnMouseLeaveAsync()
-    {
-        Hovering = false;
-
-        return Task.CompletedTask;
+            "focus:bg-accent focus:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
+            ClassName
+        );
     }
 
     private async Task OnClickAsync()
-    { 
-        Parent.Value = Value;
-
-        await Parent.Popover.CloseAsync();
-
-        await Parent.SelectValue.UpdateDisplay();
+    {
+        if(Disabled)
+            return;
+        
+        await Select.UpdateValueAsync(Value, ChildContent);
     }
-
 }

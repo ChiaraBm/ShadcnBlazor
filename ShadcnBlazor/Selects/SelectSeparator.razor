@@ -1,0 +1,18 @@
+@inherits ShadcnBase
+
+<div data-slot="select-separator"
+     class="@Classes"
+     @attributes="Props">
+</div>
+
+@code
+{
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "bg-border pointer-events-none -mx-1 my-1 h-px", ClassName
+        );
+    }
+}

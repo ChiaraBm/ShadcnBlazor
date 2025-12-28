@@ -1,54 +1,17 @@
-﻿@using ShadcnBlazor.Cards
-@using ShadcnBlazor.Selects
+﻿@using ShadcnBlazor.Selects
 
-
-<Select T="Fruit" DisplayName='fruit => fruit.Name +  " - "  + fruit.Price + " $"' KeySelector="fruit => fruit.Name.ToLowerInvariant()" @bind-Value="SelectedFruit">
-    <SelectTrigger T="Fruit">
-        <SelectValue T="Fruit" PlaceHolder="Select a fruit"/>
+<Select>
+    <SelectTrigger ClassName="w-[180px]">
+        <SelectValue Placeholder="Select a fruit" />
     </SelectTrigger>
-    <SelectContent T="Fruit">
+    <SelectContent ClassName="w-[180px]">
         <SelectGroup>
             <SelectLabel>Fruits</SelectLabel>
-            @foreach (var fruit in Fruits)
-            {
-                <SelectItem T="Fruit" Value="fruit"/>
-            }
+            <SelectItem Value="apple">Apple</SelectItem>
+            <SelectItem Value="banana">Banana</SelectItem>
+            <SelectItem Value="blueberry">Blueberry</SelectItem>
+            <SelectItem Value="grapes">Grapes</SelectItem>
+            <SelectItem Value="pineapple">Pineapple</SelectItem>
         </SelectGroup>
     </SelectContent>
 </Select>
-
-@if (SelectedFruit is not null)
-{
-    <Card ClassName="mt-4">
-        <CardHeader>
-            Selected Fruit: @SelectedFruit.Name
-        </CardHeader>
-        <CardContent>
-            <CardDescription>
-                It costs a whopping @SelectedFruit.Price $, thats expensive!
-            </CardDescription> 
-        </CardContent>
-    </Card>
-}
-
-@code {
-
-    private Fruit? SelectedFruit;
-    
-    public class Fruit
-    {
-        public string Name { get; set; }
-        
-        public int Price { get; set; }
-    }
-
-    public static Fruit[] Fruits = [
-    
-        new Fruit(){Name = "Apple", Price = 2},
-        new Fruit(){Name = "Peach", Price = 1},
-        new Fruit(){Name = "Banana", Price = 3},
-        new Fruit(){Name = "Pear", Price = 2}
-    ];
-
-
-}
