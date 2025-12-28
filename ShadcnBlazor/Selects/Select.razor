@@ -1,47 +1,53 @@
-﻿@using ShadcnBlazor.Popovers
-@typeparam T
-
-<CascadingValue Value="this">
-    <Popover @ref="Popover">
-        @ChildContent
-    </Popover>
+<CascadingValue TValue="Select" Value="this">
+    @ChildContent
 </CascadingValue>
 
-@code {
-
+@code
+{
     [Parameter] public RenderFragment ChildContent { get; set; }
-
-    private T? _value;
     
-    [Parameter] public T? Value 
-    { 
-        get => _value; 
-        set
-        {
-            if (value is null)
-                return;
-            
-            if (_value is not null && KeySelector.Invoke(value) == KeySelector.Invoke(_value))
-                return;
-            
-            _value = value;  
-            
-            if(ValueChanged.HasDelegate)
-            {
-               _ = ValueChanged.InvokeAsync(value);
-            }  
-        }
+    [Parameter] public string Value { get; set; }
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
+    [Parameter] public string DefaultValue { get; set; }
+    
+    internal bool IsOpen { get; private set; }
+    internal bool ShouldRenderContent { get; private set; }
+    
+    internal SelectTrigger Trigger { get; set; }
+    internal RenderFragment ValueContent { get; private set; }
+
+    protected override void OnInitialized()
+    {
+        Value = DefaultValue;
     }
 
-    [Parameter] public EventCallback<T?> ValueChanged { get; set; }
+    internal async Task UpdateValueAsync(string value, RenderFragment valueRender)
+    {
+        Value = value;
+        ValueContent = valueRender;
+        await ValueChanged.InvokeAsync();
 
-    [Parameter] public Func<T, string> DisplayName { get; set; }
-    
-    [Parameter] public Func<T, string> KeySelector { get; set; }
+        await CloseAsync();
+    }
 
-    public bool Opened => Popover.IsOpen;
+    public async Task OpenAsync()
+    {
+        IsOpen = true;
+        ShouldRenderContent = true;
 
-    internal Popover Popover;
+        await InvokeAsync(StateHasChanged);
+    }
 
-    internal SelectValue<T> SelectValue;
+    public async Task CloseAsync()
+    {
+        IsOpen = false;
+        
+        await InvokeAsync(StateHasChanged).ContinueWith(async _ =>
+        {
+            await Task.Delay(100);
+
+            ShouldRenderContent = false;
+            await InvokeAsync(StateHasChanged);
+        });
+    }
 }

@@ -1,10 +1,13 @@
-﻿<div role="group" data-slot="select-group">
+@inherits ShadcnBase
+
+<div role="group"
+     data-slot="select-group"
+     class="@ClassName"
+     @attributes="Props">
     @ChildContent
 </div>
 
-@code {
-
-    [Parameter] public RenderFragment? ChildContent { get; set; }
-
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
 }
-
