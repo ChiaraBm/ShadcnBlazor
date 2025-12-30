@@ -11,15 +11,17 @@
 @code
 {
     [Parameter] public RenderFragment ChildContent { get; set; }
+    
     [Parameter] public string DefaultValue { get; set; } = "";
-
-    public string CurrentValue { get; set; }
+    [Parameter] public EventCallback<string> OnValueChanged { get; set; }
+    
+    public string Value { get; private set; }
     
     private string? Classes;
 
     protected override void OnInitialized()
     {
-        CurrentValue = DefaultValue;
+        Value = DefaultValue;
     }
 
     protected override void OnParametersSet()
@@ -30,9 +32,11 @@
         );
     }
 
-    public async Task SwitchAsync(string tabValue)
+    public async Task SwitchAsync(string value)
     {
-        CurrentValue = tabValue;
+        Value = value;
         await InvokeAsync(StateHasChanged);
+
+        await OnValueChanged.InvokeAsync(value);
     }
 }

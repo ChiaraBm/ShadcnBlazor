@@ -15,7 +15,7 @@
     [Parameter] public string Value { get; set; } = "";
     
     private string? Classes;
-    private bool IsActive => Tabs.CurrentValue.Equals(Value, StringComparison.OrdinalIgnoreCase);
+    private bool IsActive => Tabs.Value.Equals(Value, StringComparison.OrdinalIgnoreCase);
     
     protected override void OnParametersSet()
     {
