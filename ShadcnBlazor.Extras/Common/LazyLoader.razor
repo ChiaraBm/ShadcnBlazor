@@ -49,6 +49,10 @@ else
 
     public async Task ReloadAsync()
     {
+        // Prevent reload before the previous reload is done
+        if(IsLoading)
+            return;
+        
         IsLoading = true;
         Text = null;
         await InvokeAsync(StateHasChanged);
