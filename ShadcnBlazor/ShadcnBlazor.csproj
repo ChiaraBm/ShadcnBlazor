@@ -46,4 +46,8 @@
         <DependentUpon>DataGrid.razor</DependentUpon>
       </Compile>
     </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Combobox\Combobox.razor" />
+    </ItemGroup>
 </Project>

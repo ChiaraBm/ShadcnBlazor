@@ -1,0 +1,54 @@
+@using ShadcnBlazor.Extras.Comboboxes
+
+<Combobox TItem="Fruit" Source="LoadAsync" ValueSelector="fruit => fruit.Name" />
+
+@code
+{
+    private readonly List<Fruit> Fruits =
+    [
+        new("Apple"),
+        new("Apricot"),
+        new("Avocado"),
+        new("Banana"),
+        new("Blackberry"),
+        new("Blueberry"),
+        new("Boysenberry"),
+        new("Cantaloupe"),
+        new("Cherry"),
+        new("Coconut"),
+        new("Cranberry"),
+        new("Date"),
+        new("Dragonfruit"),
+        new("Durian"),
+        new("Elderberry"),
+        new("Fig"),
+        new("Pineapple"),
+        new("Plum"),
+        new("Pomegranate"),
+        new("Quince"),
+        new("Raspberry"),
+        new("Starfruit"),
+        new("Strawberry"),
+        new("Tangerine"),
+        new("Ugli Fruit"),
+        new("Watermelon"),
+        new("White Currant"),
+        new("Yellow Passionfruit"),
+        new("Yuzu"),
+        new("Zucchini"),
+        new("Plantain")
+    ];
+    
+    record Fruit(string Name);
+
+    private async Task<Fruit[]> LoadAsync(string? searchTerm)
+    {
+        var result = string.IsNullOrWhiteSpace(searchTerm)
+            ? Fruits.Take(15)
+            : Fruits.Where(x => x.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)).Take(15);
+
+        await Task.Delay(500);
+        
+        return result.ToArray();
+    }
+}
