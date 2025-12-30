@@ -1,0 +1,131 @@
+@using LucideBlazor
+@using ShadcnBlazor.Commands
+@using ShadcnBlazor.Interop
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Extras.Common
+@using ShadcnBlazor.Popovers
+
+@typeparam TItem
+
+@inherits ShadcnBase
+
+<Popover @ref="Popover" OnOpenChange="OnPopoverClosed">
+    <PopoverTrigger>
+        <Slot>
+            <Button
+                Variant="ButtonVariant.Outline"
+                role="combobox"
+                aria-expanded="@Popover.IsOpen.ToString().ToLowerInvariant()"
+                ClassName="@Classes"
+                @attributes="@(Props == null ? context : context.Concat(Props))">
+                @if (Value?.Equals(default(TItem)) ?? true)
+                {
+                    <span>
+                        @FieldPlaceholder
+                    </span>
+                }
+                else
+                {
+                    <span>@ValueSelector.Invoke(Value)</span>
+                }
+                <ChevronsUpDownIcon ClassName="opacity-50"/>
+            </Button>
+        </Slot>
+    </PopoverTrigger>
+    <PopoverContent Align="Alignment" Side="Side" ClassName="w-[200px] p-0">
+        <ComboboxInput placeholder="@SearchPlaceholder" ClassName="h-9" @oninput="OnSearchTermChanged"/>
+        <LazyLoader @ref="LazyLoader" Load="LoadAsync" ClassName="size-8">
+            <Command OnItemClicked="OnItemClickedAsync">
+                <CommandList>
+                    <CommandEmpty>
+                        No items found
+                    </CommandEmpty>
+                    <CommandGroup>
+                        @foreach (var item in Items)
+                        {
+                            <CommandItem @key="item" OnClicked="() => OnItemClicked(item)">
+                                @ValueSelector.Invoke(item)
+                                
+                                @if (item?.Equals(Value) ?? false)
+                                {
+                                    <CheckIcon ClassName="ml-auto"/>
+                                }
+                            </CommandItem>
+                        }
+                    </CommandGroup>
+                </CommandList>
+            </Command>
+        </LazyLoader>
+    </PopoverContent>
+</Popover>
+
+@code
+{
+    [Parameter] public TItem? Value { get; set; }
+    [Parameter] public EventCallback<TItem?> ValueChanged { get; set; }
+    [Parameter] public TItem? DefaultValue { get; set; }
+    
+    [Parameter] public PositionAlignment Alignment { get; set; } = PositionAlignment.Center;
+    [Parameter] public PositionSide Side { get; set; } = PositionSide.Bottom;
+
+    [Parameter, EditorRequired] public ItemLoader Source { get; set; }
+    [Parameter] public Func<TItem, string> ValueSelector { get; set; } = item => item.ToString();
+    [Parameter] public int DebounceMs { get; set; } = 250;
+
+    [Parameter] public string SearchPlaceholder { get; set; } = "Search items...";
+    [Parameter] public string FieldPlaceholder { get; set; } = "Select item...";
+
+    public delegate Task<TItem[]> ItemLoader(string? searchTerm);
+
+    private Popover Popover;
+    private LazyLoader LazyLoader;
+    
+    private string? SearchTerm;
+    private Debouncer Debouncer;
+    private TItem[] Items = [];
+
+    private string? Classes;
+
+    protected override void OnInitialized()
+    {
+        Value = DefaultValue;
+        Debouncer = new(DebounceMs);
+    }
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(ClassName);
+    }
+    
+    private void OnSearchTermChanged(ChangeEventArgs changeEventArgs)
+    {
+        SearchTerm = changeEventArgs.Value?.ToString() ?? null;
+        Debouncer.Debounce(LazyLoader.ReloadAsync);
+    }
+
+    private async Task OnItemClicked(TItem item)
+    {
+        if (item?.Equals(Value) ?? false)
+            Value = default;
+        else
+            Value = item;
+
+        await ValueChanged.InvokeAsync(Value);
+    }
+
+    private async Task LoadAsync(LazyLoader _)
+        => Items = await Source.Invoke(SearchTerm);
+    
+    private async Task OnItemClickedAsync()
+        => await Popover.CloseAsync();
+
+    private void OnPopoverClosed(bool isOpen)
+    {
+        if(isOpen)
+            return;
+        
+        // Reset state
+        SearchTerm = null;
+        Items = [];
+    }
+}

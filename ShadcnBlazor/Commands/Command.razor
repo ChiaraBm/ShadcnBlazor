@@ -27,10 +27,19 @@
         );
     }
 
-    public async Task UpdateFilteredItemsAsync(ChangeEventArgs eventArgs)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        var searchTerm = eventArgs.Value?.ToString() ?? "";
+        if(!firstRender)
+            return;
 
+        await UpdateAsync(string.Empty);
+    }
+
+    public async Task UpdateFilteredItemsAsync(ChangeEventArgs eventArgs)
+        => await UpdateAsync(eventArgs.Value?.ToString() ?? "");
+
+    private async Task UpdateAsync(string searchTerm)
+    {
         IsSearching = !string.IsNullOrWhiteSpace(searchTerm);
 
         foreach (var item in Items)
