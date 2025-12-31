@@ -38,7 +38,7 @@ else
         if(!firstRender)
             return;
 
-        await ReloadAsync();
+        await LoadAsync();
     }
 
     public async Task SetTextAsync(string text)
@@ -52,7 +52,12 @@ else
         // Prevent reload before the previous reload is done
         if(IsLoading)
             return;
-        
+
+        await LoadAsync();
+    }
+
+    private async Task LoadAsync()
+    {
         IsLoading = true;
         Text = null;
         await InvokeAsync(StateHasChanged);
