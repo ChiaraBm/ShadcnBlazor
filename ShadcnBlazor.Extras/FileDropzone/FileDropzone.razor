@@ -1,0 +1,147 @@
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.JSInterop
+@using ShadcnBlazor.Extras.Toasts
+
+@inherits ShadcnBase
+
+@inject IJSRuntime JsRuntime
+@inject ToastService ToastService
+
+<label for="@Identifier" @ref="BoxElement" class="@ClassName" @attributes="Props">
+    @ChildContent
+</label>
+
+<InputFile id="@Identifier" OnChange="OnFileSelected" hidden="hidden" multiple="multiple"/>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public Func<string, Stream, Task> UploadCallback { get; set; }
+
+    private ElementReference BoxElement;
+    private string Identifier;
+
+    private TaskCompletionSource? Tcs;
+    private UploadToast? UploadToast;
+    private int PendingUploads;
+    private int FilesUploaded;
+
+    protected override void OnInitialized()
+    {
+        Identifier = $"dropzone-{GetHashCode()}";
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+
+        await JsRuntime.InvokeVoidAsync(
+            "ShadcnBlazorExtras.initializeFileDropElement",
+            BoxElement, DotNetObjectReference.Create(this)
+        );
+    }
+
+    public async Task UpdateAsync(string path, long position, long length)
+    {
+        if (UploadToast is null)
+            return;
+
+        await UploadToast.UpdateAsync(path, position, length);
+    }
+
+    // Handle manual file upload
+    private async Task OnFileSelected(InputFileChangeEventArgs eventArgs)
+    {
+        // Create a list of selected files
+        var files = eventArgs.FileCount switch
+        {
+            0 => [],
+            1 => [eventArgs.File],
+            _ => eventArgs.GetMultipleFiles()
+        };
+
+        await NotifyUploadStartedAsync();
+
+        // Process files
+        foreach (var file in files)
+        {
+            await using var dataStream = file.OpenReadStream(file.Size);
+
+            if(UploadToast is not null)
+                await UploadToast.UpdateAsync(file.Name, dataStream.Position, dataStream.Length);
+
+            await UploadCallback.Invoke(file.Name, dataStream);
+
+            FilesUploaded++;
+        }
+
+        await NotifyUploadCompletedAsync();
+    }
+
+    // State tracking for upload toast
+    private async Task NotifyUploadStartedAsync()
+    {
+        PendingUploads++;
+
+        if (UploadToast is not null && Tcs is not null)
+            return;
+
+        Tcs = new();
+
+        await ToastService.LaunchCustomAsync<UploadToast>(parameters =>
+        {
+            parameters[nameof(UploadToast.Callback)] = async Task (UploadToast toast) =>
+            {
+                UploadToast = toast;
+
+                await Tcs.Task;
+            };
+        }, hideDelay: -1);
+    }
+
+    private async Task NotifyUploadCompletedAsync()
+    {
+        PendingUploads--;
+
+        if (PendingUploads > 0)
+            return;
+
+        if (UploadToast is not null && Tcs is not null)
+            Tcs.SetResult();
+        
+        Tcs = null;
+        UploadToast = null;
+
+        await ToastService.SuccessAsync(
+            "Upload completed",
+            $"Uploaded {FilesUploaded} file(s)"
+        );
+        
+        FilesUploaded = 0;
+    }
+    
+    // JS Callbacks
+    [JSInvokable]
+    public async Task OnUploadStarted() => await NotifyUploadStartedAsync();
+
+    [JSInvokable]
+    public async Task OnUploadCompleted() => await NotifyUploadCompletedAsync();
+
+    [JSInvokable]
+    public async Task OnUploadFile(string path, IJSStreamReference stream)
+    {
+        var fileName = Path.GetFileName(path);
+
+        await using var dataStream = await stream.OpenReadStreamAsync(stream.Length);
+
+        if (UploadToast is not null)
+            await UploadToast.UpdateAsync(fileName, dataStream.Position, dataStream.Length);
+
+        await UploadCallback.Invoke(path, dataStream);
+
+        await stream.DisposeAsync();
+
+        FilesUploaded++;
+    }
+}

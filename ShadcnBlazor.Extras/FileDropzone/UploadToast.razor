@@ -1,0 +1,53 @@
+@using LucideBlazor
+@using ShadcnBlazor.Progresses
+@using ShadcnBlazor.Sonners
+@inherits ShadcnBlazor.Extras.Toasts.ToastBase
+
+<div class="flex size-8 items-center justify-center rounded-full bg-primary">
+    <CloudUploadIcon ClassName="size-4 text-primary-foreground"/>
+</div>
+
+@{
+    var percent = Length == 0 ? 0 : (int)Math.Round((float)Position / Length * 100f);
+}
+
+<SonnerHeader ClassName="w-[300px]">
+    <SonnerTitle ClassName="flex justify-between">
+        <span>Uploading...</span>
+        <span>@Formatter.FormatSize(Position) / @Formatter.FormatSize(Length)</span>
+    </SonnerTitle>
+    <SonnerDescription ClassName="truncate">@File</SonnerDescription>
+    <Progress ClassName="mt-1" Value="@percent" Max="100"></Progress>
+</SonnerHeader>
+
+@code
+{
+    [Parameter] public Func<UploadToast, Task> Callback { get; set; }
+
+    private string File;
+    private long Position;
+    private long Length;
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return Task.CompletedTask;
+
+        Task.Run(async () =>
+        {
+            await Callback.Invoke(this);
+            await CloseAsync();
+        });
+        
+        return Task.CompletedTask;
+    }
+
+    public async Task UpdateAsync(string file, long position, long length)
+    {
+        File = file;
+        Position = position;
+        Length = length;
+
+        await InvokeAsync(StateHasChanged);
+    }
+}

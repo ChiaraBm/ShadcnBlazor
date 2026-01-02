@@ -1,0 +1,83 @@
+@using System.Buffers
+@using LucideBlazor
+@using ShadcnBlazor.Cards
+@using ShadcnBlazor.Emptys
+@using ShadcnBlazor.Extras.FileDropzone
+
+<FileDropzone @ref="Dropzone" UploadCallback="HandleUploadAsync" @ondragenter="OnDragEnterAsync" @ondragleave="OnDragLeaveAsync">
+    <Card>
+        <CardContent ClassName="items-center justify-center text-center">
+            @if (IsDragging)
+            {
+                <Empty>
+                    <EmptyHeader>
+                        <EmptyMedia Variant="EmptyMediaVariant.Icon">
+                            <PackageOpenIcon/>
+                        </EmptyMedia>
+                        <EmptyTitle>Drop to start upload</EmptyTitle>
+                        <EmptyDescription>
+                            Drop your files and folders to start uploading them
+                        </EmptyDescription>
+                    </EmptyHeader>
+                </Empty>
+            }
+            else
+            {
+                <Empty>
+                    <EmptyHeader>
+                        <EmptyMedia Variant="EmptyMediaVariant.Icon">
+                            <CloudUploadIcon/>
+                        </EmptyMedia>
+                        <EmptyTitle>Click to select files to upload</EmptyTitle>
+                        <EmptyDescription>
+                            Or drop them on here. Files and folders are supported
+                        </EmptyDescription>
+                    </EmptyHeader>
+                </Empty>
+            }
+        </CardContent>
+    </Card>
+</FileDropzone>
+
+@code 
+{
+    private FileDropzone Dropzone;
+    private bool IsDragging;
+    
+    private async Task HandleUploadAsync(string path, Stream stream)
+    {
+        if (IsDragging)
+        {
+            IsDragging = false;
+            await InvokeAsync(StateHasChanged);
+        }
+        
+        var name = Path.GetFileName(path);
+        var buffer = ArrayPool<byte>.Shared.Rent(1024 * 1024);
+
+        while (stream.Position != stream.Length)
+        {
+            _ = await stream.ReadAsync(buffer, 0, 1024 * 1024);
+
+            await Dropzone.UpdateAsync(
+                name,
+                stream.Position,
+                stream.Length
+            );
+        }
+
+        ArrayPool<byte>.Shared.Return(buffer);
+    }
+
+    private async Task OnDragEnterAsync()
+    {
+        IsDragging = true;
+        await InvokeAsync(StateHasChanged);
+    }
+    
+    private async Task OnDragLeaveAsync()
+    {
+        IsDragging = false;
+        await InvokeAsync(StateHasChanged);
+    }
+}
