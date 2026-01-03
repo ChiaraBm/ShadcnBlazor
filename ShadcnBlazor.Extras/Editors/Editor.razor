@@ -1,0 +1,58 @@
+@using Microsoft.JSInterop
+
+@implements IAsyncDisposable
+
+@inject IJSRuntime JsRuntime
+
+<div @ref="ContainerElement" class="cm-wrapper"></div>
+
+@code
+{
+    [Parameter] public string InitialValue { get; set; } = "";
+    [Parameter] public EditorLanguage Language { get; set; } = EditorLanguage.None;
+
+    private ElementReference ContainerElement;
+    private IJSObjectReference? EditorInstance;
+    private DotNetObjectReference<Editor>? SelfReference;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        SelfReference = DotNetObjectReference.Create(this);
+
+        var languageStr = Language == EditorLanguage.None
+            ? null
+            : Language.ToString().ToLowerInvariant();
+
+        EditorInstance = await JsRuntime.InvokeAsync<IJSObjectReference>(
+            "CodeMirrorAdapter.init",
+            ContainerElement,
+            InitialValue,
+            SelfReference,
+            languageStr
+        );
+    }
+
+    public async Task<string> GetValueAsync()
+    {
+        if (EditorInstance is null)
+            throw new NullReferenceException("Editor instance is null. Instance might not have been initialized.");
+
+        return await JsRuntime.InvokeAsync<string>("CodeMirrorAdapter.getValue", EditorInstance);
+    }
+
+    public async Task SetValueAsync(string value)
+    {
+        if (EditorInstance is null)
+            throw new NullReferenceException("Editor instance is null. Instance might not have been initialized.");
+
+        await JsRuntime.InvokeVoidAsync("CodeMirrorAdapter.setValue", EditorInstance, value);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        SelfReference?.Dispose();
+        if (EditorInstance != null) await EditorInstance.DisposeAsync();
+    }
+}

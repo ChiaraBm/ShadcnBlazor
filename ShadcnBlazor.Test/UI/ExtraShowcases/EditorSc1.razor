@@ -1,0 +1,33 @@
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Extras.AlertDialogs
+@using ShadcnBlazor.Extras.Editors
+
+@inject AlertDialogService AlertDialogService
+
+<Editor @ref="Editor" InitialValue="@DemoValue" Language="EditorLanguage.Javascript" />
+
+<div class="mt-3">
+    <Button Variant="ButtonVariant.Outline" @onclick="GetValueAsync">Get value</Button>
+    <Button Variant="ButtonVariant.Outline" @onclick="SetValueAsync">Set value</Button>
+</div>
+
+@code
+{
+    private Editor Editor;
+    private const string DemoValue = "function testy() {\n\tconsole.log('example value');\n}";
+
+    private async Task GetValueAsync()
+    {
+        var val = await Editor.GetValueAsync();
+
+        await AlertDialogService.InfoAsync(
+            "Eidtors content",
+            val
+        );
+    }
+
+    private async Task SetValueAsync()
+    {
+        await Editor.SetValueAsync(DemoValue);
+    }
+}
