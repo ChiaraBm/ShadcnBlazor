@@ -26,6 +26,7 @@
             <PackagePath>/</PackagePath>
             <Link>logo.png</Link>
         </None>
+        <None Remove="CodeMirror\**" />
     </ItemGroup>
     
     <ItemGroup>
@@ -38,6 +39,17 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ShadcnBlazor\ShadcnBlazor.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="CodeMirror\**" />
+      <EmbeddedResource Remove="CodeMirror\**" />
+      <Content Remove="CodeMirror\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="CodeMirror\package-lock.json" />
+      <_ContentIncludedByDefault Remove="CodeMirror\package.json" />
     </ItemGroup>
 
 </Project>
