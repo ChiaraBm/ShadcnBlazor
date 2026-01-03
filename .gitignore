@@ -398,8 +398,6 @@ FodyWeavers.xsd
 **/.idea/**
 
 # Style builds
-style.min.css
-package-lock.json
-
-# App
-**/storage/**
+**/style.min.css
+**/package-lock.json
+**/codemirror-bundle.js
