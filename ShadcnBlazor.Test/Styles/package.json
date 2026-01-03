@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "tailwind": "npx postcss styles.css -o ../wwwroot/style.min.css --watch",
     "tailwind-build": "npx postcss styles.css -o ../wwwroot/style.min.css",
-    "tailwind-plugin": "EXTRACT_CLASSES=true npx postcss styles.css -o ../wwwroot/style.min.css"
+    "build": "EXTRACT_CLASSES=true npx postcss styles.css -o ../wwwroot/style.min.css"
   },
   "author": "",
   "license": "ISC",

@@ -8,29 +8,39 @@ on:
     branches:
       - main
 
-# OIDC for npm publishing
-permissions:
-  id-token: write
-  contents: read
-
 jobs:
-  
   publish:
     runs-on: ubuntu-latest
     
+    # OIDC for npm publishing
+    permissions:
+      id-token: write
+      contents: read
+    
     steps:
+      ## Setup environment:
+      
+      # Fetch the code
       - uses: actions/checkout@v5
-
-      - uses: actions/setup-node@v5
+        
+      # Install nodejs/npm
+      - name: Install NodeJS
+        uses: actions/setup-node@v5
         with:
           node-version: "24"
 
+      ## Build:
+      
+      # Build styles
       - run: npm i
         working-directory: ShadcnBlazor.Test/Styles
 
-      - run: npm run tailwind-plugin
+      - run: npm run build
         working-directory: ShadcnBlazor.Test/Styles
 
+      ## Publishing:
+
+      # shadcnblazor
       - uses: JS-DevTools/npm-publish@v4
         with:
           package: "ShadcnBlazor.Test/Styles/shadcnblazor"
