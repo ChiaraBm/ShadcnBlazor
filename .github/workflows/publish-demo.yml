@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v5
 
       - name: Build image
-        run: docker build . --file ShadcnBlazor.Test/Docker/Dockerfile --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
+        run: docker build . --file ShadcnBlazor.Test.Wasm/Docker/Dockerfile --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
 
       - name: Log in to registry
         run: echo "${{ secrets.RELEASE_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin

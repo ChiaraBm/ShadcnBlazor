@@ -1,6 +1,5 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 
 namespace ShadcnBlazor.Interop;
 

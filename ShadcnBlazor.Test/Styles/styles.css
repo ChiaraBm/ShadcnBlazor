@@ -8,6 +8,14 @@
 @source "../**/*.cs";
 @source "../**/*.html";
 
+@source "../../ShadcnBlazor.Test.Wasm/**/*.razor";
+@source "../../ShadcnBlazor.Test.Wasm/**/*.cs";
+@source "../../ShadcnBlazor.Test.Wasm/**/*.html";
+
+@source "../../ShadcnBlazor.Test.Server/**/*.razor";
+@source "../../ShadcnBlazor.Test.Server/**/*.cs";
+@source "../../ShadcnBlazor.Test.Server/**/*.html";
+
 @source "../../ShadcnBlazor/**/*.razor";
 @source "../../ShadcnBlazor/**/*.cs";
 @source "../../ShadcnBlazor/**/*.html";
