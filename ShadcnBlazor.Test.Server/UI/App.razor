@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <base href="/"/>
+    <ResourcePreloader/>
+    <link rel="stylesheet" href="@Assets["_content/ShadcnBlazor.Test/style.min.css"]"/>
+    <link rel="stylesheet" href="@Assets["_content/ShadcnBlazor.Test/highlight/default.min.css"]"/>
+    <link rel="stylesheet" href="@Assets["_content/ShadcnBlazor.Test/highlight/theme.css"]"/>
+    <ImportMap/>
+    <HeadOutlet @rendermode="InteractiveServer"/>
+</head>
+
+<body>
+<Routes @rendermode="InteractiveServer"/>
+
+<script src="@Assets["_content/ShadcnBlazor.Test/highlight/highlight.min.js"]"></script>
+<script src="@Assets["_content/ShadcnBlazor.Test/highlight/cshtml-razor.min.js"]"></script>
+
+<script src="@Assets["_content/ShadcnBlazor/interop.js"]"></script>
+<script src="@Assets["_content/ShadcnBlazor.Extras/interop.js"]" defer="defer"></script>
+<script src="@Assets["_content/ShadcnBlazor.Extras/codemirror-bundle.j"]" defer="defer"></script>
+<script src="@Assets["_framework/blazor.web.js"]"></script>
+</body>
+
+</html>

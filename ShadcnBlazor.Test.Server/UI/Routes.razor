@@ -1,0 +1,32 @@
+@using LucideBlazor
+@using Microsoft.AspNetCore.Http.HttpResults
+@using ShadcnBlazor.Emptys
+@using ShadcnBlazor.Test
+@using ShadcnBlazor.Test.Partials
+
+<ErrorBoundary>
+    <ChildContent>
+        <Router AppAssembly="@typeof(App).Assembly" AdditionalAssemblies="@([typeof(TestStartup).Assembly])">
+            <Found Context="routeData">
+                <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"/>
+            </Found>
+        </Router>
+    </ChildContent>
+    <ErrorContent>
+        <div class="m-10">
+            <Empty>
+                <EmptyHeader>
+                    <EmptyMedia Variant="EmptyMediaVariant.Icon">
+                        <OctagonAlertIcon ClassName="text-red-500/80" />
+                    </EmptyMedia>
+                    <EmptyTitle>
+                        Critical Application Error
+                    </EmptyTitle>
+                    <EmptyDescription>
+                        @context.ToString()
+                    </EmptyDescription>
+                </EmptyHeader>
+            </Empty>
+        </div>
+    </ErrorContent>
+</ErrorBoundary>
