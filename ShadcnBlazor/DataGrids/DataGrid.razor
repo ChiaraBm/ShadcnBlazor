@@ -26,107 +26,112 @@
         .Where(x => x.IsFilterable)
         .ToArray();
 
-    <div class="flex items-center py-4 gap-x-1.5">
-        @if (EnableSearch)
-        {
-            <InputGroup ClassName="max-w-xs">
-                <InputGroupAddon>
-                    <SearchIcon/>
-                </InputGroupAddon>
-                @if (EnableLiveSearch)
-                {
-                    <InputGroupInput>
-                        <Slot>
-                            <input @bind="SearchTerm"
-                                   @bind:event="oninput"
-                                   @bind:after="OnSearchChangedAsync"
-                                   placeholder="Search..."
-                                   type="search"
-                                   @attributes="context"/>
-                        </Slot>
-                    </InputGroupInput>
-                }
-                else
-                {
-                    <InputGroupInput>
-                        <Slot>
-                            <input @bind="SearchTerm"
-                                   @bind:after="OnSearchChangedAsync"
-                                   placeholder="Search..."
-                                   type="search"
-                                   @attributes="context"/>
-                        </Slot>
-                    </InputGroupInput>
-                }
-            </InputGroup>
-        }
-        <div class="ml-auto flex gap-x-1.5">
-            @if (filterableColumns.Length > 0)
+    var showToolbar = EnableSearch || filterableColumns.Length > 0 || ColumnVisibility;
+
+    @if (showToolbar)
+    {
+        <div class="flex items-center py-4 gap-x-1.5">
+            @if (EnableSearch)
             {
-                <Popover @ref="FilterPopover">
-                    <PopoverTrigger>
-                        <Slot>
-                            <Button @attributes="context" Variant="ButtonVariant.Outline">
-                                <SlidersHorizontalIcon />
-                                <span class="hidden md:block">Filter</span>
-                            </Button>
-                        </Slot>
-                    </PopoverTrigger>
-                    <PopoverContent>
-                        <div class="grid gap-2">
-                            @foreach (var column in filterableColumns)
-                            {
-                                if (string.IsNullOrWhiteSpace(column.Title))
-                                    continue;
-
-                                <div class="grid grid-cols-3 items-center gap-4" @key="column">
-                                    <Label for="@column.Title">
-                                        @column.Title
-                                    </Label>
-                                    <InputField
-                                        id="@column.Title"
-                                        placeholder="Filter for..."
-                                        @bind-Value="column.Filter"
-                                        ClassName="col-span-2 h-8"/>
-                                </div>
-                            }
-
-                            <div class="flex justify-center items-center">
-                                <Button @onclick="ApplyFilterAsync"
-                                        Size="ButtonSize.Sm">
-                                    Apply
+                <InputGroup ClassName="max-w-xs">
+                    <InputGroupAddon>
+                        <SearchIcon/>
+                    </InputGroupAddon>
+                    @if (EnableLiveSearch)
+                    {
+                        <InputGroupInput>
+                            <Slot>
+                                <input @bind="SearchTerm"
+                                       @bind:event="oninput"
+                                       @bind:after="OnSearchChangedAsync"
+                                       placeholder="Search..."
+                                       type="search"
+                                       @attributes="context"/>
+                            </Slot>
+                        </InputGroupInput>
+                    }
+                    else
+                    {
+                        <InputGroupInput>
+                            <Slot>
+                                <input @bind="SearchTerm"
+                                       @bind:after="OnSearchChangedAsync"
+                                       placeholder="Search..."
+                                       type="search"
+                                       @attributes="context"/>
+                            </Slot>
+                        </InputGroupInput>
+                    }
+                </InputGroup>
+            }
+            <div class="ml-auto flex gap-x-1.5">
+                @if (filterableColumns.Length > 0)
+                {
+                    <Popover @ref="FilterPopover">
+                        <PopoverTrigger>
+                            <Slot>
+                                <Button @attributes="context" Variant="ButtonVariant.Outline">
+                                    <SlidersHorizontalIcon/>
+                                    <span class="hidden md:block">Filter</span>
                                 </Button>
-                            </div>
-                        </div>
-                    </PopoverContent>
-                </Popover>
-            }
+                            </Slot>
+                        </PopoverTrigger>
+                        <PopoverContent>
+                            <div class="grid gap-2">
+                                @foreach (var column in filterableColumns)
+                                {
+                                    if (string.IsNullOrWhiteSpace(column.Title))
+                                        continue;
 
-            @if (ColumnVisibility)
-            {
-                <DropdownMenu>
-                    <DropdownMenuTrigger>
-                        <Slot>
-                            <Button Variant="ButtonVariant.Outline" @attributes="context">
-                                <Columns3CogIcon/>
-                                <span class="hidden md:block">Columns</span>
-                            </Button>
-                        </Slot>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                        @foreach (var column in columnsWithTitle)
-                        {
-                            <DropdownMenuCheckboxItem DefaultValue="@column.IsVisible"
-                                                      ValueChanged="b => SetColumnVisibleAsync(column, b)"
-                                                      @key="column">
-                                @column.Title
-                            </DropdownMenuCheckboxItem>
-                        }
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            }
+                                    <div class="grid grid-cols-3 items-center gap-4" @key="column">
+                                        <Label for="@column.Title">
+                                            @column.Title
+                                        </Label>
+                                        <InputField
+                                            id="@column.Title"
+                                            placeholder="Filter for..."
+                                            @bind-Value="column.Filter"
+                                            ClassName="col-span-2 h-8"/>
+                                    </div>
+                                }
+
+                                <div class="flex justify-center items-center">
+                                    <Button @onclick="ApplyFilterAsync"
+                                            Size="ButtonSize.Sm">
+                                        Apply
+                                    </Button>
+                                </div>
+                            </div>
+                        </PopoverContent>
+                    </Popover>
+                }
+
+                @if (ColumnVisibility)
+                {
+                    <DropdownMenu>
+                        <DropdownMenuTrigger>
+                            <Slot>
+                                <Button Variant="ButtonVariant.Outline" @attributes="context">
+                                    <Columns3CogIcon/>
+                                    <span class="hidden md:block">Columns</span>
+                                </Button>
+                            </Slot>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            @foreach (var column in columnsWithTitle)
+                            {
+                                <DropdownMenuCheckboxItem DefaultValue="@column.IsVisible"
+                                                          ValueChanged="b => SetColumnVisibleAsync(column, b)"
+                                                          @key="column">
+                                    @column.Title
+                                </DropdownMenuCheckboxItem>
+                            }
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                }
+            </div>
         </div>
-    </div>
+    }
 
     <div class="@Classes">
         <Table @attributes="Props">
@@ -200,7 +205,7 @@
                     @onclick="() => NavigateAsync(-1)"
                     Variant="ButtonVariant.Outline"
                     Size="ButtonSize.Sm">
-                <ChevronLeftIcon />
+                <ChevronLeftIcon/>
                 <span class="hidden md:block">Previous</span>
             </Button>
 
@@ -209,7 +214,7 @@
                     Variant="ButtonVariant.Outline"
                     Size="ButtonSize.Sm">
                 <span class="hidden md:block">Next</span>
-                <ChevronRightIcon />
+                <ChevronRightIcon/>
             </Button>
             <Button disabled="@(IsLoading || CurrentPage == MaximumPage)"
                     @onclick="NavigateToEndAsync"
