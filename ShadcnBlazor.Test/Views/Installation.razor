@@ -58,7 +58,15 @@
             </CardContent>
         </Card>
         
-        3. Finally add the service collection extension call to your Program.cs file
+        3. After that you need to add the following component at the before the end of your body tag in your main layout
+        
+        <Card ClassName="my-2.5 p-1">
+            <CardContent ClassName="px-0">
+                <Highlight Language="razor" Content="@PortalRazor" />
+            </CardContent>
+        </Card>
+        
+        4. Finally add the service collection extension call to your Program.cs file
         
         <Card ClassName="my-2.5 p-1">
             <CardContent ClassName="px-0">
@@ -111,4 +119,5 @@
     private const string HtmlContent = "...\n<link rel=\"stylesheet\" href=\"/style.min.css\"/>\n...\n\n\n...\n<script src=\"/_content/ShadcnBlazor/interop.js\" defer></script>\n...";
     private const string BuildCommandContent = "npx postcss styles.css -o ../wwwroot/style.min.css --watch";
     private const string ServiceCollectionContent = "using ShadcnBlazor;\n\nbuilder.Services.AddShadcnBlazor();";
+    private const string PortalRazor = "<PortalOutlet />";
 }
