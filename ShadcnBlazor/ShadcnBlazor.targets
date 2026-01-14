@@ -1,0 +1,15 @@
+<Project>
+    <PropertyGroup>
+        <ShadcnBlazorCssClassDir Condition="'$(ShadcnBlazorCssClassDir)' == ''">
+            $(MSBuildProjectDirectory)\bin\ShadcnBlazor
+        </ShadcnBlazorCssClassDir>
+    </PropertyGroup>
+
+    <Target Name="CopyContents" BeforeTargets="Build">
+        <ItemGroup>
+            <Files Include="$(MSBuildThisFileDirectory)..\Styles\**\*" />
+        </ItemGroup>
+
+        <Copy SourceFiles="@(Files)" DestinationFolder="$(ShadcnBlazorCssClassDir)" SkipUnchangedFiles="true" />
+    </Target>
+</Project>
