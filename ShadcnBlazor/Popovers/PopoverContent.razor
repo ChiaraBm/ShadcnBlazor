@@ -1,5 +1,7 @@
 ﻿@using System.Globalization
+@using Microsoft.AspNetCore.Components.Sections
 @using ShadcnBlazor.Interop
+@using ShadcnBlazor.Portals
 
 @inherits ShadcnBase
 
@@ -7,20 +9,21 @@
 
 @if (Popover.ShouldRenderContent)
 {
-    <div class="fixed inset-0 z-50" @onclick="OnBackdropClickAsync">
-    </div>
+    <SectionContent SectionName="@PortalNames.Popover">
+        <div class="fixed inset-0 z-50" @onclick="OnBackdropClickAsync">
+        </div>
 
-    <div @ref="PositionElement"
-         data-slot="popover-content"
-         data-state="@(Popover.IsOpen ? "open" : "closed")"
-         data-side="@(Side.ToString().ToLowerInvariant())"
-         align="@(Align.ToString().ToLowerInvariant())"
-         role="dialog"
-         class="@Classes"
-         style="@PositionStyle"
-         @attributes="Props">
-        @ChildContent
-    </div>
+        <div @ref="PositionElement"
+             data-slot="popover-content"
+             data-state="@(Popover.IsOpen ? "open" : "closed")"
+             data-side="@(Side.ToString().ToLowerInvariant())"
+             role="dialog"
+             class="@Classes"
+             style="@PositionStyle"
+             @attributes="Props">
+            @ChildContent
+        </div>
+    </SectionContent>
 }
 
 @code

@@ -1,5 +1,7 @@
 ﻿@using System.Globalization
+@using Microsoft.AspNetCore.Components.Sections
 @using ShadcnBlazor.Interop
+@using ShadcnBlazor.Portals
 
 @inherits ShadcnBase
 
@@ -8,20 +10,22 @@
 
 @if (Tooltip.ShouldRenderContent)
 {
-    <div @ref="PositionElement" style="@PositionStyle" class="fixed top-0 left-0 z-50">
-        <div data-slot="tooltip-content" class="@Classes" data-state="@(Tooltip.Open ? "open" : "closed")" data-side="@(Side.ToString().ToLower())">
-            @ChildContent
-            <span @ref="ArrowElement" style="position: absolute; @ArrowStyle">
-                <svg class="z-50 size-2.5 fill-foreground" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
-                    <rect
-                        x="50" y="50" width="400" height="400"
-                        style="transform-box: fill-box; transform-origin: 50% 50%;"
-                        transform="matrix(0.707107, 0.707107, -0.707107, 0.707107, 0.000014, 0.000069)"
-                        id="object-0"></rect>
-                </svg>
-            </span>
+    <SectionContent SectionName="@PortalNames.Tooltip">
+        <div @ref="PositionElement" style="@PositionStyle" class="fixed top-0 left-0 z-50">
+            <div data-slot="tooltip-content" class="@Classes" data-state="@(Tooltip.Open ? "open" : "closed")" data-side="@(Side.ToString().ToLower())">
+                @ChildContent
+                <span @ref="ArrowElement" style="position: absolute; @ArrowStyle">
+                    <svg class="z-50 size-2.5 fill-foreground" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+                        <rect
+                            x="50" y="50" width="400" height="400"
+                            style="transform-box: fill-box; transform-origin: 50% 50%;"
+                            transform="matrix(0.707107, 0.707107, -0.707107, 0.707107, 0.000014, 0.000069)"
+                            id="object-0"></rect>
+                    </svg>
+                </span>
+            </div>
         </div>
-    </div>
+    </SectionContent>
 }
 
 @code

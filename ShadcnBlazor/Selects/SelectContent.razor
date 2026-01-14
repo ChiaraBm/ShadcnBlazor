@@ -1,4 +1,6 @@
+@using Microsoft.AspNetCore.Components.Sections
 @using ShadcnBlazor.Interop
+@using ShadcnBlazor.Portals
 
 @inherits ShadcnBase
 
@@ -6,17 +8,19 @@
 
 @if (Select.ShouldRenderContent)
 {
-    <div class="fixed inset-0 z-50" @onclick="Select.CloseAsync">
-    </div>
-
-    <div @ref="PositionElement" style="@PositionStyle" class="fixed top-0 left-0 z-50">
-        <div data-slot="select-content"
-             data-state="@(Select.IsOpen ? "open" : "closed")"
-             class="@Classes"
-             @attributes="Props">
-            @ChildContent
+    <SectionContent SectionName="@PortalNames.Select">
+        <div class="fixed inset-0 z-50" @onclick="Select.CloseAsync">
         </div>
-    </div>
+
+        <div @ref="PositionElement" style="@PositionStyle" class="fixed top-0 left-0 z-50">
+            <div data-slot="select-content"
+                 data-state="@(Select.IsOpen ? "open" : "closed")"
+                 class="@Classes"
+                 @attributes="Props">
+                @ChildContent
+            </div>
+        </div>
+    </SectionContent>
 }
 
 @code
