@@ -1,16 +1,20 @@
-﻿@inherits ShadcnBase
+﻿@using Microsoft.AspNetCore.Components.Sections
+@using ShadcnBlazor.Portals
+@inherits ShadcnBase
 
 @if (Parent.ShouldRenderContent)
 {
-    <AlertDialogOverlay @onclick="OnBackdropClickedAsync"/>
+    <SectionContent SectionName="@PortalNames.AlertDialog">
+        <AlertDialogOverlay @onclick="OnBackdropClickedAsync"/>
 
-    <div data-slot="alert-dialog-content"
-         data-state="@(Parent.IsOpen ? "open" : "closed")"
-         class="@Classes"
-         @attributes="Props">
+        <div data-slot="alert-dialog-content"
+             data-state="@(Parent.IsOpen ? "open" : "closed")"
+             class="@Classes"
+             @attributes="Props">
 
-        @ChildContent
-    </div>
+            @ChildContent
+        </div>
+    </SectionContent>
 }
 
 @code

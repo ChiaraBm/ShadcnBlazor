@@ -1,4 +1,6 @@
-﻿@using ShadcnBlazor.Interop
+﻿@using Microsoft.AspNetCore.Components.Sections
+@using ShadcnBlazor.Interop
+@using ShadcnBlazor.Portals
 
 @inherits ShadcnBase
 
@@ -6,14 +8,16 @@
 
 @if (Sub.ShouldRenderContent)
 {
-    <div @ref="PositionElement" class="min-w-max z-50 fixed top-0 left-0" style="@PositionStyle">
-        <div  data-slot="menubar-sub-content"
-              class="@Classes"
-              data-state="@(Sub.IsOpen ? "open" : "closed")"
-              @attributes="Props">
-            @ChildContent
+    <SectionContent SectionName="@PortalNames.MenubarSub">
+        <div @ref="PositionElement" class="min-w-max z-50 fixed top-0 left-0" style="@PositionStyle">
+            <div  data-slot="menubar-sub-content"
+                  class="@Classes"
+                  data-state="@(Sub.IsOpen ? "open" : "closed")"
+                  @attributes="Props">
+                @ChildContent
+            </div>
         </div>
-    </div>
+    </SectionContent>
 }
 
 @code

@@ -1,19 +1,23 @@
-﻿@inherits ShadcnBase
+﻿@using Microsoft.AspNetCore.Components.Sections
+@using ShadcnBlazor.Portals
+@inherits ShadcnBase
 
 @if (Drawer.ShouldRenderContent)
 {
-    <DrawerOverlay @onclick="Drawer.CloseAsync" />
+    <SectionContent SectionName="@PortalNames.Drawer">
+        <DrawerOverlay @onclick="Drawer.CloseAsync" />
     
-    <div data-slot="drawer-content"
-         class="@Classes"
-         data-vaul-drawer-direction="@Drawer.Direction.ToString().ToLower()"
-         data-side="@Drawer.Direction.ToString().ToLower()"
-         data-state="@(Drawer.IsOpen ? "open" : "closed")"
-         @attributes="Props">
-        <div class="bg-muted mx-auto mt-4 hidden h-2 w-[100px] shrink-0 rounded-full group-data-[vaul-drawer-direction=bottom]/drawer-content:block"></div>
+        <div data-slot="drawer-content"
+             class="@Classes"
+             data-vaul-drawer-direction="@Drawer.Direction.ToString().ToLower()"
+             data-side="@Drawer.Direction.ToString().ToLower()"
+             data-state="@(Drawer.IsOpen ? "open" : "closed")"
+             @attributes="Props">
+            <div class="bg-muted mx-auto mt-4 hidden h-2 w-[100px] shrink-0 rounded-full group-data-[vaul-drawer-direction=bottom]/drawer-content:block"></div>
         
-        @ChildContent
-    </div>
+            @ChildContent
+        </div>
+    </SectionContent>
 }
 
 @code

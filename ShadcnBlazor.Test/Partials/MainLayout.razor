@@ -2,6 +2,7 @@
 @using ShadcnBlazor.Extras.Alerts
 @using ShadcnBlazor.Extras.Dialogs
 @using ShadcnBlazor.Extras.Toasts
+@using ShadcnBlazor.Portals
 @using ShadcnBlazor.Sidebars
 
 @inherits LayoutComponentBase
@@ -21,5 +22,7 @@
         <ToastLauncher />
         <DialogLauncher/>
         <AlertDialogLauncher />
+        
+        <PortalOutlet />
     </SidebarInset>
 </SidebarProvider>

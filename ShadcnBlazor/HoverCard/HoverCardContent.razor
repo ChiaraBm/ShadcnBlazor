@@ -1,5 +1,7 @@
 @using System.Globalization
+@using Microsoft.AspNetCore.Components.Sections
 @using ShadcnBlazor.Interop
+@using ShadcnBlazor.Portals
 
 @inherits ShadcnBase
 
@@ -7,20 +9,22 @@
 
 @if (HoverCard.ShouldRenderContent)
 {
-    <div @ref="PositionElement" style="@PositionStyle" class="fixed top-0 left-0 z-50">
-        <div
-            data-slot="hover-card-content"
-            data-state="@(HoverCard.IsOpen ? "open" : "closed")"
-            data-side="@Side.ToString().ToLower()"
-            data-align="@Align.ToString().ToLower()"
-            sideOffset="@SideOffset"
-            class="@Classes"
-            @onmouseenter="OnMouseEnterAsync"
-            @onmouseleave="OnMouseLeaveAsync"
-            @attributes="Props">
-            @ChildContent
+    <SectionContent SectionName="@PortalNames.HoverCard">
+        <div @ref="PositionElement" style="@PositionStyle" class="fixed top-0 left-0 z-50">
+            <div
+                data-slot="hover-card-content"
+                data-state="@(HoverCard.IsOpen ? "open" : "closed")"
+                data-side="@Side.ToString().ToLower()"
+                data-align="@Align.ToString().ToLower()"
+                sideOffset="@SideOffset"
+                class="@Classes"
+                @onmouseenter="OnMouseEnterAsync"
+                @onmouseleave="OnMouseLeaveAsync"
+                @attributes="Props">
+                @ChildContent
+            </div>
         </div>
-    </div>
+    </SectionContent>
 }
 
 
