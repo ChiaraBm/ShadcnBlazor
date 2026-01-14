@@ -14,7 +14,7 @@
     internal bool ShouldRenderContent { get; private set; }
     
     internal SelectTrigger Trigger { get; set; }
-    internal RenderFragment ValueContent { get; private set; }
+    internal RenderFragment? ValueContent { get; private set; }
 
     protected override void OnInitialized()
     {
