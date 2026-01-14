@@ -48,7 +48,7 @@
             var typeName = typeof(T).Name;
             
             Content = await HttpClient.GetStringAsync(
-                $"https://raw.githubusercontent.com/{Repository}/refs/heads/{Branch}/ShadcnBlazor.Test/UI/{Folder}/{typeName}.razor"
+                $"https://raw.githubusercontent.com/{Repository}/refs/heads/{Branch}/ShadcnBlazor.Test/{Folder}/{typeName}.razor"
             );
             
             ContentLoaded = true;
