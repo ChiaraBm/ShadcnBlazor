@@ -4,7 +4,16 @@
 }
 else
 {
-    <span data-slot="select-value">@Select.ValueContent</span>
+    <span data-slot="select-value">
+        @if (Select.ValueContent == null)
+        {
+            @Select.Value
+        }
+        else
+        {
+            @Select.ValueContent
+        }
+    </span>
 }
 
 @code
