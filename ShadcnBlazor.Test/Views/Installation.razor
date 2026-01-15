@@ -42,15 +42,7 @@
         <CardTitle>Installing ShadcnBlazor</CardTitle>
     </CardHeader>
     <CardContent>
-        1. Install the shadcnblazor npm package<br />
-        
-        <Card ClassName="my-2.5 p-1">
-            <CardContent ClassName="px-0">
-                <Highlight Language="bash" Content="@InstallNpmContent" />
-            </CardContent>
-        </Card>
-
-        2. Then use your IDE's Nuget Explorer or the following command to install the nuget package <code class="italic">ShadcnBlazor</code>
+        1. To install ShadcnBlazor use your IDE's Nuget Explorer or the following command to install the nuget package <code class="italic">ShadcnBlazor</code>
         
         <Card ClassName="my-2.5 p-1">
             <CardContent ClassName="px-0">
@@ -58,7 +50,7 @@
             </CardContent>
         </Card>
         
-        3. After that you need to add the following component at the before the end of your body tag in your main layout
+        2. After that you need to add the following component at the before the end of your body tag in your main layout
         
         <Card ClassName="my-2.5 p-1">
             <CardContent ClassName="px-0">
@@ -66,7 +58,7 @@
             </CardContent>
         </Card>
         
-        4. Finally add the service collection extension call to your Program.cs file
+        3. Finally add the service collection extension call to your Program.cs file
         
         <Card ClassName="my-2.5 p-1">
             <CardContent ClassName="px-0">
@@ -111,9 +103,8 @@
 @code
 {
     private const string PostCssContent = "export default {\n  plugins: {\n    \"@tailwindcss/postcss\": {},\n  }\n}";
-    private const string StylesContent = "@import \"tailwindcss\";\n@import \"tw-animate-css\";\n\n@import \"./node_modules/shadcnblazor/scrollbar.css\";\n@import \"./node_modules/shadcnblazor/default-theme.css\";\n@source \"./node_modules/shadcnblazor/classes.json\";\n\n@source \"../**/*.razor\";\n@source \"../**/*.cs\";\n@source \"../**/*.html\";\n\n@custom-variant dark (&:is(.dark *));\n\n#blazor-error-ui {\n    display: none;\n}\n\n@layer base {\n    * {\n        @apply border-border outline-ring/50;\n    }\n    body {\n        @apply bg-background text-foreground;\n    }\n}";
+    private const string StylesContent = "@import \"tailwindcss\";\n@import \"tw-animate-css\";\n\n@import \"../bin/ShadcnBlazor/scrollbar.css\";\n@import \"../bin/ShadcnBlazor/default-theme.css\";\n@source \"../bin/ShadcnBlazor/ShadcnBlazor.map\";\n\n@source \"../**/*.razor\";\n@source \"../**/*.cs\";\n@source \"../**/*.html\";\n\n@custom-variant dark (&:is(.dark *));\n\n#blazor-error-ui {\n    display: none;\n}\n\n@layer base {\n    * {\n        @apply border-border outline-ring/50;\n    }\n    body {\n        @apply bg-background text-foreground;\n    }\n}";
     private const string InstallNugetContent = "dotnet add package ShadcnBlazor";
-    private const string InstallNpmContent = "npm install shadcnblazor";
     private const string NpmInitContent = "mkdir Styles\nnpm init";
     private const string NpmInstallPostcssContent = "npm install tailwindcss @tailwindcss/postcss postcss postcss-cli tw-animate-css";
     private const string HtmlContent = "...\n<link rel=\"stylesheet\" href=\"/style.min.css\"/>\n...\n\n\n...\n<script src=\"/_content/ShadcnBlazor/interop.js\" defer></script>\n...";
