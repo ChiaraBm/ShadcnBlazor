@@ -52,6 +52,13 @@ jobs:
 
       - run: npm run build
         working-directory: ShadcnBlazor.Extras/CodeMirror
+        
+      # Class list
+      - run: npm i
+        working-directory: ShadcnBlazor.Test/Styles
+        
+      - run: npm run build
+        working-directory: ShadcnBlazor.Test/Styles
       
       ## Publish:
       

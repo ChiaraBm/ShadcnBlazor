@@ -1,5 +1,4 @@
-﻿// extract-classes.js
-const fs = require('fs');
+﻿const fs = require('fs');
 
 module.exports = (opts = {}) => {
     const classSet = new Set();
@@ -16,7 +15,7 @@ module.exports = (opts = {}) => {
         },
         OnceExit() {
             const classArray = Array.from(classSet).sort();
-            fs.writeFileSync('./shadcnblazor/classes.json', JSON.stringify(classArray));
+            fs.writeFileSync('../../ShadcnBlazor/Styles/ShadcnBlazor.map', JSON.stringify(classArray));
             console.log(`Extracted classes ${classArray.length}`);
         }
     };
