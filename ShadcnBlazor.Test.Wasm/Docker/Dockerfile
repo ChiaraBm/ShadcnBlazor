@@ -35,7 +35,7 @@ COPY . .
 
 # Build tailwind styles
 WORKDIR "/src/ShadcnBlazor.Test/Styles"
-RUN npm run tailwind-build
+RUN npm run dev-build
 
 # Build code mirror bundle
 WORKDIR "/src/ShadcnBlazor.Extras/CodeMirror"
