@@ -38,7 +38,7 @@ public partial class DataGrid<TGridItem>
         Items = response.Data;
         TotalItems = response.TotalLength;
 
-        MaximumPage = (int)Math.Ceiling((double)TotalItems / PageSize) - 1;
+        MaximumPage = TotalItems == 0 ? 0 : (int)Math.Ceiling((double)TotalItems / PageSize) - 1;
 
         foreach (var column in Columns)
             await column.ResetAsync();

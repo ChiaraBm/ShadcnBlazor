@@ -26,7 +26,7 @@
         .Where(x => x.IsFilterable)
         .ToArray();
 
-    var showToolbar = EnableSearch || filterableColumns.Length > 0 || ColumnVisibility;
+    var showToolbar = EnableSearch || filterableColumns.Length > 0 || ColumnVisibility || ToolbarSlot != null;
 
     @if (showToolbar)
     {
@@ -67,6 +67,10 @@
             <div class="ml-auto flex gap-x-1.5">
                 @if (filterableColumns.Length > 0)
                 {
+                    @if (ToolbarSlot != null)
+                    {
+                        @ToolbarSlot
+                    }
                     <Popover @ref="FilterPopover">
                         <PopoverTrigger>
                             <Slot>

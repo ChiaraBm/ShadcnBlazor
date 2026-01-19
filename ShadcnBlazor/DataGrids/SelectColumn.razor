@@ -44,7 +44,7 @@
     public override void RenderHead(RenderTreeBuilder __builder)
     {
         <TableHead>
-            <Checkbox ClassName="ms-2" Value="@(Items.Count == Grid.Items.Length)" ValueChanged="ToggleAllAsync" />
+            <Checkbox ClassName="ms-2" Value="@(Grid.Items.Length > 0 && Items.Count == Grid.Items.Length)" ValueChanged="ToggleAllAsync" />
         </TableHead>
     }
 
