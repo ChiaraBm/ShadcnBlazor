@@ -10,5 +10,6 @@ public enum EditorLanguage
     Yaml = 5,
     Php = 6,
     Xml = 7,
-    Python = 8
+    Python = 8,
+    Css = 9
 }

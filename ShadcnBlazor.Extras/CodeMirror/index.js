@@ -7,6 +7,7 @@ import {yaml} from "@codemirror/lang-yaml";
 import {html} from "@codemirror/lang-html";
 import {sql} from "@codemirror/lang-sql";
 import {xml} from "@codemirror/lang-xml";
+import {css} from "@codemirror/lang-css";
 import {githubDark} from "@fsegurai/codemirror-theme-bundle";
 
 const roundedTheme = EditorView.theme({
@@ -44,6 +45,9 @@ function getLanguageExtension(language) {
 
         case "python":
             return python();
+
+        case "css":
+            return css();
 
         default:
             return javascript();
