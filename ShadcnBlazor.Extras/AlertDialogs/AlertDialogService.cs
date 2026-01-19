@@ -20,8 +20,6 @@ public class AlertDialogService
     
     public async Task<AlertDialogModel> ConfirmDangerAsync(string title, string description, Func<Task> onConfirm)
     {
-        Console.WriteLine("AAAAAAAAAA");
-        
         return await Launcher.LaunchAsync<ConfirmDangerAlertDialog>(attributes =>
         {
             attributes[nameof(ConfirmAlertDialog.Title)] = title;

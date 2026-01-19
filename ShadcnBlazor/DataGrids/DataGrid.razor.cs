@@ -8,6 +8,7 @@ namespace ShadcnBlazor.DataGrids;
 public partial class DataGrid<TGridItem>
 {
     [Parameter] public bool ColumnVisibility { get; set; } = true;
+    [Parameter] public RenderFragment? ToolbarSlot { get; set; }
     
     private readonly List<ColumnBase<TGridItem>> Columns = new();
     private readonly List<RowBase<TGridItem>> Rows = new();
