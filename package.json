@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@codemirror/lang-css": "^6.3.1"
+  }
+}
