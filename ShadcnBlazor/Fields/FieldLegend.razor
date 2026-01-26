@@ -1,0 +1,22 @@
+﻿@inherits ShadcnBase
+
+<legend
+    data-slot="field-legend"
+    data-variant={variant}
+    class="@Classes"
+    @attributes="Props">
+    @ChildContent
+</legend>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public FieldLegendVariant Variant { get; set; } = FieldLegendVariant.Legend;
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn("mb-1.5 font-medium data-[variant=label]:text-sm data-[variant=legend]:text-base", Classes);
+    }
+}

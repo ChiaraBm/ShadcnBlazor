@@ -1,0 +1,20 @@
+﻿@inherits ShadcnBase
+
+<fieldset
+    data-slot="field-set"
+    class="@Classes"
+    @attributes="Props">
+    @ChildContent
+</fieldset>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn("gap-4 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3 flex flex-col", ClassName);
+    }
+}
