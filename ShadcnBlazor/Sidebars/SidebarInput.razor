@@ -3,21 +3,21 @@
 
 @if (Slot != null)
 {
-    <InputField data-slot="sidebar-input"
+    <TextInputField data-slot="sidebar-input"
                 data-sidebar="input"
                 ClassName="@Classes">
         <Slot>
             @Slot.Invoke(context)
         </Slot>
-    </InputField>
+    </TextInputField>
 }
 else
 {
-    <InputField data-slot="sidebar-input"
+    <TextInputField data-slot="sidebar-input"
                 data-sidebar="input"
                 ClassName="@Classes"
                 @bind-Value="Value">
-    </InputField>
+    </TextInputField>
 }
 
 @code
