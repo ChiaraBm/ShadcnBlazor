@@ -1,0 +1,136 @@
+﻿@using ShadcnBlazor.Checkboxes
+@using ShadcnBlazor.Fields
+@using ShadcnBlazor.Inputs
+@using ShadcnBlazor.Selects
+@using ShadcnBlazor.Buttons
+
+<div class="w-full max-w-md">
+    <form>
+        <FieldGroup>
+            <FieldSet>
+                <FieldLegend>Payment Method</FieldLegend>
+                <FieldDescription>
+                    All transactions are secure and encrypted
+                </FieldDescription>
+                <FieldGroup>
+                    <Field>
+                        <FieldLabel for="checkout-7j9-card-name-43j">
+                            Name on Card
+                        </FieldLabel>
+                        <TextInputField
+                            id="checkout-7j9-card-name-43j"
+                            placeholder="Evil Rabbit"
+                            required
+                        />
+                    </Field>
+                    <Field>
+                        <FieldLabel for="checkout-7j9-card-number-uw1">
+                            Card Number
+                        </FieldLabel>
+                        <TextInputField
+                            id="checkout-7j9-card-number-uw1"
+                            placeholder="1234 5678 9012 3456"
+                            required
+                        />
+                        <FieldDescription>
+                            Enter your 16-digit card number
+                        </FieldDescription>
+                    </Field>
+                    <div class="grid grid-cols-3 gap-4">
+                        <Field>
+                            <FieldLabel for="checkout-exp-month-ts6">
+                                Month
+                            </FieldLabel>
+                            <Select DefaultValue="">
+                                <SelectTrigger id="checkout-exp-month-ts6">
+                                    <SelectValue Placeholder="MM"/>
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        <SelectItem Value="01">01</SelectItem>
+                                        <SelectItem Value="02">02</SelectItem>
+                                        <SelectItem Value="03">03</SelectItem>
+                                        <SelectItem Value="04">04</SelectItem>
+                                        <SelectItem Value="05">05</SelectItem>
+                                        <SelectItem Value="06">06</SelectItem>
+                                        <SelectItem Value="07">07</SelectItem>
+                                        <SelectItem Value="08">08</SelectItem>
+                                        <SelectItem Value="09">09</SelectItem>
+                                        <SelectItem Value="10">10</SelectItem>
+                                        <SelectItem Value="11">11</SelectItem>
+                                        <SelectItem Value="12">12</SelectItem>
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                        </Field>
+                        <Field>
+                            <FieldLabel for="checkout-7j9-exp-year-f59">
+                                Year
+                            </FieldLabel>
+                            <Select DefaultValue="">
+                                <SelectTrigger id="checkout-7j9-exp-year-f59">
+                                    <SelectValue Placeholder="YYYY"/>
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        <SelectItem Value="2024">2024</SelectItem>
+                                        <SelectItem Value="2025">2025</SelectItem>
+                                        <SelectItem Value="2026">2026</SelectItem>
+                                        <SelectItem Value="2027">2027</SelectItem>
+                                        <SelectItem Value="2028">2028</SelectItem>
+                                        <SelectItem Value="2029">2029</SelectItem>
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
+                        </Field>
+                        <Field>
+                            <FieldLabel for="checkout-7j9-cvv">CVV</FieldLabel>
+                            <NumberInputField TValue="int" id="checkout-7j9-cvv" placeholder="123" required/>
+                        </Field>
+                    </div>
+                </FieldGroup>
+            </FieldSet>
+            <FieldSeparator/>
+            <FieldSet>
+                <FieldLegend>Billing Address</FieldLegend>
+                <FieldDescription>
+                    The billing address associated with your payment method
+                </FieldDescription>
+                <FieldGroup>
+                    <Field Orientation="FieldOrientation.Horizontal">
+                        <Checkbox
+                            id="checkout-7j9-same-as-shipping-wgm"
+                            DefaultValue="true"
+                        />
+                        <FieldLabel
+                            for="checkout-7j9-same-as-shipping-wgm"
+                            ClassName="font-normal"
+                        >
+                            Same as shipping address
+                        </FieldLabel>
+                    </Field>
+                </FieldGroup>
+            </FieldSet>
+            <FieldSet>
+                <FieldGroup>
+                    <Field>
+                        <FieldLabel for="checkout-7j9-optional-comments">
+                            Comments
+                        </FieldLabel>
+                        <TextareaInputField
+                            id="checkout-7j9-optional-comments"
+                            placeholder="Add any additional comments"
+                            ClassName="resize-none"
+                        />
+                    </Field>
+                </FieldGroup>
+            </FieldSet>
+            <Field Orientation="FieldOrientation.Horizontal">
+                <Button Type="submit">Submit</Button>
+                <Button Variant="ButtonVariant.Outline">
+                    Cancel
+                </Button>
+            </Field>
+        </FieldGroup>
+    </form>
+</div>

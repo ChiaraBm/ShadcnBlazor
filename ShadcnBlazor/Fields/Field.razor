@@ -1,0 +1,38 @@
+﻿@inherits ShadcnBase
+
+<div
+    role="group"
+    data-slot="field"
+    data-orientation="@Orientation.ToString().ToLower()"
+    class="@Classes"
+    @attributes="Props">
+    @ChildContent
+</div>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public FieldOrientation Orientation { get; set; } = FieldOrientation.Vertical;
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "data-[invalid=true]:text-destructive gap-2 group/field flex w-full",
+            GetOrientationCss(),
+            ClassName
+        );
+    }
+
+    private string GetOrientationCss()
+    {
+        return Orientation switch
+        {
+            FieldOrientation.Vertical => "flex-col [&>*]:w-full [&>.sr-only]:w-auto",
+            FieldOrientation.Horizontal => "flex-row items-center [&>[data-slot=field-label]]:flex-auto has-[>[data-slot=field-content]]:items-start has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px",
+            FieldOrientation.Responsive => "flex-col [&>*]:w-full [&>.sr-only]:w-auto @md/field-group:flex-row @md/field-group:items-center @md/field-group:[&>*]:w-auto @md/field-group:[&>[data-slot=field-label]]:flex-auto @md/field-group:has-[>[data-slot=field-content]]:items-start @md/field-group:has-[>[data-slot=field-content]]:[&>[role=checkbox],[role=radio]]:mt-px",
+            _ => throw new ArgumentOutOfRangeException()
+        };
+    }
+}

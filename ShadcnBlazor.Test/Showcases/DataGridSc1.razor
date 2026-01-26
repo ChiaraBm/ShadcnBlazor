@@ -87,8 +87,6 @@
 
     private async Task<DataGridResponse<Payment>> LoadAsync(DataGridRequest<Payment> request)
     {
-        return new DataGridResponse<Payment>([], 0);
-        
         await Task.Delay(1000);
 
         IEnumerable<Payment> items = Payments;
