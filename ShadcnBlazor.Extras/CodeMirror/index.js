@@ -1,4 +1,6 @@
-import {EditorView, basicSetup} from "codemirror";
+import {basicSetup} from "codemirror";
+import {EditorView, keymap} from "@codemirror/view";
+import {indentWithTab} from "@codemirror/commands";
 import {javascript} from "@codemirror/lang-javascript";
 import {python} from "@codemirror/lang-python";
 import {php} from "@codemirror/lang-php";
@@ -59,7 +61,8 @@ window.CodeMirrorAdapter = {
         const extensions = [
             basicSetup,
             githubDark,
-            roundedTheme
+            roundedTheme,
+            keymap.of([indentWithTab])
         ];
 
         if (language)
