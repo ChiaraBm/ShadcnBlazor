@@ -2,15 +2,15 @@
 
 @if (Slot != null)
 {
-    <InputField @attributes="Attributes" Context="inputFieldAttrs">
+    <TextInputField @attributes="Attributes" Context="inputFieldAttrs">
         <Slot>
             @Slot.Invoke(inputFieldAttrs)
         </Slot>
-    </InputField>
+    </TextInputField>
 }
 else
 {
-    <InputField @bind-Value="Value" @attributes="Attributes" />
+    <TextInputField @bind-Value="Value" @attributes="Attributes" />
 }
 
 @code
