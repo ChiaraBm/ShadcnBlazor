@@ -1,14 +1,14 @@
 ﻿@using System.ComponentModel.DataAnnotations
-@using ShadcnBlazor.Buttons
-@using ShadcnBlazor.Extras.FormHandlers
+@using ShadcnBlazor.Extras.Forms
 @using ShadcnBlazor.Extras.Toasts
 @using ShadcnBlazor.Inputs
 
 @inject ToastService ToastService
 
-<FormHandler @ref="Form" OnValidSubmit="OnSubmitAsync" Model="Model">
+<EnhancedEditForm OnValidSubmit="OnValidSubmit" Model="Model">
     <div class="flex flex-col gap-6">
-                    
+        
+        <DataAnnotationsValidator/>
         <FormValidationSummary />
                     
         <div class="grid gap-2">
@@ -29,16 +29,13 @@
                 placeholder="example_user"/>
         </div>
         
-        <Button @onclick="Form.SubmitAsync">Submit</Button>
+        <SubmitButton>Submit</SubmitButton>
     </div>
-</FormHandler>
+</EnhancedEditForm>
 
 @code
 {
-    private FormHandler Form;
     private FormModel Model = new();
-
-    private async Task OnSubmitAsync() => await ToastService.SuccessAsync("Form submission", "Form submission was successful");
     
     public record FormModel
     {
@@ -50,5 +47,11 @@
         [Required]
         [EmailAddress]
         public string Email { get; set; }
+    }
+
+    private async Task<bool> OnValidSubmit(EditContext editContext, ValidationMessageStore messageStore)
+    {
+        await ToastService.SuccessAsync("Form submission", "Form submission was successful");
+        return true;
     }
 }

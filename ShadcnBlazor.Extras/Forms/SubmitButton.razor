@@ -1,0 +1,28 @@
+﻿@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Spinners
+
+@inherits ShadcnBase
+
+@if (Form.IsProcessing)
+{
+    <Button Size="Size" Variant="Variant" ClassName="@ClassName" Type="submit" disabled="disabled"@attributes="Props">
+        <Spinner />
+        <span>@ProgressText</span>
+    </Button>
+}
+else
+{
+    <Button Size="Size" Variant="Variant" ClassName="@ClassName" Type="submit" @attributes="Props">
+        @ChildContent
+    </Button>
+}
+
+@code
+{
+    [CascadingParameter] public EnhancedEditForm Form { get; set; }
+    
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Default;
+    [Parameter] public ButtonVariant Variant { get; set; } = ButtonVariant.Default;
+    [Parameter] public string ProgressText { get; set; } = "Submitting";
+}

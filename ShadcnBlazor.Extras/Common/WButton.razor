@@ -7,13 +7,13 @@
 {
     if (string.IsNullOrWhiteSpace(Text))
     {
-        <Button Size="ButtonSize.Icon" Variant="Variant" ClassName="@ClassName" disabled="disabled" @onclick="HandleAsync" @attributes="Props">
+        <Button Size="ButtonSize.Icon" Variant="Variant" ClassName="@ClassName" disabled="disabled" @attributes="Props">
             <Spinner />
         </Button>
     }
     else
     {
-        <Button Size="Size" Variant="Variant" ClassName="@ClassName" disabled="disabled" @onclick="HandleAsync" @attributes="Props">
+        <Button Size="Size" Variant="Variant" ClassName="@ClassName" disabled="disabled" @attributes="Props">
             <Spinner />
             <span>@Text</span>
         </Button>
@@ -31,7 +31,7 @@ else
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public ButtonSize Size { get; set; } = ButtonSize.Default;
     [Parameter] public ButtonVariant Variant { get; set; } = ButtonVariant.Default;
-    [Parameter] public EventCallback<WButtom> OnClick { get; set; }
+    [Parameter] public EventCallback<WButton> OnClick { get; set; }
 
     private bool IsWorking;
     private string? Text;
