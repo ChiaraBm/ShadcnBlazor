@@ -1,0 +1,83 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+
+<EditForm EditContext="EditContext" OnValidSubmit="HandleValidSubmitAsync" OnInvalidSubmit="HandleInvalidSubmitAsync">
+    <CascadingValue Value="this" IsFixed="false">
+        @ChildContent.Invoke(context)
+    </CascadingValue>
+</EditForm>
+
+@code
+{
+    [Parameter] public RenderFragment<EditContext> ChildContent { get; set; }
+
+    [Parameter] public object Model { get; set; }
+    [Parameter] public Func<EditContext, ValidationMessageStore, Task<bool>>? OnValidSubmit { get; set; }
+    [Parameter] public Func<EditContext, ValidationMessageStore, Task<bool>>? OnInvalidSubmit { get; set; }
+    [Parameter] public Func<EditContext, ValidationMessageStore, Task<bool>>? OnSubmit { get; set; }
+
+    public bool IsProcessing { get; private set; }
+
+    private EditContext EditContext;
+    private ValidationMessageStore MessageStore;
+
+    protected override void OnInitialized()
+    {
+        EditContext = new EditContext(Model);
+        MessageStore = new ValidationMessageStore(EditContext);
+        
+        EditContext.OnValidationRequested += (_, _) =>
+        {
+            MessageStore.Clear();
+        };
+    }
+
+    private async Task HandleValidSubmitAsync()
+    {
+        IsProcessing = true;
+        await InvokeAsync(StateHasChanged);
+
+        if (OnSubmit != null)
+        {
+            var hasSucceeded = await OnSubmit.Invoke(EditContext, MessageStore);
+            
+            if(!hasSucceeded)
+                EditContext.NotifyValidationStateChanged();
+        }
+        
+        if (OnValidSubmit != null)
+        {
+            var hasSucceeded = await OnValidSubmit.Invoke(EditContext, MessageStore);
+        
+            if(!hasSucceeded)
+                EditContext.NotifyValidationStateChanged();
+        }
+        
+        IsProcessing = false;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task HandleInvalidSubmitAsync()
+    {
+        IsProcessing = true;
+        await InvokeAsync(StateHasChanged);
+        
+        if (OnSubmit != null)
+        {
+            var hasSucceeded = await OnSubmit.Invoke(EditContext, MessageStore);
+            
+            if(!hasSucceeded)
+                EditContext.NotifyValidationStateChanged();
+        }
+        
+        if (OnInvalidSubmit != null)
+        {
+            var hasSucceeded = await OnInvalidSubmit.Invoke(EditContext, MessageStore);
+            
+            if(!hasSucceeded)
+                EditContext.NotifyValidationStateChanged();
+        }
+        
+        IsProcessing = false;
+        await InvokeAsync(StateHasChanged);
+    }
+}

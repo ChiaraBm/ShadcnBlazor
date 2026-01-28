@@ -1,11 +1,22 @@
 ﻿@using ShadcnBlazor.Inputs
 
 <div class="flex flex-col gap-5">
-    <TextInputField placeholder="Text" />
-    <TextInputField Type="email" placeholder="Email" />
-    <TextInputField Type="password" placeholder="Password" />
-    <DateTimeInputField />
-    <DateInputField />
-    <NumberInputField TValue="int" />
-    <TextareaInputField placeholder="Textarea" />
+    <TextInputField @bind-Value="Text" placeholder="Text" />
+    <TextInputField @bind-Value="Email" type="email" placeholder="Email" />
+    <TextInputField @bind-Value="Password" type="password" placeholder="Password" />
+    <DateTimeInputField @bind-Value="DateTime" />
+    <DateInputField @bind-Value="Date" />
+    <NumberInputField @bind-Value="Number"  />
+    <TextareaInputField @bind-Value="Textarea" placeholder="Textarea" />
 </div>
+
+@code
+{
+    private string Text;
+    private string Email;
+    private string Password;
+    private DateTimeOffset DateTime;
+    private DateOnly Date;
+    private int Number;
+    private string Textarea;
+}

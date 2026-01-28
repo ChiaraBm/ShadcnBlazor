@@ -1,27 +1,48 @@
-﻿@inherits ShadcnBase
+﻿@using System.Diagnostics.CodeAnalysis
+@using TailwindMerge
+
+@inherits Microsoft.AspNetCore.Components.Forms.InputBase<string>
+
+@inject TwMerge Merge
 
 <textarea @bind="Value"
-          @bind:after="() => ValueChanged.InvokeAsync(Value)"
-          data-slot="textarea"
-          class="@Classes"
-          @attributes="Props">
-@ChildContent
+       @bind:after="OnChangedAsync"
+       @bind:event="@BindEvent"
+       data-slot="input"
+       type="text"
+       @attributes="AdditionalAttributes"
+       class="@Classes">
 </textarea>
 
 @code
 {
-    [Parameter] public RenderFragment? ChildContent { get; set; }
-
-    [Parameter] public string Value { get; set; }
-    [Parameter] public EventCallback<string> ValueChanged { get; set; }
+    [Parameter] public string? ClassName { get; set; }
+    [Parameter] public string BindEvent { get; set; } = "onchange";
 
     private string? Classes;
 
     protected override void OnParametersSet()
     {
-        Classes = Cn(
+        Classes = Merge.Merge(
             "border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 flex field-sizing-content min-h-16 w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-            ClassName
+            ClassName,
+            CssClass
         );
+    }
+
+    private async Task OnChangedAsync()
+    {
+        await ValueChanged.InvokeAsync(Value);
+        
+        // ReSharper disable once ConditionalAccessQualifierIsNonNullableAccordingToAPIContract
+        EditContext?.NotifyFieldChanged(FieldIdentifier);
+    }
+
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out string result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        result = value!;
+        validationErrorMessage = null;
+        
+        return true;
     }
 }

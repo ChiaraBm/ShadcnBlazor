@@ -1,46 +1,54 @@
-﻿@inherits ShadcnBase
+﻿@using System.Diagnostics.CodeAnalysis
+@using TailwindMerge
 
-@if (Slot != null)
-{
-    @Slot.Invoke(Attributes)
-}
-else
-{
-    <input @bind="Value"
-           @bind:after="() => ValueChanged.InvokeAsync(Value)"
-           type="datetime-local"
-           @attributes="Attributes"/>
+@inherits Microsoft.AspNetCore.Components.Forms.InputBase<DateTimeOffset>
 
-    @ChildContent
-}
+@inject TwMerge Merge
+
+<input @bind="Value"
+       @bind:after="OnChangedAsync"
+       @bind:event="@BindEvent"
+       data-slot="input"
+       type="datetime-local"
+       @attributes="AdditionalAttributes"
+       class="@Classes"/>
 
 @code
 {
-    [Parameter] public DateTimeOffset Value { get; set; }
-    [Parameter] public EventCallback<DateTimeOffset> ValueChanged { get; set; }
-    
-    [Parameter] public RenderFragment? ChildContent { get; set; }
-    [Parameter] public RenderFragment<Dictionary<string, object?>>? Slot { get; set; }
+    [Parameter] public string? ClassName { get; set; }
+    [Parameter] public string BindEvent { get; set; } = "onchange";
 
-    private Dictionary<string, object?> Attributes;
+    private string? Classes;
 
     protected override void OnParametersSet()
     {
-        Attributes = new()
+        Classes = Merge.Merge(
+            "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+            "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+            "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+            ClassName,
+            CssClass
+        );
+    }
+
+    private async Task OnChangedAsync()
+    {
+        await ValueChanged.InvokeAsync(Value);
+        
+        // ReSharper disable once ConditionalAccessQualifierIsNonNullableAccordingToAPIContract
+        EditContext?.NotifyFieldChanged(FieldIdentifier);
+    }
+
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out DateTimeOffset result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        if (!DateTimeOffset.TryParse(value, out result))
         {
-            ["data-slot"] = "input",
-            ["class"] = Cn(
-                "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-                "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
-                "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
-                ClassName
-            )
-        };
-
-        if (Props == null)
-            return;
-
-        foreach (var prop in Props)
-            Attributes[prop.Key] = prop.Value;
+            validationErrorMessage = "Unable to parse to DateOnly";
+            return false;
+        }
+        
+        validationErrorMessage = null;
+        
+        return true;
     }
 }

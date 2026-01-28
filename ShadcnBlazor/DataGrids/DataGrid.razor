@@ -39,27 +39,19 @@
                     </InputGroupAddon>
                     @if (EnableLiveSearch)
                     {
-                        <InputGroupInput>
-                            <Slot>
-                                <input @bind="SearchTerm"
-                                       @bind:event="oninput"
-                                       @bind:after="OnSearchChangedAsync"
-                                       placeholder="Search..."
-                                       type="search"
-                                       @attributes="context"/>
-                            </Slot>
+                        <InputGroupInput @bind-Value="SearchTerm"
+                                         BindEvent="oninput"
+                                         @bind-Value:after="OnSearchChangedAsync"
+                                         placeholder="Search..."
+                                         type="search">
                         </InputGroupInput>
                     }
                     else
                     {
-                        <InputGroupInput>
-                            <Slot>
-                                <input @bind="SearchTerm"
-                                       @bind:after="OnSearchChangedAsync"
-                                       placeholder="Search..."
-                                       type="search"
-                                       @attributes="context"/>
-                            </Slot>
+                        <InputGroupInput @bind-Value="SearchTerm"
+                                         @bind-Value:after="OnSearchChangedAsync"
+                                         placeholder="Search..."
+                                         type="search">
                         </InputGroupInput>
                     }
                 </InputGroup>

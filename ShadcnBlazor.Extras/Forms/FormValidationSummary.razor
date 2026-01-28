@@ -1,0 +1,64 @@
+﻿@using LucideBlazor
+@using Microsoft.AspNetCore.Components.Forms
+@using ShadcnBlazor.Alerts
+
+@inherits ShadcnBase
+
+@if (CurrentEditContext != null)
+{
+    var messages = CurrentEditContext.GetValidationMessages().ToArray();
+    
+    if (messages.Length > 0)
+    {
+        <Alert Variant="AlertVariant.Destructive" ClassName="@ClassName" Props="Props">
+            <TriangleAlertIcon/>
+            <AlertTitle>Following issues were found:</AlertTitle>
+            <AlertDescription>
+                <ul class="list-inside list-disc text-sm">
+                    @foreach (var message in messages)
+                    {
+                        <li>@message</li>
+                    }
+                </ul>
+            </AlertDescription>
+        </Alert>
+    }
+}
+
+@code
+{
+    [CascadingParameter] public EditContext? CurrentEditContext { get; set; }
+
+    private EventHandler<ValidationStateChangedEventArgs> ValidationStateChangedHandler;
+    private EditContext? PreviousEditContext;
+
+    protected override void OnInitialized()
+    {
+        ValidationStateChangedHandler = (_, _) => StateHasChanged();
+    }
+
+    protected override void OnParametersSet()
+    {
+        if (CurrentEditContext == null)
+        {
+            throw new InvalidOperationException(
+                $"{nameof(ValidationSummary)} requires a cascading parameter " +
+                $"of type {nameof(EditContext)}. For example, you can use {nameof(ValidationSummary)} inside " +
+                $"an {nameof(EditForm)}."
+            );
+        }
+
+        if (CurrentEditContext == PreviousEditContext)
+            return;
+
+        DetachValidationStateChangedListener();
+        CurrentEditContext.OnValidationStateChanged += ValidationStateChangedHandler;
+        PreviousEditContext = CurrentEditContext;
+    }
+
+    private void DetachValidationStateChangedListener()
+    {
+        if (PreviousEditContext != null)
+            PreviousEditContext.OnValidationStateChanged -= ValidationStateChangedHandler;
+    }
+}
