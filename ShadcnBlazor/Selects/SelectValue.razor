@@ -5,13 +5,9 @@
 else
 {
     <span data-slot="select-value">
-        @if (Select.ValueContent == null)
+        @if (Select.Items.TryGetValue(Select.Value, out var value))
         {
-            @Select.Value
-        }
-        else
-        {
-            @Select.ValueContent
+            @value
         }
     </span>
 }
@@ -19,6 +15,17 @@ else
 @code
 {
     [CascadingParameter] public Select Select { get; set; }
-    
-    [Parameter] public string Placeholder { get; set; }
+
+    [Parameter] public string Placeholder { get; set; } = "Select item...";
+
+    protected override void OnInitialized()
+    {
+        Select.Items[string.Empty] = builder => builder.AddContent(0, Placeholder);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            await InvokeAsync(StateHasChanged); // Rerender, cause in the initial render the Select.Items dictionary isn't populated enough
+    }
 }

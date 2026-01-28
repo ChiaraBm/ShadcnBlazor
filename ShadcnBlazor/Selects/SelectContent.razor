@@ -17,10 +17,24 @@
                  data-state="@(Select.IsOpen ? "open" : "closed")"
                  class="@Classes"
                  @attributes="Props">
+                
+                @if(Select.Items.TryGetValue(string.Empty, out var value))
+                {
+                    <SelectItem Value="@string.Empty">
+                        @value
+                    </SelectItem>
+                }
+                
                 @ChildContent
             </div>
         </div>
     </SectionContent>
+}
+else
+{
+    <div class="hidden">
+        @ChildContent
+    </div>
 }
 
 @code

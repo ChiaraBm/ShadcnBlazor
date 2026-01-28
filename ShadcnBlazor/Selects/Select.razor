@@ -16,6 +16,8 @@
     internal SelectTrigger Trigger { get; set; }
     internal RenderFragment? ValueContent { get; private set; }
 
+    internal readonly Dictionary<string, RenderFragment> Items = new();
+
     protected override void OnInitialized()
     {
         Value = DefaultValue;
@@ -25,7 +27,7 @@
     {
         Value = value;
         ValueContent = valueRender;
-        await ValueChanged.InvokeAsync();
+        await ValueChanged.InvokeAsync(Value);
 
         await CloseAsync();
     }
