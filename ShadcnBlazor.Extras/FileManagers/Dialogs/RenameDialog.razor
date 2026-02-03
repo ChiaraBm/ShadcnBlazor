@@ -1,0 +1,70 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Components.Forms
+@using ShadcnBlazor.AlertDialogs
+@using ShadcnBlazor.Extras.Common
+@using ShadcnBlazor.Extras.FileManagers.Abstractions
+@using ShadcnBlazor.Extras.Forms
+@using ShadcnBlazor.Inputs
+
+@inherits ShadcnBlazor.Extras.AlertDialogs.AlertDialogBase
+
+<AlertDialogHeader>
+    <AlertDialogTitle>Rename @FsEntry.Name</AlertDialogTitle>
+    <AlertDialogDescription>
+        Enter a new name
+    </AlertDialogDescription>
+</AlertDialogHeader>
+<EnhancedEditForm @ref="EditForm" Model="Form" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator/>
+
+    <div class="gap-4">
+        <FormValidationSummary/>
+
+        <TextInputField
+            @bind-Value="Form.Name"
+            ClassName="mt-2"
+            placeholder="Name..."/>
+    </div>
+</EnhancedEditForm>
+
+<AlertDialogFooter>
+    <AlertDialogCancel>Cancel</AlertDialogCancel>
+    <WButton OnClick="EditForm.SubmitAsync">Rename</WButton>
+</AlertDialogFooter>
+
+@code
+{
+    [Parameter] public IFsAccess FsAccess { get; set; }
+    [Parameter] public IFileManager FileManager { get; set; }
+    [Parameter] public string WorkingDirectory { get; set; }
+    [Parameter] public FsEntry FsEntry { get; set; }
+
+    private readonly InternalForm Form = new();
+
+    private EnhancedEditForm EditForm;
+
+    protected override void OnInitialized()
+    {
+        Form.Name = FsEntry.Name;
+    }
+
+    private async Task<bool> OnValidSubmit(EditContext editContext, ValidationMessageStore validationMessageStore)
+    {
+        await FsAccess.MovAsync(
+            UnixPath.Combine(WorkingDirectory, FsEntry.Name),
+            UnixPath.Combine(WorkingDirectory, Form.Name)
+        );
+        
+        await FileManager.RefreshAsync();
+        await CloseAsync();
+
+        return true;
+    }
+
+    private class InternalForm
+    {
+        [Required]
+        [RegularExpression(@"^[A-Za-z0-9._ -]+$", ErrorMessage = "Provide a valid name")]
+        public string Name { get; set; }
+    }
+}

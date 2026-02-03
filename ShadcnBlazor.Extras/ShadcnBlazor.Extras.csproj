@@ -45,6 +45,18 @@
       <Compile Remove="CodeMirror\**" />
       <EmbeddedResource Remove="CodeMirror\**" />
       <Content Remove="CodeMirror\**" />
+      <Compile Update="FileManagers\FileManager.Navigation.cs">
+        <DependentUpon>FileManager.razor</DependentUpon>
+      </Compile>
+      <Compile Update="FileManagers\FileManager.ContextMenu.cs">
+        <DependentUpon>FileManager.razor</DependentUpon>
+      </Compile>
+      <Compile Update="FileManagers\FileManager.Toolbar.cs">
+        <DependentUpon>FileManager.razor</DependentUpon>
+      </Compile>
+      <Compile Update="FileManagers\FileManager.Operations.cs">
+        <DependentUpon>FileManager.razor</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
