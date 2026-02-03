@@ -1,6 +1,7 @@
 ﻿@using LucideBlazor
 @using ShadcnBlazor.Breadcrumbs
 @using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Checkboxes
 @using ShadcnBlazor.ContextMenus
 @using ShadcnBlazor.Dropdowns
 @using ShadcnBlazor.Extras.Dialogs
@@ -121,6 +122,11 @@
         <TableHeader>
             <TableRow>
                 <TableHead>
+                    <Checkbox ClassName="ms-2"
+                              Value="@(CurrentEntries.Length > 0 && SelectedEntries.Count == CurrentEntries.Length)"
+                              ValueChanged="ToggleAllAsync"/>
+                </TableHead>
+                <TableHead>
                     Name
                 </TableHead>
                 <TableHead ClassName="hidden sm:table-cell">
@@ -141,6 +147,7 @@
                 @if (CurrentPath != "/")
                 {
                     <TableRow>
+                        <TableCell></TableCell>
                         <TableCell>
                             <div class="flex flex-row items-center gap-2.5">
                                 <FolderIcon ClassName="text-amber-500"/>
@@ -172,6 +179,11 @@
                         @oncontextmenu="e => OpenContextMenuAsync(fsEntry, e)"
                         @oncontextmenu:preventDefault
                         @key="fsEntry">
+                        <TableCell>
+                            <Checkbox ClassName="ms-2"
+                                      Value="@(SelectedEntries.Contains(fsEntry))"
+                                      ValueChanged="b => ToggleAsync(fsEntry, b)"/>
+                        </TableCell>
                         <TableCell>
                             <div class="flex flex-row items-center gap-2.5">
                                 @if (fsEntry.Type == FsEntryType.File)
