@@ -1,0 +1,21 @@
+﻿@using ShadcnBlazor.Extras.FileManagers
+@using ShadcnBlazor.Extras.FileManagers.Abstractions
+@using ShadcnBlazor.Extras.FileManagers.Operations
+@using ShadcnBlazor.Test.ExtraShowcases.Services
+
+<FileManager ClassName="bg-card" FsAccess="Access" OnConfigure="OnConfigure" />
+
+@code
+{
+    private IFsAccess Access = new InMemoryFsAccess();
+
+    private void OnConfigure(FileManagerOptions options)
+    {
+        options.AddToolbarOperation<NewDirectoryOperation>();
+        options.AddToolbarOperation<NewFileOperation>();
+        options.AddToolbarOperation<UploadOperation>();
+        options.AddSingleOperation<RenameOperation>();
+        options.AddMultiOperation<DeleteOperation>();
+        options.AddMultiOperation<MoveOperation>();
+    }
+}

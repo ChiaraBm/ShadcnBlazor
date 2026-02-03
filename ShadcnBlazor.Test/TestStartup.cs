@@ -9,5 +9,6 @@ public static class TestStartup
     {
         services.AddShadcnBlazor();
         services.AddShadcnBlazorExtras();
+        services.AddFileManagerOperations();
     }
 }

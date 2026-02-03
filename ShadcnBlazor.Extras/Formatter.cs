@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace ShadcnBlazor.Extras;
 
 internal static class Formatter
@@ -18,5 +20,10 @@ internal static class Formatter
     
         var decimals = unitIndex == 0 ? 0 : 2;
         return $"{Math.Round(size, decimals)} {units[unitIndex]}";
+    }
+    
+    internal static string FormatDateTimeOffsetShort(DateTimeOffset dateTime)
+    {
+        return dateTime.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
     }
 }

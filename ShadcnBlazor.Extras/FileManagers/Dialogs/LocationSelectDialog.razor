@@ -1,0 +1,216 @@
+﻿@using LucideBlazor
+@using ShadcnBlazor.Breadcrumbs
+@using ShadcnBlazor.Dialogs
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Cards
+@using ShadcnBlazor.Extras.FileManagers.Abstractions
+@using ShadcnBlazor.Spinners
+@using ShadcnBlazor.Tabels
+
+@inherits ShadcnBlazor.Extras.Dialogs.DialogBase
+
+<DialogHeader>
+    <DialogTitle>@Title</DialogTitle>
+    <DialogDescription>
+        @Description
+    </DialogDescription>
+</DialogHeader>
+
+<Card ClassName="py-2.5">
+    <CardContent ClassName="px-2.5">
+        <Breadcrumb>
+            <BreadcrumbList>
+                <BreadcrumbItem>
+                    <BreadcrumbLink>
+                        <Slot>
+                            <a href="#" @onclick="@(() => NavigateToAsync("/"))" @onclick:preventDefault
+                               @attributes="context">
+                                <HouseIcon ClassName="size-4"/>
+                            </a>
+                        </Slot>
+                    </BreadcrumbLink>
+                </BreadcrumbItem>
+
+                @{
+                    var parts = CurrentPath.Split('/', StringSplitOptions.RemoveEmptyEntries);
+                    var i = 1;
+                }
+
+                @foreach (var part in parts)
+                {
+                    var combinedPath = '/' + string.Join('/', parts.Take(i));
+
+                    <BreadcrumbSeparator>
+                        /
+                    </BreadcrumbSeparator>
+
+                    @if (i == parts.Length)
+                    {
+                        <BreadcrumbItem>
+                            <BreadcrumbPage>
+                                @part
+                            </BreadcrumbPage>
+                        </BreadcrumbItem>
+                    }
+                    else
+                    {
+                        <BreadcrumbItem>
+                            <BreadcrumbLink>
+                                <Slot>
+                                    <a href="#" @onclick="() => NavigateToAsync(combinedPath)"
+                                       @onclick:preventDefault
+                                       @attributes="context">
+                                        @part
+                                    </a>
+                                </Slot>
+                            </BreadcrumbLink>
+                        </BreadcrumbItem>
+                    }
+
+                    i++;
+                }
+            </BreadcrumbList>
+        </Breadcrumb>
+    </CardContent>
+</Card>
+
+<div class="overflow-hidden rounded-md border bg-card">
+    <Table>
+        <TableHeader>
+            <TableRow>
+                <TableHead>
+                    Name
+                </TableHead>
+            </TableRow>
+        </TableHeader>
+        <TableBody>
+            @if (HasLoaded)
+            {
+                @if (CurrentPath != "/")
+                {
+                    <TableRow>
+                        <TableCell>
+                            <div class="flex flex-row items-center gap-2.5">
+                                <FolderIcon ClassName="text-amber-500"/>
+
+                                <a href="#" @onclick="GoUpAsync" @onclick:preventDefault>
+                                    Go up
+                                </a>
+                            </div>
+                        </TableCell>
+                    </TableRow>
+                }
+
+                foreach (var fsEntry in CurrentEntries)
+                {
+                    <TableRow @key="fsEntry">
+                        <TableCell>
+                            <div class="flex flex-row items-center gap-2.5">
+                                @if (fsEntry.Type == FsEntryType.File)
+                                {
+                                    <FileTextIcon ClassName="text-blue-500"/>
+                                }
+                                else
+                                {
+                                    <FolderIcon ClassName="text-amber-500"/>
+                                }
+
+                                <a href="#" @onclick="() => OnItemClickedAsync(fsEntry)" @onclick:preventDefault>
+                                    @fsEntry.Name
+                                </a>
+                            </div>
+                        </TableCell>
+                    </TableRow>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="99999">
+                        <div class="w-full flex items-center justify-center p-5">
+                            <Spinner ClassName="size-10"/>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </TableBody>
+    </Table>
+</div>
+
+<DialogFooter>
+    <DialogClose>
+        <Button Variant="ButtonVariant.Outline">Cancel</Button>
+    </DialogClose>
+    <Button @onclick="OnSubmitAsync">Select Location</Button>
+</DialogFooter>
+
+@code
+{
+    [Parameter] public string? DefaultPath { get; set; }
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string Description { get; set; }
+    [Parameter] public Func<string, Task> OnSubmit { get; set; }
+
+    [Parameter] public IFsAccess FsAccess { get; set; }
+
+    private bool HasLoaded;
+    private string CurrentPath = "/";
+    private FsEntry[] CurrentEntries;
+
+    protected override void OnInitialized()
+    {
+        if (!string.IsNullOrWhiteSpace(DefaultPath))
+            CurrentPath = DefaultPath;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+
+        await LoadAsync();
+    }
+
+    private async Task OnItemClickedAsync(FsEntry fsEntry)
+    {
+        if (fsEntry.Type == FsEntryType.Folder)
+        {
+            CurrentPath = UnixPath.Combine(CurrentPath, fsEntry.Name);
+            await LoadAsync();
+        }
+    }
+
+    private async Task GoUpAsync()
+    {
+        CurrentPath = UnixPath.GetFullPath(UnixPath.Combine(CurrentPath, ".."));
+        await LoadAsync();
+    }
+
+    private async Task NavigateToAsync(string path)
+    {
+        CurrentPath = path;
+        await LoadAsync();
+    }
+
+    private async Task LoadAsync()
+    {
+        HasLoaded = false;
+        await InvokeAsync(StateHasChanged);
+
+        var loadedEntries = await FsAccess.ListAsync(CurrentPath);
+
+        CurrentEntries = loadedEntries
+            .OrderByDescending(x => x.Type)
+            .ThenBy(x => x.Name)
+            .ToArray();
+
+        HasLoaded = true;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task OnSubmitAsync()
+    {
+        await OnSubmit.Invoke(CurrentPath);
+        await CloseAsync();
+    }
+}

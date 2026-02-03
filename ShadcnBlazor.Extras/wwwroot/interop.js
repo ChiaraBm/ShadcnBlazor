@@ -101,5 +101,8 @@ window.ShadcnBlazorExtras = {
 
             await handleDragEvent(e);
         });
+    },
+    submitForm: function (id) {
+        document.getElementById(id).dispatchEvent(new Event('submit'));
     }
 }
