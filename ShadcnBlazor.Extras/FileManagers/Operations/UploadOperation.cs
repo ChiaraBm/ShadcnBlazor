@@ -19,7 +19,7 @@ public sealed class UploadOperation : FsToolbarOperationBase
     public override int Order => 1;
 
     private readonly DialogService DialogService;
-    
+
     public UploadOperation(DialogService dialogService)
     {
         DialogService = dialogService;
@@ -27,13 +27,18 @@ public sealed class UploadOperation : FsToolbarOperationBase
         IsPrimary = true;
         ToolbarButtonVariant = ButtonVariant.Default;
     }
-    
+
     public override async Task ExecuteAsync(string workingDirectory, IFsAccess fsAccess, IFileManager fileManager)
     {
-        await DialogService.LaunchAsync<FileUploadDialog>(onConfigure: model =>
-        {
-            model.ClassName = "sm:max-w-2xl!";
-        });
+        await DialogService.LaunchAsync<UploadDialog>(
+            parameters =>
+            {
+                parameters[nameof(UploadDialog.FsAccess)] = fsAccess;
+                parameters[nameof(UploadDialog.FileManager)] = fileManager;
+                parameters[nameof(UploadDialog.WorkingDirectory)] = workingDirectory;
+            },
+            onConfigure: model => { model.ClassName = "sm:max-w-2xl!"; }
+        );
     }
 
     public override bool CheckCompatability(IFsAccess fsAccess) => true;

@@ -195,7 +195,22 @@ public class InMemoryFsAccess : IFsAccess
         
         if (!_nodes.TryGetValue(normalizedPath, out var node))
         {
-            throw new FileNotFoundException($"File not found: {path}");
+            var parentPath = GetParentPath(normalizedPath);
+            EnsureDirectoryExists(parentPath);
+
+            var fileName = GetFileName(normalizedPath);
+            
+            node = new FsNode
+            {
+                Name = fileName,
+                Type = FsEntryType.File,
+                Data = Array.Empty<byte>(),
+                CreatedAt = DateTimeOffset.UtcNow,
+                UpdatedAt = DateTimeOffset.UtcNow,
+                Permissions = FsEntryPermissions.ReadWrite
+            };
+
+            _nodes[normalizedPath] = node;
         }
 
         if (node.Type != FsEntryType.File)
