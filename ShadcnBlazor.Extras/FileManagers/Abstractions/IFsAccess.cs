@@ -10,6 +10,6 @@ public interface IFsAccess
     public Task<Stream> ReadAsync(string path);
     public Task WriteAsync(string path, Stream dataStream);
 
-    public Task MovAsync(string oldPath, string newPath);
+    public Task MoveAsync(string oldPath, string newPath);
     public Task DeleteAsync(string path);
 }

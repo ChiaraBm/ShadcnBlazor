@@ -3,7 +3,7 @@ using ShadcnBlazor.Extras.FileManagers.Abstractions;
 
 namespace ShadcnBlazor.Test.ExtraShowcases.Services;
 
-public class InMemoryFsAccess : IFsAccess
+public class InMemoryFsAccess : IFsAccess, IDownloadFileAccess, IDownloadFolderAccess
 {
     private readonly Dictionary<string, FsNode> _nodes = new();
     private const char PathSeparator = '/';
@@ -230,7 +230,7 @@ public class InMemoryFsAccess : IFsAccess
         node.UpdatedAt = DateTimeOffset.UtcNow;
     }
 
-    public Task MovAsync(string oldPath, string newPath)
+    public Task MoveAsync(string oldPath, string newPath)
     {
         var normalizedOldPath = NormalizePath(oldPath);
         var normalizedNewPath = NormalizePath(newPath);
@@ -375,5 +375,87 @@ public class InMemoryFsAccess : IFsAccess
         public DateTimeOffset CreatedAt { get; set; }
         public DateTimeOffset UpdatedAt { get; set; }
         public FsEntryPermissions Permissions { get; set; }
+    }
+
+    public Task<string> GetFileDownloadUrlAsync(string path)
+    {
+        var normalizedPath = NormalizePath(path);
+        
+        if (!_nodes.TryGetValue(normalizedPath, out var node))
+        {
+            throw new FileNotFoundException($"File not found: {path}");
+        }
+
+        if (node.Type != FsEntryType.File)
+        {
+            throw new InvalidOperationException($"Path is not a file: {path}");
+        }
+
+        if (node.Permissions == FsEntryPermissions.None)
+        {
+            throw new UnauthorizedAccessException($"No read permission: {path}");
+        }
+
+        var data = node.Data ?? [];
+        var base64 = Convert.ToBase64String(data);
+        
+        var encodedFileName = Uri.EscapeDataString(node.Name);
+        
+        var dataUrl = $"data:application/octet-stream;name={encodedFileName};base64,{base64}";
+        return Task.FromResult(dataUrl);
+    }
+    
+    public async Task<string> GetFolderDownloadUrlAsync(string path)
+    {
+        var normalizedPath = NormalizePath(path);
+        
+        if (!_nodes.TryGetValue(normalizedPath, out var node))
+        {
+            throw new DirectoryNotFoundException($"Folder not found: {path}");
+        }
+
+        if (node.Type != FsEntryType.Folder)
+        {
+            throw new InvalidOperationException($"Path is not a folder: {path}");
+        }
+
+        // Create a ZIP archive in memory
+        using var zipStream = new MemoryStream();
+        using (var archive = new System.IO.Compression.ZipArchive(zipStream, System.IO.Compression.ZipArchiveMode.Create, true))
+        {
+            // Get all files in the folder (recursively)
+            var prefix = normalizedPath == "/" ? "/" : normalizedPath + "/";
+            var filesToZip = _nodes
+                .Where(kvp => kvp.Key.StartsWith(prefix) && kvp.Value.Type == FsEntryType.File)
+                .ToList();
+
+            foreach (var file in filesToZip)
+            {
+                // Calculate relative path for the zip entry
+                var relativePath = file.Key.Substring(prefix.Length);
+                if (string.IsNullOrEmpty(relativePath))
+                {
+                    continue;
+                }
+
+                var entry = archive.CreateEntry(relativePath, System.IO.Compression.CompressionLevel.Optimal);
+                await using var entryStream = entry.Open();
+                var fileData = file.Value.Data ?? Array.Empty<byte>();
+                await entryStream.WriteAsync(fileData, 0, fileData.Length);
+            }
+        }
+
+        // Convert ZIP to base64 data URL
+        zipStream.Position = 0;
+        var zipBytes = zipStream.ToArray();
+        var base64 = Convert.ToBase64String(zipBytes);
+        
+        // Create filename for the ZIP archive
+        var folderName = node.Name == "/" ? "root" : node.Name;
+        var zipFileName = Uri.EscapeDataString($"{folderName}.zip");
+        
+        var dataUrl = $"data:application/zip;name={zipFileName};base64,{base64}";
+        
+        return dataUrl;
     }
 }
