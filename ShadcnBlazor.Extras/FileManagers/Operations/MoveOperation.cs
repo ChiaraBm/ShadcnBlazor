@@ -36,7 +36,7 @@ public class MoveOperation : FsMultiOperationBase
             {
                 foreach (var fsEntry in fsEntries)
                 {
-                    await fsAccess.MovAsync(
+                    await fsAccess.MoveAsync(
                         UnixPath.Combine(workingDirectory, fsEntry.Name),
                         UnixPath.Combine(selectedPath, fsEntry.Name)
                     );

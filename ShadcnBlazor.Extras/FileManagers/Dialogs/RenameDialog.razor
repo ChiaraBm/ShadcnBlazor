@@ -50,7 +50,7 @@
 
     private async Task<bool> OnValidSubmit(EditContext editContext, ValidationMessageStore validationMessageStore)
     {
-        await FsAccess.MovAsync(
+        await FsAccess.MoveAsync(
             UnixPath.Combine(WorkingDirectory, FsEntry.Name),
             UnixPath.Combine(WorkingDirectory, Form.Name)
         );

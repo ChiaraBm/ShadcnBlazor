@@ -44,7 +44,7 @@
     
     private async Task<bool> OnValidSubmit(EditContext editContext, ValidationMessageStore validationMessageStore)
     {
-        await FsAccess.CreateDirectoryAsync(UnixPath.Combine(WorkingDirectory, Form.Name));
+        await FsAccess.CreateFileAsync(UnixPath.Combine(WorkingDirectory, Form.Name));
         await FileManager.RefreshAsync();
 
         await CloseAsync();
