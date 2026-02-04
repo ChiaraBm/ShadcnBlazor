@@ -1,11 +1,13 @@
 ﻿@using ShadcnBlazor.Extras.FileDropzone
-@using System.Buffers
 @using LucideBlazor
 @using ShadcnBlazor.Cards
 @using ShadcnBlazor.Emptys
 @using ShadcnBlazor.Extras.FileManagers.Abstractions
+@using ShadcnBlazor.Extras.Toasts
 
 @inherits ShadcnBlazor.Extras.Dialogs.DialogBase
+
+@inject ToastService ToastService
 
 <FileDropzone @ref="Dropzone" ClassName="p-3" UploadCallback="HandleUploadAsync" @ondragenter="OnDragEnterAsync"
               @ondragleave="OnDragLeaveAsync">
@@ -48,6 +50,8 @@
     [Parameter] public IFsAccess FsAccess { get; set; }
     [Parameter] public IFileManager FileManager { get; set; }
     [Parameter] public string WorkingDirectory { get; set; }
+    [Parameter] public long WriteLimit { get; set; }
+    [Parameter] public long UploadLimit { get; set; }
 
     private FileDropzone Dropzone;
     private bool IsDragging;
@@ -59,31 +63,89 @@
             IsDragging = false;
             await InvokeAsync(StateHasChanged);
         }
+        
+        var fileName = UnixPath.GetFileName(path);
+        var destination = UnixPath.GetFullPath(UnixPath.Combine(WorkingDirectory, path));
 
-        await FsAccess.WriteAsync(
-            UnixPath.GetFullPath(UnixPath.Combine(WorkingDirectory, path)),
-            stream
-        );
-
-        await FileManager.RefreshAsync();
-
-        return;
-
-        var name = Path.GetFileName(path);
-        var buffer = ArrayPool<byte>.Shared.Rent(1024 * 1024);
-
-        while (stream.Position != stream.Length)
+        // Check for exceeding the upload limit
+        if (stream.Length > FileManager.Options.UploadLimit)
         {
-            _ = await stream.ReadAsync(buffer, 0, 1024 * 1024);
-
-            await Dropzone.UpdateAsync(
-                name,
-                stream.Position,
-                stream.Length
+            await ToastService.ErrorAsync(
+                "Unable Error",
+                $"Unable to upload {fileName}: Maximum upload size exceeded"
             );
+
+            return;
+        }
+        else
+        {
+            // Only single upload possible
+            if (FsAccess is not ICombineAccess combineAccess)
+            {
+                // Write limit becomes upload limit when only single upload is available
+                if (stream.Length > FileManager.Options.WriteLimit)
+                {
+                    await ToastService.ErrorAsync(
+                        "Unable Error",
+                        $"Unable to upload {fileName}: Maximum upload size exceeded"
+                    );
+                }
+                
+                await FsAccess.WriteAsync(
+                    destination,
+                    stream
+                );
+            }
+            else
+            {
+                // Write limit becomes the chunk size
+                
+                // Check if it's only a single chunk
+                // so that we can upload it directly
+                if (stream.Length <= FileManager.Options.WriteLimit)
+                {
+                    await FsAccess.WriteAsync(
+                        destination,
+                        stream
+                    );
+                }
+                else
+                {
+                    var uploadId = Random.Shared.Next(0, 10324);
+                    var uploadTmpFolder = $"/.upload{uploadId}";
+
+                    await FsAccess.CreateDirectoryAsync(uploadTmpFolder);
+
+                    var counter = 0;
+                    var paths = new List<string>();
+
+                    while (stream.Position < stream.Length)
+                    {
+                        var subStream = new SubStream(stream, FileManager.Options.WriteLimit);
+
+                        var itemPath = UnixPath.Combine(uploadTmpFolder, $"{counter}.bin");
+
+                        await FsAccess.WriteAsync(itemPath, subStream);
+
+                        await Dropzone.UpdateAsync(
+                            fileName,
+                            stream.Position,
+                            stream.Length
+                        );
+
+                        paths.Add(itemPath);
+                        counter++;
+                    }
+
+                    await combineAccess.CombineAsync(destination, paths.ToArray());
+                    await FsAccess.DeleteAsync(uploadTmpFolder);
+                }
+            }
         }
 
-        ArrayPool<byte>.Shared.Return(buffer);
+       
+
+        await FileManager.RefreshAsync();
     }
 
     private async Task OnDragEnterAsync()

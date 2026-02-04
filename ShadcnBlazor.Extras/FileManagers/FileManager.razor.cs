@@ -9,6 +9,8 @@ public partial class FileManager
     [Parameter] public IFsAccess FsAccess { get; set; }
     [Parameter] public Action<FileManagerOptions>? OnConfigure { get; set; }
 
+    public FileManagerOptions Options { get; private set; }
+
     private FsOpenOperationBase[] OpenOperations;
     private FsMultiOperationBase[] MultiOperations;
     private FsSingleOperationBase[] SingleOperations;
@@ -19,28 +21,28 @@ public partial class FileManager
         if (!string.IsNullOrEmpty(DefaultPath))
             CurrentPath = DefaultPath;
 
-        var options = new FileManagerOptions(ServiceProvider);
-        OnConfigure?.Invoke(options);
+        Options = new FileManagerOptions(ServiceProvider);
+        OnConfigure?.Invoke(Options);
 
-        OpenOperations = options
+        OpenOperations = Options
             .OpenOperations
             .OrderBy(x => x.Order)
             .Where(x => x.CheckCompatability(FsAccess))
             .ToArray();
         
-        MultiOperations = options
+        MultiOperations = Options
             .MultiOperations
             .OrderBy(x => x.Order)
             .Where(x => x.CheckCompatability(FsAccess))
             .ToArray();
         
-        SingleOperations = options
+        SingleOperations = Options
             .SingleOperations
             .OrderBy(x => x.Order)
             .Where(x => x.CheckCompatability(FsAccess))
             .ToArray();
         
-        ToolbarOperations = options
+        ToolbarOperations = Options
             .ToolbarOperations
             .OrderBy(x => x.Order)
             .Where(x => x.CheckCompatability(FsAccess))

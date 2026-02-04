@@ -9,7 +9,7 @@
 /// </summary>
 internal static class UnixPath
 {
-    internal static readonly char DirectorySeparatorChar = '/';
+    private const char DirectorySeparatorChar = '/';
 
     /// <summary>
     /// Combines n numbers of parts of a path to one path
