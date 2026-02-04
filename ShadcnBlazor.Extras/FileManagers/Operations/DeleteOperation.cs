@@ -1,5 +1,6 @@
 ﻿using LucideBlazor;
 using Microsoft.AspNetCore.Components;
+using ShadcnBlazor.Buttons;
 using ShadcnBlazor.ContextMenus;
 using ShadcnBlazor.Dropdowns;
 using ShadcnBlazor.Extras.AlertDialogs;
@@ -27,6 +28,7 @@ public class DeleteOperation : FsMultiOperationBase
 
         DropdownItemVariant = DropdownMenuItemVariant.Destructive;
         ContextMenuItemVariant = ContextMenuItemVariant.Destructive;
+        ToolbarButtonVariant = ButtonVariant.Destructive;
     }
 
     public override async Task ExecuteAsync(
@@ -37,7 +39,7 @@ public class DeleteOperation : FsMultiOperationBase
     )
     {
         var itemsList = fsEntries.Length > 3
-            ? string.Join(", ", fsEntries.Take(3).Select(x => x.Name), $"{fsEntries.Length - 3} more")
+            ? string.Join(", ", fsEntries.Take(3).Select(x => x.Name)) + $" and {fsEntries.Length - 3} more"
             : string.Join(", ", fsEntries.Select(x => x.Name));
 
         await AlertDialogService.ConfirmDangerAsync(

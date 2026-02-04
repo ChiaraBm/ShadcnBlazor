@@ -3,10 +3,12 @@
 @using LucideBlazor
 @using ShadcnBlazor.Cards
 @using ShadcnBlazor.Emptys
+@using ShadcnBlazor.Extras.FileManagers.Abstractions
 
 @inherits ShadcnBlazor.Extras.Dialogs.DialogBase
 
-<FileDropzone @ref="Dropzone" ClassName="p-3" UploadCallback="HandleUploadAsync" @ondragenter="OnDragEnterAsync" @ondragleave="OnDragLeaveAsync">
+<FileDropzone @ref="Dropzone" ClassName="p-3" UploadCallback="HandleUploadAsync" @ondragenter="OnDragEnterAsync"
+              @ondragleave="OnDragLeaveAsync">
     <Card>
         <CardContent ClassName="items-center justify-center text-center">
             @if (IsDragging)
@@ -41,11 +43,15 @@
     </Card>
 </FileDropzone>
 
-@code 
+@code
 {
+    [Parameter] public IFsAccess FsAccess { get; set; }
+    [Parameter] public IFileManager FileManager { get; set; }
+    [Parameter] public string WorkingDirectory { get; set; }
+
     private FileDropzone Dropzone;
     private bool IsDragging;
-    
+
     private async Task HandleUploadAsync(string path, Stream stream)
     {
         if (IsDragging)
@@ -53,7 +59,16 @@
             IsDragging = false;
             await InvokeAsync(StateHasChanged);
         }
-        
+
+        await FsAccess.WriteAsync(
+            UnixPath.GetFullPath(UnixPath.Combine(WorkingDirectory, path)),
+            stream
+        );
+
+        await FileManager.RefreshAsync();
+
+        return;
+
         var name = Path.GetFileName(path);
         var buffer = ArrayPool<byte>.Shared.Rent(1024 * 1024);
 
@@ -76,7 +91,7 @@
         IsDragging = true;
         await InvokeAsync(StateHasChanged);
     }
-    
+
     private async Task OnDragLeaveAsync()
     {
         IsDragging = false;
