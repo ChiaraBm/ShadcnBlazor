@@ -25,5 +25,6 @@ public static class Extensions
         collection.AddScoped<RenameOperation>();
         collection.AddScoped<DeleteOperation>();
         collection.AddScoped<MoveOperation>();
+        collection.AddScoped<EditorOpenOperation>();
     }
 }

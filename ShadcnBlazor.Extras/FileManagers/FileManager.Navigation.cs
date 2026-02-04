@@ -36,7 +36,7 @@ public partial class FileManager
     {
         if (entry.Type == FsEntryType.File)
         {
-            
+            await OpenFileAsync(entry);
         }
         else if (entry.Type == FsEntryType.Folder)
         {
