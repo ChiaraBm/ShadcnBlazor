@@ -11,7 +11,7 @@
 @if (Tooltip.ShouldRenderContent)
 {
     <SectionContent SectionName="@PortalNames.Tooltip">
-        <div @ref="PositionElement" style="@PositionStyle" class="fixed top-0 left-0 z-50">
+        <div @ref="PositionElement" style="@PositionStyle" class="fixed top-0 left-0 z-100">
             <div data-slot="tooltip-content" class="@Classes" data-state="@(Tooltip.Open ? "open" : "closed")" data-side="@(Side.ToString().ToLower())">
                 @ChildContent
                 <span @ref="ArrowElement" style="position: absolute; @ArrowStyle">

@@ -5,14 +5,15 @@
 @inherits ShadcnBase
 
 @inject PositionService PositionService
+@inject InteropService InteropService
 
 @if (Select.ShouldRenderContent)
 {
     <SectionContent SectionName="@PortalNames.Select">
-        <div class="fixed inset-0 z-50" @onclick="Select.CloseAsync">
+        <div class="fixed inset-0 z-100" @onclick="Select.CloseAsync">
         </div>
 
-        <div @ref="PositionElement" style="@PositionStyle" class="fixed top-0 left-0 z-50">
+        <div @ref="PositionElement" style="@Style" class="fixed top-0 left-0 z-100">
             <div data-slot="select-content"
                  data-state="@(Select.IsOpen ? "open" : "closed")"
                  class="@Classes"
@@ -41,14 +42,18 @@ else
 {
     [CascadingParameter] public Select Select { get; set; }
 
+    [Parameter] public bool UseAutoWidth { get; set; } = true;
     [Parameter] public RenderFragment ChildContent { get; set; }
-    [Parameter] public PositionAlignment Align { get; set; } = PositionAlignment.Center;
+    [Parameter] public PositionAlignment Align { get; set; } = PositionAlignment.Start;
 
     private ElementReference PositionElement;
     private string PositionStyle = PositionService.Position.OffCanvasCss;
     private bool IsPositioned;
 
     private string? Classes;
+    private double TriggerWidth;
+
+    private string Style => UseAutoWidth ? $"{PositionStyle};width: {TriggerWidth}px" : PositionStyle;
 
     protected override void OnParametersSet()
     {
@@ -70,6 +75,12 @@ else
             );
 
             PositionStyle = position.ToCssStyle();
+
+            if (UseAutoWidth)
+            {
+                var triggerBox = await InteropService.GetBoundingBoxAsync(Select.Trigger.TriggerElement);
+                TriggerWidth = triggerBox.Width;
+            }
 
             IsPositioned = true;
             await InvokeAsync(StateHasChanged);

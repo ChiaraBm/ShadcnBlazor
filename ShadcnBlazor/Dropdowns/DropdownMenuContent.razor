@@ -9,11 +9,11 @@
 @if (DropdownMenu.ShouldRenderContent)
 {
     <SectionContent SectionName="@PortalNames.DropdownMenu">
-        <div class="fixed inset-0 z-50" @onclick="DropdownMenu.CloseAsync">
+        <div class="fixed inset-0 z-100" @onclick="DropdownMenu.CloseAsync">
 
         </div>
 
-        <div @ref="PositionElement" class="min-w-max z-50 fixed top-0 left-0" style="@PositionStyle">
+        <div @ref="PositionElement" class="min-w-max z-100 fixed top-0 left-0" style="@PositionStyle">
             <div data-slot="dropdown-menu-content"
                  data-state="@(DropdownMenu.IsOpen ? "open" : "closed")"
                  class="@Classes"
