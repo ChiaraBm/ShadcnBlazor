@@ -10,11 +10,11 @@
 @if (ContextMenu.ShouldRenderContent)
 {
     <SectionContent SectionName="@PortalNames.ContextMenu">
-        <div class="fixed inset-0 z-50" @onclick="ContextMenu.CloseAsync">
+        <div class="fixed inset-0 z-100" @onclick="ContextMenu.CloseAsync">
 
         </div>
 
-        <div @ref="PositionElement" class="min-w-max z-50 fixed top-0 left-0" style="@PositionStyle">
+        <div @ref="PositionElement" class="min-w-max z-100 fixed top-0 left-0" style="@PositionStyle">
             <div data-slot="context-menu-content"
                  data-state="@(ContextMenu.IsOpen ? "open" : "closed")"
                  class="@Classes"

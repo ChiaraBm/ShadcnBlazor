@@ -10,7 +10,7 @@
 @if (Sub.ShouldRenderContent)
 {
     <SectionContent SectionName="@PortalNames.ContextMenuSub">
-        <div @ref="PositionElement" class="min-w-max z-50 fixed top-0 left-0" style="@PositionStyle">
+        <div @ref="PositionElement" class="min-w-max z-100 fixed top-0 left-0" style="@PositionStyle">
             <div data-slot="context-menu-sub-content"
                  data-state="@(Sub.IsOpen ? "open" : "closed")"
                  class="@Classes"
