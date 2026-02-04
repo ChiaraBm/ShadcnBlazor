@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using ShadcnBlazor.Extras.FileManagers.Abstractions;
+using ShadcnBlazor.Extras.FileManagers.Operations;
 
 namespace ShadcnBlazor.Extras.FileManagers;
 
@@ -52,5 +53,18 @@ public partial class FileManager
             return;
 
         await LoadAsync();
+    }
+
+    private async Task OnDragEnterAsync()
+    {
+        var uploadOperation = ToolbarOperations
+            .OfType<UploadOperation>()
+            .FirstOrDefault();
+        
+        if(uploadOperation == null)
+            return;
+
+        var workingDir = new string(CurrentPath);
+        await uploadOperation.ExecuteAsync(workingDir, FsAccess, this);
     }
 }

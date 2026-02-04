@@ -57,6 +57,9 @@
       <Compile Update="FileManagers\FileManager.Operations.cs">
         <DependentUpon>FileManager.razor</DependentUpon>
       </Compile>
+      <Compile Update="FileManagers\FileManager.Selection.cs">
+        <DependentUpon>FileManager.razor</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

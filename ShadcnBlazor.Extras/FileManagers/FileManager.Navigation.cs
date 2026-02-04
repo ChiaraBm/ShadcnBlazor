@@ -25,6 +25,8 @@ public partial class FileManager
             .OrderByDescending(x => x.Type)
             .ThenBy(x => x.Name)
             .ToArray();
+        
+        SelectedEntries.Clear();
 
         HasLoaded = true;
         await InvokeAsync(StateHasChanged);

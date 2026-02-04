@@ -23,4 +23,10 @@ public partial class FileManager
         
         await InvokeAsync(StateHasChanged);
     }
+
+    public async Task ClearSelectionAsync()
+    {
+        SelectedEntries.Clear();
+        await InvokeAsync(StateHasChanged);
+    }
 }

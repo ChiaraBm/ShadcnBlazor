@@ -18,4 +18,13 @@ public partial class FileManager
         var workingDir = new string(CurrentPath);
         await operation.ExecuteAsync(workingDir, entries, FsAccess, this);
     }
+
+    private async Task ExecuteSelectionMultiFsOperationAsync(FsMultiOperationBase operation)
+    {
+        if(SelectedEntries.Count == 0)
+            return;
+        
+        var workingDir = new string(CurrentPath);
+        await operation.ExecuteAsync(workingDir, SelectedEntries.ToArray(), FsAccess, this);
+    }
 }
