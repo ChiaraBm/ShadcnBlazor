@@ -4,7 +4,7 @@
 @using ShadcnBlazor.Checkboxes
 @using ShadcnBlazor.ContextMenus
 @using ShadcnBlazor.Dropdowns
-@using ShadcnBlazor.Extras.Dialogs
+@using ShadcnBlazor.Extras.FileManagers.Abstractions
 @using ShadcnBlazor.Interop
 @using ShadcnBlazor.Spinners
 @using ShadcnBlazor.Tabels
@@ -12,7 +12,6 @@
 @inherits ShadcnBase
 @implements ShadcnBlazor.Extras.FileManagers.Abstractions.IFileManager
 
-@inject DialogService DialogService
 @inject IServiceProvider ServiceProvider
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-4">
@@ -74,50 +73,102 @@
         </div>
     </div>
     <div class="col-span-1 flex items-center justify-center lg:justify-end gap-1.5">
-        @foreach (var operation in ToolbarOperations.Where(operation => operation.IsPrimary))
+        @if (SelectedEntries.Count == 0)
         {
-            <Button @onclick="() => ExecuteToolbarOperationAsync(operation)"
-                    Variant="operation.ToolbarButtonVariant"
-                    Size="operation.ToolbarButtonSize"
-                    ClassName="@operation.ToolbarClassName"
-                    @key="operation">
-                @operation.Content
-            </Button>
-        }
+            foreach (var operation in ToolbarOperations.Where(operation => operation.IsPrimary))
+            {
+                <Button @onclick="() => ExecuteToolbarOperationAsync(operation)"
+                        Variant="operation.ToolbarButtonVariant"
+                        Size="operation.ToolbarButtonSize"
+                        ClassName="@operation.ToolbarClassName"
+                        @key="operation">
+                    @operation.Content
+                </Button>
+            }
 
-        @{
             var nonPrimaryOperations = ToolbarOperations
                 .Where(operation => !operation.IsPrimary)
                 .ToArray();
+            
+            if (nonPrimaryOperations.Length > 0)
+            {
+                <DropdownMenu>
+                    <DropdownMenuTrigger>
+                        <Slot>
+                            <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Icon" @attributes="context">
+                                <MenuIcon/>
+                            </Button>
+                        </Slot>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent Align="PositionAlignment.End">
+                        @foreach (var operation in nonPrimaryOperations)
+                        {
+                            <DropdownMenuItem OnClick="() => ExecuteToolbarOperationAsync(operation)"
+                                              Variant="@operation.DropdownItemVariant"
+                                              ClassName="@operation.DropdownClassName"
+                                              @key="operation">
+                                @operation.Content
+                            </DropdownMenuItem>
+                        }
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            }
         }
-
-        @if (nonPrimaryOperations.Length > 0)
+        else
         {
-            <DropdownMenu>
-                <DropdownMenuTrigger>
-                    <Slot>
-                        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Icon" @attributes="context">
-                            <MenuIcon/>
-                        </Button>
-                    </Slot>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent Align="PositionAlignment.End">
-                    @foreach (var operation in nonPrimaryOperations)
-                    {
-                        <DropdownMenuItem OnClick="() => ExecuteToolbarOperationAsync(operation)"
-                                          Variant="@operation.DropdownItemVariant"
-                                          ClassName="@operation.DropdownClassName"
-                                          @key="operation">
-                            @operation.Content
-                        </DropdownMenuItem>
-                    }
-                </DropdownMenuContent>
-            </DropdownMenu>
+            IEnumerable<FsMultiOperationBase> primary;
+            FsMultiOperationBase[] nonPrimary;
+
+            if (MultiOperations.Length > 3)
+            {
+                primary = MultiOperations.Take(3);
+                nonPrimary = MultiOperations.Skip(3).ToArray();
+            }
+            else
+            {
+                primary = MultiOperations;
+                nonPrimary = [];
+            }
+
+            foreach (var operation in primary)
+            {
+                <Button @onclick="() => ExecuteSelectionMultiFsOperationAsync(operation)"
+                        Variant="operation.ToolbarButtonVariant"
+                        Size="operation.ToolbarButtonSize"
+                        ClassName="@operation.ToolbarClassName"
+                        @key="operation">
+                    @operation.Content
+                </Button>
+            }
+
+            if (nonPrimary.Any())
+            {
+                <DropdownMenu>
+                    <DropdownMenuTrigger>
+                        <Slot>
+                            <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Icon" @attributes="context">
+                                <MenuIcon/>
+                            </Button>
+                        </Slot>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent Align="PositionAlignment.End">
+                        @foreach (var operation in nonPrimary)
+                        {
+                            <DropdownMenuItem OnClick="() => ExecuteSelectionMultiFsOperationAsync(operation)"
+                                              Variant="@operation.DropdownItemVariant"
+                                              ClassName="@operation.DropdownClassName"
+                                              @key="operation">
+                                @operation.Content
+                            </DropdownMenuItem>
+                        }
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            }
         }
     </div>
 </div>
 
-<div class="@Classes" @ondragenter="LaunchUpdateAsync">
+<div class="@Classes" @ondragenter="OnDragEnterAsync">
     <Table @attributes="Props">
         <TableHeader>
             <TableRow>
