@@ -5,341 +5,351 @@
 @using ShadcnBlazor.ContextMenus
 @using ShadcnBlazor.Dropdowns
 @using ShadcnBlazor.Extras.FileManagers.Abstractions
+@using ShadcnBlazor.Extras.Toasts
 @using ShadcnBlazor.Interop
 @using ShadcnBlazor.Spinners
 @using ShadcnBlazor.Tabels
 
 @inherits ShadcnBase
-@implements ShadcnBlazor.Extras.FileManagers.Abstractions.IFileManager
+
+@implements IFileManager
 
 @inject IServiceProvider ServiceProvider
+@inject ToastService ToastService
 
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-4">
-    <div class="col-span-1 flex items-center justify-center lg:justify-start">
-        <div class="mx-1">
-            <Breadcrumb>
-                <BreadcrumbList>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink>
+@if (ShowOpenScreen)
+{
+    @OpenWindow
+}
+else
+{
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-4">
+        <div class="col-span-1 flex items-center justify-center lg:justify-start">
+            <div class="mx-1">
+                <Breadcrumb>
+                    <BreadcrumbList>
+                        <BreadcrumbItem>
+                            <BreadcrumbLink>
+                                <Slot>
+                                    <a href="#" @onclick="@(() => NavigateToAsync("/"))" @onclick:preventDefault
+                                       @attributes="context">
+                                        <HouseIcon ClassName="size-4"/>
+                                    </a>
+                                </Slot>
+                            </BreadcrumbLink>
+                        </BreadcrumbItem>
+
+                        @{
+                            var parts = CurrentPath.Split('/', StringSplitOptions.RemoveEmptyEntries);
+                            var i = 1;
+                        }
+
+                        @foreach (var part in parts)
+                        {
+                            var combinedPath = '/' + string.Join('/', parts.Take(i));
+
+                            <BreadcrumbSeparator>
+                                /
+                            </BreadcrumbSeparator>
+
+                            @if (i == parts.Length)
+                            {
+                                <BreadcrumbItem>
+                                    <BreadcrumbPage>
+                                        @part
+                                    </BreadcrumbPage>
+                                </BreadcrumbItem>
+                            }
+                            else
+                            {
+                                <BreadcrumbItem>
+                                    <BreadcrumbLink>
+                                        <Slot>
+                                            <a href="#" @onclick="() => NavigateToAsync(combinedPath)"
+                                               @onclick:preventDefault
+                                               @attributes="context">
+                                                @part
+                                            </a>
+                                        </Slot>
+                                    </BreadcrumbLink>
+                                </BreadcrumbItem>
+                            }
+
+                            i++;
+                        }
+                    </BreadcrumbList>
+                </Breadcrumb>
+            </div>
+        </div>
+        <div class="col-span-1 flex items-center justify-center lg:justify-end gap-1.5">
+            @if (SelectedEntries.Count == 0)
+            {
+                foreach (var operation in ToolbarOperations.Where(operation => operation.IsPrimary))
+                {
+                    <Button @onclick="() => ExecuteToolbarOperationAsync(operation)"
+                            Variant="operation.ToolbarButtonVariant"
+                            Size="operation.ToolbarButtonSize"
+                            ClassName="@operation.ToolbarClassName"
+                            @key="operation">
+                        @operation.Content
+                    </Button>
+                }
+
+                var nonPrimaryOperations = ToolbarOperations
+                    .Where(operation => !operation.IsPrimary)
+                    .ToArray();
+
+                if (nonPrimaryOperations.Length > 0)
+                {
+                    <DropdownMenu>
+                        <DropdownMenuTrigger>
                             <Slot>
-                                <a href="#" @onclick="@(() => NavigateToAsync("/"))" @onclick:preventDefault
-                                   @attributes="context">
-                                    <HouseIcon ClassName="size-4"/>
-                                </a>
+                                <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Icon" @attributes="context">
+                                    <MenuIcon/>
+                                </Button>
                             </Slot>
-                        </BreadcrumbLink>
-                    </BreadcrumbItem>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent Align="PositionAlignment.End">
+                            @foreach (var operation in nonPrimaryOperations)
+                            {
+                                <DropdownMenuItem OnClick="() => ExecuteToolbarOperationAsync(operation)"
+                                                  Variant="@operation.DropdownItemVariant"
+                                                  ClassName="@operation.DropdownClassName"
+                                                  @key="operation">
+                                    @operation.Content
+                                </DropdownMenuItem>
+                            }
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                }
+            }
+            else
+            {
+                IEnumerable<FsMultiOperationBase> primary;
+                FsMultiOperationBase[] nonPrimary;
 
-                    @{
-                        var parts = CurrentPath.Split('/', StringSplitOptions.RemoveEmptyEntries);
-                        var i = 1;
-                    }
+                if (MultiOperations.Length > 3)
+                {
+                    primary = MultiOperations.Take(3);
+                    nonPrimary = MultiOperations.Skip(3).ToArray();
+                }
+                else
+                {
+                    primary = MultiOperations;
+                    nonPrimary = [];
+                }
 
-                    @foreach (var part in parts)
-                    {
-                        var combinedPath = '/' + string.Join('/', parts.Take(i));
+                foreach (var operation in primary)
+                {
+                    <Button @onclick="() => ExecuteSelectionMultiFsOperationAsync(operation)"
+                            Variant="operation.ToolbarButtonVariant"
+                            Size="operation.ToolbarButtonSize"
+                            ClassName="@operation.ToolbarClassName"
+                            @key="operation">
+                        @operation.Content
+                    </Button>
+                }
 
-                        <BreadcrumbSeparator>
-                            /
-                        </BreadcrumbSeparator>
-
-                        @if (i == parts.Length)
-                        {
-                            <BreadcrumbItem>
-                                <BreadcrumbPage>
-                                    @part
-                                </BreadcrumbPage>
-                            </BreadcrumbItem>
-                        }
-                        else
-                        {
-                            <BreadcrumbItem>
-                                <BreadcrumbLink>
-                                    <Slot>
-                                        <a href="#" @onclick="() => NavigateToAsync(combinedPath)"
-                                           @onclick:preventDefault
-                                           @attributes="context">
-                                            @part
-                                        </a>
-                                    </Slot>
-                                </BreadcrumbLink>
-                            </BreadcrumbItem>
-                        }
-
-                        i++;
-                    }
-                </BreadcrumbList>
-            </Breadcrumb>
+                if (nonPrimary.Any())
+                {
+                    <DropdownMenu>
+                        <DropdownMenuTrigger>
+                            <Slot>
+                                <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Icon" @attributes="context">
+                                    <MenuIcon/>
+                                </Button>
+                            </Slot>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent Align="PositionAlignment.End">
+                            @foreach (var operation in nonPrimary)
+                            {
+                                <DropdownMenuItem OnClick="() => ExecuteSelectionMultiFsOperationAsync(operation)"
+                                                  Variant="@operation.DropdownItemVariant"
+                                                  ClassName="@operation.DropdownClassName"
+                                                  @key="operation">
+                                    @operation.Content
+                                </DropdownMenuItem>
+                            }
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                }
+            }
         </div>
     </div>
-    <div class="col-span-1 flex items-center justify-center lg:justify-end gap-1.5">
-        @if (SelectedEntries.Count == 0)
-        {
-            foreach (var operation in ToolbarOperations.Where(operation => operation.IsPrimary))
-            {
-                <Button @onclick="() => ExecuteToolbarOperationAsync(operation)"
-                        Variant="operation.ToolbarButtonVariant"
-                        Size="operation.ToolbarButtonSize"
-                        ClassName="@operation.ToolbarClassName"
-                        @key="operation">
-                    @operation.Content
-                </Button>
-            }
 
-            var nonPrimaryOperations = ToolbarOperations
-                .Where(operation => !operation.IsPrimary)
-                .ToArray();
-            
-            if (nonPrimaryOperations.Length > 0)
-            {
-                <DropdownMenu>
-                    <DropdownMenuTrigger>
-                        <Slot>
-                            <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Icon" @attributes="context">
-                                <MenuIcon/>
-                            </Button>
-                        </Slot>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent Align="PositionAlignment.End">
-                        @foreach (var operation in nonPrimaryOperations)
-                        {
-                            <DropdownMenuItem OnClick="() => ExecuteToolbarOperationAsync(operation)"
-                                              Variant="@operation.DropdownItemVariant"
-                                              ClassName="@operation.DropdownClassName"
-                                              @key="operation">
-                                @operation.Content
-                            </DropdownMenuItem>
-                        }
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            }
-        }
-        else
-        {
-            IEnumerable<FsMultiOperationBase> primary;
-            FsMultiOperationBase[] nonPrimary;
-
-            if (MultiOperations.Length > 3)
-            {
-                primary = MultiOperations.Take(3);
-                nonPrimary = MultiOperations.Skip(3).ToArray();
-            }
-            else
-            {
-                primary = MultiOperations;
-                nonPrimary = [];
-            }
-
-            foreach (var operation in primary)
-            {
-                <Button @onclick="() => ExecuteSelectionMultiFsOperationAsync(operation)"
-                        Variant="operation.ToolbarButtonVariant"
-                        Size="operation.ToolbarButtonSize"
-                        ClassName="@operation.ToolbarClassName"
-                        @key="operation">
-                    @operation.Content
-                </Button>
-            }
-
-            if (nonPrimary.Any())
-            {
-                <DropdownMenu>
-                    <DropdownMenuTrigger>
-                        <Slot>
-                            <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Icon" @attributes="context">
-                                <MenuIcon/>
-                            </Button>
-                        </Slot>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent Align="PositionAlignment.End">
-                        @foreach (var operation in nonPrimary)
-                        {
-                            <DropdownMenuItem OnClick="() => ExecuteSelectionMultiFsOperationAsync(operation)"
-                                              Variant="@operation.DropdownItemVariant"
-                                              ClassName="@operation.DropdownClassName"
-                                              @key="operation">
-                                @operation.Content
-                            </DropdownMenuItem>
-                        }
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            }
-        }
-    </div>
-</div>
-
-<div class="@Classes" @ondragenter="OnDragEnterAsync">
-    <Table @attributes="Props">
-        <TableHeader>
-            <TableRow>
-                <TableHead>
-                    <Checkbox ClassName="ms-2"
-                              Value="@(CurrentEntries.Length > 0 && SelectedEntries.Count == CurrentEntries.Length)"
-                              ValueChanged="ToggleAllAsync"/>
-                </TableHead>
-                <TableHead>
-                    Name
-                </TableHead>
-                <TableHead ClassName="hidden sm:table-cell">
-                    Size
-                </TableHead>
-                <TableHead ClassName="hidden lg:table-cell">
-                    Created at
-                </TableHead>
-                <TableHead ClassName="hidden lg:table-cell">
-                    Updated at
-                </TableHead>
-                <TableHead></TableHead>
-            </TableRow>
-        </TableHeader>
-        <TableBody>
-            @if (HasLoaded)
-            {
-                @if (CurrentPath != "/")
+    <div class="@Classes" @ondragenter="OnDragEnterAsync">
+        <Table @attributes="Props">
+            <TableHeader>
+                <TableRow>
+                    <TableHead>
+                        <Checkbox ClassName="ms-2"
+                                  Value="@(CurrentEntries.Length > 0 && SelectedEntries.Count == CurrentEntries.Length)"
+                                  ValueChanged="ToggleAllAsync"/>
+                    </TableHead>
+                    <TableHead>
+                        Name
+                    </TableHead>
+                    <TableHead ClassName="hidden sm:table-cell">
+                        Size
+                    </TableHead>
+                    <TableHead ClassName="hidden lg:table-cell">
+                        Created at
+                    </TableHead>
+                    <TableHead ClassName="hidden lg:table-cell">
+                        Updated at
+                    </TableHead>
+                    <TableHead></TableHead>
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                @if (HasLoaded)
                 {
-                    <TableRow>
-                        <TableCell></TableCell>
-                        <TableCell>
-                            <div class="flex flex-row items-center gap-2.5">
-                                <FolderIcon ClassName="text-amber-500"/>
-
-                                <a href="#" @onclick="GoUpAsync" @onclick:preventDefault>
-                                    Go up
-                                </a>
-                            </div>
-                        </TableCell>
-                        <TableCell ClassName="hidden sm:table-cell">
-                            -
-                        </TableCell>
-                        <TableCell ClassName="hidden lg:table-cell">
-                            -
-                        </TableCell>
-                        <TableCell ClassName="hidden lg:table-cell">
-                            -
-                        </TableCell>
-                        <TableCell>
-                            <div class="size-8"></div>
-                        </TableCell>
-                    </TableRow>
-                }
-
-                foreach (var fsEntry in CurrentEntries)
-                {
-                    <tr data-slot="table-row"
-                        class="hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors"
-                        @oncontextmenu="e => OpenContextMenuAsync(fsEntry, e)"
-                        @oncontextmenu:preventDefault
-                        @key="fsEntry">
-                        <TableCell>
-                            <Checkbox ClassName="ms-2"
-                                      Value="@(SelectedEntries.Contains(fsEntry))"
-                                      ValueChanged="b => ToggleAsync(fsEntry, b)"/>
-                        </TableCell>
-                        <TableCell>
-                            <div class="flex flex-row items-center gap-2.5">
-                                @if (fsEntry.Type == FsEntryType.File)
-                                {
-                                    <FileTextIcon ClassName="text-blue-500"/>
-                                }
-                                else
-                                {
+                    @if (CurrentPath != "/")
+                    {
+                        <TableRow>
+                            <TableCell></TableCell>
+                            <TableCell>
+                                <div class="flex flex-row items-center gap-2.5">
                                     <FolderIcon ClassName="text-amber-500"/>
-                                }
 
-                                <a href="#" @onclick="() => OnFileClick(fsEntry)" @onclick:preventDefault>
-                                    @fsEntry.Name
-                                </a>
+                                    <a href="#" @onclick="GoUpAsync" @onclick:preventDefault>
+                                        Go up
+                                    </a>
+                                </div>
+                            </TableCell>
+                            <TableCell ClassName="hidden sm:table-cell">
+                                -
+                            </TableCell>
+                            <TableCell ClassName="hidden lg:table-cell">
+                                -
+                            </TableCell>
+                            <TableCell ClassName="hidden lg:table-cell">
+                                -
+                            </TableCell>
+                            <TableCell>
+                                <div class="size-8"></div>
+                            </TableCell>
+                        </TableRow>
+                    }
+
+                    foreach (var fsEntry in CurrentEntries)
+                    {
+                        <tr data-slot="table-row"
+                            class="hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors"
+                            @oncontextmenu="e => OpenContextMenuAsync(fsEntry, e)"
+                            @oncontextmenu:preventDefault
+                            @key="fsEntry">
+                            <TableCell>
+                                <Checkbox ClassName="ms-2"
+                                          Value="@(SelectedEntries.Contains(fsEntry))"
+                                          ValueChanged="b => ToggleAsync(fsEntry, b)"/>
+                            </TableCell>
+                            <TableCell>
+                                <div class="flex flex-row items-center gap-2.5">
+                                    @if (fsEntry.Type == FsEntryType.File)
+                                    {
+                                        <FileTextIcon ClassName="text-blue-500"/>
+                                    }
+                                    else
+                                    {
+                                        <FolderIcon ClassName="text-amber-500"/>
+                                    }
+
+                                    <a href="#" @onclick="() => OnFileClick(fsEntry)" @onclick:preventDefault>
+                                        @fsEntry.Name
+                                    </a>
+                                </div>
+                            </TableCell>
+                            <TableCell ClassName="hidden sm:table-cell">
+                                @(fsEntry.Type == FsEntryType.File ? Formatter.FormatSize(fsEntry.Size) : "-")
+                            </TableCell>
+                            <TableCell ClassName="hidden lg:table-cell">
+                                @Formatter.FormatDateTimeOffsetShort(fsEntry.CreatedAt)
+                            </TableCell>
+                            <TableCell ClassName="hidden lg:table-cell">
+                                @Formatter.FormatDateTimeOffsetShort(fsEntry.UpdatedAt)
+                            </TableCell>
+                            <TableCell>
+                                <div class="flex justify-end">
+                                    <DropdownMenu>
+                                        <DropdownMenuTrigger>
+                                            <Slot>
+                                                <Button Variant="ButtonVariant.Ghost" Size="ButtonSize.IconSm"
+                                                        @attributes="context">
+                                                    <EllipsisIcon/>
+                                                </Button>
+                                            </Slot>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent Align="PositionAlignment.End" SideOffset="2">
+                                            @foreach (var operation in SingleOperations.Where(x => x.Filter == null || x.Filter.Invoke(fsEntry)))
+                                            {
+                                                <DropdownMenuItem
+                                                    OnClick="() => ExecuteSingleFsOperationAsync(operation, fsEntry)"
+                                                    Variant="@operation.DropdownItemVariant"
+                                                    ClassName="@operation.DropdownClassName"
+                                                    @key="operation">
+                                                    @operation.Content
+                                                </DropdownMenuItem>
+                                            }
+                                            @foreach (var operation in MultiOperations)
+                                            {
+                                                <DropdownMenuItem
+                                                    OnClick="() => ExecuteMultiFsOperationAsync(operation, [fsEntry])"
+                                                    Variant="@operation.DropdownItemVariant"
+                                                    ClassName="@operation.DropdownClassName"
+                                                    @key="operation">
+                                                    @operation.Content
+                                                </DropdownMenuItem>
+                                            }
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
+                                </div>
+                            </TableCell>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="99999">
+                            <div class="w-full flex items-center justify-center p-5">
+                                <Spinner ClassName="size-10"/>
                             </div>
-                        </TableCell>
-                        <TableCell ClassName="hidden sm:table-cell">
-                            @(fsEntry.Type == FsEntryType.File ? Formatter.FormatSize(fsEntry.Size) : "-")
-                        </TableCell>
-                        <TableCell ClassName="hidden lg:table-cell">
-                            @Formatter.FormatDateTimeOffsetShort(fsEntry.CreatedAt)
-                        </TableCell>
-                        <TableCell ClassName="hidden lg:table-cell">
-                            @Formatter.FormatDateTimeOffsetShort(fsEntry.UpdatedAt)
-                        </TableCell>
-                        <TableCell>
-                            <div class="flex justify-end">
-                                <DropdownMenu>
-                                    <DropdownMenuTrigger>
-                                        <Slot>
-                                            <Button Variant="ButtonVariant.Ghost" Size="ButtonSize.IconSm"
-                                                    @attributes="context">
-                                                <EllipsisIcon/>
-                                            </Button>
-                                        </Slot>
-                                    </DropdownMenuTrigger>
-                                    <DropdownMenuContent Align="PositionAlignment.End" SideOffset="2">
-                                        @foreach (var operation in SingleOperations.Where(x => x.Filter == null || x.Filter.Invoke(fsEntry)))
-                                        {
-                                            <DropdownMenuItem
-                                                OnClick="() => ExecuteSingleFsOperationAsync(operation, fsEntry)"
-                                                Variant="@operation.DropdownItemVariant"
-                                                ClassName="@operation.DropdownClassName"
-                                                @key="operation">
-                                                @operation.Content
-                                            </DropdownMenuItem>
-                                        }
-                                        @foreach (var operation in MultiOperations)
-                                        {
-                                            <DropdownMenuItem
-                                                OnClick="() => ExecuteMultiFsOperationAsync(operation, [fsEntry])"
-                                                Variant="@operation.DropdownItemVariant"
-                                                ClassName="@operation.DropdownClassName"
-                                                @key="operation">
-                                                @operation.Content
-                                            </DropdownMenuItem>
-                                        }
-                                    </DropdownMenuContent>
-                                </DropdownMenu>
-                            </div>
-                        </TableCell>
+                        </td>
                     </tr>
                 }
-            }
-            else
-            {
-                <tr>
-                    <td colspan="99999">
-                        <div class="w-full flex items-center justify-center p-5">
-                            <Spinner ClassName="size-10"/>
-                        </div>
-                    </td>
-                </tr>
-            }
-        </TableBody>
-    </Table>
+            </TableBody>
+        </Table>
 
-    <ContextMenu @ref="ContextMenu">
-        <ContextMenuContent>
-            @if (ContextMenuFsEntry != null)
-            {
-                foreach (var operation in SingleOperations.Where(x => x.Filter == null || x.Filter.Invoke(ContextMenuFsEntry)))
+        <ContextMenu @ref="ContextMenu">
+            <ContextMenuContent>
+                @if (ContextMenuFsEntry != null)
                 {
-                    <ContextMenuItem OnClick="() => ExecuteSingleFsOperationAsync(operation, ContextMenuFsEntry)"
-                                     ClassName="@operation.ContextMenuClassName"
-                                     Variant="@operation.ContextMenuItemVariant"
-                                     @key="operation">
-                        @operation.Content
-                    </ContextMenuItem>
-                }
+                    foreach (var operation in SingleOperations.Where(x => x.Filter == null || x.Filter.Invoke(ContextMenuFsEntry)))
+                    {
+                        <ContextMenuItem OnClick="() => ExecuteSingleFsOperationAsync(operation, ContextMenuFsEntry)"
+                                         ClassName="@operation.ContextMenuClassName"
+                                         Variant="@operation.ContextMenuItemVariant"
+                                         @key="operation">
+                            @operation.Content
+                        </ContextMenuItem>
+                    }
 
-                foreach (var operation in MultiOperations)
-                {
-                    <ContextMenuItem
-                        OnClick="() => ExecuteMultiFsOperationAsync(operation, [ContextMenuFsEntry])"
-                        ClassName="@operation.ContextMenuClassName"
-                        Variant="@operation.ContextMenuItemVariant"
-                        @key="operation">
-                        @operation.Content
-                    </ContextMenuItem>
+                    foreach (var operation in MultiOperations)
+                    {
+                        <ContextMenuItem
+                            OnClick="() => ExecuteMultiFsOperationAsync(operation, [ContextMenuFsEntry])"
+                            ClassName="@operation.ContextMenuClassName"
+                            Variant="@operation.ContextMenuItemVariant"
+                            @key="operation">
+                            @operation.Content
+                        </ContextMenuItem>
+                    }
                 }
-            }
-        </ContextMenuContent>
-    </ContextMenu>
-</div>
+            </ContextMenuContent>
+        </ContextMenu>
+    </div>
+}
 
 @code
 {
