@@ -8,8 +8,8 @@ public partial class InMemoryFsAccess : IArchiveAccess
 {
     public ArchiveFormat[] ArchiveFormats { get; } =
     [
-        new("zip", "ZIP Archive", [".zip"]),
-        new ArchiveFormat("tar", "TAR Archive", [".tar"])
+        new("zip", "ZIP Archive", ["zip"]),
+        new ArchiveFormat("tar", "TAR Archive", ["tar"])
     ];
 
     // IArchiveAccess implementation
