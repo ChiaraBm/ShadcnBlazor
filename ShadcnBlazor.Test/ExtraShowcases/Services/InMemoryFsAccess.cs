@@ -3,7 +3,7 @@ using ShadcnBlazor.Extras.FileManagers.Abstractions;
 
 namespace ShadcnBlazor.Test.ExtraShowcases.Services;
 
-public partial class InMemoryFsAccess : IFsAccess, IDownloadFileAccess, IDownloadFolderAccess
+public partial class InMemoryFsAccess : IFsAccess, IDownloadFileAccess, IDownloadFolderAccess, ICombineAccess
 {
     private readonly Dictionary<string, FsNode> _nodes = new();
     private const char PathSeparator = '/';
@@ -457,5 +457,81 @@ public partial class InMemoryFsAccess : IFsAccess, IDownloadFileAccess, IDownloa
         var dataUrl = $"data:application/zip;name={zipFileName};base64,{base64}";
         
         return dataUrl;
+    }
+    
+    public async Task CombineAsync(string destination, string[] paths)
+    {
+        if (paths == null || paths.Length == 0)
+        {
+            throw new ArgumentException("At least one source path must be provided", nameof(paths));
+        }
+
+        var normalizedDestination = NormalizePath(destination);
+        var normalizedPaths = paths.Select(NormalizePath).ToArray();
+
+        // Validate all source paths exist and are files
+        foreach (var sourcePath in normalizedPaths)
+        {
+            if (!_nodes.TryGetValue(sourcePath, out var sourceNode))
+            {
+                throw new FileNotFoundException($"Source file not found: {sourcePath}");
+            }
+
+            if (sourceNode.Type != FsEntryType.File)
+            {
+                throw new InvalidOperationException($"Source path is not a file: {sourcePath}");
+            }
+
+            if (sourceNode.Permissions == FsEntryPermissions.None)
+            {
+                throw new UnauthorizedAccessException($"No read permission: {sourcePath}");
+            }
+        }
+
+        // Ensure parent directory exists
+        var parentPath = GetParentPath(normalizedDestination);
+        EnsureDirectoryExists(parentPath);
+
+        // Combine all file data
+        using var combinedStream = new MemoryStream();
+        
+        foreach (var sourcePath in normalizedPaths)
+        {
+            var sourceNode = _nodes[sourcePath];
+            var sourceData = sourceNode.Data ?? Array.Empty<byte>();
+            await combinedStream.WriteAsync(sourceData, 0, sourceData.Length);
+        }
+
+        // Create or update the destination file
+        var destinationFileName = GetFileName(normalizedDestination);
+        var now = DateTimeOffset.UtcNow;
+
+        if (_nodes.TryGetValue(normalizedDestination, out var existingNode))
+        {
+            if (existingNode.Type != FsEntryType.File)
+            {
+                throw new InvalidOperationException($"Destination path is not a file: {destination}");
+            }
+
+            if (existingNode.Permissions != FsEntryPermissions.ReadWrite)
+            {
+                throw new UnauthorizedAccessException($"No write permission: {destination}");
+            }
+
+            existingNode.Data = combinedStream.ToArray();
+            existingNode.UpdatedAt = now;
+        }
+        else
+        {
+            _nodes[normalizedDestination] = new FsNode
+            {
+                Name = destinationFileName,
+                Type = FsEntryType.File,
+                Data = combinedStream.ToArray(),
+                CreatedAt = now,
+                UpdatedAt = now,
+                Permissions = FsEntryPermissions.ReadWrite
+            };
+        }
     }
 }

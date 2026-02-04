@@ -21,5 +21,8 @@
         options.AddMultiOperation<MoveOperation>();
         options.AddMultiOperation<ArchiveOperation>();
         options.AddOpenOperation<EditorOpenOperation>();
+
+        options.WriteLimit = 1024 * 1024 * 1;
+        options.UploadLimit = 1024 * 1024 * 1024;
     }
 }

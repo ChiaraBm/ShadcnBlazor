@@ -12,6 +12,9 @@ public class FileManagerOptions
     public List<FsMultiOperationBase> MultiOperations { get; } = [];
     public List<FsToolbarOperationBase> ToolbarOperations { get; } = [];
 
+    public long WriteLimit { get; set; } = -1;
+    public long UploadLimit { get; set; } = -1;
+
     internal FileManagerOptions(IServiceProvider serviceProvider)
     {
         ServiceProvider = serviceProvider;
