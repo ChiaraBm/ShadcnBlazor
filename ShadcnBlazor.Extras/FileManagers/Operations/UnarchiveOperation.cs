@@ -11,7 +11,11 @@ public sealed class UnarchiveOperation : FsSingleOperationBase
 {
     public override Func<FsEntry, bool>? Filter
     {
-        get { return entry => ArchiveFormats.Any(x => x.Extensions.Any(extension => entry.Name.EndsWith(extension))); }
+        get
+        {
+            return entry => ArchiveFormats.Any(x =>
+                x.Extensions.Any(extension => entry.Name.EndsWith(extension, StringComparison.OrdinalIgnoreCase)));
+        }
     }
 
     public override RenderFragment Content { get; } = builder =>
@@ -44,7 +48,8 @@ public sealed class UnarchiveOperation : FsSingleOperationBase
         if (fsAccess is not IArchiveAccess archiveAccess)
             return;
 
-        var format = ArchiveFormats.FirstOrDefault(x => x.Extensions.Any(y => fsEntry.Name.EndsWith(y)));
+        var format = ArchiveFormats.FirstOrDefault(x =>
+            x.Extensions.Any(y => fsEntry.Name.EndsWith(y, StringComparison.OrdinalIgnoreCase)));
 
         if (format == null) // This should never be the case, cause our filter should not even give the option to unarchive when unsupported
         {
