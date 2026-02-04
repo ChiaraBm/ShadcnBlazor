@@ -1,20 +1,22 @@
 ﻿namespace ShadcnBlazor.Extras;
 
+// Source: https://github.com/ChiaraBm/MoonCore/blob/main/Library/MoonCore/Helpers/UnixPath.cs
+
 /// <summary>
 /// Provides helper methods to create unix compatible paths.
 /// Even when your program is running on windows.
 /// Inspired by <see cref="Path"/>
 /// </summary>
-public static class UnixPath
+internal static class UnixPath
 {
-    public static readonly char DirectorySeparatorChar = '/';
+    internal static readonly char DirectorySeparatorChar = '/';
 
     /// <summary>
     /// Combines n numbers of parts of a path to one path
     /// </summary>
     /// <param name="paths">Parts of the new path</param>
     /// <returns>Combined path</returns>
-    public static string Combine(params string[] paths)
+    internal static string Combine(params string[] paths)
     {
         return string.Join(DirectorySeparatorChar, paths.Select(p => p.Trim(DirectorySeparatorChar)));
     }
@@ -24,7 +26,7 @@ public static class UnixPath
     /// </summary>
     /// <param name="path">Path to determine the file name from</param>
     /// <returns>Filename or empty string if not found</returns>
-    public static string GetFileName(string path)
+    internal static string GetFileName(string path)
     {
         if (string.IsNullOrEmpty(path))
             return string.Empty;
@@ -39,7 +41,7 @@ public static class UnixPath
     /// </summary>
     /// <param name="path">Filename or path</param>
     /// <returns>File name without extension</returns>
-    public static string GetFileNameWithoutExtension(string path)
+    internal static string GetFileNameWithoutExtension(string path)
     {
         var fileName = GetFileName(path);
         var index = fileName.LastIndexOf('.');
@@ -52,7 +54,7 @@ public static class UnixPath
     /// </summary>
     /// <param name="path">Filename or path</param>
     /// <returns>Extension of the file</returns>
-    public static string GetExtension(string path)
+    internal static string GetExtension(string path)
     {
         var fileName = GetFileName(path);
         var index = fileName.LastIndexOf('.');
@@ -67,7 +69,7 @@ public static class UnixPath
     /// slash ("/") in the file path
     /// </summary>
     /// <param name="path">Path to determine the directory name from</param>
-    public static string GetDirectoryName(string path)
+    internal static string GetDirectoryName(string path)
     {
         if (string.IsNullOrEmpty(path))
             return string.Empty;
@@ -83,7 +85,7 @@ public static class UnixPath
     /// <param name="path">File path to change the extension of</param>
     /// <param name="newExtension">New extension to change the file path to</param>
     /// <returns></returns>
-    public static string ChangeExtension(string path, string newExtension)
+    internal static string ChangeExtension(string path, string newExtension)
     {
         var dir = GetDirectoryName(path);
         
@@ -101,7 +103,7 @@ public static class UnixPath
     /// <param name="path">Regular path to process</param>
     /// <param name="basePath">Base aka. root path</param>
     /// <returns>Full path of the <see cref="path"/></returns>
-    public static string GetFullPath(string path, string basePath = "/")
+    internal static string GetFullPath(string path, string basePath = "/")
     {
         if (IsPathRooted(path))
             return NormalizePath(path);
@@ -113,7 +115,7 @@ public static class UnixPath
     /// Checks if the path is rooted
     /// </summary>
     /// <param name="path">Path to check</param>
-    public static bool IsPathRooted(string path)
+    internal static bool IsPathRooted(string path)
     {
         return !string.IsNullOrEmpty(path) && path[0] == DirectorySeparatorChar;
     }
@@ -123,7 +125,7 @@ public static class UnixPath
     /// </summary>
     /// <param name="path">Path to normalize</param>
     /// <returns>Normalized path</returns>
-    public static string NormalizePath(string path)
+    internal static string NormalizePath(string path)
     {
         if (string.IsNullOrEmpty(path)) return string.Empty;
         var segments = new Stack<string>();
@@ -148,7 +150,7 @@ public static class UnixPath
     /// <param name="basePath">Base path to create the relative path from</param>
     /// <param name="targetPath">Target path to create the relative path to</param>
     /// <returns>Created relative path</returns>
-    public static string GetRelativePath(string basePath, string targetPath)
+    internal static string GetRelativePath(string basePath, string targetPath)
     {
         var baseParts = NormalizePath(basePath).Trim(DirectorySeparatorChar).Split(DirectorySeparatorChar);
         var targetParts = NormalizePath(targetPath).Trim(DirectorySeparatorChar).Split(DirectorySeparatorChar);
