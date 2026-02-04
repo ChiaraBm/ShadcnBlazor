@@ -16,7 +16,7 @@ public sealed class UploadOperation : FsToolbarOperationBase
         builder.AddContent(1, "Upload");
     };
 
-    public override int Order => 1;
+    public override int Order => -100;
 
     private readonly DialogService DialogService;
 
@@ -24,7 +24,6 @@ public sealed class UploadOperation : FsToolbarOperationBase
     {
         DialogService = dialogService;
 
-        IsPrimary = true;
         ToolbarButtonVariant = ButtonVariant.Default;
     }
 
