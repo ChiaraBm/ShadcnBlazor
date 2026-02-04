@@ -1,0 +1,107 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Components.Forms
+@using ShadcnBlazor.AlertDialogs
+@using ShadcnBlazor.Extras.Common
+@using ShadcnBlazor.Extras.FileManagers.Abstractions
+@using ShadcnBlazor.Extras.Forms
+@using ShadcnBlazor.Extras.Toasts
+@using ShadcnBlazor.Inputs
+@using ShadcnBlazor.Selects
+
+@inherits ShadcnBlazor.Extras.AlertDialogs.AlertDialogBase
+
+@inject ToastService ToastService
+
+<AlertDialogHeader>
+    <AlertDialogTitle>Create Archive</AlertDialogTitle>
+    <AlertDialogDescription>
+        Enter the name of the file
+    </AlertDialogDescription>
+</AlertDialogHeader>
+<EnhancedEditForm @ref="EditForm" Model="Form" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    
+    <div class="flex flex-col gap-2">
+        <FormValidationSummary />
+        
+        <Select @bind-Value="SelectedFormatString">
+            <SelectTrigger ClassName="w-full">
+                <SelectValue Placeholder="Select a archive format" />
+            </SelectTrigger>
+            <SelectContent>
+                @foreach (var archiveFormat in FsAccess.ArchiveFormats)
+                {
+                    <SelectItem Value="@archiveFormat.Identifier" @key="archiveFormat">
+                        @archiveFormat.Name
+                    </SelectItem>
+                }
+            </SelectContent>
+        </Select>
+        
+        <TextInputField
+            @bind-Value="Form.Name"
+            placeholder="Filename..."/>
+    </div>
+</EnhancedEditForm>
+
+<AlertDialogFooter>
+    <AlertDialogCancel>Cancel</AlertDialogCancel>
+    <WButton OnClick="EditForm.SubmitAsync">Continue</WButton>
+</AlertDialogFooter>
+
+@code
+{
+    [Parameter] public IArchiveAccess FsAccess { get; set; }
+    [Parameter] public IFileManager FileManager { get; set; }
+    [Parameter] public string WorkingDirectory { get; set; }
+    [Parameter] public FsEntry[] FsEntries { get; set; }
+    
+    private readonly InternalForm Form = new();
+
+    private string? SelectedFormatString
+    {
+        set => SelectedFormat = FsAccess.ArchiveFormats.First(x => x.Identifier == value);
+        get => SelectedFormat?.Identifier;
+    }
+
+    private ArchiveFormat? SelectedFormat;
+
+    private EnhancedEditForm EditForm;
+    
+    private async Task<bool> OnValidSubmit(EditContext editContext, ValidationMessageStore validationMessageStore)
+    {
+        if (SelectedFormat == null)
+        {
+            validationMessageStore.Add(new FieldIdentifier(Form, string.Empty), "You need to select a valid archive format");
+            return false;
+        }
+        
+        await ToastService.ProgressAsync(
+            "Archiving",
+            $"Creating archive {Form.Name}",
+            async toast =>
+            {
+                await FsAccess.ArchiveAsync(
+                    UnixPath.Combine(WorkingDirectory, Form.Name),
+                        WorkingDirectory,
+                        SelectedFormat,
+                        FsEntries,
+                         message => toast.UpdateAsync($"Archiving {FsEntries.Length} item(s) to {Form.Name}", message)
+                );
+
+                await FileManager.RefreshAsync();
+            }
+        );
+        
+        await CloseAsync();
+        
+        return true;
+    }
+    
+    private class InternalForm
+    {
+        [Required]
+        [RegularExpression(@"^[A-Za-z0-9._ -]+$", ErrorMessage = "Provide a valid file name")]
+        public string Name { get; set; }
+    }
+}

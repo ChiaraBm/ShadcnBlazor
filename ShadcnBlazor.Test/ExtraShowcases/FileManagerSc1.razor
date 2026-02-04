@@ -15,9 +15,11 @@
         options.AddToolbarOperation<NewFileOperation>();
         options.AddToolbarOperation<UploadOperation>();
         options.AddSingleOperation<RenameOperation>();
+        options.AddSingleOperation<UnarchiveOperation>();
         options.AddMultiOperation<DeleteOperation>();
         options.AddMultiOperation<DownloadOperation>();
         options.AddMultiOperation<MoveOperation>();
+        options.AddMultiOperation<ArchiveOperation>();
         options.AddOpenOperation<EditorOpenOperation>();
     }
 }

@@ -15,7 +15,7 @@ public class NewDirectoryOperation : FsToolbarOperationBase
         builder.CloseComponent();
     };
 
-    public override int Order => 0;
+    public override int Order => -101;
 
     private readonly AlertDialogService AlertDialogService;
 
@@ -23,7 +23,6 @@ public class NewDirectoryOperation : FsToolbarOperationBase
     {
         AlertDialogService = alertDialogService;
         
-        IsPrimary = true;
         ToolbarButtonSize = ButtonSize.Icon;
     }
     

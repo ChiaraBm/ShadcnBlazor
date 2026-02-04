@@ -3,7 +3,7 @@ using ShadcnBlazor.Extras.FileManagers.Abstractions;
 
 namespace ShadcnBlazor.Test.ExtraShowcases.Services;
 
-public class InMemoryFsAccess : IFsAccess, IDownloadFileAccess, IDownloadFolderAccess
+public partial class InMemoryFsAccess : IFsAccess, IDownloadFileAccess, IDownloadFolderAccess
 {
     private readonly Dictionary<string, FsNode> _nodes = new();
     private const char PathSeparator = '/';

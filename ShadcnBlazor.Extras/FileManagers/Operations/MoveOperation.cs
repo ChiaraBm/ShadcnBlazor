@@ -26,13 +26,13 @@ public class MoveOperation : FsMultiOperationBase
     
     public override async Task ExecuteAsync(string workingDirectory, FsEntry[] fsEntries, IFsAccess fsAccess, IFileManager fileManager)
     {
-        await DialogService.LaunchAsync<LocationSelectDialog>(paramaters =>
+        await DialogService.LaunchAsync<LocationSelectDialog>(parameters =>
         {
-            paramaters[nameof(LocationSelectDialog.DefaultPath)] = workingDirectory;
-            paramaters[nameof(LocationSelectDialog.FsAccess)] = fsAccess;
-            paramaters[nameof(LocationSelectDialog.Title)] = $"Move {fsEntries.Length} item(s)";
-            paramaters[nameof(LocationSelectDialog.Description)] = "Select a location to move the item(s) to";
-            paramaters[nameof(LocationSelectDialog.OnSubmit)] = async (string selectedPath) =>
+            parameters[nameof(LocationSelectDialog.DefaultPath)] = workingDirectory;
+            parameters[nameof(LocationSelectDialog.FsAccess)] = fsAccess;
+            parameters[nameof(LocationSelectDialog.Title)] = $"Move {fsEntries.Length} item(s)";
+            parameters[nameof(LocationSelectDialog.Description)] = "Select a location to move the item(s) to";
+            parameters[nameof(LocationSelectDialog.OnSubmit)] = async (string selectedPath) =>
             {
                 foreach (var fsEntry in fsEntries)
                 {

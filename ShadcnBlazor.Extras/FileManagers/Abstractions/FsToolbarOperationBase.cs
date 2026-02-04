@@ -14,8 +14,6 @@ public abstract class FsToolbarOperationBase : IFsOperation
     public ButtonVariant ToolbarButtonVariant { get; protected set; } = ButtonVariant.Outline;
     public ButtonSize ToolbarButtonSize { get; protected set; } = ButtonSize.Default;
     public DropdownMenuItemVariant DropdownItemVariant { get; protected set; } = DropdownMenuItemVariant.Default;
-    
-    public bool IsPrimary { get; protected set; }
 
     public abstract Task ExecuteAsync(string workingDirectory, IFsAccess fsAccess, IFileManager fileManager);
 

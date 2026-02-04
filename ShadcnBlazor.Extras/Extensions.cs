@@ -27,5 +27,7 @@ public static class Extensions
         collection.AddScoped<MoveOperation>();
         collection.AddScoped<EditorOpenOperation>();
         collection.AddScoped<DownloadOperation>();
+        collection.AddScoped<ArchiveOperation>();
+        collection.AddScoped<UnarchiveOperation>();
     }
 }
