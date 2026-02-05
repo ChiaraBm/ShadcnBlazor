@@ -201,7 +201,7 @@ public partial class InMemoryFsAccess : IFsAccess, IDownloadFileAccess, IDownloa
         if (!_nodes.TryGetValue(normalizedPath, out var node))
         {
             var parentPath = GetParentPath(normalizedPath);
-            EnsureDirectoryExists(parentPath);
+            EnsureDirectoryExistsRecursive(parentPath);
 
             var fileName = GetFileName(normalizedPath);
             
@@ -233,6 +233,27 @@ public partial class InMemoryFsAccess : IFsAccess, IDownloadFileAccess, IDownloa
         
         node.Data = memoryStream.ToArray();
         node.UpdatedAt = DateTimeOffset.UtcNow;
+    }
+    
+    private void EnsureDirectoryExistsRecursive(string path)
+    {
+        if (path == "/" || _nodes.ContainsKey(path))
+        {
+            return;
+        }
+
+        var parentPath = GetParentPath(path);
+        EnsureDirectoryExistsRecursive(parentPath);
+
+        var dirName = GetFileName(path);
+        _nodes[path] = new FsNode
+        {
+            Name = dirName,
+            Type = FsEntryType.Folder,
+            CreatedAt = DateTimeOffset.UtcNow,
+            UpdatedAt = DateTimeOffset.UtcNow,
+            Permissions = FsEntryPermissions.ReadWrite
+        };
     }
 
     public Task MoveAsync(string oldPath, string newPath)
@@ -489,7 +510,7 @@ public partial class InMemoryFsAccess : IFsAccess, IDownloadFileAccess, IDownloa
 
         // Ensure parent directory exists
         var parentPath = GetParentPath(normalizedDestination);
-        EnsureDirectoryExists(parentPath);
+        EnsureDirectoryExistsRecursive(parentPath);
 
         // Combine all file data
         using var combinedStream = new MemoryStream();
