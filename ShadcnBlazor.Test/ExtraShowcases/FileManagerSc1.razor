@@ -3,11 +3,18 @@
 @using ShadcnBlazor.Extras.FileManagers.Operations
 @using ShadcnBlazor.Test.ExtraShowcases.Services
 
+@inject IJSRuntime JsRuntime
+
 <FileManager ClassName="bg-card" FsAccess="Access" OnConfigure="OnConfigure" />
 
 @code
 {
-    private IFsAccess Access = new InMemoryFsAccess();
+    private IFsAccess Access;
+
+    protected override void OnInitialized()
+    {
+        Access = new InMemoryFsAccess(JsRuntime);
+    }
 
     private void OnConfigure(FileManagerOptions options)
     {
@@ -22,7 +29,7 @@
         options.AddMultiOperation<ArchiveOperation>();
         options.AddOpenOperation<EditorOpenOperation>();
 
-        options.WriteLimit = 1024 * 1024 * 1;
+        options.WriteLimit = 1024 * 1024 * 20;
         options.UploadLimit = 1024 * 1024 * 1024;
     }
 }
