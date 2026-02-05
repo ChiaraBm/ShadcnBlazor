@@ -75,7 +75,7 @@
     </CardContent>
 </Card>
 
-<div class="overflow-hidden rounded-md border bg-card">
+<div class="overflow-x-hidden overflow-y-scroll scrollbar-thin rounded-md border bg-card max-h-[30rem]">
     <Table>
         <TableHeader>
             <TableRow>
@@ -139,9 +139,7 @@
 </div>
 
 <DialogFooter>
-    <DialogClose>
-        <Button Variant="ButtonVariant.Outline">Cancel</Button>
-    </DialogClose>
+    <Button @onclick="CloseAsync" Variant="ButtonVariant.Outline">Cancel</Button>
     <WButton OnClick="OnSubmitAsync">Select Location</WButton>
 </DialogFooter>
 
