@@ -7,7 +7,7 @@ namespace ShadcnBlazor.Extras.FileManagers.Operations;
 public sealed class EditorOpenOperation : FsOpenOperationBase
 {
     public override Func<FsEntry, bool>? Filter { get; } =
-        entry => EditorHelper.CheckExtension(EditorHelper.GetExtension(entry.Name));
+        entry => FmHelper.CheckExtension(FmHelper.GetExtension(entry.Name));
 
     public override int Order => 0;
     public override bool CheckCompatability(IFsAccess fsAccess) => true;
