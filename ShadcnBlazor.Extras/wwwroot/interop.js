@@ -103,6 +103,6 @@ window.ShadcnBlazorExtras = {
         });
     },
     submitForm: function (id) {
-        document.getElementById(id).dispatchEvent(new Event('submit'));
+        document.getElementById(id).requestSubmit();
     }
 }
