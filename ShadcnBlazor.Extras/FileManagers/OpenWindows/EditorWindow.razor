@@ -66,8 +66,8 @@
 
         LastKnownContent = await sr.ReadToEndAsync();
 
-        Language = EditorHelper.GetLanguage(
-            EditorHelper.GetExtension(FsEntry.Name)
+        Language = FmHelper.GetLanguage(
+            FmHelper.GetExtension(FsEntry.Name)
         );
 
         HasLoaded = true;
