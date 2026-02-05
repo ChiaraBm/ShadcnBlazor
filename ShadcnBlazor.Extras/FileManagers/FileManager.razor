@@ -221,7 +221,7 @@ else
                             <TableCell></TableCell>
                             <TableCell>
                                 <div class="flex flex-row items-center gap-2.5">
-                                    <FolderIcon ClassName="text-amber-500"/>
+                                    <FolderUpIcon ClassName="text-amber-300"/>
 
                                     <a href="#" @onclick="GoUpAsync" @onclick:preventDefault>
                                         Go up
@@ -281,7 +281,7 @@ else
                                     <div class="flex flex-row items-center gap-2.5">
                                         @if (fsEntry.Type == FsEntryType.File)
                                         {
-                                            <FileTextIcon ClassName="text-blue-500"/>
+                                            @GetIcon(fsEntry.Name)
                                         }
                                         else
                                         {

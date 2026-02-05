@@ -9,7 +9,7 @@ public partial class FileManager
     public string CurrentPath { get; private set; } = "/";
     
     private FsEntry[] CurrentEntries = [];
-    private bool HasLoaded = false;
+    private bool HasLoaded;
 
     private async Task LoadAsync(bool silent = false)
     {

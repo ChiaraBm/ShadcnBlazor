@@ -3,6 +3,7 @@
 @using ShadcnBlazor.Dialogs
 @using ShadcnBlazor.Buttons
 @using ShadcnBlazor.Cards
+@using ShadcnBlazor.Extras.Common
 @using ShadcnBlazor.Extras.FileManagers.Abstractions
 @using ShadcnBlazor.Spinners
 @using ShadcnBlazor.Tabels
@@ -141,7 +142,7 @@
     <DialogClose>
         <Button Variant="ButtonVariant.Outline">Cancel</Button>
     </DialogClose>
-    <Button @onclick="OnSubmitAsync">Select Location</Button>
+    <WButton OnClick="OnSubmitAsync">Select Location</WButton>
 </DialogFooter>
 
 @code
