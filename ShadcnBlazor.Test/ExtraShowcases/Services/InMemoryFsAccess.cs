@@ -1,4 +1,5 @@
-﻿using ShadcnBlazor.Extras.FileManagers;
+﻿using Microsoft.JSInterop;
+using ShadcnBlazor.Extras.FileManagers;
 using ShadcnBlazor.Extras.FileManagers.Abstractions;
 
 namespace ShadcnBlazor.Test.ExtraShowcases.Services;
@@ -8,8 +9,12 @@ public partial class InMemoryFsAccess : IFsAccess, IDownloadFileAccess, IDownloa
     private readonly Dictionary<string, FsNode> _nodes = new();
     private const char PathSeparator = '/';
 
-    public InMemoryFsAccess()
+    private readonly IJSRuntime JsRuntime;
+
+    public InMemoryFsAccess(IJSRuntime jsRuntime)
     {
+        JsRuntime = jsRuntime;
+        
         var now = DateTimeOffset.UtcNow;
         
         // Initialize with the root directory
@@ -377,7 +382,7 @@ public partial class InMemoryFsAccess : IFsAccess, IDownloadFileAccess, IDownloa
         public FsEntryPermissions Permissions { get; set; }
     }
 
-    public Task<string> GetFileDownloadUrlAsync(string path)
+    public async Task<string> GetFileDownloadUrlAsync(string path)
     {
         var normalizedPath = NormalizePath(path);
         
@@ -397,12 +402,11 @@ public partial class InMemoryFsAccess : IFsAccess, IDownloadFileAccess, IDownloa
         }
 
         var data = node.Data ?? [];
-        var base64 = Convert.ToBase64String(data);
+        var memoryStream = new MemoryStream(data);
+
+        await JsRuntime.InvokeVoidAsync("fileManagerDemo.download", node.Name, new DotNetStreamReference(memoryStream));
         
-        var encodedFileName = Uri.EscapeDataString(node.Name);
-        
-        var dataUrl = $"data:application/octet-stream;name={encodedFileName};base64,{base64}";
-        return Task.FromResult(dataUrl);
+        return "javascript:void(0)";
     }
     
     public async Task<string> GetFolderDownloadUrlAsync(string path)
@@ -444,19 +448,14 @@ public partial class InMemoryFsAccess : IFsAccess, IDownloadFileAccess, IDownloa
                 await entryStream.WriteAsync(fileData, 0, fileData.Length);
             }
         }
-
-        // Convert ZIP to base64 data URL
+        
         zipStream.Position = 0;
-        var zipBytes = zipStream.ToArray();
-        var base64 = Convert.ToBase64String(zipBytes);
         
-        // Create filename for the ZIP archive
         var folderName = node.Name == "/" ? "root" : node.Name;
-        var zipFileName = Uri.EscapeDataString($"{folderName}.zip");
         
-        var dataUrl = $"data:application/zip;name={zipFileName};base64,{base64}";
+        await JsRuntime.InvokeVoidAsync("fileManagerDemo.download", $"{folderName}.zip", new DotNetStreamReference(zipStream));
         
-        return dataUrl;
+        return "javascript:void(0)";
     }
     
     public async Task CombineAsync(string destination, string[] paths)
