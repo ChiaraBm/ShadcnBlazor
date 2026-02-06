@@ -32,6 +32,10 @@ public class MoveOperation : FsMultiOperationBase
             parameters[nameof(LocationSelectDialog.FsAccess)] = fsAccess;
             parameters[nameof(LocationSelectDialog.Title)] = $"Move {fsEntries.Length} item(s)";
             parameters[nameof(LocationSelectDialog.Description)] = "Select a location to move the item(s) to";
+            parameters[nameof(LocationSelectDialog.Filter)] = (string path, FsEntry entry) =>
+            {
+                return !(path == workingDirectory && fsEntries.Any(x => x.Name == entry.Name));
+            };
             parameters[nameof(LocationSelectDialog.OnSubmit)] = async (string selectedPath) =>
             {
                 foreach (var fsEntry in fsEntries)

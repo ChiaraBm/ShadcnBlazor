@@ -104,8 +104,10 @@
 
                 foreach (var fsEntry in CurrentEntries)
                 {
+                    var isActive = Filter == null || Filter.Invoke(CurrentPath, fsEntry);
+                    
                     <TableRow @key="fsEntry">
-                        <TableCell>
+                        <TableCell ClassName="@(isActive ? "" : "opacity-50")">
                             <div class="flex flex-row items-center gap-2.5">
                                 @if (fsEntry.Type == FsEntryType.File)
                                 {
@@ -116,9 +118,18 @@
                                     <FolderIcon ClassName="text-amber-500"/>
                                 }
 
-                                <a href="#" @onclick="() => OnItemClickedAsync(fsEntry)" @onclick:preventDefault>
-                                    @fsEntry.Name
-                                </a>
+                                @if (isActive)
+                                {
+                                    <a href="#" @onclick="() => OnItemClickedAsync(fsEntry)" @onclick:preventDefault>
+                                        @fsEntry.Name
+                                    </a>
+                                }
+                                else
+                                {
+                                    <span>
+                                        @fsEntry.Name
+                                    </span>
+                                }
                             </div>
                         </TableCell>
                     </TableRow>
@@ -148,12 +159,14 @@
     [Parameter] public string? DefaultPath { get; set; }
     [Parameter] public string Title { get; set; }
     [Parameter] public string Description { get; set; }
+    [Parameter] public Func<string, FsEntry, bool>? Filter { get; set; }
     [Parameter] public Func<string, Task> OnSubmit { get; set; }
 
     [Parameter] public IFsAccess FsAccess { get; set; }
 
     private bool HasLoaded;
     private string CurrentPath = "/";
+    
     private FsEntry[] CurrentEntries;
 
     protected override void OnInitialized()
