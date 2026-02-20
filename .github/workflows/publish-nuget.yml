@@ -31,11 +31,9 @@ jobs:
         with:
           dotnet-version: 9.0
       
-      # Install nodejs/npm
-      - name: Install NodeJS
-        uses: actions/setup-node@v5
-        with:
-          node-version: "24"
+      # Install bun
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
 
       # Login into NuGet
       - name: NuGet Login
@@ -47,17 +45,17 @@ jobs:
       ## Build:
       
       # CodeMirror
-      - run: npm i
+      - run: bun i
         working-directory: ShadcnBlazor.Extras/CodeMirror
 
-      - run: npm run build
+      - run: bun run build
         working-directory: ShadcnBlazor.Extras/CodeMirror
         
       # Class list
-      - run: npm i
+      - run: bun i
         working-directory: ShadcnBlazor.Test/Styles
         
-      - run: npm run build
+      - run: bun run build
         working-directory: ShadcnBlazor.Test/Styles
       
       ## Publish:

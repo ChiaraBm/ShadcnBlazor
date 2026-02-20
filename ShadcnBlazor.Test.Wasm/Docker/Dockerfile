@@ -4,8 +4,10 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 
 ## Setup environment:
 
-# Install nodejs and npm for building tailwind styles
-RUN apt update; apt install nodejs npm -y
+# Install bun for building tailwind styles
+RUN apt-get update; apt-get install unzip -y; apt-get clean
+RUN curl -fsSL https://bun.sh/install | bash
+ENV PATH="/root/.bun/bin:${PATH}"
 
 ## Download depenencies:
 
@@ -23,11 +25,11 @@ RUN dotnet restore "ShadcnBlazor.Test.Wasm.csproj"
 # Install npm packages
 COPY ["ShadcnBlazor.Test/Styles/package.json", "/src/ShadcnBlazor.Test/Styles/"]
 WORKDIR "/src/ShadcnBlazor.Test/Styles"
-RUN npm i
+RUN bun i
 
 COPY ["ShadcnBlazor.Extras/CodeMirror/package.json", "/src/ShadcnBlazor.Extras/CodeMirror/"]
 WORKDIR "/src/ShadcnBlazor.Extras/CodeMirror"
-RUN npm i
+RUN bun i
 
 # Copy over all source files
 WORKDIR /src
@@ -35,11 +37,11 @@ COPY . .
 
 # Build tailwind styles
 WORKDIR "/src/ShadcnBlazor.Test/Styles"
-RUN npm run dev-build
+RUN bun run dev-build
 
 # Build code mirror bundle
 WORKDIR "/src/ShadcnBlazor.Extras/CodeMirror"
-RUN npm run build
+RUN bun run build
 
 # Build application
 WORKDIR "/src/ShadcnBlazor.Test.Wasm"
