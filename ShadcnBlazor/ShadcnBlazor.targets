@@ -5,7 +5,7 @@
         </ShadcnBlazorCssClassDir>
     </PropertyGroup>
 
-    <Target Name="CopyContents" BeforeTargets="Build">
+    <Target Name="ShadcnBlazor_CopyContents" BeforeTargets="Build">
         <ItemGroup>
             <Files Include="$(MSBuildThisFileDirectory)..\Styles\**\*" />
         </ItemGroup>

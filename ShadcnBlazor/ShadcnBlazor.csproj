@@ -50,5 +50,6 @@
     <ItemGroup Label="Class map include">
         <None Include="Styles/*" Pack="true" PackagePath="Styles/" />
         <None Include="ShadcnBlazor.targets" Pack="true" PackagePath="build\ShadcnBlazor.targets" />
+        <None Include="ShadcnBlazor.targets" Pack="true" PackagePath="buildTransitive\ShadcnBlazor.targets" />
     </ItemGroup>
 </Project>
