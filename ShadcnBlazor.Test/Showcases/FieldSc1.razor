@@ -17,7 +17,7 @@
                         <FieldLabel for="checkout-7j9-card-name-43j">
                             Name on Card
                         </FieldLabel>
-                        <TextInputField
+                        <TextInputField @bind-Value="Name"
                             id="checkout-7j9-card-name-43j"
                             placeholder="Evil Rabbit"
                             required
@@ -27,7 +27,7 @@
                         <FieldLabel for="checkout-7j9-card-number-uw1">
                             Card Number
                         </FieldLabel>
-                        <TextInputField
+                        <TextInputField @bind-Value="CardNumber"
                             id="checkout-7j9-card-number-uw1"
                             placeholder="1234 5678 9012 3456"
                             required
@@ -85,7 +85,7 @@
                         </Field>
                         <Field>
                             <FieldLabel for="checkout-7j9-cvv">CVV</FieldLabel>
-                            <NumberInputField TValue="int" id="checkout-7j9-cvv" placeholder="123" required/>
+                            <NumberInputField @bind-Value="Cvv" TValue="int" id="checkout-7j9-cvv" placeholder="123" required/>
                         </Field>
                     </div>
                 </FieldGroup>
@@ -117,7 +117,7 @@
                         <FieldLabel for="checkout-7j9-optional-comments">
                             Comments
                         </FieldLabel>
-                        <TextareaInputField
+                        <TextareaInputField @bind-Value="Comments"
                             id="checkout-7j9-optional-comments"
                             placeholder="Add any additional comments"
                             ClassName="resize-none"
@@ -134,3 +134,11 @@
         </FieldGroup>
     </form>
 </div>
+
+@code
+{
+    private string Name;
+    private string CardNumber;
+    private int Cvv;
+    private string Comments;
+}

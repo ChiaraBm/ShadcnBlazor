@@ -401,3 +401,4 @@ FodyWeavers.xsd
 **/style.min.css
 **/package-lock.json
 **/codemirror-bundle.js
+**/bun.lock
