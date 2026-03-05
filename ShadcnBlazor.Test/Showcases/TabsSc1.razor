@@ -22,11 +22,11 @@
                 <CardContent className="grid gap-6">
                     <div class="grid gap-3">
                         <Label for="tabs-demo-name">Name</Label>
-                        <TextInputField id="tabs-demo-name" Value="Pedro Duarte"/>
+                        <TextInputField @bind-Value="Name" id="tabs-demo-name" Value="Pedro Duarte"/>
                     </div>
                     <div class="grid gap-3">
                         <Label for="tabs-demo-username">Username</Label>
-                        <TextInputField id="tabs-demo-username" Value="@("@peduarte")"/>
+                        <TextInputField @bind-Value="Username" id="tabs-demo-username" Value="@("@peduarte")"/>
                     </div>
                 </CardContent>
                 <CardFooter>
@@ -46,11 +46,11 @@
                 <CardContent ClassName="grid gap-6">
                     <div class="grid gap-3">
                         <Label for="tabs-demo-current">Current password</Label>
-                        <TextInputField id="tabs-demo-current" type="password"/>
+                        <TextInputField @bind-Value="CurrentPassword" id="tabs-demo-current" type="password"/>
                     </div>
                     <div class="grid gap-3">
                         <Label for="tabs-demo-new">New password</Label>
-                        <TextInputField id="tabs-demo-new" type="password"/>
+                        <TextInputField @bind-Value="NewPassword" id="tabs-demo-new" type="password"/>
                     </div>
                 </CardContent>
                 <CardFooter>
@@ -60,3 +60,11 @@
         </TabsContent>
     </Tabs>
 </div>
+
+@code
+{
+    private string Name;
+    private string Username;
+    private string CurrentPassword;
+    private string NewPassword;
+}

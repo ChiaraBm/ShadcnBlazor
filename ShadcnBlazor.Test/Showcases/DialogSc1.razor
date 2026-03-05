@@ -21,11 +21,11 @@
             <div class="grid gap-4">
                 <div class="grid gap-3">
                     <Label>Name</Label>
-                    <TextInputField name="name" Value="Pedro Duarte" />
+                    <TextInputField name="name" @bind-Value="Name" />
                 </div>
                 <div class="grid gap-3">
                     <Label>Username</Label>
-                    <TextInputField name="username" Value="@("@peduarte")" />
+                    <TextInputField name="username" @bind-Value="Username" />
                 </div>
             </div>
             <DialogFooter>
@@ -39,3 +39,9 @@
         </DialogContent>
     </form>
 </Dialog>
+
+@code
+{
+    private string Name = "Pedro Duarte";
+    private string Username = "@peduarte";
+}
