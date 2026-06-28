@@ -45,7 +45,7 @@
                         {
                             <CommandItem @key="item" OnClicked="() => OnItemClicked(item)">
                                 @ValueSelector.Invoke(item)
-                                
+
                                 @if (item?.Equals(Value) ?? false)
                                 {
                                     <CheckIcon ClassName="ml-auto"/>
@@ -64,7 +64,7 @@
     [Parameter] public TItem? Value { get; set; }
     [Parameter] public EventCallback<TItem?> ValueChanged { get; set; }
     [Parameter] public TItem? DefaultValue { get; set; }
-    
+
     [Parameter] public PositionAlignment Alignment { get; set; } = PositionAlignment.Center;
     [Parameter] public PositionSide Side { get; set; } = PositionSide.Bottom;
 
@@ -79,7 +79,7 @@
 
     private Popover Popover;
     private LazyLoader LazyLoader;
-    
+
     private string? SearchTerm;
     private Debouncer Debouncer;
     private TItem[] Items = [];
@@ -88,7 +88,9 @@
 
     protected override void OnInitialized()
     {
-        Value = DefaultValue;
+        if (DefaultValue is not null)
+            Value = DefaultValue;
+        
         Debouncer = new(DebounceMs);
     }
 
@@ -96,7 +98,7 @@
     {
         Classes = Cn(ClassName);
     }
-    
+
     private void OnSearchTermChanged(ChangeEventArgs changeEventArgs)
     {
         SearchTerm = changeEventArgs.Value?.ToString() ?? null;
@@ -115,15 +117,15 @@
 
     private async Task LoadAsync(LazyLoader _)
         => Items = await Source.Invoke(SearchTerm);
-    
+
     private async Task OnItemClickedAsync()
         => await Popover.CloseAsync();
 
     private void OnPopoverClosed(bool isOpen)
     {
-        if(isOpen)
+        if (isOpen)
             return;
-        
+
         // Reset state
         SearchTerm = null;
         Items = [];
