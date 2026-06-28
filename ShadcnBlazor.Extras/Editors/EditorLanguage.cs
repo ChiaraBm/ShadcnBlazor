@@ -11,5 +11,10 @@ public enum EditorLanguage
     Php = 6,
     Xml = 7,
     Python = 8,
-    Css = 9
+    Css = 9,
+    Shell = 10,
+    Dockerfile = 11,
+    Go = 12,
+    Lua = 13,
+    Properties = 14
 }

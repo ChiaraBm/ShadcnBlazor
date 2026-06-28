@@ -1,20 +1,50 @@
 @using ShadcnBlazor.Buttons
 @using ShadcnBlazor.Extras.AlertDialogs
+@using ShadcnBlazor.Extras.Common
 @using ShadcnBlazor.Extras.Editors
+@using ShadcnBlazor.Selects
 
 @inject AlertDialogService AlertDialogService
 
-<Editor @ref="Editor" InitialValue="@DemoValue" Language="EditorLanguage.Javascript" />
+<LazyLoader @ref="Loader" Load="LoadAsync">
+    <Editor @ref="Editor" InitialValue="@DemoValue" Language="@InnerLanguage"/>
+</LazyLoader>
 
-<div class="mt-3">
+<div class="flex flex-row mt-3 gap-1.5">
     <Button Variant="ButtonVariant.Outline" @onclick="GetValueAsync">Get value</Button>
     <Button Variant="ButtonVariant.Outline" @onclick="SetValueAsync">Set value</Button>
+    <Select @bind-Value="CurrentLanguage" @bind-Value:after="OnLanguageChanged">
+        <SelectTrigger ClassName="w-[180px]">
+            <SelectValue Placeholder="Select a language"/>
+        </SelectTrigger>
+        <SelectContent ClassName="w-[180px]">
+            <SelectGroup>
+                @foreach (var language in Enum.GetValues<EditorLanguage>())
+                {
+                    <SelectItem Value="@language.ToString()">@language</SelectItem>
+                }
+            </SelectGroup>
+        </SelectContent>
+    </Select>
 </div>
 
 @code
 {
     private Editor Editor;
+    private LazyLoader Loader;
     private const string DemoValue = "function testy() {\n\tconsole.log('example value');\n}";
+
+    private string CurrentLanguage
+    {
+        get => InnerLanguage.ToString();
+        set
+        {
+            InnerLanguage = Enum.Parse<EditorLanguage>(value);
+            Console.WriteLine(InnerLanguage);
+        }
+    }
+
+    private EditorLanguage InnerLanguage = EditorLanguage.Javascript;
 
     private async Task GetValueAsync()
     {
@@ -30,4 +60,8 @@
     {
         await Editor.SetValueAsync(DemoValue);
     }
+
+    private Task LoadAsync(LazyLoader _) => Task.Delay(100);
+
+    private Task OnLanguageChanged() => Loader.ReloadAsync();
 }
