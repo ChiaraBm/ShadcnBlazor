@@ -10,6 +10,12 @@ import {html} from "@codemirror/lang-html";
 import {sql} from "@codemirror/lang-sql";
 import {xml} from "@codemirror/lang-xml";
 import {css} from "@codemirror/lang-css";
+import {shell} from "@codemirror/legacy-modes/mode/shell";
+import {dockerFile} from "@codemirror/legacy-modes/mode/dockerfile";
+import {go} from "@codemirror/legacy-modes/mode/go";
+import {lua} from "@codemirror/legacy-modes/mode/lua";
+import {properties} from "@codemirror/legacy-modes/mode/properties";
+import {StreamLanguage} from "@codemirror/language"
 import {githubDark} from "@fsegurai/codemirror-theme-bundle";
 
 const roundedTheme = EditorView.theme({
@@ -50,6 +56,21 @@ function getLanguageExtension(language) {
 
         case "css":
             return css();
+
+        case "shell":
+            return StreamLanguage.define(shell);
+
+        case "dockerfile":
+            return StreamLanguage.define(dockerFile);
+
+        case "go":
+            return StreamLanguage.define(go);
+
+        case "lua":
+            return StreamLanguage.define(lua);
+
+        case "properties":
+            return StreamLanguage.define(properties);
 
         default:
             return javascript();
