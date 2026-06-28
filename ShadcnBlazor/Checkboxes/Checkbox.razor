@@ -1,4 +1,5 @@
 ﻿@using LucideBlazor
+
 @inherits ShadcnBase
 
 <button @onclick="ToggleAsync"
@@ -6,6 +7,7 @@
         data-state="@(Value ? "checked" : "unchecked")"
         aria-checked="@(Value ? "true" : "false")"
         class="@Classes"
+        type="button"
         @attributes="Props">
     @if (Value)
     {
