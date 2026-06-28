@@ -22,7 +22,7 @@
                     <Label for="width">Width</Label>
                     <TextInputField
                         id="width"
-                        Value="100%"
+                        @bind-Value="Width"
                         ClassName="col-span-2 h-8"
                     />
                 </div>
@@ -30,7 +30,7 @@
                     <Label for="maxWidth">Max. width</Label>
                     <TextInputField
                         id="maxWidth"
-                        Value="300px"
+                        @bind-Value="MaxWidth"
                         ClassName="col-span-2 h-8"
                     />
                 </div>
@@ -38,7 +38,7 @@
                     <Label for="height">Height</Label>
                     <TextInputField
                         id="height"
-                        Value="25px"
+                        @bind-Value="Height"
                         ClassName="col-span-2 h-8"
                     />
                 </div>
@@ -46,7 +46,7 @@
                     <Label for="maxHeight">Max. height</Label>
                     <TextInputField
                         id="maxHeight"
-                        Value="none"
+                        @bind-Value="MaxHeight"
                         ClassName="col-span-2 h-8"
                     />
                 </div>
@@ -54,3 +54,11 @@
         </div>
     </PopoverContent>
 </Popover>
+
+@code
+{
+    private string Width = "100%";
+    private string MaxWidth = "300px";
+    private string Height = "25px";
+    private string MaxHeight = "none";
+}
