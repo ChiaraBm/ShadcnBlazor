@@ -187,7 +187,7 @@
     {
         if (fsEntry.Type == FsEntryType.Folder)
         {
-            CurrentPath = UnixPath.Combine(CurrentPath, fsEntry.Name);
+            CurrentPath = UnixPath.GetFullPath(UnixPath.Combine(CurrentPath, fsEntry.Name));
             await LoadAsync();
         }
     }
