@@ -10,55 +10,63 @@
 </div>
 
 <DataGrid TGridItem="Payment" Loader="LoadAsync" PageSize="5" EnableSearch="true">
-    <SelectColumn Items="Selected" OnChanged="() => InvokeAsync(StateHasChanged)"/>
+    <ChildContent>
+        <SelectColumn Items="Selected" OnChanged="() => InvokeAsync(StateHasChanged)"/>
 
-    <PropertyColumn Field="payment => payment.Id"/>
-    <PropertyColumn Field="payment => payment.Success"/>
-    <PropertyColumn IsFilterable="true" Identifier="Email"
-                    Field="payment => payment.Email"/>
-    <PropertyColumn Field="payment => payment.Amount"/>
-    <TemplateColumn Title="Actions" DefaultVisible="false">
-        <CellTemplate>
-            <TableCell ClassName="flex justify-end items-center">
-                <ButtonGroup>
-                    <Button Variant="ButtonVariant.Outline" Size="ButtonSize.IconSm">
-                        <PlayIcon/>
-                    </Button>
-                    <Button Variant="ButtonVariant.Destructive" Size="ButtonSize.IconSm">
-                        <SquareIcon/>
-                    </Button>
-                    <Button Variant="ButtonVariant.Outline" Size="ButtonSize.IconSm">
-                        <SquareArrowOutUpRightIcon/>
-                    </Button>
-                </ButtonGroup>
-            </TableCell>
-        </CellTemplate>
-    </TemplateColumn>
-    <TemplateColumn>
-        <CellTemplate>
-            <DropdownMenu>
-                <TableCell>
-                    <DropdownMenuTrigger>
-                        <Slot Context="dropdownContext">
-                            <div class="flex justify-end items-center me-5">
-                                <Button ClassName="h-8 w-8 p-0" Variant="ButtonVariant.Ghost" Size="ButtonSize.IconSm"
-                                        @attributes="dropdownContext">
-                                    <EllipsisIcon/>
-                                </Button>
-                            </div>
-
-                        </Slot>
-                    </DropdownMenuTrigger>
+        <PropertyColumn Field="payment => payment.Id"/>
+        <PropertyColumn Field="payment => payment.Success"/>
+        <PropertyColumn IsFilterable="true" Identifier="Email"
+                        Field="payment => payment.Email"/>
+        <PropertyColumn Field="payment => payment.Amount"/>
+        <TemplateColumn Title="Actions" DefaultVisible="false">
+            <CellTemplate>
+                <TableCell ClassName="flex justify-end items-center">
+                    <ButtonGroup>
+                        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.IconSm">
+                            <PlayIcon/>
+                        </Button>
+                        <Button Variant="ButtonVariant.Destructive" Size="ButtonSize.IconSm">
+                            <SquareIcon/>
+                        </Button>
+                        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.IconSm">
+                            <SquareArrowOutUpRightIcon/>
+                        </Button>
+                    </ButtonGroup>
                 </TableCell>
-                <DropdownMenuContent Align="PositionAlignment.End">
-                    <DropdownMenuItem>Edit</DropdownMenuItem>
-                    <DropdownMenuItem Variant="DropdownMenuItemVariant.Destructive">
-                        Delete
-                    </DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
-        </CellTemplate>
-    </TemplateColumn>
+            </CellTemplate>
+        </TemplateColumn>
+        <TemplateColumn>
+            <CellTemplate>
+                <DropdownMenu>
+                    <TableCell>
+                        <DropdownMenuTrigger>
+                            <Slot Context="dropdownContext">
+                                <div class="flex justify-end items-center me-5">
+                                    <Button ClassName="h-8 w-8 p-0" Variant="ButtonVariant.Ghost" Size="ButtonSize.IconSm"
+                                            @attributes="dropdownContext">
+                                        <EllipsisIcon/>
+                                    </Button>
+                                </div>
+
+                            </Slot>
+                        </DropdownMenuTrigger>
+                    </TableCell>
+                    <DropdownMenuContent Align="PositionAlignment.End">
+                        <DropdownMenuItem>Edit</DropdownMenuItem>
+                        <DropdownMenuItem Variant="DropdownMenuItemVariant.Destructive">
+                            Delete
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            </CellTemplate>
+        </TemplateColumn>
+    </ChildContent>
+    <ToolbarSlot>
+        <Button Variant="ButtonVariant.Default">
+            <PlusIcon/>
+            <span class="hidden md:block">Create</span>
+        </Button>
+    </ToolbarSlot>
 </DataGrid>
 
 @code

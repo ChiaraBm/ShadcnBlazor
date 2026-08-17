@@ -57,12 +57,12 @@
                 </InputGroup>
             }
             <div class="ml-auto flex gap-x-1.5">
+                @if (ToolbarSlot != null)
+                {
+                    @ToolbarSlot
+                }
                 @if (filterableColumns.Length > 0)
                 {
-                    @if (ToolbarSlot != null)
-                    {
-                        @ToolbarSlot
-                    }
                     <Popover @ref="FilterPopover">
                         <PopoverTrigger>
                             <Slot>
