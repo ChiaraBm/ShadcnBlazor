@@ -1,0 +1,21 @@
+@using ShadcnBlazor.Alerts
+@using ShadcnBlazor.Buttons
+
+<Alert ClassName="w-full max-w-lg">
+    <div class="col-span-2 flex items-center justify-between gap-4">
+        <div class="flex flex-col gap-0.5">
+            <AlertTitle>Payment complete</AlertTitle>
+            <AlertDescription>
+                Your invoice has been processed and a receipt was sent to your email.
+            </AlertDescription>
+        </div>
+        <div class="flex shrink-0 gap-2">
+            <Button Size="ButtonSize.Sm" Variant="ButtonVariant.Default">
+                View receipt
+            </Button>
+            <Button Size="ButtonSize.Sm" Variant="ButtonVariant.Outline">
+                Close
+            </Button>
+        </div>
+    </div>
+</Alert>

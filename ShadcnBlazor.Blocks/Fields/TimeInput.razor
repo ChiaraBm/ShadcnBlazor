@@ -1,0 +1,16 @@
+@using LucideBlazor
+@using ShadcnBlazor.Inputs
+@using ShadcnBlazor.Labels
+
+<div class="w-full max-w-sm space-y-2">
+    <Label for="time-input">Standup Time</Label>
+    <div class="relative">
+        <ClockIcon ClassName="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <TextInputField @bind-Value="MeetingTime" ClassName="bg-background pl-9" id="time-input" type="time" />
+    </div>
+</div>
+
+@code
+{
+    private string MeetingTime = string.Empty;
+}

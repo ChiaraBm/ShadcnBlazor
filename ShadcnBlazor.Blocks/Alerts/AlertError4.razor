@@ -1,0 +1,21 @@
+@using ShadcnBlazor.Alerts
+@using ShadcnBlazor.Buttons
+
+<Alert ClassName="w-full max-w-lg border-destructive/80 bg-destructive/5 text-destructive">
+    <div class="col-span-2 flex items-center justify-between gap-4">
+        <div class="flex flex-col gap-0.5">
+            <AlertTitle>Upload failed</AlertTitle>
+            <AlertDescription ClassName="text-destructive/80">
+                The file could not be uploaded. Check your connection and try again.
+            </AlertDescription>
+        </div>
+        <div class="flex shrink-0 gap-2">
+            <Button Size="ButtonSize.Sm" Variant="ButtonVariant.Destructive">
+                Try again
+            </Button>
+            <Button Size="ButtonSize.Sm" Variant="ButtonVariant.Outline">
+                Close
+            </Button>
+        </div>
+    </div>
+</Alert>

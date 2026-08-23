@@ -1,0 +1,57 @@
+@using LucideBlazor
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Dropdowns
+@using ShadcnBlazor.Inputs
+@using ShadcnBlazor.Interop
+@using ShadcnBlazor.Separators
+
+<div class="flex w-full max-w-2xl flex-col gap-4">
+    <InputGroup ClassName="bg-background">
+        <InputGroupTextarea @bind-Value="Message"
+                            placeholder="Ask anything, or just start talking..." />
+        <InputGroupAddon Align="InputGroupAddonAlign.BlockEnd">
+            <InputGroupButton Size="InputGroupButtonSize.IconXs"
+                              Variant="ButtonVariant.Ghost">
+                <PaperclipIcon />
+            </InputGroupButton>
+            <InputGroupButton Size="InputGroupButtonSize.IconXs"
+                              Variant="ButtonVariant.Ghost">
+                <MicIcon />
+            </InputGroupButton>
+            <DropdownMenu>
+                <DropdownMenuTrigger>
+                    <InputGroupButton ClassName="ml-auto text-xs"
+                                       Variant="ButtonVariant.Ghost">
+                        @SelectedModel
+                    </InputGroupButton>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent Align="PositionAlignment.End"
+                                     Side="PositionSide.Top">
+                    <DropdownMenuItem OnClick='() => SelectModel("Claude 3.5 Sonnet")'>Claude 3.5 Sonnet</DropdownMenuItem>
+                    <DropdownMenuItem OnClick='() => SelectModel("Claude 3 Opus")'>Claude 3 Opus</DropdownMenuItem>
+                    <DropdownMenuItem OnClick='() => SelectModel("Claude 3 Haiku")'>Claude 3 Haiku</DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+            <Separator ClassName="!h-4" Orientation="SeparatorOrientation.Vertical" />
+            <InputGroupButton ClassName="rounded-full"
+                              Size="InputGroupButtonSize.IconXs"
+                              Variant="ButtonVariant.Default">
+                <ArrowUpIcon />
+                <span class="sr-only">Send</span>
+            </InputGroupButton>
+        </InputGroupAddon>
+    </InputGroup>
+
+    <small class="text-center text-muted-foreground">
+        For better AI components, check out
+        <a class="underline" href="https://ai-sdk.dev/elements/overview">AI Elements</a>
+    </small>
+</div>
+
+@code
+{
+    private string Message = string.Empty;
+    private string SelectedModel = "Claude 3.5 Sonnet";
+
+    private void SelectModel(string model) => SelectedModel = model;
+}

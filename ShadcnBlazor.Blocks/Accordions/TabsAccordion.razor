@@ -1,0 +1,37 @@
+@using ShadcnBlazor.Accordions
+
+<Accordion Type="AccordionType.Single"
+           DefaultValue="shipping"
+           ClassName="flex w-full max-w-md flex-col gap-2">
+    <AccordionItem Value="shipping"
+                   ClassName="overflow-hidden rounded-lg border bg-background px-4 last:border-b">
+        <AccordionTrigger>Shipping policy</AccordionTrigger>
+        <AccordionContent>
+            <p class="text-muted-foreground">Orders placed before 2 pm are dispatched the same business day. Standard delivery takes 2–4 working days, and express options are available at checkout.</p>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="returns"
+                   ClassName="overflow-hidden rounded-lg border bg-background px-4 last:border-b">
+        <AccordionTrigger>Returns and refunds</AccordionTrigger>
+        <AccordionContent>
+            <p class="text-muted-foreground">Unused items can be returned within 30 days of delivery. Refunds are issued to the original payment method once the return is inspected.</p>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="payments"
+                   ClassName="overflow-hidden rounded-lg border bg-background px-4 last:border-b">
+        <AccordionTrigger>Accepted payment methods</AccordionTrigger>
+        <AccordionContent>
+            <p class="text-muted-foreground">We accept all major credit and debit cards, PayPal, and Apple Pay. All transactions are encrypted and processed securely.</p>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="support"
+                   ClassName="overflow-hidden rounded-lg border bg-background px-4 last:border-b">
+        <AccordionTrigger>Contacting support</AccordionTrigger>
+        <AccordionContent>
+            <p class="text-muted-foreground">Our support team is available Monday to Friday, 9 am to 6 pm. Average response time is under four hours.</p>
+        </AccordionContent>
+    </AccordionItem>
+</Accordion>

@@ -15,12 +15,21 @@ else
     
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public RenderFragment<Dictionary<string, object?>>? Slot { get; set; }
+    
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? Props { get; set; }
 
     private Dictionary<string, object?> Attributes;
 
     protected override void OnParametersSet()
     {
         Attributes = new();
+
+        if (Props is not null)
+        {
+            foreach (var prop in Props)
+                Attributes[prop.Key] = prop.Value;
+        }
 
         Attributes["data-state"] = Collapsible.IsOpen ? "open" : "closed";
         Attributes["data-disabled"] = Collapsible.Disabled;

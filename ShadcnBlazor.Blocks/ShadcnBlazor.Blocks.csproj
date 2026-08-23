@@ -6,17 +6,16 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+
     <ItemGroup>
         <SupportedPlatform Include="browser"/>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.19" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.19"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ShadcnBlazor.Blocks\ShadcnBlazor.Blocks.csproj" />
-      <ProjectReference Include="..\ShadcnBlazor.Extras\ShadcnBlazor.Extras.csproj" />
       <ProjectReference Include="..\ShadcnBlazor\ShadcnBlazor.csproj" />
     </ItemGroup>
 </Project>

@@ -1,0 +1,27 @@
+@using LucideBlazor
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Emptys
+@using ShadcnBlazor.Inputs
+
+<Empty>
+    <EmptyHeader>
+        <EmptyMedia Variant="EmptyMediaVariant.Icon">
+            <MailIcon />
+        </EmptyMedia>
+        <EmptyTitle>Stay in the loop</EmptyTitle>
+        <EmptyDescription>
+            Get product updates, tips, and announcements straight to your inbox.
+        </EmptyDescription>
+    </EmptyHeader>
+    <EmptyContent>
+        <div class="flex w-full gap-2">
+            <TextInputField @bind-Value="Email" placeholder="you@example.com" type="email" />
+            <Button>Notify me</Button>
+        </div>
+    </EmptyContent>
+</Empty>
+
+@code
+{
+    private string Email = string.Empty;
+}

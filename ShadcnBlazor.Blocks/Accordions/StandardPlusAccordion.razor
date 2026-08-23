@@ -1,0 +1,78 @@
+@using LucideBlazor
+@using ShadcnBlazor.Accordions
+
+<Accordion Type="AccordionType.Single"
+           DefaultValue="item-1"
+           ClassName="w-full max-w-md -space-y-px">
+    <AccordionItem Value="item-1"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group hover:no-underline [&>svg]:hidden">
+            <div class="flex w-full items-center justify-between">
+                <span class="text-left">What's included?</span>
+                <div class="relative size-4 shrink-0">
+                    <PlusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground transition-opacity duration-200 group-data-[state=open]:opacity-0"/>
+                    <MinusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-data-[state=open]:opacity-100"/>
+                </div>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent>
+            <p class="text-muted-foreground">Every plan includes unlimited projects, real time collaboration, and access to the full component library. You can invite as many teammates as you like, and everyone works from a single shared workspace.</p>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="item-2"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group hover:no-underline [&>svg]:hidden">
+            <div class="flex w-full items-center justify-between">
+                <span class="text-left">How does onboarding work?</span>
+                <div class="relative size-4 shrink-0">
+                    <PlusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground transition-opacity duration-200 group-data-[state=open]:opacity-0"/>
+                    <MinusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-data-[state=open]:opacity-100"/>
+                </div>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent>
+            <p class="text-muted-foreground">Start by connecting your repository and choosing a starter template. The setup wizard walks you through the first deploy in under five minutes, and the docs cover every step in detail.</p>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="item-3"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group hover:no-underline [&>svg]:hidden">
+            <div class="flex w-full items-center justify-between">
+                <span class="text-left">Can I change plans later?</span>
+                <div class="relative size-4 shrink-0">
+                    <PlusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground transition-opacity duration-200 group-data-[state=open]:opacity-0"/>
+                    <MinusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-data-[state=open]:opacity-100"/>
+                </div>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent>
+            <p class="text-muted-foreground">Yes. You can upgrade, downgrade, or cancel at any time from the billing page. Changes are prorated automatically, so you only pay for the time you actually use.</p>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="item-4"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group hover:no-underline [&>svg]:hidden">
+            <div class="flex w-full items-center justify-between">
+                <span class="text-left">How is my data protected?</span>
+                <div class="relative size-4 shrink-0">
+                    <PlusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground transition-opacity duration-200 group-data-[state=open]:opacity-0"/>
+                    <MinusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-data-[state=open]:opacity-100"/>
+                </div>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent>
+            <p class="text-muted-foreground">All data is encrypted in transit and at rest. Access is limited to authorized members, and every sensitive action is recorded in an audit log you can review at any time.</p>
+        </AccordionContent>
+    </AccordionItem>
+</Accordion>

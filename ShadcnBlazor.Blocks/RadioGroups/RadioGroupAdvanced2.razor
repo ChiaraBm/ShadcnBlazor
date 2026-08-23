@@ -1,0 +1,65 @@
+@using ShadcnBlazor.Badges
+@using ShadcnBlazor.Labels
+@using ShadcnBlazor.RadioGroups
+
+<RadioGroup ClassName="gap-3" DefaultValue="team">
+    <div class="relative flex cursor-pointer items-start space-x-3 rounded-lg border bg-background p-4 shadow-sm transition-colors hover:bg-accent">
+        <RadioGroupItem ClassName="mt-1" id="starter" Value="starter" />
+        <div class="grid flex-1 gap-2 leading-none">
+            <div class="flex items-center justify-between">
+                <Label ClassName="cursor-pointer font-medium" for="starter">
+                    Starter
+                </Label>
+                <Badge Variant="BadgeVariant.Secondary">$0/mo</Badge>
+            </div>
+            <p class="text-sm text-muted-foreground">
+                For solo makers getting off the ground.
+            </p>
+            <ul class="mt-2 space-y-1 text-xs text-muted-foreground">
+                <li>• Up to 2 workspaces</li>
+                <li>• 500MB storage</li>
+                <li>• Community support</li>
+            </ul>
+        </div>
+    </div>
+    <div class="relative flex cursor-pointer items-start space-x-3 rounded-lg border bg-background p-4 shadow-sm transition-colors hover:bg-accent">
+        <RadioGroupItem ClassName="mt-1" id="team" Value="team" />
+        <div class="grid flex-1 gap-2 leading-none">
+            <div class="flex items-center justify-between">
+                <Label ClassName="cursor-pointer font-medium" for="team">
+                    Team
+                </Label>
+                <Badge>$18/mo</Badge>
+            </div>
+            <p class="text-sm text-muted-foreground">
+                For growing teams that need more room.
+            </p>
+            <ul class="mt-2 space-y-1 text-xs text-muted-foreground">
+                <li>• Unlimited workspaces</li>
+                <li>• 50GB storage</li>
+                <li>• Priority support</li>
+                <li>• Shared libraries</li>
+            </ul>
+        </div>
+    </div>
+    <div class="relative flex cursor-pointer items-start space-x-3 rounded-lg border bg-background p-4 shadow-sm transition-colors hover:bg-accent">
+        <RadioGroupItem ClassName="mt-1" id="business" Value="business" />
+        <div class="grid flex-1 gap-2 leading-none">
+            <div class="flex items-center justify-between">
+                <Label ClassName="cursor-pointer font-medium" for="business">
+                    Business
+                </Label>
+                <Badge Variant="BadgeVariant.Secondary">Custom</Badge>
+            </div>
+            <p class="text-sm text-muted-foreground">
+                For organizations with custom needs.
+            </p>
+            <ul class="mt-2 space-y-1 text-xs text-muted-foreground">
+                <li>• Everything in Team</li>
+                <li>• Unlimited storage</li>
+                <li>• Dedicated support</li>
+                <li>• SSO &amp; audit logs</li>
+            </ul>
+        </div>
+    </div>
+</RadioGroup>

@@ -1,0 +1,46 @@
+@using LucideBlazor
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Inputs
+@using ShadcnBlazor.Popovers
+@using ShadcnBlazor.Separators
+
+<Popover>
+    <PopoverTrigger>
+        <Slot>
+            <Button @attributes="context" Variant="ButtonVariant.Outline">
+                <Share2Icon ClassName="h-4 w-4" />
+                Share
+            </Button>
+        </Slot>
+    </PopoverTrigger>
+    <PopoverContent ClassName="w-80">
+        <div class="space-y-4">
+            <h4 class="font-semibold">Share this article</h4>
+            <div class="flex gap-2">
+                <Button ClassName="flex-1" Variant="ButtonVariant.Outline">
+                    <GlobeIcon ClassName="h-4 w-4" />
+                    Website
+                </Button>
+                <Button ClassName="flex-1" Variant="ButtonVariant.Outline">
+                    <MailIcon ClassName="h-4 w-4" />
+                    Email
+                </Button>
+            </div>
+            <Separator />
+            <div class="space-y-2">
+                <p class="text-xs text-muted-foreground">Or copy the link</p>
+                <div class="flex gap-2">
+                    <TextInputField @bind-Value="ShareUrl" readOnly />
+                    <Button Size="ButtonSize.Icon" Variant="ButtonVariant.Outline">
+                        <CopyIcon ClassName="h-4 w-4" />
+                    </Button>
+                </div>
+            </div>
+        </div>
+    </PopoverContent>
+</Popover>
+
+@code
+{
+    private string ShareUrl = "https://acme.dev/blog/launch";
+}

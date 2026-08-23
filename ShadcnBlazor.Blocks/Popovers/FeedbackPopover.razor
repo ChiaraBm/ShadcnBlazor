@@ -1,0 +1,32 @@
+@using LucideBlazor
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Inputs
+@using ShadcnBlazor.Popovers
+
+<Popover>
+    <PopoverTrigger>
+        <Slot>
+            <Button @attributes="context" Variant="ButtonVariant.Outline">
+                <MessageSquareIcon ClassName="h-4 w-4" />
+                Share feedback
+            </Button>
+        </Slot>
+    </PopoverTrigger>
+    <PopoverContent ClassName="w-80">
+        <div class="space-y-4">
+            <div>
+                <h4 class="mb-1 font-semibold">Tell us what you think</h4>
+                <p class="text-xs text-muted-foreground">
+                    Your input shapes what we build next.
+                </p>
+            </div>
+            <TextareaInputField @bind-Value="Feedback" placeholder="What could we improve?" rows="4" />
+            <Button ClassName="w-full">Send</Button>
+        </div>
+    </PopoverContent>
+</Popover>
+
+@code
+{
+    private string Feedback = "";
+}

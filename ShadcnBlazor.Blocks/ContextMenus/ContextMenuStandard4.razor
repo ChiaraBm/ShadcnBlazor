@@ -1,0 +1,32 @@
+@using LucideBlazor
+@using ShadcnBlazor.ContextMenus
+
+<ContextMenu>
+    <ContextMenuTrigger ClassName="flex h-[200px] w-full max-w-lg items-center justify-center rounded-md border border-dashed text-sm">
+        Right click anywhere in this area
+    </ContextMenuTrigger>
+    <ContextMenuContent ClassName="w-56">
+        <ContextMenuLabel>Workspace</ContextMenuLabel>
+        <ContextMenuSeparator />
+        <ContextMenuItem>
+            <UserIcon />
+            <span>My Profile</span>
+        </ContextMenuItem>
+        <ContextMenuItem>
+            <SettingsIcon />
+            <span>Preferences</span>
+        </ContextMenuItem>
+        <ContextMenuSeparator />
+        <ContextMenuLabel>Support</ContextMenuLabel>
+        <ContextMenuSeparator />
+        <ContextMenuItem>
+            <HelpCircleIcon />
+            <span>Documentation</span>
+        </ContextMenuItem>
+        <ContextMenuSeparator />
+        <ContextMenuItem Variant="ContextMenuItemVariant.Destructive">
+            <LogOutIcon />
+            <span>Sign Out</span>
+        </ContextMenuItem>
+    </ContextMenuContent>
+</ContextMenu>

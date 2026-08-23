@@ -16,6 +16,10 @@
 @source "../../ShadcnBlazor.Test.Server/**/*.cs";
 @source "../../ShadcnBlazor.Test.Server/**/*.html";
 
+@source "../../ShadcnBlazor.Blocks/**/*.razor";
+@source "../../ShadcnBlazor.Blocks/**/*.cs";
+@source "../../ShadcnBlazor.Blocks/**/*.html";
+
 @source "../../ShadcnBlazor/**/*.razor";
 @source "../../ShadcnBlazor/**/*.cs";
 @source "../../ShadcnBlazor/**/*.html";

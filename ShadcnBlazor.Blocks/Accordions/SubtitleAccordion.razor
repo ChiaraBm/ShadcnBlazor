@@ -1,0 +1,34 @@
+@using ShadcnBlazor.Accordions
+
+<Accordion Type="AccordionType.Single"
+           DefaultValue="getting-started"
+           ClassName="w-full max-w-md -space-y-px">
+    @foreach (var item in Items)
+    {
+        <AccordionItem Value="@item.Value"
+                       ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+            <AccordionTrigger ClassName="hover:no-underline">
+                <div class="flex flex-col items-start text-left">
+                    <span>@item.Title</span>
+                    <span class="text-sm text-muted-foreground">@item.Subtitle</span>
+                </div>
+            </AccordionTrigger>
+            <AccordionContent>
+                <p class="text-muted-foreground">@item.Content</p>
+            </AccordionContent>
+        </AccordionItem>
+    }
+</Accordion>
+
+@code
+{
+    private static readonly List<AccordionItemData> Items =
+    [
+        new("getting-started", "Getting started", "Set up in minutes", "Create your account, invite your team, and import your first project. Most teams are up and running in under ten minutes."),
+        new("billing", "Billing & plans", "Flexible pricing", "Start free and upgrade when you need more. Plans are billed monthly or annually and can be changed at any time."),
+        new("integrations", "Integrations", "Connect your tools", "Link the services you already use, from issue trackers to chat apps, with a few clicks and no code."),
+        new("support", "Support", "We're here to help", "Reach the team by email or live chat. Priority support is included on every paid plan.")
+    ];
+
+    private record AccordionItemData(string Value, string Title, string Subtitle, string Content);
+}

@@ -1,0 +1,169 @@
+@using LucideBlazor
+@using ShadcnBlazor.Accordions
+@using ShadcnBlazor.Collapsibles
+
+<Accordion Type="AccordionType.Single" DefaultValue="item-1" ClassName="w-full max-w-md -space-y-1">
+    <AccordionItem Value="item-1"
+                   ClassName="overflow-hidden border bg-background first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group px-4 py-3 hover:no-underline [&>svg]:hidden">
+            <div class="flex w-full items-center justify-between">
+                <span class="text-left">Getting Started</span>
+                <div class="relative size-4 shrink-0">
+                    <PlusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground transition-opacity duration-200 group-data-[state=open]:opacity-0"/>
+                    <MinusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-data-[state=open]:opacity-100"/>
+                </div>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent ClassName="p-0">
+            <Collapsible ClassName="space-y-1 border-t border-border bg-accent px-4 py-3">
+                <CollapsibleTrigger class="flex gap-2 font-medium [&[data-state=open]>svg]:rotate-180">
+                    <ChevronDownIcon aria-hidden="true"
+                                     ClassName="mt-1 size-4 shrink-0 stroke-2 opacity-60 transition-transform duration-200"/>
+                    Creating an account
+                </CollapsibleTrigger>
+                <CollapsibleContent
+                    ClassName="overflow-hidden ps-6 text-sm text-muted-foreground transition-all data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
+                    Sign up with your work email to activate your workspace. Every teammate you invite receives an email
+                    with a link to join, and roles are assigned on their first login.
+                </CollapsibleContent>
+            </Collapsible>
+            <Collapsible ClassName="space-y-1 border-t border-border bg-accent px-4 py-3">
+                <CollapsibleTrigger class="flex gap-2 font-medium [&[data-state=open]>svg]:rotate-180">
+                    <ChevronDownIcon aria-hidden="true"
+                                     ClassName="mt-1 size-4 shrink-0 stroke-2 opacity-60 transition-transform duration-200"/>
+                    Inviting your team
+                </CollapsibleTrigger>
+                <CollapsibleContent
+                    ClassName="overflow-hidden ps-6 text-sm text-muted-foreground transition-all data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
+                    Open Settings and select Members, then paste up to fifty email addresses at once. Invited members
+                    keep their reserved seat even if they leave and rejoin within thirty days.
+                </CollapsibleContent>
+            </Collapsible>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="item-2"
+                   ClassName="overflow-hidden border bg-background first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group px-4 py-3 hover:no-underline [&>svg]:hidden">
+            <div class="flex w-full items-center justify-between">
+                <span class="text-left">Billing &amp; Plans</span>
+                <div class="relative size-4 shrink-0">
+                    <PlusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground transition-opacity duration-200 group-data-[state=open]:opacity-0"/>
+                    <MinusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-data-[state=open]:opacity-100"/>
+                </div>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent ClassName="p-0">
+            <Collapsible ClassName="space-y-1 border-t border-border bg-accent px-4 py-3">
+                <CollapsibleTrigger class="flex gap-2 font-medium [&[data-state=open]>svg]:rotate-180">
+                    <ChevronDownIcon aria-hidden="true"
+                                     ClassName="mt-1 size-4 shrink-0 stroke-2 opacity-60 transition-transform duration-200"/>
+                    How billing works
+                </CollapsibleTrigger>
+                <CollapsibleContent
+                    ClassName="overflow-hidden ps-6 text-sm text-muted-foreground transition-all data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
+                    Plans are billed monthly or annually in advance. You can switch tiers at any time, and the
+                    difference is prorated on your next invoice.
+                </CollapsibleContent>
+            </Collapsible>
+            <Collapsible ClassName="space-y-1 border-t border-border bg-accent px-4 py-3">
+                <CollapsibleTrigger class="flex gap-2 font-medium [&[data-state=open]>svg]:rotate-180">
+                    <ChevronDownIcon aria-hidden="true"
+                                     ClassName="mt-1 size-4 shrink-0 stroke-2 opacity-60 transition-transform duration-200"/>
+                    Payment methods
+                </CollapsibleTrigger>
+                <CollapsibleContent
+                    ClassName="overflow-hidden ps-6 text-sm text-muted-foreground transition-all data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
+                    We accept all major credit cards, and bank transfer on annual plans. Invoices are available for
+                    download from the billing page at any time.
+                </CollapsibleContent>
+            </Collapsible>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="item-3"
+                   ClassName="overflow-hidden border bg-background first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group px-4 py-3 hover:no-underline [&>svg]:hidden">
+            <div class="flex w-full items-center justify-between">
+                <span class="text-left">Security</span>
+                <div class="relative size-4 shrink-0">
+                    <PlusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground transition-opacity duration-200 group-data-[state=open]:opacity-0"/>
+                    <MinusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-data-[state=open]:opacity-100"/>
+                </div>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent ClassName="p-0">
+            <Collapsible ClassName="space-y-1 border-t border-border bg-accent px-4 py-3">
+                <CollapsibleTrigger class="flex gap-2 font-medium [&[data-state=open]>svg]:rotate-180">
+                    <ChevronDownIcon aria-hidden="true"
+                                     ClassName="mt-1 size-4 shrink-0 stroke-2 opacity-60 transition-transform duration-200"/>
+                    Data protection
+                </CollapsibleTrigger>
+                <CollapsibleContent
+                    ClassName="overflow-hidden ps-6 text-sm text-muted-foreground transition-all data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
+                    All data is encrypted in transit and at rest. Access is limited to authorized personnel, and every
+                    sensitive action is recorded in the audit log.
+                </CollapsibleContent>
+            </Collapsible>
+            <Collapsible ClassName="space-y-1 border-t border-border bg-accent px-4 py-3">
+                <CollapsibleTrigger class="flex gap-2 font-medium [&[data-state=open]>svg]:rotate-180">
+                    <ChevronDownIcon aria-hidden="true"
+                                     ClassName="mt-1 size-4 shrink-0 stroke-2 opacity-60 transition-transform duration-200"/>
+                    Single sign-on
+                </CollapsibleTrigger>
+                <CollapsibleContent
+                    ClassName="overflow-hidden ps-6 text-sm text-muted-foreground transition-all data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
+                    SAML and OIDC single sign-on are available on the business plan, together with enforced two-factor
+                    authentication for every member.
+                </CollapsibleContent>
+            </Collapsible>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="item-4"
+                   ClassName="overflow-hidden border bg-background first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group px-4 py-3 hover:no-underline [&>svg]:hidden">
+            <div class="flex w-full items-center justify-between">
+                <span class="text-left">Support</span>
+                <div class="relative size-4 shrink-0">
+                    <PlusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground transition-opacity duration-200 group-data-[state=open]:opacity-0"/>
+                    <MinusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-data-[state=open]:opacity-100"/>
+                </div>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent ClassName="p-0">
+            <Collapsible ClassName="space-y-1 border-t border-border bg-accent px-4 py-3">
+                <CollapsibleTrigger class="flex gap-2 font-medium [&[data-state=open]>svg]:rotate-180">
+                    <ChevronDownIcon aria-hidden="true"
+                                     ClassName="mt-1 size-4 shrink-0 stroke-2 opacity-60 transition-transform duration-200"/>
+                    Contacting support
+                </CollapsibleTrigger>
+                <CollapsibleContent
+                    ClassName="overflow-hidden ps-6 text-sm text-muted-foreground transition-all data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
+                    Open a ticket from the help center and our team replies within one business day. Priority support
+                    with a guaranteed response time is included on the enterprise plan.
+                </CollapsibleContent>
+            </Collapsible>
+            <Collapsible ClassName="space-y-1 border-t border-border bg-accent px-4 py-3">
+                <CollapsibleTrigger class="flex gap-2 font-medium [&[data-state=open]>svg]:rotate-180">
+                    <ChevronDownIcon aria-hidden="true"
+                                     ClassName="mt-1 size-4 shrink-0 stroke-2 opacity-60 transition-transform duration-200"/>
+                    System status
+                </CollapsibleTrigger>
+                <CollapsibleContent
+                    ClassName="overflow-hidden ps-6 text-sm text-muted-foreground transition-all data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
+                    Live infrastructure metrics and incident history are published on the status page, with optional
+                    email and webhook subscriptions for downtime alerts.
+                </CollapsibleContent>
+            </Collapsible>
+        </AccordionContent>
+    </AccordionItem>
+</Accordion>

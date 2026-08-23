@@ -1,0 +1,24 @@
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Items
+@using ShadcnBlazor.Progresses
+@using ShadcnBlazor.Spinners
+
+<div class="flex w-full max-w-md flex-col gap-4 [--radius:1rem]">
+    <Item ClassName="bg-background" Variant="ItemVariant.Outline">
+        <ItemMedia Variant="ItemMediaVariant.Icon">
+            <Spinner />
+        </ItemMedia>
+        <ItemContent>
+            <ItemTitle>Syncing files...</ItemTitle>
+            <ItemDescription>342 MB / 1200 MB</ItemDescription>
+        </ItemContent>
+        <ItemActions ClassName="hidden sm:flex">
+            <Button Size="ButtonSize.Sm" Variant="ButtonVariant.Outline">
+                Pause
+            </Button>
+        </ItemActions>
+        <ItemFooter>
+            <Progress Value="62" />
+        </ItemFooter>
+    </Item>
+</div>
