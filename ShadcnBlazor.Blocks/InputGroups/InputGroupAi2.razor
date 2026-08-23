@@ -1,0 +1,36 @@
+@using LucideBlazor
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Inputs
+@using ShadcnBlazor.Separators
+
+<div class="flex w-full max-w-2xl flex-col gap-4">
+    <InputGroup ClassName="bg-background">
+        <InputGroupTextarea @bind-Value="Prompt"
+                            BindEvent="oninput"
+                            placeholder="What should I help you build today?" />
+        <InputGroupAddon Align="InputGroupAddonAlign.BlockEnd">
+            <InputGroupButton Size="InputGroupButtonSize.IconXs"
+                              Variant="ButtonVariant.Ghost">
+                <SparklesIcon />
+            </InputGroupButton>
+            <InputGroupText ClassName="ml-auto">@(Prompt.Length)/4000</InputGroupText>
+            <Separator ClassName="!h-4" Orientation="SeparatorOrientation.Vertical" />
+            <InputGroupButton ClassName="rounded-full"
+                              Size="InputGroupButtonSize.IconXs"
+                              Variant="ButtonVariant.Default">
+                <ArrowUpIcon />
+                <span class="sr-only">Send</span>
+            </InputGroupButton>
+        </InputGroupAddon>
+    </InputGroup>
+
+    <small class="text-center text-muted-foreground">
+        Looking for more? Explore{" "}
+        <a class="underline" href="https://ai-sdk.dev/elements/overview">AI Elements</a>
+    </small>
+</div>
+
+@code
+{
+    private string Prompt = string.Empty;
+}

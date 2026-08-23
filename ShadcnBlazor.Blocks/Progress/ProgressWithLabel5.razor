@@ -1,0 +1,17 @@
+@using ShadcnBlazor.Progresses
+
+<div class="w-full max-w-md space-y-2">
+    <div class="flex items-start justify-between">
+        <div>
+            <p class="text-sm font-medium">Data Migration</p>
+            <p class="text-xs text-muted-foreground">Syncing records</p>
+        </div>
+        <span class="text-sm font-medium">@Value%</span>
+    </div>
+    <Progress Value="@Value" />
+</div>
+
+@code
+{
+    private int Value = 62;
+}

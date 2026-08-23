@@ -1,0 +1,19 @@
+@using ShadcnBlazor.Progresses
+
+<div class="w-full max-w-md space-y-2">
+    <div class="flex justify-between text-sm">
+        <span class="text-muted-foreground">Files uploaded</span>
+        <span class="font-medium">
+            @Current of @Total
+        </span>
+    </div>
+    <Progress Value="@Value" />
+</div>
+
+@code
+{
+    private int Current = 5;
+    private int Total = 8;
+
+    private int Value => Current * 100 / Total;
+}

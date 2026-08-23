@@ -1,0 +1,81 @@
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Fields
+@using ShadcnBlazor.Inputs
+
+<div class="w-full max-w-sm">
+    <form class="space-y-4" @onsubmit="OnSubmit">
+        <div class="space-y-2 text-center">
+            <h1 class="text-2xl font-bold">Sign in to continue</h1>
+            <p class="text-sm text-muted-foreground">
+                Enter your details to access your dashboard
+            </p>
+        </div>
+        <FieldGroup>
+            <Field data-invalid="@(EmailInvalid ? "true" : "false")">
+                <FieldLabel for="email">Email</FieldLabel>
+                <TextInputField
+                    @bind-Value="Email"
+                    id="email"
+                    aria-invalid="@(EmailInvalid ? "true" : "false")"
+                    ClassName="bg-background"
+                    placeholder="name@company.com"
+                    type="email" />
+                @if (EmailInvalid)
+                {
+                    <p class="text-sm text-destructive">
+                        <span class="font-medium leading-none">Enter a valid email address.</span>
+                    </p>
+                }
+            </Field>
+            <Field data-invalid="@(PasswordInvalid ? "true" : "false")">
+                <div class="flex items-center justify-between">
+                    <FieldLabel for="password">Password</FieldLabel>
+                    <a class="text-sm text-muted-foreground hover:underline" href="#">
+                        Forgot password?
+                    </a>
+                </div>
+                <TextInputField
+                    @bind-Value="Password"
+                    id="password"
+                    aria-invalid="@(PasswordInvalid ? "true" : "false")"
+                    ClassName="bg-background"
+                    placeholder="Your password"
+                    type="password" />
+                @if (PasswordInvalid)
+                {
+                    <p class="text-sm text-destructive">
+                        <span class="font-medium leading-none">Use at least 8 characters.</span>
+                    </p>
+                }
+            </Field>
+        </FieldGroup>
+        <Button ClassName="w-full" Type="submit">
+            Sign in
+        </Button>
+        <p class="text-center text-sm text-muted-foreground">
+            New here?
+            <a class="hover:underline" href="#">Create an account</a>
+        </p>
+    </form>
+</div>
+
+@code
+{
+    private string Email = string.Empty;
+    private string Password = string.Empty;
+    private bool Submitted;
+
+    private bool EmailInvalid => Submitted && !IsValidEmail(Email);
+    private bool PasswordInvalid => Submitted && Password.Length < 8;
+
+    private void OnSubmit()
+    {
+        Submitted = true;
+    }
+
+    private static bool IsValidEmail(string email)
+    {
+        var atIndex = email.IndexOf('@');
+        return atIndex > 0 && atIndex < email.Length - 1 && email.IndexOf('.', atIndex) > atIndex;
+    }
+}

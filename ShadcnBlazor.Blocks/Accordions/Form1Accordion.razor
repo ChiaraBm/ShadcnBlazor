@@ -1,0 +1,67 @@
+@using LucideBlazor
+@using ShadcnBlazor.Accordions
+@using ShadcnBlazor.Inputs
+
+<Accordion Type="AccordionType.Single" ClassName="w-full max-w-md -space-y-px">
+    <AccordionItem Value="profile"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group">
+            <div class="flex items-center gap-2">
+                <UserIcon ClassName="size-4 stroke-2 text-muted-foreground" />
+                <span>Profile</span>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent>
+            <div class="flex flex-col gap-2">
+                <TextInputField @bind-Value="FullName" placeholder="Full name" />
+                <TextInputField @bind-Value="DisplayName" placeholder="Display name" />
+            </div>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="contact"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group">
+            <div class="flex items-center gap-2">
+                <MailIcon ClassName="size-4 stroke-2 text-muted-foreground" />
+                <span>Contact</span>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent>
+            <div class="flex flex-col gap-2">
+                <TextInputField @bind-Value="WorkEmail" placeholder="Work email" type="email" />
+                <TextInputField @bind-Value="Phone" placeholder="Phone number" type="tel" />
+            </div>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="location"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group">
+            <div class="flex items-center gap-2">
+                <MapPinIcon ClassName="size-4 stroke-2 text-muted-foreground" />
+                <span>Location</span>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent>
+            <div class="flex flex-col gap-2">
+                <TextInputField @bind-Value="AddressLine" placeholder="Address line" />
+                <TextInputField @bind-Value="City" placeholder="City" />
+                <TextInputField @bind-Value="Region" placeholder="Region" />
+                <TextInputField @bind-Value="PostalCode" placeholder="Postal code" />
+            </div>
+        </AccordionContent>
+    </AccordionItem>
+</Accordion>
+
+@code
+{
+    private string FullName = string.Empty;
+    private string DisplayName = string.Empty;
+    private string WorkEmail = string.Empty;
+    private string Phone = string.Empty;
+    private string AddressLine = string.Empty;
+    private string City = string.Empty;
+    private string Region = string.Empty;
+    private string PostalCode = string.Empty;
+}

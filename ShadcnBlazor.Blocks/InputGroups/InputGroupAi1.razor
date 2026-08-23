@@ -1,0 +1,53 @@
+@using LucideBlazor
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Dropdowns
+@using ShadcnBlazor.Inputs
+@using ShadcnBlazor.Interop
+@using ShadcnBlazor.Separators
+
+<div class="flex w-full max-w-2xl flex-col gap-4">
+    <InputGroup ClassName="bg-background">
+        <InputGroupTextarea @bind-Value="Prompt" placeholder="Describe what you want to build..." />
+        <InputGroupAddon Align="InputGroupAddonAlign.BlockEnd">
+            <InputGroupButton ClassName="rounded-full"
+                              Size="InputGroupButtonSize.IconXs"
+                              Variant="ButtonVariant.Outline">
+                <PlusIcon />
+            </InputGroupButton>
+            <DropdownMenu>
+                <DropdownMenuTrigger>
+                    <Slot>
+                        <InputGroupButton Variant="ButtonVariant.Ghost" @attributes="context">@Mode</InputGroupButton>
+                    </Slot>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent Align="PositionAlignment.Start"
+                                     ClassName="[--radius:0.95rem]"
+                                     Side="PositionSide.Top">
+                    <DropdownMenuItem OnClick="@(() => Mode = "Auto")">Auto</DropdownMenuItem>
+                    <DropdownMenuItem OnClick="@(() => Mode = "Agent")">Agent</DropdownMenuItem>
+                    <DropdownMenuItem OnClick="@(() => Mode = "Manual")">Manual</DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+            <InputGroupText ClassName="ml-auto">38% used</InputGroupText>
+            <Separator ClassName="!h-4" Orientation="SeparatorOrientation.Vertical" />
+            <InputGroupButton ClassName="rounded-full"
+                              Size="InputGroupButtonSize.IconXs"
+                              Variant="ButtonVariant.Default"
+                              disabled>
+                <ArrowUpIcon />
+                <span class="sr-only">Send</span>
+            </InputGroupButton>
+        </InputGroupAddon>
+    </InputGroup>
+
+    <small class="text-center text-muted-foreground">
+        For more AI components, check out{" "}
+        <a class="underline" href="https://ai-sdk.dev/elements/overview">AI Elements</a>
+    </small>
+</div>
+
+@code
+{
+    private string Prompt = string.Empty;
+    private string Mode = "Auto";
+}

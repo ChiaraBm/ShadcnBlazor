@@ -1,0 +1,23 @@
+@using LucideBlazor
+@using ShadcnBlazor.Alerts
+@using ShadcnBlazor.Buttons
+
+<Alert ClassName="flex w-full max-w-lg flex-row items-start gap-3 border-blue-600/80 bg-blue-600/5 text-blue-600">
+    <InfoIcon ClassName="size-4 shrink-0 translate-y-0.5 text-blue-600/60" />
+    <div class="flex flex-1 items-start justify-between gap-4">
+        <div class="flex flex-col gap-0.5">
+            <AlertTitle>Beta feature</AlertTitle>
+            <AlertDescription ClassName="text-blue-600/80">
+                This feature is still in beta. New updates are being released regularly, so expect occasional changes.
+            </AlertDescription>
+        </div>
+        <div class="flex shrink-0 gap-2">
+            <Button ClassName="bg-blue-600 text-white hover:bg-blue-600/90" Size="ButtonSize.Sm" Variant="ButtonVariant.Default">
+                Learn More
+            </Button>
+            <Button Size="ButtonSize.Sm" Variant="ButtonVariant.Outline">
+                Dismiss
+            </Button>
+        </div>
+    </div>
+</Alert>

@@ -1,0 +1,35 @@
+@using LucideBlazor
+@using ShadcnBlazor.ContextMenus
+
+<ContextMenu>
+    <ContextMenuTrigger ClassName="flex h-[200px] w-full max-w-lg items-center justify-center rounded-md border border-dashed text-sm">
+        Right click to open the menu
+    </ContextMenuTrigger>
+    <ContextMenuContent ClassName="w-56">
+        <ContextMenuItem>
+            <EyeIcon />
+            <span>Preview</span>
+            <ContextMenuShortcut>⌘P</ContextMenuShortcut>
+        </ContextMenuItem>
+        <ContextMenuItem>
+            <CopyIcon />
+            <span>Copy URL</span>
+            <ContextMenuShortcut>⌘C</ContextMenuShortcut>
+        </ContextMenuItem>
+        <ContextMenuItem>
+            <Share2Icon />
+            <span>Share</span>
+            <ContextMenuShortcut>⌘S</ContextMenuShortcut>
+        </ContextMenuItem>
+        <ContextMenuItem>
+            <DownloadIcon />
+            <span>Download</span>
+            <ContextMenuShortcut>⌘D</ContextMenuShortcut>
+        </ContextMenuItem>
+        <ContextMenuItem Variant="ContextMenuItemVariant.Destructive">
+            <TrashIcon />
+            <span>Delete</span>
+            <ContextMenuShortcut>⌘⌫</ContextMenuShortcut>
+        </ContextMenuItem>
+    </ContextMenuContent>
+</ContextMenu>

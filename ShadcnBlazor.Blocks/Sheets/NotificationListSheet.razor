@@ -1,0 +1,70 @@
+@using ShadcnBlazor.Badges
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Sheets
+
+<Sheet>
+    <SheetTrigger>
+        <Slot>
+            <Button @attributes="context" Variant="ButtonVariant.Outline">
+                Activity
+                <Badge ClassName="ml-2">@UnreadCount</Badge>
+            </Button>
+        </Slot>
+    </SheetTrigger>
+    <SheetContent>
+        <SheetHeader>
+            <SheetTitle>Activity</SheetTitle>
+            <SheetDescription>
+                @(UnreadCount > 0 ? $"You have {UnreadCount} unread updates" : "You're all caught up")
+            </SheetDescription>
+        </SheetHeader>
+        <div class="flex flex-col gap-3 p-4">
+            @foreach (var notification in Notifications)
+            {
+                <div class="flex gap-3 rounded-md border p-3 @(notification.Unread ? "bg-muted/50" : "")">
+                    <div class="flex size-10 flex-shrink-0 items-center justify-center rounded-full bg-primary text-sm text-primary-foreground">
+                        @notification.Initials
+                    </div>
+                    <div class="flex flex-1 flex-col gap-1">
+                        <div class="flex items-start justify-between gap-2">
+                            <div class="flex flex-col">
+                                <span class="text-sm font-medium">@notification.Author</span>
+                                <span class="text-xs text-muted-foreground">@notification.Message</span>
+                            </div>
+                            @if (notification.Unread)
+                            {
+                                <div class="mt-1 size-2 flex-shrink-0 rounded-full bg-primary"></div>
+                            }
+                        </div>
+                        <span class="text-xs text-muted-foreground">@notification.Time</span>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="px-4 pb-4">
+            <Button ClassName="w-full" Variant="ButtonVariant.Outline" @onclick="MarkAllAsRead">
+                Mark all as read
+            </Button>
+        </div>
+    </SheetContent>
+</Sheet>
+
+@code
+{
+    private sealed record Notification(string Author, string Initials, string Message, string Time, bool Unread);
+
+    private List<Notification> Notifications =
+    [
+        new("Ava Thompson", "AT", "replied to your comment", "1 hour ago", true),
+        new("Liam Patel", "LP", "liked your photo", "3 hours ago", true),
+        new("Noah Kim", "NK", "started following you", "1 day ago", false),
+        new("Mia Garcia", "MG", "mentioned you in a thread", "2 days ago", false)
+    ];
+
+    private int UnreadCount => Notifications.Count(n => n.Unread);
+
+    private void MarkAllAsRead()
+    {
+        Notifications = [.. Notifications.Select(n => n with { Unread = false })];
+    }
+}

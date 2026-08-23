@@ -1,0 +1,58 @@
+@using LucideBlazor
+@using ShadcnBlazor.Accordions
+
+<Accordion ClassName="w-full max-w-md -space-y-px"
+           DefaultValue="documents"
+           Type="AccordionType.Single">
+    <AccordionItem Value="documents"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="hover:no-underline">
+            <div class="flex items-center gap-3">
+                <FileTextIcon ClassName="size-4 text-muted-foreground" />
+                <span class="text-left">Documents</span>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent ClassName="ps-7">
+            <p class="text-muted-foreground">Browse and organize your files by project, with quick access to recent edits and shared folders.</p>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="folders"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="hover:no-underline">
+            <div class="flex items-center gap-3">
+                <FolderIcon ClassName="size-4 text-muted-foreground" />
+                <span class="text-left">Folders</span>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent ClassName="ps-7">
+            <p class="text-muted-foreground">Create nested folder structures to keep related work together and stay out of each other's way.</p>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="settings"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="hover:no-underline">
+            <div class="flex items-center gap-3">
+                <SettingsIcon ClassName="size-4 text-muted-foreground" />
+                <span class="text-left">Settings</span>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent ClassName="ps-7">
+            <p class="text-muted-foreground">Tune notifications, storage limits, and default views to match how your team actually works.</p>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="team"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="hover:no-underline">
+            <div class="flex items-center gap-3">
+                <UsersIcon ClassName="size-4 text-muted-foreground" />
+                <span class="text-left">Team</span>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent ClassName="ps-7">
+            <p class="text-muted-foreground">Invite teammates, assign roles, and control who can view, comment on, or edit each space.</p>
+        </AccordionContent>
+    </AccordionItem>
+</Accordion>

@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/Tests/">
+    <Project Path="ShadcnBlazor.Blocks/ShadcnBlazor.Blocks.csproj" />
     <Project Path="ShadcnBlazor.Test.Server/ShadcnBlazor.Test.Server.csproj" />
     <Project Path="ShadcnBlazor.Test.Wasm/ShadcnBlazor.Test.Wasm.csproj" />
     <Project Path="ShadcnBlazor.Test/ShadcnBlazor.Test.csproj" />

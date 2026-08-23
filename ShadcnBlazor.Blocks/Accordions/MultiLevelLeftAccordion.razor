@@ -1,0 +1,171 @@
+@using LucideBlazor
+@using ShadcnBlazor.Accordions
+@using ShadcnBlazor.Collapsibles
+
+<Accordion Type="AccordionType.Single" DefaultValue="item-1" ClassName="w-full max-w-md -space-y-1">
+    <AccordionItem Value="item-1"
+                   ClassName="overflow-hidden border bg-background first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group px-4 py-3 hover:no-underline [&>svg]:hidden">
+            <div class="flex w-full items-center gap-3">
+                <div class="relative size-4 shrink-0">
+                    <PlusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground transition-opacity duration-200 group-data-[state=open]:opacity-0"/>
+                    <MinusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-data-[state=open]:opacity-100"/>
+                </div>
+                <span class="flex-1 text-left">Onboarding</span>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent ClassName="p-0">
+            <Collapsible ClassName="space-y-1 border-t border-border bg-accent px-4 py-3">
+                <CollapsibleTrigger class="flex gap-2 font-medium [&[data-state=open]>svg]:rotate-180">
+                    <ChevronDownIcon aria-hidden="true"
+                                     ClassName="mt-1 size-4 shrink-0 stroke-2 opacity-60 transition-transform duration-200"/>
+                    First-run checklist
+                </CollapsibleTrigger>
+                <CollapsibleContent
+                    ClassName="overflow-hidden ps-6 text-sm text-muted-foreground transition-all data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
+                    New workspaces start with a guided checklist: connect a repository, invite a teammate, and
+                    publish your first page. Items are marked complete automatically as the underlying action
+                    happens anywhere in the product.
+                </CollapsibleContent>
+            </Collapsible>
+            <Collapsible ClassName="space-y-1 border-t border-border bg-accent px-4 py-3">
+                <CollapsibleTrigger class="flex gap-2 font-medium [&[data-state=open]>svg]:rotate-180">
+                    <ChevronDownIcon aria-hidden="true"
+                                     ClassName="mt-1 size-4 shrink-0 stroke-2 opacity-60 transition-transform duration-200"/>
+                    Importing existing content
+                </CollapsibleTrigger>
+                <CollapsibleContent
+                    ClassName="overflow-hidden ps-6 text-sm text-muted-foreground transition-all data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
+                    You can bring in markdown files, a Notion export, or a Confluence space in one step. Links and
+                    attachments are remapped to the new workspace, and a preview shows exactly what will change
+                    before you confirm.
+                </CollapsibleContent>
+            </Collapsible>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="item-2"
+                   ClassName="overflow-hidden border bg-background first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group px-4 py-3 hover:no-underline [&>svg]:hidden">
+            <div class="flex w-full items-center gap-3">
+                <div class="relative size-4 shrink-0">
+                    <PlusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground transition-opacity duration-200 group-data-[state=open]:opacity-0"/>
+                    <MinusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-data-[state=open]:opacity-100"/>
+                </div>
+                <span class="flex-1 text-left">Integrations</span>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent ClassName="p-0">
+            <Collapsible ClassName="space-y-1 border-t border-border bg-accent px-4 py-3">
+                <CollapsibleTrigger class="flex gap-2 font-medium [&[data-state=open]>svg]:rotate-180">
+                    <ChevronDownIcon aria-hidden="true"
+                                     ClassName="mt-1 size-4 shrink-0 stroke-2 opacity-60 transition-transform duration-200"/>
+                    Connecting a code host
+                </CollapsibleTrigger>
+                <CollapsibleContent
+                    ClassName="overflow-hidden ps-6 text-sm text-muted-foreground transition-all data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
+                    Authorize with a read-only OAuth token and pick which repositories should sync. Pull requests
+                    appear as linked items, and status changes stream in without polling.
+                </CollapsibleContent>
+            </Collapsible>
+            <Collapsible ClassName="space-y-1 border-t border-border bg-accent px-4 py-3">
+                <CollapsibleTrigger class="flex gap-2 font-medium [&[data-state=open]>svg]:rotate-180">
+                    <ChevronDownIcon aria-hidden="true"
+                                     ClassName="mt-1 size-4 shrink-0 stroke-2 opacity-60 transition-transform duration-200"/>
+                    Chat and email bridges
+                </CollapsibleTrigger>
+                <CollapsibleContent
+                    ClassName="overflow-hidden ps-6 text-sm text-muted-foreground transition-all data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
+                    Threads can be mirrored to a chat channel or an email list. Replies come back into the
+                    original thread with author attribution, and you can mute the bridge at any time.
+                </CollapsibleContent>
+            </Collapsible>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="item-3"
+                   ClassName="overflow-hidden border bg-background first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group px-4 py-3 hover:no-underline [&>svg]:hidden">
+            <div class="flex w-full items-center gap-3">
+                <div class="relative size-4 shrink-0">
+                    <PlusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground transition-opacity duration-200 group-data-[state=open]:opacity-0"/>
+                    <MinusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-data-[state=open]:opacity-100"/>
+                </div>
+                <span class="flex-1 text-left">Notifications</span>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent ClassName="p-0">
+            <Collapsible ClassName="space-y-1 border-t border-border bg-accent px-4 py-3">
+                <CollapsibleTrigger class="flex gap-2 font-medium [&[data-state=open]>svg]:rotate-180">
+                    <ChevronDownIcon aria-hidden="true"
+                                     ClassName="mt-1 size-4 shrink-0 stroke-2 opacity-60 transition-transform duration-200"/>
+                    Choosing your channels
+                </CollapsibleTrigger>
+                <CollapsibleContent
+                    ClassName="overflow-hidden ps-6 text-sm text-muted-foreground transition-all data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
+                    Every rule can deliver to in-app, email, or a chat channel. Digest mode batches low-priority
+                    updates into a single summary, so only urgent events interrupt your day.
+                </CollapsibleContent>
+            </Collapsible>
+            <Collapsible ClassName="space-y-1 border-t border-border bg-accent px-4 py-3">
+                <CollapsibleTrigger class="flex gap-2 font-medium [&[data-state=open]>svg]:rotate-180">
+                    <ChevronDownIcon aria-hidden="true"
+                                     ClassName="mt-1 size-4 shrink-0 stroke-2 opacity-60 transition-transform duration-200"/>
+                    Quiet hours
+                </CollapsibleTrigger>
+                <CollapsibleContent
+                    ClassName="overflow-hidden ps-6 text-sm text-muted-foreground transition-all data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
+                    Set a weekly schedule and notifications are held until the window opens. Items that expire
+                    while held are skipped instead of arriving as a burst of stale alerts.
+                </CollapsibleContent>
+            </Collapsible>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="item-4"
+                   ClassName="overflow-hidden border bg-background first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group px-4 py-3 hover:no-underline [&>svg]:hidden">
+            <div class="flex w-full items-center gap-3">
+                <div class="relative size-4 shrink-0">
+                    <PlusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground transition-opacity duration-200 group-data-[state=open]:opacity-0"/>
+                    <MinusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-data-[state=open]:opacity-100"/>
+                </div>
+                <span class="flex-1 text-left">Data &amp; Export</span>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent ClassName="p-0">
+            <Collapsible ClassName="space-y-1 border-t border-border bg-accent px-4 py-3">
+                <CollapsibleTrigger class="flex gap-2 font-medium [&[data-state=open]>svg]:rotate-180">
+                    <ChevronDownIcon aria-hidden="true"
+                                     ClassName="mt-1 size-4 shrink-0 stroke-2 opacity-60 transition-transform duration-200"/>
+                    Scheduled exports
+                </CollapsibleTrigger>
+                <CollapsibleContent
+                    ClassName="overflow-hidden ps-6 text-sm text-muted-foreground transition-all data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
+                    Point a schedule at a folder or a storage bucket and the workspace is exported as markdown,
+                    CSV, or JSON on your cadence. Each run is versioned, so you can diff any two snapshots.
+                </CollapsibleContent>
+            </Collapsible>
+            <Collapsible ClassName="space-y-1 border-t border-border bg-accent px-4 py-3">
+                <CollapsibleTrigger class="flex gap-2 font-medium [&[data-state=open]>svg]:rotate-180">
+                    <ChevronDownIcon aria-hidden="true"
+                                     ClassName="mt-1 size-4 shrink-0 stroke-2 opacity-60 transition-transform duration-200"/>
+                    Retention and deletion
+                </CollapsibleTrigger>
+                <CollapsibleContent
+                    ClassName="overflow-hidden ps-6 text-sm text-muted-foreground transition-all data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down">
+                    Archived items keep a configurable retention window before they are permanently removed.
+                    Deletion is irreversible and recorded in the audit log with the requester and the timestamp.
+                </CollapsibleContent>
+            </Collapsible>
+        </AccordionContent>
+    </AccordionItem>
+</Accordion>

@@ -1,0 +1,85 @@
+@using LucideBlazor
+@using ShadcnBlazor.Accordions
+@using ShadcnBlazor.Inputs
+
+<Accordion Type="AccordionType.Single" ClassName="w-full max-w-md -space-y-px">
+    <AccordionItem Value="personal"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group hover:no-underline [&>svg]:hidden">
+            <div class="flex w-full items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <UserIcon ClassName="size-4 stroke-2 text-muted-foreground" />
+                    <span>Personal Details</span>
+                </div>
+                <div class="relative size-4 shrink-0">
+                    <PlusIcon ClassName="absolute inset-0 size-4 text-muted-foreground transition-opacity duration-200 group-data-[state=open]:opacity-0" />
+                    <MinusIcon ClassName="absolute inset-0 size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-data-[state=open]:opacity-100" />
+                </div>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent>
+            <div class="flex flex-col gap-2">
+                <TextInputField @bind-Value="FirstName" placeholder="First name" />
+                <TextInputField @bind-Value="LastName" placeholder="Last name" />
+            </div>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="contact"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group hover:no-underline [&>svg]:hidden">
+            <div class="flex w-full items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <MailIcon ClassName="size-4 stroke-2 text-muted-foreground" />
+                    <span>Contact Details</span>
+                </div>
+                <div class="relative size-4 shrink-0">
+                    <PlusIcon ClassName="absolute inset-0 size-4 text-muted-foreground transition-opacity duration-200 group-data-[state=open]:opacity-0" />
+                    <MinusIcon ClassName="absolute inset-0 size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-data-[state=open]:opacity-100" />
+                </div>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent>
+            <div class="flex flex-col gap-2">
+                <TextInputField @bind-Value="Email" placeholder="Email address" type="email" />
+                <TextInputField @bind-Value="Phone" placeholder="Phone number" type="tel" />
+            </div>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="address"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group hover:no-underline [&>svg]:hidden">
+            <div class="flex w-full items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <MapPinIcon ClassName="size-4 stroke-2 text-muted-foreground" />
+                    <span>Address Details</span>
+                </div>
+                <div class="relative size-4 shrink-0">
+                    <PlusIcon ClassName="absolute inset-0 size-4 text-muted-foreground transition-opacity duration-200 group-data-[state=open]:opacity-0" />
+                    <MinusIcon ClassName="absolute inset-0 size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-data-[state=open]:opacity-100" />
+                </div>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent>
+            <div class="flex flex-col gap-2">
+                <TextInputField @bind-Value="Street" placeholder="Street address" />
+                <TextInputField @bind-Value="City" placeholder="City" />
+                <TextInputField @bind-Value="State" placeholder="State" />
+                <TextInputField @bind-Value="Zip" placeholder="ZIP code" />
+            </div>
+        </AccordionContent>
+    </AccordionItem>
+</Accordion>
+
+@code
+{
+    private string FirstName = string.Empty;
+    private string LastName = string.Empty;
+    private string Email = string.Empty;
+    private string Phone = string.Empty;
+    private string Street = string.Empty;
+    private string City = string.Empty;
+    private string State = string.Empty;
+    private string Zip = string.Empty;
+}

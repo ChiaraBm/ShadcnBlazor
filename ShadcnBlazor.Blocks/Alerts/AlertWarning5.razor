@@ -1,0 +1,23 @@
+@using LucideBlazor
+@using ShadcnBlazor.Alerts
+@using ShadcnBlazor.Buttons
+
+<Alert ClassName="flex w-full max-w-lg flex-row items-start gap-3 border-amber-600/80 bg-amber-600/5 text-amber-600">
+    <TriangleAlertIcon ClassName="size-4 shrink-0 translate-y-0.5 text-amber-600/60" />
+    <div class="flex flex-1 items-start justify-between gap-4">
+        <div class="flex flex-col gap-0.5">
+            <AlertTitle>Careful</AlertTitle>
+            <AlertDescription ClassName="text-amber-600/80">
+                Changing this setting will affect every member of your workspace and takes effect immediately.
+            </AlertDescription>
+        </div>
+        <div class="flex shrink-0 gap-2">
+            <Button ClassName="bg-amber-600 text-white hover:bg-amber-600/90" Size="ButtonSize.Sm" Variant="ButtonVariant.Default">
+                Continue
+            </Button>
+            <Button Size="ButtonSize.Sm" Variant="ButtonVariant.Outline">
+                Go back
+            </Button>
+        </div>
+    </div>
+</Alert>

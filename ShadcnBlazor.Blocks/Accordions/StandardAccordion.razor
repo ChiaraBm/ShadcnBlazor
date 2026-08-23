@@ -1,0 +1,29 @@
+@using ShadcnBlazor.Accordions
+
+<Accordion Type="AccordionType.Single"
+           DefaultValue="shipping"
+           ClassName="w-full max-w-md -space-y-px">
+    <AccordionItem Value="shipping"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger>Shipping and delivery</AccordionTrigger>
+        <AccordionContent>
+            <p class="text-muted-foreground">Orders placed before 2 pm are dispatched the same business day. Standard delivery takes 2 to 4 working days, and express options arrive within 24 hours of dispatch.</p>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="returns"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger>Returns and exchanges</AccordionTrigger>
+        <AccordionContent>
+            <p class="text-muted-foreground">You have 30 days from delivery to start a return. Items must be unused and in their original packaging, and refunds are issued to the original payment method within 5 working days.</p>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="payments"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger>Payment methods</AccordionTrigger>
+        <AccordionContent>
+            <p class="text-muted-foreground">We accept all major credit and debit cards, PayPal, and Apple Pay. Every transaction is encrypted end to end, and saved payment methods speed up future checkouts.</p>
+        </AccordionContent>
+    </AccordionItem>
+</Accordion>

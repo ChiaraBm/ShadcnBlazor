@@ -1,0 +1,105 @@
+@using ShadcnBlazor.Badges
+@using ShadcnBlazor.Tab
+
+<Tabs ClassName="w-full max-w-2xl" DefaultValue="open">
+    <TabsList>
+        <TabsTrigger Value="open">
+            Open
+            <Badge ClassName="ml-2" Variant="BadgeVariant.Secondary">
+                12
+            </Badge>
+        </TabsTrigger>
+        <TabsTrigger Value="pending">
+            Pending
+            <Badge ClassName="ml-2">5</Badge>
+        </TabsTrigger>
+        <TabsTrigger Value="solved">
+            Solved
+            <Badge ClassName="ml-2" Variant="BadgeVariant.Secondary">
+                48
+            </Badge>
+        </TabsTrigger>
+        <TabsTrigger Value="closed">
+            Closed
+            <Badge ClassName="ml-2" Variant="BadgeVariant.Secondary">
+                3
+            </Badge>
+        </TabsTrigger>
+    </TabsList>
+    <TabsContent Value="open">
+        <div class="rounded-lg border bg-card p-6 text-card-foreground shadow-sm">
+            <h3 class="mb-4 text-lg font-semibold">Open Tickets (12)</h3>
+            <div class="space-y-3">
+                @foreach (var ticket in OpenTickets)
+                {
+                    <div class="rounded-md border p-4">
+                        <div class="mb-2 flex items-start justify-between">
+                            <div>
+                                <p class="text-sm font-medium">@ticket.Title</p>
+                                <p class="text-xs text-muted-foreground">@ticket.Sender</p>
+                            </div>
+                            <Badge Variant="@ticket.Variant">@ticket.Status</Badge>
+                        </div>
+                        <p class="text-sm text-muted-foreground">@ticket.Preview</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </TabsContent>
+    <TabsContent Value="pending">
+        <div class="rounded-lg border bg-card p-6 text-card-foreground shadow-sm">
+            <h3 class="mb-4 text-lg font-semibold">Pending Tickets (5)</h3>
+            <div class="space-y-3">
+                @foreach (var ticket in PendingTickets)
+                {
+                    <div class="rounded-md border p-4">
+                        <div class="mb-2 flex items-start justify-between">
+                            <div>
+                                <p class="text-sm font-medium">@ticket.Title</p>
+                                <p class="text-xs text-muted-foreground">@ticket.Sender</p>
+                            </div>
+                            <Badge>@ticket.Status</Badge>
+                        </div>
+                        <p class="text-sm text-muted-foreground">@ticket.Preview</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </TabsContent>
+    <TabsContent Value="solved">
+        <div class="rounded-lg border bg-card p-6 text-card-foreground shadow-sm">
+            <h3 class="mb-4 text-lg font-semibold">Solved Tickets (48)</h3>
+            <p class="text-sm text-muted-foreground">
+                View all your solved tickets here. These tickets have been resolved
+                and are kept for reference.
+            </p>
+        </div>
+    </TabsContent>
+    <TabsContent Value="closed">
+        <div class="rounded-lg border bg-card p-6 text-card-foreground shadow-sm">
+            <h3 class="mb-4 text-lg font-semibold">Closed Tickets (3)</h3>
+            <p class="text-sm text-muted-foreground">
+                Tickets closed by the customer are automatically moved here. Review
+                them to ensure nothing was closed in error.
+            </p>
+        </div>
+    </TabsContent>
+</Tabs>
+
+@code
+{
+    private sealed record Ticket(string Title, string Sender, string Status, BadgeVariant Variant, string Preview);
+
+    private List<Ticket> OpenTickets =
+    [
+        new("Ticket #1041", "customer1@example.com", "New", BadgeVariant.Primary, "This is a preview of ticket #1041 waiting for a reply..."),
+        new("Ticket #1042", "customer2@example.com", "Open", BadgeVariant.Secondary, "This is a preview of ticket #1042 waiting for a reply..."),
+        new("Ticket #1043", "customer3@example.com", "Open", BadgeVariant.Secondary, "This is a preview of ticket #1043 waiting for a reply...")
+    ];
+
+    private List<Ticket> PendingTickets =
+    [
+        new("Ticket #1051", "customer1@example.com", "Awaiting reply", BadgeVariant.Primary, "This ticket is waiting on a response from the customer..."),
+        new("Ticket #1052", "customer2@example.com", "Awaiting reply", BadgeVariant.Primary, "This ticket is waiting on a response from the customer...")
+    ];
+}

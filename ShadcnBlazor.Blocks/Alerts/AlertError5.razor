@@ -1,0 +1,23 @@
+@using LucideBlazor
+@using ShadcnBlazor.Alerts
+@using ShadcnBlazor.Buttons
+
+<Alert ClassName="flex w-full max-w-lg flex-row items-start gap-3 border-destructive/80 bg-destructive/5 text-destructive">
+    <CircleXIcon ClassName="size-4 shrink-0 translate-y-0.5 text-destructive/60" />
+    <div class="flex flex-1 items-start justify-between gap-4">
+        <div class="flex flex-col gap-0.5">
+            <AlertTitle>Request failed</AlertTitle>
+            <AlertDescription ClassName="text-destructive/80">
+                Your request could not be completed. Please try again in a few minutes.
+            </AlertDescription>
+        </div>
+        <div class="flex shrink-0 gap-2">
+            <Button Size="ButtonSize.Sm" Variant="ButtonVariant.Destructive">
+                Retry
+            </Button>
+            <Button Size="ButtonSize.Sm" Variant="ButtonVariant.Outline">
+                Dismiss
+            </Button>
+        </div>
+    </div>
+</Alert>

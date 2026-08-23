@@ -1,0 +1,78 @@
+@using LucideBlazor
+@using ShadcnBlazor.Accordions
+
+<Accordion Type="AccordionType.Single"
+           DefaultValue="item-1"
+           ClassName="w-full max-w-md -space-y-px">
+    <AccordionItem Value="item-1"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group hover:no-underline [&>svg]:hidden">
+            <div class="flex w-full items-center gap-3">
+                <div class="relative size-4 shrink-0">
+                    <PlusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground transition-opacity duration-200 group-data-[state=open]:opacity-0"/>
+                    <MinusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-data-[state=open]:opacity-100"/>
+                </div>
+                <span class="flex-1 text-left">How do I get an API key?</span>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent ClassName="ps-7">
+            <p class="text-muted-foreground">Create a key from the dashboard under Settings → API. Keys are scoped to a single project, so you can rotate one without affecting the rest of your workspace.</p>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="item-2"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group hover:no-underline [&>svg]:hidden">
+            <div class="flex w-full items-center gap-3">
+                <div class="relative size-4 shrink-0">
+                    <PlusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground transition-opacity duration-200 group-data-[state=open]:opacity-0"/>
+                    <MinusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-data-[state=open]:opacity-100"/>
+                </div>
+                <span class="flex-1 text-left">What are the rate limits?</span>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent ClassName="ps-7">
+            <p class="text-muted-foreground">The free tier allows 60 requests per minute, while paid plans scale up to 10,000. Limits are applied per key and reset at the top of each minute.</p>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="item-3"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group hover:no-underline [&>svg]:hidden">
+            <div class="flex w-full items-center gap-3">
+                <div class="relative size-4 shrink-0">
+                    <PlusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground transition-opacity duration-200 group-data-[state=open]:opacity-0"/>
+                    <MinusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-data-[state=open]:opacity-100"/>
+                </div>
+                <span class="flex-1 text-left">Do you support webhooks?</span>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent ClassName="ps-7">
+            <p class="text-muted-foreground">Yes. You can subscribe to any event and receive signed POST requests to an endpoint of your choice. Retries are delivered with exponential backoff for up to 24 hours.</p>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="item-4"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group hover:no-underline [&>svg]:hidden">
+            <div class="flex w-full items-center gap-3">
+                <div class="relative size-4 shrink-0">
+                    <PlusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground transition-opacity duration-200 group-data-[state=open]:opacity-0"/>
+                    <MinusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-data-[state=open]:opacity-100"/>
+                </div>
+                <span class="flex-1 text-left">Where can I find the docs?</span>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent ClassName="ps-7">
+            <p class="text-muted-foreground">Full reference and guides live at docs.example.com. Each endpoint includes runnable examples in several languages, and a changelog tracks every breaking change.</p>
+        </AccordionContent>
+    </AccordionItem>
+</Accordion>

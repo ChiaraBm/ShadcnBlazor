@@ -1,0 +1,26 @@
+@using LucideBlazor
+@using ShadcnBlazor.Breadcrumbs
+
+<Breadcrumb>
+    <BreadcrumbList>
+        <BreadcrumbItem>
+            <BreadcrumbLink href="/">
+                <HomeIcon ClassName="size-4" />
+            </BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+            <BreadcrumbLink ClassName="flex items-center gap-1.5" href="/projects">
+                <FolderIcon ClassName="size-4" />
+                Projects
+            </BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+            <BreadcrumbPage ClassName="flex items-center gap-1.5">
+                <FileTextIcon ClassName="size-4" />
+                Overview
+            </BreadcrumbPage>
+        </BreadcrumbItem>
+    </BreadcrumbList>
+</Breadcrumb>

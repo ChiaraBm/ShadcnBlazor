@@ -1,0 +1,23 @@
+@using LucideBlazor
+@using ShadcnBlazor.Alerts
+@using ShadcnBlazor.Buttons
+
+<Alert ClassName="flex w-full max-w-lg flex-row items-start gap-3">
+    <CircleCheckIcon ClassName="size-4 shrink-0 translate-y-0.5" />
+    <div class="flex flex-1 items-start justify-between gap-4">
+        <div class="flex flex-col gap-0.5">
+            <AlertTitle>Deployment complete</AlertTitle>
+            <AlertDescription>
+                Your latest build has been deployed to production and is now live.
+            </AlertDescription>
+        </div>
+        <div class="flex shrink-0 gap-2">
+            <Button Size="ButtonSize.Sm" Variant="ButtonVariant.Default">
+                View logs
+            </Button>
+            <Button Size="ButtonSize.Sm" Variant="ButtonVariant.Outline">
+                Dismiss
+            </Button>
+        </div>
+    </div>
+</Alert>

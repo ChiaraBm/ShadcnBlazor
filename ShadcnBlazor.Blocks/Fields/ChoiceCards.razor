@@ -1,0 +1,44 @@
+@using ShadcnBlazor.Fields
+@using ShadcnBlazor.RadioGroups
+
+<div class="w-full max-w-md">
+    <FieldGroup>
+        <FieldSet>
+            <FieldLabel>
+                Deployment Target
+            </FieldLabel>
+            <FieldDescription>
+                Pick where your application will be deployed.
+            </FieldDescription>
+            <RadioGroup @bind-Value="SelectedTarget">
+                <FieldLabel ClassName="bg-background" for="production">
+                    <Field Orientation="FieldOrientation.Horizontal">
+                        <FieldContent>
+                            <FieldTitle>Production</FieldTitle>
+                            <FieldDescription>
+                                Ship to the live environment with full traffic.
+                            </FieldDescription>
+                        </FieldContent>
+                        <RadioGroupItem id="production" Value="production" />
+                    </Field>
+                </FieldLabel>
+                <FieldLabel ClassName="bg-background" for="staging">
+                    <Field Orientation="FieldOrientation.Horizontal">
+                        <FieldContent>
+                            <FieldTitle>Staging</FieldTitle>
+                            <FieldDescription>
+                                Preview changes on an isolated environment first.
+                            </FieldDescription>
+                        </FieldContent>
+                        <RadioGroupItem id="staging" Value="staging" />
+                    </Field>
+                </FieldLabel>
+            </RadioGroup>
+        </FieldSet>
+    </FieldGroup>
+</div>
+
+@code
+{
+    private string SelectedTarget = "production";
+}

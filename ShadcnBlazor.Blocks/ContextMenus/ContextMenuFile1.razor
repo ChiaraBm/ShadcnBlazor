@@ -1,0 +1,32 @@
+@using LucideBlazor
+@using ShadcnBlazor.ContextMenus
+
+<ContextMenu>
+    <ContextMenuTrigger ClassName="flex h-[200px] w-full max-w-lg items-center justify-center rounded-md border border-dashed text-sm">
+        Right click on the document
+    </ContextMenuTrigger>
+    <ContextMenuContent ClassName="w-56">
+        <ContextMenuItem>
+            <FolderOpenIcon />
+            <span>Open</span>
+            <ContextMenuShortcut>↵</ContextMenuShortcut>
+        </ContextMenuItem>
+        <ContextMenuItem>
+            <EditIcon />
+            <span>Rename</span>
+            <ContextMenuShortcut>F2</ContextMenuShortcut>
+        </ContextMenuItem>
+        <ContextMenuSeparator />
+        <ContextMenuItem>
+            <CopyIcon />
+            <span>Duplicate</span>
+            <ContextMenuShortcut>⌘D</ContextMenuShortcut>
+        </ContextMenuItem>
+        <ContextMenuSeparator />
+        <ContextMenuItem Variant="ContextMenuItemVariant.Destructive">
+            <Trash2Icon />
+            <span>Delete</span>
+            <ContextMenuShortcut>⌘⌫</ContextMenuShortcut>
+        </ContextMenuItem>
+    </ContextMenuContent>
+</ContextMenu>

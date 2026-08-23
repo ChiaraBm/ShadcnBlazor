@@ -1,0 +1,90 @@
+@using LucideBlazor
+@using ShadcnBlazor.Accordions
+
+<Accordion Type="AccordionType.Single"
+           DefaultValue="documents"
+           ClassName="w-full max-w-md -space-y-px">
+    <AccordionItem Value="documents"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group hover:no-underline [&>svg]:hidden">
+            <div class="flex w-full items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <FileTextIcon ClassName="size-4 text-muted-foreground" />
+                    <span class="text-left">Documents</span>
+                </div>
+                <div class="relative size-4 shrink-0">
+                    <PlusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground transition-opacity duration-200 group-data-[state=open]:opacity-0"/>
+                    <MinusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-data-[state=open]:opacity-100"/>
+                </div>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent ClassName="ps-7">
+            <p class="text-muted-foreground">Keep contracts, invoices, and specs in one place, with version history and full-text search across every file.</p>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="folders"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group hover:no-underline [&>svg]:hidden">
+            <div class="flex w-full items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <FolderIcon ClassName="size-4 text-muted-foreground" />
+                    <span class="text-left">Folders</span>
+                </div>
+                <div class="relative size-4 shrink-0">
+                    <PlusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground transition-opacity duration-200 group-data-[state=open]:opacity-0"/>
+                    <MinusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-data-[state=open]:opacity-100"/>
+                </div>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent ClassName="ps-7">
+            <p class="text-muted-foreground">Group related work into nested folders and share them with the right people in a single click.</p>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="settings"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group hover:no-underline [&>svg]:hidden">
+            <div class="flex w-full items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <SettingsIcon ClassName="size-4 text-muted-foreground" />
+                    <span class="text-left">Settings</span>
+                </div>
+                <div class="relative size-4 shrink-0">
+                    <PlusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground transition-opacity duration-200 group-data-[state=open]:opacity-0"/>
+                    <MinusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-data-[state=open]:opacity-100"/>
+                </div>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent ClassName="ps-7">
+            <p class="text-muted-foreground">Adjust retention rules, default permissions, and notification preferences for your whole workspace.</p>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="team"
+                   ClassName="overflow-hidden border bg-background px-4 first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="group hover:no-underline [&>svg]:hidden">
+            <div class="flex w-full items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <UsersIcon ClassName="size-4 text-muted-foreground" />
+                    <span class="text-left">Team</span>
+                </div>
+                <div class="relative size-4 shrink-0">
+                    <PlusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground transition-opacity duration-200 group-data-[state=open]:opacity-0"/>
+                    <MinusIcon
+                        ClassName="absolute inset-0 size-4 text-muted-foreground opacity-0 transition-opacity duration-200 group-data-[state=open]:opacity-100"/>
+                </div>
+            </div>
+        </AccordionTrigger>
+        <AccordionContent ClassName="ps-7">
+            <p class="text-muted-foreground">Manage members, roles, and access levels, and see who touched each file and when.</p>
+        </AccordionContent>
+    </AccordionItem>
+</Accordion>

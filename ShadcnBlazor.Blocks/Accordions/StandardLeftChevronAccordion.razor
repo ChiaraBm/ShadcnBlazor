@@ -1,0 +1,45 @@
+@using ShadcnBlazor.Accordions
+
+<Accordion Type="AccordionType.Single"
+           DefaultValue="billing"
+           ClassName="w-full max-w-md -space-y-px">
+    <AccordionItem Value="billing"
+                   ClassName="overflow-hidden border bg-background first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="flex-row-reverse px-4 py-3 hover:no-underline [&_span]:flex-1">
+            <span>How does billing work?</span>
+        </AccordionTrigger>
+        <AccordionContent ClassName="px-4 ps-11 pb-4">
+            <p class="text-muted-foreground">Plans are billed at the start of each cycle and you can switch tiers at any time. Upgrades take effect immediately with a prorated charge, while downgrades apply from the next billing period.</p>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="trial"
+                   ClassName="overflow-hidden border bg-background first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="flex-row-reverse px-4 py-3 hover:no-underline [&_span]:flex-1">
+            <span>Do you offer a free trial?</span>
+        </AccordionTrigger>
+        <AccordionContent ClassName="px-4 ps-11 pb-4">
+            <p class="text-muted-foreground">Every new workspace starts with a 14 day trial that includes full access to all features. No payment details are required, and you can cancel before the trial ends without being charged.</p>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="cancellation"
+                   ClassName="overflow-hidden border bg-background first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="flex-row-reverse px-4 py-3 hover:no-underline [&_span]:flex-1">
+            <span>Can I cancel at any time?</span>
+        </AccordionTrigger>
+        <AccordionContent ClassName="px-4 ps-11 pb-4">
+            <p class="text-muted-foreground">Yes. Cancellation takes effect at the end of the current billing period, so you keep access until then. Your data stays available for export for 30 days after the account closes.</p>
+        </AccordionContent>
+    </AccordionItem>
+
+    <AccordionItem Value="seats"
+                   ClassName="overflow-hidden border bg-background first:rounded-t-lg last:rounded-b-lg last:border-b">
+        <AccordionTrigger ClassName="flex-row-reverse px-4 py-3 hover:no-underline [&_span]:flex-1">
+            <span>How do I add or remove seats?</span>
+        </AccordionTrigger>
+        <AccordionContent ClassName="px-4 ps-11 pb-4">
+            <p class="text-muted-foreground">Seats can be managed from the billing page at any time. Adding a seat is prorated for the remainder of the cycle, and removing one issues a credit toward your next invoice.</p>
+        </AccordionContent>
+    </AccordionItem>
+</Accordion>

@@ -1,0 +1,20 @@
+@using ShadcnBlazor.Alerts
+@using ShadcnBlazor.Buttons
+
+<Alert ClassName="w-full max-w-lg border-green-600/80 bg-green-600/5 text-green-600">
+    <div class="col-span-2 flex items-center justify-between gap-4">
+        <AlertTitle>Changes saved</AlertTitle>
+        <div class="flex shrink-0 gap-2">
+            <Button
+                ClassName="bg-green-600 text-white hover:bg-green-600/90"
+                Size="ButtonSize.Sm"
+                Variant="ButtonVariant.Default"
+            >
+                View summary
+            </Button>
+            <Button Size="ButtonSize.Sm" Variant="ButtonVariant.Outline">
+                Close
+            </Button>
+        </div>
+    </div>
+</Alert>
