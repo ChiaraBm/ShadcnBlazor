@@ -1,2 +1,925 @@
 ﻿@page "/"
+@using ShadcnBlazor.Test.Partials
 
+@layout EmptyLayout
+
+@using LucideBlazor
+@using ShadcnBlazor.Accordions
+@using ShadcnBlazor.Alerts
+@using ShadcnBlazor.Avatars
+@using ShadcnBlazor.Badges
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Cards
+@using ShadcnBlazor.Checkboxes
+@using ShadcnBlazor.Inputs
+@using ShadcnBlazor.Interop
+@using ShadcnBlazor.Items
+@using ShadcnBlazor.Kbds
+@using ShadcnBlazor.Labels
+@using ShadcnBlazor.Paginations
+@using ShadcnBlazor.Progresses
+@using ShadcnBlazor.RadioGroups
+@using ShadcnBlazor.Selects
+@using ShadcnBlazor.Separators
+@using ShadcnBlazor.Skeletons
+@using ShadcnBlazor.Sliders
+@using ShadcnBlazor.Spinners
+@using ShadcnBlazor.Switches
+@using ShadcnBlazor.Tab
+@using ShadcnBlazor.Toggles
+@using ShadcnBlazor.Tooltips
+
+@implements IDisposable
+
+<div class="relative">
+
+    <!-- Hero -->
+    <section class="relative overflow-hidden rounded-3xl border bg-card/50 px-6 py-16 text-center sm:py-20">
+        <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgb(255_255_255/0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgb(255_255_255/0.03)_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_70%_70%_at_50%_0%,black,transparent)]"></div>
+        <div class="pointer-events-none absolute -top-32 left-1/2 h-72 w-[36rem] -translate-x-1/2 rounded-full bg-violet-600/25 blur-3xl"></div>
+
+        <div class="relative">
+            <img
+                src="/_content/ShadcnBlazor.Test/shadcnblazor.svg"
+                alt="ShadcnBlazor logo"
+                class="mx-auto size-24 drop-shadow-[0_0_25px_rgba(124,58,237,0.45)]" />
+
+            <h1 class="mt-8 text-5xl font-bold tracking-tight sm:text-6xl">
+                Shadcn<span class="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-violet-400 bg-clip-text text-transparent">Blazor</span>
+            </h1>
+
+            <p class="mx-auto mt-5 max-w-2xl text-balance text-lg text-muted-foreground">
+                A Blazor port of the popular
+                <a href="https://ui.shadcn.com/" class="text-violet-400 underline-offset-4 hover:underline">shadcn/ui</a>
+                component library. Same component names, same look, same Tailwind-based theming but written for .NET.
+            </p>
+
+            <div class="mt-7 flex flex-wrap items-center justify-center gap-2">
+                <Badge>.NET 9</Badge>
+                <Badge Variant="BadgeVariant.Secondary">Tailwind CSS v4</Badge>
+                <Badge Variant="BadgeVariant.Secondary">MIT License</Badge>
+                <Badge Variant="BadgeVariant.Outline">50+ components</Badge>
+            </div>
+
+            <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
+                <Button Size="ButtonSize.Lg">
+                    <Slot>
+                        <a href="/installation" @attributes="context">
+                            Get started
+                            <ArrowRightIcon />
+                        </a>
+                    </Slot>
+                </Button>
+                <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Lg">
+                    <Slot>
+                        <a href="/components" @attributes="context">Browse components</a>
+                    </Slot>
+                </Button>
+                <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Lg">
+                    <Slot>
+                        <a href="/blocks" @attributes="context">
+                            Blocks
+                            <ArrowRightIcon />
+                        </a>
+                    </Slot>
+                </Button>
+            </div>
+
+            <div class="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm text-muted-foreground">
+                <div class="flex items-center gap-2">
+                    <ShapesIcon class="size-4 text-violet-400" />
+                    46 core components
+                </div>
+                <div class="flex items-center gap-2">
+                    <SparklesIcon class="size-4 text-violet-400" />
+                    11 extras
+                </div>
+                <div class="flex items-center gap-2">
+                    <BlocksIcon class="size-4 text-violet-400" />
+                    2 NuGet packages
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What is ShadcnBlazor -->
+    <section class="mt-24">
+        <div class="grid items-center gap-10 lg:grid-cols-2">
+            <div>
+                <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">What is ShadcnBlazor?</div>
+                <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+                    The shadcn/ui look, natively in Blazor
+                </h2>
+                <p class="mt-5 text-muted-foreground">
+                    ShadcnBlazor brings the shadcn/ui component style to Blazor. You get the same component names, the same look and the same Tailwind-based theming, just written for .NET. Every component can be tried in the
+                    <a href="/blocks" class="text-violet-400 underline-offset-4 hover:underline">live demo</a>.
+                </p>
+                <p class="mt-4 text-muted-foreground">
+                    Styling is Tailwind CSS v4, so theming, custom variants and dark mode work the way you'd expect from the original.
+                </p>
+            </div>
+
+            <div class="grid gap-4">
+                <Card ClassName="transition-colors hover:border-violet-500/40">
+                    <CardContent ClassName="flex items-center gap-4">
+                        <div class="flex size-12 shrink-0 items-center justify-center rounded-xl bg-violet-500/15 text-violet-400">
+                            <PackageOpenIcon ClassName="size-6" />
+                        </div>
+                        <div>
+                            <CardTitle>ShadcnBlazor</CardTitle>
+                            <CardDescription>The core component set. A port of the shadcn/ui library.</CardDescription>
+                        </div>
+                    </CardContent>
+                </Card>
+                <Card ClassName="transition-colors hover:border-fuchsia-500/40">
+                    <CardContent ClassName="flex items-center gap-4">
+                        <div class="flex size-12 shrink-0 items-center justify-center rounded-xl bg-fuchsia-500/15 text-fuchsia-400">
+                            <SparklesIcon ClassName="size-6" />
+                        </div>
+                        <div>
+                            <CardTitle>ShadcnBlazor.Extras</CardTitle>
+                            <CardDescription>Extra components that don't exist in shadcn/ui, built because Blazor apps needed them.</CardDescription>
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
+        </div>
+    </section>
+
+    <!-- Component gallery -->
+    <section class="mt-24">
+        <div class="mx-auto max-w-2xl text-center">
+            <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">Component gallery</div>
+            <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Built with ShadcnBlazor</h2>
+            <p class="mt-4 text-muted-foreground">
+                Of few examples from our library of components
+            </p>
+        </div>
+
+        <div class="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+
+            <!-- Button -->
+            <Card ClassName="md:col-span-2">
+                <CardHeader>
+                    <CardTitle>Button</CardTitle>
+                    <CardDescription>Available in a variety of styles and sizes</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <Button>Default</Button>
+                        <Button Variant="ButtonVariant.Secondary">Secondary</Button>
+                        <Button Variant="ButtonVariant.Outline">Outline</Button>
+                        <Button Variant="ButtonVariant.Ghost">Ghost</Button>
+                        <Button Variant="ButtonVariant.Destructive">Destructive</Button>
+                        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Icon" aria-label="Submit">
+                            <ArrowUpIcon />
+                        </Button>
+                    </div>
+                </CardContent>
+            </Card>
+
+            <!-- Badge -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Badge</CardTitle>
+                    <CardDescription>Display a badge or make something look badged</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div class="flex flex-wrap gap-2">
+                        <Badge>Default</Badge>
+                        <Badge Variant="BadgeVariant.Secondary">Secondary</Badge>
+                        <Badge Variant="BadgeVariant.Destructive">Destructive</Badge>
+                        <Badge Variant="BadgeVariant.Outline">Outline</Badge>
+                    </div>
+                    <div class="mt-3 flex flex-wrap gap-2">
+                        <Badge Variant="BadgeVariant.Secondary" ClassName="bg-violet-500/15 text-violet-400">
+                            <SparklesIcon ClassName="size-3" />
+                            New
+                        </Badge>
+                        <Badge ClassName="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">8</Badge>
+                        <Badge
+                            Variant="BadgeVariant.Destructive"
+                            ClassName="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">
+                            99
+                        </Badge>
+                    </div>
+                </CardContent>
+            </Card>
+
+            <!-- Input -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Input</CardTitle>
+                    <CardDescription>Display a form input field</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div class="grid gap-4">
+                        <div class="grid gap-2">
+                            <Label for="hero-email">Email</Label>
+                            <TextInputField @bind-Value="Email" id="hero-email" Type="email" placeholder="m@example.com" />
+                        </div>
+                        <div class="grid gap-2">
+                            <Label for="hero-password">Password</Label>
+                            <TextInputField @bind-Value="Password" id="hero-password" Type="password" placeholder="••••••••" />
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
+
+            <!-- Switch & Checkbox -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Switch &amp; Checkbox</CardTitle>
+                    <CardDescription>Toggle between two states</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div class="flex flex-col gap-4">
+                        <div class="flex items-center gap-3">
+                            <Switch @bind-Value="SwitchValue" id="hero-switch" />
+                            <Label for="hero-switch">Enable notifications</Label>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <Checkbox @bind-Value="CheckboxValue" id="hero-checkbox" />
+                            <Label for="hero-checkbox">Accept terms and conditions</Label>
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
+
+            <!-- Radio Group -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Radio Group</CardTitle>
+                    <CardDescription>A set of custom radio buttons</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <RadioGroup DefaultValue="comfortable">
+                        <div class="flex items-center gap-3">
+                            <RadioGroupItem Value="default" id="hero-radio-1" />
+                            <Label for="hero-radio-1">Default</Label>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <RadioGroupItem Value="comfortable" id="hero-radio-2" />
+                            <Label for="hero-radio-2">Comfortable</Label>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <RadioGroupItem Value="compact" id="hero-radio-3" />
+                            <Label for="hero-radio-3">Compact</Label>
+                        </div>
+                    </RadioGroup>
+                </CardContent>
+            </Card>
+
+            <!-- Slider -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Slider</CardTitle>
+                    <CardDescription>Input component to select a value from a range</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div class="mb-3 text-sm text-muted-foreground">Value: @SliderValue</div>
+                    <Slider Min="0" Max="100" @bind-Value="SliderValue" />
+                </CardContent>
+            </Card>
+
+            <!-- Progress -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Progress</CardTitle>
+                    <CardDescription>Display progress bar — this one updates itself</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div class="mb-3 text-sm text-muted-foreground">@ProgressValue%</div>
+                    <Progress Value="ProgressValue" Max="100" />
+                </CardContent>
+            </Card>
+
+            <!-- Tabs -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Tabs</CardTitle>
+                    <CardDescription>A set of layered sections displayed one at a time</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Tabs DefaultValue="account">
+                        <TabsList>
+                            <TabsTrigger Value="account">Account</TabsTrigger>
+                            <TabsTrigger Value="password">Password</TabsTrigger>
+                        </TabsList>
+                        <TabsContent Value="account">
+                            <p class="text-sm text-muted-foreground">
+                                Make changes to your account here. Click save when you're done.
+                            </p>
+                        </TabsContent>
+                        <TabsContent Value="password">
+                            <p class="text-sm text-muted-foreground">
+                                Change your password here. After saving, you'll be logged out.
+                            </p>
+                        </TabsContent>
+                    </Tabs>
+                </CardContent>
+            </Card>
+
+            <!-- Accordion -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Accordion</CardTitle>
+                    <CardDescription>A vertically stacked set of interactive headings</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Accordion Type="AccordionType.Single" DefaultValue="item-1" ClassName="w-full">
+                        <AccordionItem Value="item-1">
+                            <AccordionTrigger>Is it accessible?</AccordionTrigger>
+                            <AccordionContent>
+                                Yes. It adheres to the WAI-ARIA design pattern.
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem Value="item-2">
+                            <AccordionTrigger>Is it styled?</AccordionTrigger>
+                            <AccordionContent>
+                                Yes. It comes with default styles that match the theme.
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                </CardContent>
+            </Card>
+
+            <!-- Alert -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Alert</CardTitle>
+                    <CardDescription>Display a callout for user attention</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Alert>
+                        <CircleCheckBigIcon />
+                        <AlertTitle>Success! Your changes have been saved</AlertTitle>
+                        <AlertDescription>
+                            This is an alert with icon, title and description.
+                        </AlertDescription>
+                    </Alert>
+                </CardContent>
+            </Card>
+
+            <!-- Avatar -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Avatar</CardTitle>
+                    <CardDescription>Images with fallbacks to represent a user</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div class="flex items-center gap-3">
+                        <Avatar>
+                            <AvatarImage src="https://github.com/shadcn.png" alt="@("@shadcn")" />
+                            <AvatarFallback>CN</AvatarFallback>
+                        </Avatar>
+                        <Avatar>
+                            <AvatarImage src="https://github.com/evilrabbit.png" alt="@("@evilrabbit")" />
+                            <AvatarFallback>ER</AvatarFallback>
+                        </Avatar>
+                        <Avatar>
+                            <AvatarFallback>CB</AvatarFallback>
+                        </Avatar>
+                    </div>
+                </CardContent>
+            </Card>
+
+            <!-- Skeleton -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Skeleton</CardTitle>
+                    <CardDescription>Use as a placeholder during loading</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div class="flex items-center gap-4">
+                        <Skeleton ClassName="size-12 rounded-full" />
+                        <div class="space-y-2">
+                            <Skeleton ClassName="h-4 w-40" />
+                            <Skeleton ClassName="h-4 w-28" />
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
+
+            <!-- Kbd -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Kbd</CardTitle>
+                    <CardDescription>Display a sequence of keys as a shortcut</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div class="flex flex-col items-start gap-3">
+                        <KbdGroup>
+                            <Kbd>Ctrl</Kbd>
+                            <span>+</span>
+                            <Kbd>K</Kbd>
+                        </KbdGroup>
+                        <KbdGroup>
+                            <Kbd>⌘</Kbd>
+                            <Kbd>⇧</Kbd>
+                            <Kbd>⌥</Kbd>
+                        </KbdGroup>
+                    </div>
+                </CardContent>
+            </Card>
+
+            <!-- Tooltip -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Tooltip</CardTitle>
+                    <CardDescription>A popup for displaying contextual information — hover the button</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Tooltip>
+                        <TooltipTrigger>
+                            <Slot>
+                                <Button Variant="ButtonVariant.Outline" @attributes="context">Hover me</Button>
+                            </Slot>
+                        </TooltipTrigger>
+                        <TooltipContent Side="PositionSide.Top">
+                            <p>Add to library</p>
+                        </TooltipContent>
+                    </Tooltip>
+                </CardContent>
+            </Card>
+
+            <!-- Separator -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Separator</CardTitle>
+                    <CardDescription>A subtle separator to divide content</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div class="space-y-1">
+                        <h4 class="text-sm leading-none font-medium">ShadcnBlazor</h4>
+                        <p class="text-muted-foreground text-sm">An open-source UI component library.</p>
+                    </div>
+                    <Separator ClassName="my-4" />
+                    <div class="flex h-5 items-center gap-4 text-sm">
+                        <div>Blog</div>
+                        <Separator Orientation="SeparatorOrientation.Vertical" />
+                        <div>Docs</div>
+                        <Separator Orientation="SeparatorOrientation.Vertical" />
+                        <div>Source</div>
+                    </div>
+                </CardContent>
+            </Card>
+
+            <!-- Spinner -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Spinner</CardTitle>
+                    <CardDescription>A spinner for loading states</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Item Variant="ItemVariant.Muted">
+                        <ItemMedia>
+                            <Spinner />
+                        </ItemMedia>
+                        <ItemContent>
+                            <ItemTitle>Processing payment...</ItemTitle>
+                        </ItemContent>
+                        <ItemContent ClassName="flex-none justify-end">
+                            <span class="text-sm tabular-nums">$100.00</span>
+                        </ItemContent>
+                    </Item>
+                </CardContent>
+            </Card>
+
+            <!-- Select -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Select</CardTitle>
+                    <CardDescription>Display an option list for user selection</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Select>
+                        <SelectTrigger ClassName="w-full">
+                            <SelectValue Placeholder="Select a fruit" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectLabel>Fruits</SelectLabel>
+                                <SelectItem Value="apple">Apple</SelectItem>
+                                <SelectItem Value="banana">Banana</SelectItem>
+                                <SelectItem Value="blueberry">Blueberry</SelectItem>
+                                <SelectItem Value="grapes">Grapes</SelectItem>
+                                <SelectItem Value="pineapple">Pineapple</SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                </CardContent>
+            </Card>
+
+            <!-- Pagination -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Pagination</CardTitle>
+                    <CardDescription>Navigation links to move between pages</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Pagination>
+                        <PaginationContent>
+                            <PaginationItem>
+                                <PaginationPrevious href="#" />
+                            </PaginationItem>
+                            <PaginationItem>
+                                <PaginationLink href="#">1</PaginationLink>
+                            </PaginationItem>
+                            <PaginationItem>
+                                <PaginationLink href="#" IsActive="true">2</PaginationLink>
+                            </PaginationItem>
+                            <PaginationItem>
+                                <PaginationLink href="#">3</PaginationLink>
+                            </PaginationItem>
+                            <PaginationItem>
+                                <PaginationEllipsis />
+                            </PaginationItem>
+                            <PaginationItem>
+                                <PaginationNext href="#" />
+                            </PaginationItem>
+                        </PaginationContent>
+                    </Pagination>
+                </CardContent>
+            </Card>
+
+            <!-- Toggle -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Toggle</CardTitle>
+                    <CardDescription>A button that can be toggled on and off</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Toggle
+                        aria-label="Toggle bookmark"
+                        Variant="ToggleVariant.Outline"
+                        ClassName="data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-violet-500 data-[state=on]:*:[svg]:stroke-violet-500">
+                        <BookmarkIcon />
+                        Bookmark
+                    </Toggle>
+                </CardContent>
+            </Card>
+
+            <!-- Item -->
+            <Card>
+                <CardHeader>
+                    <CardTitle>Item</CardTitle>
+                    <CardDescription>A container for pieces of content</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Item Variant="ItemVariant.Muted">
+                        <ItemMedia Variant="ItemMediaVariant.Icon">
+                            <BadgeCheckIcon ClassName="size-4" />
+                        </ItemMedia>
+                        <ItemContent>
+                            <ItemTitle>Your profile has been verified</ItemTitle>
+                            <ItemDescription>Welcome to the club</ItemDescription>
+                        </ItemContent>
+                        <ItemActions>
+                            <ChevronRightIcon ClassName="size-4" />
+                        </ItemActions>
+                    </Item>
+                </CardContent>
+            </Card>
+
+        </div>
+    </section>
+
+    <!-- Quick start -->
+    <section class="mt-24">
+        <div class="mx-auto max-w-2xl text-center">
+            <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">Quick start</div>
+            <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Up and running in minutes</h2>
+            <p class="mt-4 text-muted-foreground">
+                The full step-by-step guide lives on the
+                <a href="/installation" class="text-violet-400 underline-offset-4 hover:underline">installation page</a>.
+            </p>
+        </div>
+
+        <div class="mt-12 grid gap-4 lg:grid-cols-2">
+
+            <Card>
+                <CardHeader>
+                    <CardAction>
+                        <div class="flex size-8 items-center justify-center rounded-full bg-violet-500/15 text-sm font-semibold text-violet-400">1</div>
+                    </CardAction>
+                    <CardTitle>Install the package</CardTitle>
+                    <CardDescription>Add the NuGet package to your project</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm max-w-[80vw]"><code class="font-mono">@InstallPackageContent</code></pre>
+                </CardContent>
+            </Card>
+
+            <Card>
+                <CardHeader>
+                    <CardAction>
+                        <div class="flex size-8 items-center justify-center rounded-full bg-violet-500/15 text-sm font-semibold text-violet-400">2</div>
+                    </CardAction>
+                    <CardTitle>Set up Tailwind</CardTitle>
+                    <CardDescription>Initialize a node project in a Styles folder</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm max-w-[80vw]"><code class="font-mono">@SetupTailwindContent</code></pre>
+                </CardContent>
+            </Card>
+
+            <Card>
+                <CardHeader>
+                    <CardAction>
+                        <div class="flex size-8 items-center justify-center rounded-full bg-violet-500/15 text-sm font-semibold text-violet-400">3</div>
+                    </CardAction>
+                    <CardTitle>Add the base styles</CardTitle>
+                    <CardDescription>Pull in the base styles shipped with the package</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm max-w-[80vw]"><code class="font-mono">@BaseStylesContent</code></pre>
+                </CardContent>
+            </Card>
+
+            <Card>
+                <CardHeader>
+                    <CardAction>
+                        <div class="flex size-8 items-center justify-center rounded-full bg-violet-500/15 text-sm font-semibold text-violet-400">4</div>
+                    </CardAction>
+                    <CardTitle>Wire it up</CardTitle>
+                    <CardDescription>Register the services and build your styles</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm max-w-[80vw]"><code class="font-mono">@PortalContent</code></pre>
+                    <pre class="mt-3 overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm max-w-[80vw]"><code class="font-mono">@ProgramContent</code></pre>
+                    <pre class="mt-3 overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm max-w-[80vw]"><code class="font-mono">@BuildStylesContent</code></pre>
+                </CardContent>
+            </Card>
+
+        </div>
+    </section>
+
+    <!-- Extras -->
+    <section class="mt-24">
+        <div class="mx-auto max-w-2xl text-center">
+            <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">Extras</div>
+            <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">More than shadcn/ui</h2>
+            <p class="mt-4 text-muted-foreground">
+                ShadcnBlazor.Extras has no shadcn/ui equivalent. These components exist because Blazor apps needed them.
+            </p>
+        </div>
+
+        <div class="mt-12 grid gap-3 md:grid-cols-2">
+            <Item Variant="ItemVariant.Outline" ClassName="w-full transition-colors hover:bg-accent/30">
+                <ItemMedia Variant="ItemMediaVariant.Icon">
+                    <SearchIcon ClassName="size-4 text-violet-400" />
+                </ItemMedia>
+                <ItemContent>
+                    <ItemTitle>Combobox</ItemTitle>
+                    <ItemDescription>Searchable select that loads items asynchronously based on the search term</ItemDescription>
+                </ItemContent>
+            </Item>
+            <Item Variant="ItemVariant.Outline" ClassName="w-full transition-colors hover:bg-accent/30">
+                <ItemMedia Variant="ItemMediaVariant.Icon">
+                    <FileCodeIcon ClassName="size-4 text-violet-400" />
+                </ItemMedia>
+                <ItemContent>
+                    <ItemTitle>Editor</ItemTitle>
+                    <ItemDescription>CodeMirror-based code editor</ItemDescription>
+                </ItemContent>
+            </Item>
+            <Item Variant="ItemVariant.Outline" ClassName="w-full transition-colors hover:bg-accent/30">
+                <ItemMedia Variant="ItemMediaVariant.Icon">
+                    <CloudUploadIcon ClassName="size-4 text-violet-400" />
+                </ItemMedia>
+                <ItemContent>
+                    <ItemTitle>File Dropzone</ItemTitle>
+                    <ItemDescription>Drag &amp; drop file uploads, including chunked uploads</ItemDescription>
+                </ItemContent>
+            </Item>
+            <Item Variant="ItemVariant.Outline" ClassName="w-full transition-colors hover:bg-accent/30">
+                <ItemMedia Variant="ItemMediaVariant.Icon">
+                    <FolderIcon ClassName="size-4 text-violet-400" />
+                </ItemMedia>
+                <ItemContent>
+                    <ItemTitle>File Manager</ItemTitle>
+                    <ItemDescription>Full file browser with navigation, selection, context menu and toolbar</ItemDescription>
+                </ItemContent>
+            </Item>
+            <Item Variant="ItemVariant.Outline" ClassName="w-full transition-colors hover:bg-accent/30">
+                <ItemMedia Variant="ItemMediaVariant.Icon">
+                    <FileTextIcon ClassName="size-4 text-violet-400" />
+                </ItemMedia>
+                <ItemContent>
+                    <ItemTitle>Form Handler</ItemTitle>
+                    <ItemDescription>Enhanced EditForm with validation summary and a submit button</ItemDescription>
+                </ItemContent>
+            </Item>
+            <Item Variant="ItemVariant.Outline" ClassName="w-full transition-colors hover:bg-accent/30">
+                <ItemMedia Variant="ItemMediaVariant.Icon">
+                    <FileBracesIcon ClassName="size-4 text-violet-400" />
+                </ItemMedia>
+                <ItemContent>
+                    <ItemTitle>Input Tags</ItemTitle>
+                    <ItemDescription>Tag input</ItemDescription>
+                </ItemContent>
+            </Item>
+            <Item Variant="ItemVariant.Outline" ClassName="w-full transition-colors hover:bg-accent/30">
+                <ItemMedia Variant="ItemMediaVariant.Icon">
+                    <LoaderCircleIcon ClassName="size-4 text-violet-400" />
+                </ItemMedia>
+                <ItemContent>
+                    <ItemTitle>Lazy Loader</ItemTitle>
+                    <ItemDescription>Keeps a loading indicator up until your load callback finishes</ItemDescription>
+                </ItemContent>
+            </Item>
+            <Item Variant="ItemVariant.Outline" ClassName="w-full transition-colors hover:bg-accent/30">
+                <ItemMedia Variant="ItemMediaVariant.Icon">
+                    <BellIcon ClassName="size-4 text-violet-400" />
+                </ItemMedia>
+                <ItemContent>
+                    <ItemTitle>Toast</ItemTitle>
+                    <ItemDescription>Toast notifications with a few different designs</ItemDescription>
+                </ItemContent>
+            </Item>
+            <Item Variant="ItemVariant.Outline" ClassName="w-full transition-colors hover:bg-accent/30">
+                <ItemMedia Variant="ItemMediaVariant.Icon">
+                    <WrenchIcon ClassName="size-4 text-violet-400" />
+                </ItemMedia>
+                <ItemContent>
+                    <ItemTitle>Worker Button</ItemTitle>
+                    <ItemDescription>Button that runs an async handler and shows a spinner while it works</ItemDescription>
+                </ItemContent>
+            </Item>
+            <Item Variant="ItemVariant.Outline" ClassName="w-full transition-colors hover:bg-accent/30">
+                <ItemMedia Variant="ItemMediaVariant.Icon">
+                    <CircleAlertIcon ClassName="size-4 text-violet-400" />
+                </ItemMedia>
+                <ItemContent>
+                    <ItemTitle>Crash Handler</ItemTitle>
+                    <ItemDescription>Error boundary that renders a crash UI instead of blowing up the page</ItemDescription>
+                </ItemContent>
+            </Item>
+            <Item Variant="ItemVariant.Outline" ClassName="w-full transition-colors md:col-span-2">
+                <ItemMedia Variant="ItemMediaVariant.Icon">
+                    <MessageSquareIcon ClassName="size-4 text-violet-400" />
+                </ItemMedia>
+                <ItemContent>
+                    <ItemTitle>Alert / Dialog / Alert Dialog</ItemTitle>
+                    <ItemDescription>Service-based launchers so you can show them from anywhere via an injected service</ItemDescription>
+                </ItemContent>
+            </Item>
+        </div>
+    </section>
+
+    <!-- Roadmap -->
+    <section class="mt-24">
+        <Card>
+            <CardHeader>
+                <CardTitle>Roadmap</CardTitle>
+                <CardDescription>Currently in progress</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <div class="flex flex-wrap gap-2">
+                    <Badge Variant="BadgeVariant.Secondary" ClassName="gap-1.5 py-1">
+                        <span class="size-1.5 animate-pulse rounded-full bg-violet-400"></span>
+                        Chart
+                    </Badge>
+                    <Badge Variant="BadgeVariant.Secondary" ClassName="gap-1.5 py-1">
+                        <span class="size-1.5 animate-pulse rounded-full bg-violet-400"></span>
+                        Navigation Menu
+                    </Badge>
+                    <Badge Variant="BadgeVariant.Secondary" ClassName="gap-1.5 py-1">
+                        <span class="size-1.5 animate-pulse rounded-full bg-violet-400"></span>
+                        Resizable
+                    </Badge>
+                    <Badge Variant="BadgeVariant.Secondary" ClassName="gap-1.5 py-1">
+                        <span class="size-1.5 animate-pulse rounded-full bg-violet-400"></span>
+                        Scroll Area
+                    </Badge>
+                </div>
+            </CardContent>
+        </Card>
+    </section>
+
+    <!-- Call to action -->
+    <section class="mt-24">
+        <Card ClassName="relative overflow-hidden border-violet-500/20 bg-gradient-to-br from-violet-500/10 to-transparent">
+            <div class="pointer-events-none absolute -top-24 left-1/2 h-48 w-96 -translate-x-1/2 rounded-full bg-violet-600/20 blur-3xl"></div>
+            <CardContent ClassName="relative flex flex-col items-center gap-4 py-12 text-center">
+                <h2 class="text-2xl font-bold tracking-tight sm:text-3xl">Ready to build something beautiful?</h2>
+                <p class="max-w-xl text-muted-foreground">
+                    Install the package, wire up Tailwind and start composing your UI out of ready-made, themeable components.
+                </p>
+                <div class="mt-2 flex flex-wrap justify-center gap-3">
+                    <Button Size="ButtonSize.Lg">
+                        <Slot>
+                            <a href="/installation" @attributes="context">
+                                Get started
+                                <ArrowRightIcon />
+                            </a>
+                        </Slot>
+                    </Button>
+                    <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Lg">
+                        <Slot>
+                            <a href="/components" @attributes="context">Browse components</a>
+                        </Slot>
+                    </Button>
+                </div>
+            </CardContent>
+        </Card>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-24 border-t pt-8 pb-4">
+        <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+            <div class="flex items-center gap-3">
+                <img src="/_content/ShadcnBlazor.Test/shadcnblazor.svg" alt="ShadcnBlazor logo" class="size-8" />
+                <div>
+                    <div class="text-sm font-semibold">ShadcnBlazor</div>
+                    <div class="text-muted-foreground text-xs">Released under the MIT License</div>
+                </div>
+            </div>
+            <div class="flex items-center gap-5 text-sm">
+                <a href="https://github.com/ChiaraBm/ShadcnBlazor" target="_blank" rel="noreferrer"
+                   class="text-muted-foreground transition-colors hover:text-foreground">GitHub</a>
+                <a href="https://www.nuget.org/packages/ShadcnBlazor" target="_blank" rel="noreferrer"
+                   class="text-muted-foreground transition-colors hover:text-foreground">NuGet</a>
+                <a href="/blocks"
+                   class="text-muted-foreground transition-colors hover:text-foreground">Blocks</a>
+            </div>
+        </div>
+    </footer>
+
+</div>
+
+@code
+{
+    // Gallery state
+    private string Email;
+    private string Password;
+    private bool SwitchValue;
+    private bool CheckboxValue;
+    private int SliderValue = 42;
+    private int ProgressValue = 66;
+    private Timer? ProgressTimer;
+
+    // Quick start snippets
+    private const string InstallPackageContent = "dotnet add package ShadcnBlazor";
+
+    private const string SetupTailwindContent =
+        "mkdir Styles && cd Styles\n" +
+        "npm init -y\n" +
+        "npm install tailwindcss @tailwindcss/postcss postcss postcss-cli tw-animate-css";
+
+    private const string BaseStylesContent =
+        "@import \"tailwindcss\";\n" +
+        "@import \"tw-animate-css\";\n" +
+        "\n" +
+        "@import \"../bin/ShadcnBlazor/scrollbar.css\";\n" +
+        "@import \"../bin/ShadcnBlazor/default-theme.css\";\n" +
+        "@source \"../bin/ShadcnBlazor/ShadcnBlazor.map\";\n" +
+        "\n" +
+        "@source \"../**/*.razor\";\n" +
+        "@source \"../**/*.cs\";\n" +
+        "@source \"../**/*.html\";\n" +
+        "\n" +
+        "@custom-variant dark (&:is(.dark *));\n" +
+        "\n" +
+        "@layer base {\n" +
+        "    * {\n" +
+        "        @apply border-border outline-ring/50;\n" +
+        "    }\n" +
+        "    body {\n" +
+        "        @apply bg-background text-foreground;\n" +
+        "    }\n" +
+        "}";
+
+    private const string PortalContent =
+        "<!-- MainLayout.razor -->\n" +
+        "<PortalOutlet />";
+
+    private const string ProgramContent =
+        "// Program.cs\n" +
+        "using ShadcnBlazor;\n" +
+        "\n" +
+        "builder.Services.AddShadcnBlazor();";
+
+    private const string BuildStylesContent =
+        "npx postcss styles.css -o ../wwwroot/style.min.css --watch";
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return Task.CompletedTask;
+
+        ProgressTimer = new Timer(async _ =>
+        {
+            ProgressValue = Random.Shared.Next(0, 101);
+            await InvokeAsync(StateHasChanged);
+        }, null, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+
+        return Task.CompletedTask;
+    }
+
+    public void Dispose()
+    {
+        ProgressTimer?.Dispose();
+    }
+}

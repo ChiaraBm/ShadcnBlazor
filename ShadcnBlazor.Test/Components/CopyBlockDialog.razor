@@ -1,0 +1,72 @@
+@using LucideBlazor
+@using ShadcnBlazor.Blocks
+@using ShadcnBlazor.Dialogs
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Extras.Common
+@using ShadcnBlazor.Extras.Toasts
+
+@inherits ShadcnBlazor.Extras.Dialogs.DialogBase
+
+@inject HttpClient HttpClient
+@inject IJSRuntime JsRuntime
+@inject ToastService ToastService
+
+<DialogHeader>
+    <DialogTitle>@Entry.DisplayName - @Entry.Group</DialogTitle>
+    <DialogDescription>
+        Copy and paste the block into your project
+    </DialogDescription>
+</DialogHeader>
+<LazyLoader Load="LoadAsync">
+    <div class="max-h-[50vh] overflow-y-scroll scrollbar-thin">
+        <Highlight Content="@SrcCode"/>
+    </div>
+</LazyLoader>
+<DialogFooter>
+    <Button @onclick="CopyAsync">
+        <CopyIcon/>
+        Copy to clipboard
+    </Button>
+    <DialogClose>
+        <Slot>
+            <Button Variant="ButtonVariant.Outline" @attributes="context">Close</Button>
+        </Slot>
+    </DialogClose>
+</DialogFooter>
+
+@code
+{
+    [Parameter] public BlockEntry Entry { get; set; }
+
+    private string SrcCode;
+
+    private const string Repository = "ChiaraBm/ShadcnBlazor";
+    private const string Branch = "feat/blocks";
+
+    private async Task LoadAsync(LazyLoader _)
+    {
+        SrcCode = await HttpClient.GetStringAsync(
+            $"https://raw.githubusercontent.com/{Repository}/refs/heads/{Branch}/ShadcnBlazor.Blocks/{Entry.Group}/{Entry.Component.Name}.razor"
+        );
+    }
+
+    private async Task CopyAsync()
+    {
+        var success = await JsRuntime.InvokeAsync<bool>("copyToClipboard", SrcCode);
+
+        if (success)
+        {
+            await ToastService.SuccessAsync(
+                "Copy Success",
+                "Successfully copied block to clipboard"
+            );
+        }
+        else
+        {
+            await ToastService.ErrorAsync(
+                "Copy Error",
+                "Unable to copy block to clipboard"
+            );
+        }
+    }
+}

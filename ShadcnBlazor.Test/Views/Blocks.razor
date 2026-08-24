@@ -1,9 +1,172 @@
 @page "/blocks"
-@using ShadcnBlazor.Blocks.Forms
-@using ShadcnBlazor.Blocks.Items
-@using ShadcnBlazor.Blocks.Popovers
-@using ShadcnBlazor.Blocks.Progress
-@using ShadcnBlazor.Blocks.Sheets
-@using ShadcnBlazor.Blocks.Spinners
+@page "/blocks/{Group}"
 
-<SpinnerInEmptyState />
+@using LucideBlazor
+@using ShadcnBlazor.Badges
+@using ShadcnBlazor.Blocks
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Cards
+@using ShadcnBlazor.Extras.Dialogs
+@using ShadcnBlazor.Sheets
+@using ShadcnBlazor.Sidebars
+@using ShadcnBlazor.Test.Components
+@using ShadcnBlazor.Test.Helper
+
+@inject DialogService DialogService
+
+<!-- Page header -->
+<header>
+    <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">Library</div>
+    <h1 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Blocks</h1>
+    <p class="mt-4 max-w-2xl text-muted-foreground">
+        Here you can find all the blocks available in the library. Pick a category to browse ready-made compositions.
+    </p>
+</header>
+
+<!-- Stats -->
+<div class="mt-6 flex flex-wrap gap-2">
+    <Badge Variant="BadgeVariant.Secondary" ClassName="gap-1.5 py-1">
+        <span class="size-1.5 rounded-full bg-violet-400"></span>
+        @TotalBlocks blocks
+    </Badge>
+    <Badge Variant="BadgeVariant.Secondary" ClassName="gap-1.5 py-1">
+        <span class="size-1.5 rounded-full bg-violet-400"></span>
+        @GroupCount categories
+    </Badge>
+</div>
+
+<Sheet @ref="_sheet">
+    <SheetTrigger>
+        <Slot>
+            <div class="block lg:hidden mb-8">
+                <Button Variant="ButtonVariant.Outline" ClassName="w-full" @attributes="context">
+                    <MenuIcon />
+                    Show all categories
+                </Button>
+            </div>
+        </Slot>
+    </SheetTrigger>
+    <SheetContent>
+        <SheetHeader>
+            <SheetTitle>Categories</SheetTitle>
+        </SheetHeader>
+        <div class="p-3">
+            <SidebarMenu>
+                @foreach (var group in _blockEntries.Keys)
+                {
+                    <SidebarMenuItem @key="group">
+                        <SidebarMenuButton>
+                            <Slot>
+                                <a @attributes="context" href="/blocks/@group" @onclick="() => _sheet.CloseAsync()">
+                                    <span>@group</span>
+                                </a>
+                            </Slot>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                }
+            </SidebarMenu>
+        </div>
+        <SheetFooter>
+            <SheetClose>
+                <Slot>
+                    <Button Variant="ButtonVariant.Outline" @attributes="context">Close</Button>
+                </Slot>
+            </SheetClose>
+        </SheetFooter>
+    </SheetContent>
+</Sheet>
+
+
+
+<div class="mt-8 flex flex-row gap-5">
+    <div class="hidden lg:flex grow-0">
+        <Card ClassName="max-h-fit">
+            <CardHeader>
+                <CardTitle>Categories</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <SidebarMenu>
+                    @foreach (var group in _blockEntries.Keys)
+                    {
+                        <SidebarMenuItem @key="group">
+                            <SidebarMenuButton>
+                                <Slot>
+                                    <a @attributes="context" href="/blocks/@group">
+                                        <span>@Formatter.InsertSpaceBeforeCapital(group)</span>
+                                    </a>
+                                </Slot>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                    }
+                </SidebarMenu>
+            </CardContent>
+        </Card>
+    </div>
+    <div class="flex grow">
+        @if (Group is null)
+        {
+            <div>No group :c</div>
+        }
+        else
+        {
+            var entries = _blockEntries[Group];
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 w-full">
+                @foreach (var blockEntry in entries)
+                {
+                    <Card @key="blockEntry.Component"
+                          ClassName="h-full flex flex-col"
+                          Style="background-color: hsl(var(--card) / 0.85)">
+                        <CardHeader ClassName="pb-2">
+                            <CardTitle ClassName="text-sm font-medium">
+                                @blockEntry.DisplayName
+                            </CardTitle>
+                            <CardAction>
+                                <Button @onclick="() => LaunchCopyAsync(blockEntry)" Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">
+                                    <CopyIcon /> Copy
+                                </Button>
+                            </CardAction>
+                        </CardHeader>
+                        <CardContent ClassName="flex-1 flex items-center justify-center">
+                            <div class="w-full flex items-center justify-center"
+                                 style="aspect-ratio: 4 / 3">
+                                <DynamicComponent Type="blockEntry.Component" />
+                            </div>
+                        </CardContent>
+                    </Card>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+@code
+{
+    [Parameter] public string? Group { get; set; }
+    
+    private Dictionary<string, BlockEntry[]> _blockEntries;
+    private Sheet _sheet;
+    
+    private static int TotalBlocks => BlockIndex.Entries.Count;
+    private static int GroupCount => BlockIndex.Entries.Select(x => x.Group).Distinct().Count();
+
+    protected override void OnInitialized()
+    {
+        _blockEntries = BlockIndex.Entries
+            .GroupBy(x => x.Group)
+            .ToDictionary(x => x.Key, x => x.ToArray());
+        
+        if (string.IsNullOrWhiteSpace(Group) || !_blockEntries.ContainsKey(Group))
+            Group = _blockEntries.Keys.FirstOrDefault();
+    }
+
+    private async Task LaunchCopyAsync(BlockEntry entry)
+    {
+        await DialogService.LaunchAsync<CopyBlockDialog>(parameters =>
+        {
+            parameters[nameof(CopyBlockDialog.Entry)] = entry;
+        }, model =>
+        {
+            model.ClassName = "sm:max-w-5xl!";
+        });
+    }
+}

@@ -1,114 +1,232 @@
 ﻿@page "/installation"
+
+@using LucideBlazor
 @using ShadcnBlazor.Cards
-@using ShadcnBlazor.Test.Components
 
-<h2 class="text-2xl font-bold">Installation</h2>
-<div class="text-muted-foreground text-lg">Installing ShadcnBlazor is easy. Here are the installation steps</div>
+<!-- Page header -->
+<header>
+    <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">Getting started</div>
+    <h1 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Installation</h1>
+    <p class="mt-4 max-w-2xl text-muted-foreground">
+        Installing ShadcnBlazor takes only a few minutes. Set up Tailwind, add the NuGet package and build your styles.
+    </p>
+</header>
 
-<Card ClassName="mt-8">
-    <CardHeader>
-        <CardTitle>Installing Tailwind</CardTitle>
-    </CardHeader>
-    <CardContent>
-        1. Create a folder called Styles in your blazor project.<br />
-        2. Open a terminal in this folder and run initialize a new nodejs project.<br />
-        
-        <Card ClassName="my-2.5 p-1">
-            <CardContent ClassName="px-0">
-                <Highlight Language="bash" Content="@NpmInitContent" />
+<!-- Set up Tailwind -->
+<section class="mt-16">
+    <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">Tailwind CSS</div>
+    <h2 class="mt-3 text-2xl font-bold tracking-tight">Set up the styling pipeline</h2>
+    <p class="mt-3 max-w-2xl text-muted-foreground">
+        ShadcnBlazor is styled with Tailwind CSS v4, so the first step is setting up the build tooling in a Styles folder.
+    </p>
+
+    <div class="mt-8 grid gap-4 lg:grid-cols-2">
+
+        <Card>
+            <CardHeader>
+                <CardAction>
+                    <div class="flex size-8 items-center justify-center rounded-full bg-violet-500/15 text-sm font-semibold text-violet-400">1</div>
+                </CardAction>
+                <CardTitle>Create the Styles folder</CardTitle>
+                <CardDescription>Create a Styles folder in your Blazor project and initialize a new Node.js project in it.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm"><code class="font-mono">@NpmInitContent</code></pre>
             </CardContent>
         </Card>
 
-        3. Now run the following command to install tailwind and postcss.<br />
-        
-        <Card ClassName="my-2.5 p-1">
-            <CardContent ClassName="px-0">
-                <Highlight Language="bash" Content="@NpmInstallPostcssContent" />
+        <Card>
+            <CardHeader>
+                <CardAction>
+                    <div class="flex size-8 items-center justify-center rounded-full bg-violet-500/15 text-sm font-semibold text-violet-400">2</div>
+                </CardAction>
+                <CardTitle>Install Tailwind &amp; PostCSS</CardTitle>
+                <CardDescription>Install Tailwind CSS, PostCSS and the animation utilities.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm"><code class="font-mono">@NpmInstallPostcssContent</code></pre>
             </CardContent>
         </Card>
 
-        4. Then create a file called postcss.config.mjs and fill in the following content:<br />
-        
-        <Card ClassName="my-3 p-1">
-            <CardContent ClassName="px-0">
-                <Highlight Language="javascript" Content="@PostCssContent" />
+        <Card>
+            <CardHeader>
+                <CardAction>
+                    <div class="flex size-8 items-center justify-center rounded-full bg-violet-500/15 text-sm font-semibold text-violet-400">3</div>
+                </CardAction>
+                <CardTitle>Create postcss.config.mjs</CardTitle>
+                <CardDescription>Create a file called postcss.config.mjs in the Styles folder with the following content.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm"><code class="font-mono">@PostCssContent</code></pre>
             </CardContent>
         </Card>
-    </CardContent>
-</Card>
 
-<Card ClassName="mt-8">
-    <CardHeader>
-        <CardTitle>Installing ShadcnBlazor</CardTitle>
-    </CardHeader>
-    <CardContent>
-        1. To install ShadcnBlazor use your IDE's Nuget Explorer or the following command to install the nuget package <code class="italic">ShadcnBlazor</code>
-        
-        <Card ClassName="my-2.5 p-1">
-            <CardContent ClassName="px-0">
-                <Highlight Language="bash" Content="@InstallNugetContent" />
-            </CardContent>
-        </Card>
-        
-        2. After that you need to add the following component at the before the end of your body tag in your main layout
-        
-        <Card ClassName="my-2.5 p-1">
-            <CardContent ClassName="px-0">
-                <Highlight Language="razor" Content="@PortalRazor" />
-            </CardContent>
-        </Card>
-        
-        3. Finally add the service collection extension call to your Program.cs file
-        
-        <Card ClassName="my-2.5 p-1">
-            <CardContent ClassName="px-0">
-                <Highlight Language="csharp" Content="@ServiceCollectionContent" />
-            </CardContent>
-        </Card>
-    </CardContent>
-</Card>
+    </div>
+</section>
 
-<Card ClassName="mt-8">
-    <CardHeader>
-        <CardTitle>Adding base style & building styles</CardTitle>
-    </CardHeader>
-    <CardContent>
-        1. Create the main styles file called <code class="italic">styles.css</code> in the <code class="italic">Styles</code> folder with the following content:<br/>
-        
-        <Card ClassName="my-3 p-1">
-            <CardContent ClassName="px-0">
-                <Highlight Language="css" Content="@StylesContent" />
+<!-- Install ShadcnBlazor -->
+<section class="mt-16">
+    <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">NuGet</div>
+    <h2 class="mt-3 text-2xl font-bold tracking-tight">Install ShadcnBlazor</h2>
+    <p class="mt-3 max-w-2xl text-muted-foreground">
+        Add the package to your project and wire it up in a couple of lines.
+    </p>
+
+    <div class="mt-8 grid gap-4 lg:grid-cols-2">
+
+        <Card>
+            <CardHeader>
+                <CardAction>
+                    <div class="flex size-8 items-center justify-center rounded-full bg-violet-500/15 text-sm font-semibold text-violet-400">4</div>
+                </CardAction>
+                <CardTitle>Add the NuGet package</CardTitle>
+                <CardDescription>Install the ShadcnBlazor NuGet package via your IDE or the command line.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm"><code class="font-mono">@InstallNugetContent</code></pre>
             </CardContent>
         </Card>
-        
-        2. Add a link tag to your generated style sheet into the head section of your index.html and add the interop script import before the blazor was assembly script import<br/>
-        
-        <Card ClassName="my-3 p-1">
-            <CardContent ClassName="px-0">
-                <Highlight Language="html" Content="@HtmlContent" />
+
+        <Card>
+            <CardHeader>
+                <CardAction>
+                    <div class="flex size-8 items-center justify-center rounded-full bg-violet-500/15 text-sm font-semibold text-violet-400">5</div>
+                </CardAction>
+                <CardTitle>Add the PortalOutlet</CardTitle>
+                <CardDescription>Add the PortalOutlet component before the end of the body tag in your main layout.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm"><code class="font-mono">@PortalRazor</code></pre>
             </CardContent>
         </Card>
-        
-        3. And finally you can run the postcss build command (while being in the Styles folder).<br/>
-        You need to leave this running in the background when developing at your application in order for tailwind to rebuild your styles.<br/>
-        
-        <Card ClassName="my-2.5 p-1">
-            <CardContent ClassName="px-0">
-                <Highlight Language="bash" Content="@BuildCommandContent" />
+
+        <Card>
+            <CardHeader>
+                <CardAction>
+                    <div class="flex size-8 items-center justify-center rounded-full bg-violet-500/15 text-sm font-semibold text-violet-400">6</div>
+                </CardAction>
+                <CardTitle>Register the services</CardTitle>
+                <CardDescription>Add the service collection extension call to your Program.cs file.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm"><code class="font-mono">@ServiceCollectionContent</code></pre>
             </CardContent>
         </Card>
-    </CardContent>
-</Card>
+
+    </div>
+</section>
+
+<!-- Base styles & build -->
+<section class="mt-16">
+    <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">Base styles</div>
+    <h2 class="mt-3 text-2xl font-bold tracking-tight">Add the base styles &amp; build</h2>
+    <p class="mt-3 max-w-2xl text-muted-foreground">
+        Create the main styles file, reference it in index.html and start the PostCSS build.
+    </p>
+
+    <div class="mt-8 grid gap-4 lg:grid-cols-2">
+
+        <Card ClassName="lg:col-span-2">
+            <CardHeader>
+                <CardAction>
+                    <div class="flex size-8 items-center justify-center rounded-full bg-violet-500/15 text-sm font-semibold text-violet-400">7</div>
+                </CardAction>
+                <CardTitle>Create styles.css</CardTitle>
+                <CardDescription>Create the main styles file called styles.css in the Styles folder with the following content.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm"><code class="font-mono">@StylesContent</code></pre>
+            </CardContent>
+        </Card>
+
+        <Card>
+            <CardHeader>
+                <CardAction>
+                    <div class="flex size-8 items-center justify-center rounded-full bg-violet-500/15 text-sm font-semibold text-violet-400">8</div>
+                </CardAction>
+                <CardTitle>Update index.html</CardTitle>
+                <CardDescription>Add a link tag to your generated stylesheet in the head section of index.html, and add the interop script import before the Blazor WebAssembly script import.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm"><code class="font-mono">@HtmlContent</code></pre>
+            </CardContent>
+        </Card>
+
+        <Card>
+            <CardHeader>
+                <CardAction>
+                    <div class="flex size-8 items-center justify-center rounded-full bg-violet-500/15 text-sm font-semibold text-violet-400">9</div>
+                </CardAction>
+                <CardTitle>Build the styles</CardTitle>
+                <CardDescription>Run the PostCSS build command from the Styles folder. Keep it running in the background while developing so Tailwind can rebuild your styles.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm"><code class="font-mono">@BuildCommandContent</code></pre>
+            </CardContent>
+        </Card>
+
+    </div>
+</section>
+
+<!-- Next steps -->
+<section class="mt-16">
+    <h2 class="text-2xl font-bold tracking-tight">Next steps</h2>
+    <p class="mt-3 max-w-2xl text-muted-foreground">
+        Now that ShadcnBlazor is set up, take a look at what's available.
+    </p>
+
+    <div class="mt-8 grid gap-4 md:grid-cols-3">
+        <a href="/components" class="block">
+            <Card ClassName="h-full transition-colors hover:border-violet-500/40">
+                <CardContent ClassName="flex items-center gap-4">
+                    <div class="flex size-12 shrink-0 items-center justify-center rounded-xl bg-violet-500/15 text-violet-400">
+                        <ShapesIcon ClassName="size-6" />
+                    </div>
+                    <div class="grow">
+                        <CardTitle>Components</CardTitle>
+                        <CardDescription>Browse the core component library.</CardDescription>
+                    </div>
+                </CardContent>
+            </Card>
+        </a>
+        <a href="/extras" class="block">
+            <Card ClassName="h-full transition-colors hover:border-fuchsia-500/40">
+                <CardContent ClassName="flex items-center gap-4">
+                    <div class="flex size-12 shrink-0 items-center justify-center rounded-xl bg-fuchsia-500/15 text-fuchsia-400">
+                        <SparklesIcon ClassName="size-6" />
+                    </div>
+                    <div class="grow">
+                        <CardTitle>Extras</CardTitle>
+                        <CardDescription>Components that go beyond shadcn/ui.</CardDescription>
+                    </div>
+                </CardContent>
+            </Card>
+        </a>
+        <a href="/blocks" class="block">
+            <Card ClassName="h-full transition-colors hover:border-violet-500/40">
+                <CardContent ClassName="flex items-center gap-4">
+                    <div class="flex size-12 shrink-0 items-center justify-center rounded-xl bg-violet-500/15 text-violet-400">
+                        <BlocksIcon ClassName="size-6" />
+                    </div>
+                    <div class="grow">
+                        <CardTitle>Blocks</CardTitle>
+                        <CardDescription>Ready-made compositions to kick-start your UI.</CardDescription>
+                    </div>
+                </CardContent>
+            </Card>
+        </a>
+    </div>
+</section>
 
 @code
 {
-    private const string PostCssContent = "export default {\n  plugins: {\n    \"@tailwindcss/postcss\": {},\n  }\n}";
-    private const string StylesContent = "@import \"tailwindcss\";\n@import \"tw-animate-css\";\n\n@import \"../bin/ShadcnBlazor/scrollbar.css\";\n@import \"../bin/ShadcnBlazor/default-theme.css\";\n@source \"../bin/ShadcnBlazor/ShadcnBlazor.map\";\n\n@source \"../**/*.razor\";\n@source \"../**/*.cs\";\n@source \"../**/*.html\";\n\n@custom-variant dark (&:is(.dark *));\n\n#blazor-error-ui {\n    display: none;\n}\n\n@layer base {\n    * {\n        @apply border-border outline-ring/50;\n    }\n    body {\n        @apply bg-background text-foreground;\n    }\n}";
-    private const string InstallNugetContent = "dotnet add package ShadcnBlazor";
     private const string NpmInitContent = "mkdir Styles\nnpm init";
     private const string NpmInstallPostcssContent = "npm install tailwindcss @tailwindcss/postcss postcss postcss-cli tw-animate-css";
+    private const string PostCssContent = "export default {\n  plugins: {\n    \"@tailwindcss/postcss\": {},\n  }\n}";
+    private const string InstallNugetContent = "dotnet add package ShadcnBlazor";
+    private const string PortalRazor = "<!-- MainLayout.razor -->\n<PortalOutlet />";
+    private const string ServiceCollectionContent = "// Program.cs\nusing ShadcnBlazor;\n\nbuilder.Services.AddShadcnBlazor();";
+    private const string StylesContent = "@import \"tailwindcss\";\n@import \"tw-animate-css\";\n\n@import \"../bin/ShadcnBlazor/scrollbar.css\";\n@import \"../bin/ShadcnBlazor/default-theme.css\";\n@source \"../bin/ShadcnBlazor/ShadcnBlazor.map\";\n\n@source \"../**/*.razor\";\n@source \"../**/*.cs\";\n@source \"../**/*.html\";\n\n@custom-variant dark (&:is(.dark *));\n\n#blazor-error-ui {\n    display: none;\n}\n\n@layer base {\n    * {\n        @apply border-border outline-ring/50;\n    }\n    body {\n        @apply bg-background text-foreground;\n    }\n}";
     private const string HtmlContent = "...\n<link rel=\"stylesheet\" href=\"/style.min.css\"/>\n...\n\n\n...\n<script src=\"/_content/ShadcnBlazor/interop.js\" defer></script>\n...";
     private const string BuildCommandContent = "npx postcss styles.css -o ../wwwroot/style.min.css --watch";
-    private const string ServiceCollectionContent = "using ShadcnBlazor;\n\nbuilder.Services.AddShadcnBlazor();";
-    private const string PortalRazor = "<PortalOutlet />";
 }

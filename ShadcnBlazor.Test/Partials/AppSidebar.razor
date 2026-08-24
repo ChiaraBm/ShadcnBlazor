@@ -26,7 +26,6 @@
 
     <SidebarContent>
         <SidebarGroup>
-            <SidebarGroupLabel>Fancy Group</SidebarGroupLabel>
             <SidebarGroupContent>
                 <SidebarMenu>
                     @foreach (var item in Items)
@@ -65,13 +64,6 @@
         Items.AddRange([
             new()
             {
-                Name = "Overview",
-                IconType = typeof(LayoutDashboardIcon),
-                Path = "/",
-                IsExactPath = true
-            },
-            new()
-            {
                 Name = "Installation",
                 IconType = typeof(WrenchIcon),
                 Path = "/installation",
@@ -89,6 +81,13 @@
                 Name = "Extras",
                 IconType = typeof(SparklesIcon),
                 Path = "/extras",
+                IsExactPath = false
+            },
+            new()
+            {
+                Name = "Blocks",
+                IconType = typeof(BlocksIcon),
+                Path = "/blocks",
                 IsExactPath = false
             },
         ]);
