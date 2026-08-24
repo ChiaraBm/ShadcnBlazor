@@ -1,109 +1,135 @@
 ﻿@page "/components"
 @using LucideBlazor
-@using ShadcnBlazor.Items
+@using ShadcnBlazor.Cards
+@using ShadcnBlazor.Badges
 
-<h1 class="text-xl font-semibold">Components</h1>
-<div class="text-muted-foreground">
-    Here you can find all the components available in the library. We are working on porting more components.
+<!-- Page header -->
+<header>
+    <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">Library</div>
+    <h1 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Components</h1>
+    <p class="mt-4 max-w-2xl text-muted-foreground">
+        Here you can find all the components available in the library. We are working on porting more components.
+    </p>
+</header>
+
+<!-- Stats -->
+<div class="mt-6 flex flex-wrap gap-2">
+    <Badge Variant="BadgeVariant.Secondary" ClassName="gap-1.5 py-1">
+        <span class="size-1.5 rounded-full bg-violet-400"></span>
+        @ReadyCount available
+    </Badge>
+    <Badge Variant="BadgeVariant.Secondary" ClassName="gap-1.5 py-1">
+        <span class="size-1.5 animate-pulse rounded-full bg-violet-400"></span>
+        @InProgressCount in progress
+    </Badge>
 </div>
 
-<div class="grid grid-col-1 md:grid-cols-4 2xl:grid-cols-6 gap-8 mt-8">
+<!-- Grid -->
+<div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
     @foreach (var item in Items)
     {
-        <div class="col-span-1">
-
-            @if (item.InProgress)
-            {
-                <Item Variant="ItemVariant.Outline" Size="ItemSize.Sm"
-                      ClassName="pointer-events-none opacity-50 w-full">
-                    <Slot>
-                        <div @attributes="context">
-                            <ItemContent>
-                                <ItemTitle>@item.Name</ItemTitle>
-                            </ItemContent>
-                            <ItemActions>
-                                <ChevronRightIcon ClassName="size-4"/>
-                            </ItemActions>
+        if (item.InProgress)
+        {
+            <div class="block h-full">
+                <Card ClassName="h-full opacity-50">
+                    <CardContent ClassName="flex items-center gap-4">
+                        @IconTileFor(item)
+                        <div class="grow min-w-0">
+                            <CardTitle ClassName="truncate">@item.Name</CardTitle>
+                            <CardDescription>Coming soon</CardDescription>
                         </div>
-                    </Slot>
-                </Item>
-            }
-            else
-            {
-                <Item Variant="ItemVariant.Outline" Size="ItemSize.Sm" ClassName="w-full">
-                    <Slot>
-                        <a href="/components/@item.Url" @attributes="context">
-                            <ItemContent>
-                                <ItemTitle>@item.Name</ItemTitle>
-                            </ItemContent>
-                            <ItemActions>
-                                <ChevronRightIcon ClassName="size-4" />
-                            </ItemActions>
-                        </a>
-                    </Slot>
-                </Item>
-            }
-        </div>
+                        <span class="size-2 shrink-0 animate-pulse rounded-full bg-violet-400"></span>
+                    </CardContent>
+                </Card>
+            </div>
+        }
+        else
+        {
+            <a href="/components/@item.Url" class="block h-full">
+                <Card ClassName="group h-full transition-colors hover:border-violet-500/40">
+                    <CardContent ClassName="flex items-center gap-4">
+                        @IconTileFor(item)
+                        <div class="grow min-w-0">
+                            <CardTitle ClassName="truncate">@item.Name</CardTitle>
+                        </div>
+                        <ChevronRightIcon ClassName="size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
+                    </CardContent>
+                </Card>
+            </a>
+        }
     }
 </div>
 
 @code
 {
+    // Renders the violet icon tile for the given item.
+    private RenderFragment IconTileFor(ComponentItem item) => @<div class="flex size-12 shrink-0 items-center justify-center rounded-xl bg-violet-500/15 text-violet-400 transition-colors group-hover:bg-violet-500/25">
+        <DynamicComponent Type="item.IconType" Parameters="IconParameters" />
+    </div>;
+
+    private static readonly Dictionary<string, object> IconParameters = new()
+    {
+        ["ClassName"] = "size-6"
+    };
+
+    private int ReadyCount => Items.Count(i => !i.InProgress);
+    private int InProgressCount => Items.Count(i => i.InProgress);
+
     private readonly List<ComponentItem> Items =
     [
-        new(false, "accordion", "Accordion"),
-        new(false, "alertDialog", "Alert Dialog"),
-        new(false, "alert", "Alert"),
-        new(false, "avatar", "Avatar"),
-        new(false, "badge", "Badge"),
-        new(false, "breadcrumb", "Breadcrumb"),
-        new(false, "buttonGroup", "Button Group"),
-        new(false, "button", "Button"),
-        new(false, "calendar", "Calendar"),
-        new(false, "card", "Card"),
-        new(false, "carousel", "Carousel"),
-        new(true, "chart", "Chart"),
-        new(false, "checkbox", "Checkbox"),
-        new(false, "collapsible", "Collapsible"),
-        new(false, "command", "Command"),
-        new(false, "contextMenu", "Context Menu"),
-        new(false, "dataTable", "Data Table"),
-        new(false, "datePicker", "Date Picker"),
-        new(false, "dialog", "Dialog"),
-        new(false, "drawer", "Drawer"),
-        new(false, "dropdownMenu", "Dropdown Menu"),
-        new(false, "empty", "Empty"),
-        new(false, "field", "Field"),
-        new(false, "hoverCard", "Hover Card"),
-        new(false, "inputGroup", "Input Group"),
-        new(false, "inputOtp", "Input OTP"),
-        new(false, "input", "Input"),
-        new(false, "item", "Item"),
-        new(false, "kbd", "Kbd"),
-        new(false, "label", "Label"),
-        new(false, "menubar", "Menubar"),
-        new(false, "nativeSelect", "Native Select"),
-        new(true, "navigationMenu", "Navigation Menu"),
-        new(false, "pagination", "Pagination"),
-        new(false, "popover", "Popover"),
-        new(false, "progress", "Progress"),
-        new(false, "radioGroup", "Radio Group"),
-        new(true, "resizeable", "Resizable"),
-        new(true, "scrollArea", "Scroll Area"),
-        new(false, "select", "Select"),
-        new(false, "separator", "Separator"),
-        new(false, "sheet", "Sheet"),
-        new(false, "skeleton", "Skeleton"),
-        new(false, "slider", "Slider"),
-        new(false, "sonner", "Sonner"),
-        new(false, "spinner", "Spinner"),
-        new(false, "switch", "Switch"),
-        new(false, "table", "Table"),
-        new(false, "tabs", "Tabs"),
-        new(false, "toggleGroup", "Toggle Group"),
-        new(false, "toggle", "Toggle"),
-        new(false, "tooltip", "Tooltip"),
+        new(false, "accordion", "Accordion", typeof(ChevronsUpDownIcon)),
+        new(false, "alertDialog", "Alert Dialog", typeof(CircleAlertIcon)),
+        new(false, "alert", "Alert", typeof(CircleCheckBigIcon)),
+        new(false, "avatar", "Avatar", typeof(UserIcon)),
+        new(false, "badge", "Badge", typeof(BadgeCheckIcon)),
+        new(false, "breadcrumb", "Breadcrumb", typeof(ChevronsRightIcon)),
+        new(false, "buttonGroup", "Button Group", typeof(BlocksIcon)),
+        new(false, "button", "Button", typeof(ShapesIcon)),
+        new(false, "calendar", "Calendar", typeof(CalendarIcon)),
+        new(false, "card", "Card", typeof(BlocksIcon)),
+        new(false, "carousel", "Carousel", typeof(ChevronsRightIcon)),
+        new(true, "chart", "Chart", typeof(SlidersHorizontalIcon)),
+        new(false, "checkbox", "Checkbox", typeof(CheckIcon)),
+        new(false, "collapsible", "Collapsible", typeof(ChevronsUpDownIcon)),
+        new(false, "command", "Command", typeof(SearchIcon)),
+        new(false, "contextMenu", "Context Menu", typeof(MenuIcon)),
+        new(false, "dataTable", "Data Table", typeof(Columns3CogIcon)),
+        new(false, "datePicker", "Date Picker", typeof(CalendarIcon)),
+        new(false, "dialog", "Dialog", typeof(FileTextIcon)),
+        new(false, "drawer", "Drawer", typeof(FolderOpenIcon)),
+        new(false, "dropdownMenu", "Dropdown Menu", typeof(MenuIcon)),
+        new(false, "empty", "Empty", typeof(FolderOpenIcon)),
+        new(false, "field", "Field", typeof(FileTextIcon)),
+        new(false, "hoverCard", "Hover Card", typeof(ShapesIcon)),
+        new(false, "inputGroup", "Input Group", typeof(SlidersHorizontalIcon)),
+        new(false, "inputOtp", "Input OTP", typeof(CalculatorIcon)),
+        new(false, "input", "Input", typeof(FileTextIcon)),
+        new(false, "item", "Item", typeof(BlocksIcon)),
+        new(false, "kbd", "Kbd", typeof(CalculatorIcon)),
+        new(false, "label", "Label", typeof(FileTextIcon)),
+        new(false, "menubar", "Menubar", typeof(MenuIcon)),
+        new(false, "nativeSelect", "Native Select", typeof(ChevronDownIcon)),
+        new(true, "navigationMenu", "Navigation Menu", typeof(MenuIcon)),
+        new(false, "pagination", "Pagination", typeof(ChevronsRightIcon)),
+        new(false, "popover", "Popover", typeof(ShapesIcon)),
+        new(false, "progress", "Progress", typeof(SlidersHorizontalIcon)),
+        new(false, "radioGroup", "Radio Group", typeof(CircleCheckBigIcon)),
+        new(true, "resizeable", "Resizable", typeof(BlocksIcon)),
+        new(true, "scrollArea", "Scroll Area", typeof(FolderOpenIcon)),
+        new(false, "select", "Select", typeof(ChevronDownIcon)),
+        new(false, "separator", "Separator", typeof(ChevronsUpDownIcon)),
+        new(false, "sheet", "Sheet", typeof(FolderOpenIcon)),
+        new(false, "skeleton", "Skeleton", typeof(LoaderCircleIcon)),
+        new(false, "slider", "Slider", typeof(SlidersHorizontalIcon)),
+        new(false, "sonner", "Sonner", typeof(BellIcon)),
+        new(false, "spinner", "Spinner", typeof(LoaderCircleIcon)),
+        new(false, "switch", "Switch", typeof(SlidersHorizontalIcon)),
+        new(false, "table", "Table", typeof(Columns3CogIcon)),
+        new(false, "tabs", "Tabs", typeof(MenuIcon)),
+        new(false, "toggleGroup", "Toggle Group", typeof(BlocksIcon)),
+        new(false, "toggle", "Toggle", typeof(SlidersHorizontalIcon)),
+        new(false, "tooltip", "Tooltip", typeof(ShapesIcon))
     ];
 
-    record ComponentItem(bool InProgress, string Url, string Name);
+    record ComponentItem(bool InProgress, string Url, string Name, Type IconType);
 }
