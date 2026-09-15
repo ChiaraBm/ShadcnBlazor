@@ -1,0 +1,22 @@
+@inherits ShadcnBase
+
+<span data-slot="marker-content"
+      class="@Classes"
+      @attributes="Props">
+    @ChildContent
+</span>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "min-w-0 wrap-break-word group-data-[variant=separator]/marker:flex-none group-data-[variant=separator]/marker:text-center *:[a]:underline *:[a]:underline-offset-3 *:[a]:hover:text-foreground",
+            ClassName
+        );
+    }
+}

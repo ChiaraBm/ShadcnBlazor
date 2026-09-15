@@ -1,0 +1,48 @@
+@inherits ShadcnBase
+
+<div data-slot="bubble-reactions"
+     data-align="@Align.ToString().ToLowerInvariant()"
+     data-side="@Side.ToString().ToLowerInvariant()"
+     class="@Classes"
+     @attributes="Props">
+    @ChildContent
+</div>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public BubbleAlign Align { get; set; } = BubbleAlign.End;
+    [Parameter] public BubbleReactionsSide Side { get; set; } = BubbleReactionsSide.Bottom;
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "absolute z-10 flex w-fit shrink-0 items-center justify-center gap-1 rounded-full bg-muted px-1.5 py-0.5 text-sm ring-3 ring-card has-[button]:p-0",
+            GetSideCss(),
+            GetAlignCss(),
+            ClassName
+        );
+    }
+
+    private string GetSideCss()
+    {
+        return Side switch
+        {
+            BubbleReactionsSide.Top => "top-0 -translate-y-3/4",
+            BubbleReactionsSide.Bottom => "bottom-0 translate-y-3/4",
+            _ => throw new ArgumentOutOfRangeException()
+        };
+    }
+
+    private string GetAlignCss()
+    {
+        return Align switch
+        {
+            BubbleAlign.Start => "left-3",
+            BubbleAlign.End => "right-3",
+            _ => throw new ArgumentOutOfRangeException()
+        };
+    }
+}

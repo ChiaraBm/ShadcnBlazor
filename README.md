@@ -112,6 +112,7 @@ The core package covers most of the shadcn/ui set:
 | Overlays & menus | Alert Dialog, Command, Context Menu, Dialog, Drawer, Dropdown Menu, Hover Card, Menubar, Popover, Sheet |
 | Navigation | Breadcrumb, Pagination, Tabs |
 | Data display | Table, Data Table |
+| Chat & messaging | Bubble, Marker, Message |
 | Feedback & status | Alert, Badge, Empty, Progress, Skeleton, Sonner, Spinner |
 | Layout & misc | Accordion, Avatar, Calendar, Card, Carousel, Collapsible, Item, Kbd, Separator |
 

@@ -1,0 +1,79 @@
+﻿@using ShadcnBlazor.Avatars
+@using ShadcnBlazor.Bubbles
+@using ShadcnBlazor.Markers
+@using ShadcnBlazor.Messages
+
+<div class="flex w-full max-w-sm flex-col gap-6 py-12">
+    <Message Align="MessageAlign.End">
+        <MessageAvatar>
+            <Avatar>
+                <AvatarImage src="https://github.com/ChiaraBm.png" alt="me" />
+                <AvatarFallback>ME</AvatarFallback>
+            </Avatar>
+        </MessageAvatar>
+        <MessageContent>
+            <Bubble>
+                <BubbleContent>I'm updating the landing page copy now, give me a few minutes.</BubbleContent>
+            </Bubble>
+        </MessageContent>
+    </Message>
+
+    <Message>
+        <MessageAvatar>
+            <Avatar>
+                <AvatarImage src="https://github.com/jesperrichert.png" alt="jesper" />
+                <AvatarFallback>J</AvatarFallback>
+            </Avatar>
+        </MessageAvatar>
+        <MessageContent>
+            <Bubble Variant="BubbleVariant.Muted">
+                <BubbleContent>The demo is ready in twenty. We're close.</BubbleContent>
+            </Bubble>
+        </MessageContent>
+    </Message>
+
+    <Message Align="MessageAlign.End">
+        <MessageAvatar>
+            <Avatar>
+                <AvatarImage src="https://github.com/ChiaraBm.png" alt="me" />
+                <AvatarFallback>ME</AvatarFallback>
+            </Avatar>
+        </MessageAvatar>
+        <MessageContent>
+            <Bubble>
+                <BubbleContent>Done. The hero section looks sharp.</BubbleContent>
+            </Bubble>
+            <MessageFooter>Read</MessageFooter>
+        </MessageContent>
+    </Message>
+
+    <Message>
+        <MessageAvatar>
+            <Avatar>
+                <AvatarImage src="https://github.com/jesperrichert.png" alt="jesper" />
+                <AvatarFallback>J</AvatarFallback>
+            </Avatar>
+        </MessageAvatar>
+        <MessageContent>
+            <BubbleGroup>
+                <Bubble Variant="BubbleVariant.Muted">
+                    <BubbleContent>
+                        The preview is looking clean.
+                    </BubbleContent>
+                </Bubble>
+                <Bubble Variant="BubbleVariant.Muted">
+                    <BubbleContent>Great, I'll share the demo link tonight.</BubbleContent>
+                    <BubbleReactions aria-label="Reactions: thumbs up">
+                        <span>👍</span>
+                    </BubbleReactions>
+                </Bubble>
+            </BubbleGroup>
+        </MessageContent>
+    </Message>
+
+    <Marker role="status">
+        <MarkerContent ClassName="shimmer">
+            <span class="font-medium">Jesper</span> is typing...
+        </MarkerContent>
+    </Marker>
+</div>

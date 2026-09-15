@@ -1,0 +1,27 @@
+@using LucideBlazor
+@using ShadcnBlazor.Markers
+@using ShadcnBlazor.Spinners
+
+<div class="flex w-full max-w-sm flex-col gap-8 py-12">
+    <Marker>
+        <MarkerIcon>
+            <GitBranchIcon />
+        </MarkerIcon>
+        <MarkerContent>Checked out feature/chat</MarkerContent>
+    </Marker>
+    <Marker role="status">
+        <MarkerIcon>
+            <Spinner />
+        </MarkerIcon>
+        <MarkerContent ClassName="shimmer">Compiling the solution...</MarkerContent>
+    </Marker>
+    <Marker Variant="MarkerVariant.Separator">
+        <MarkerContent>Build finished</MarkerContent>
+    </Marker>
+    <Marker>
+        <MarkerIcon>
+            <FileSearchIcon />
+        </MarkerIcon>
+        <MarkerContent>Scanned 12 files</MarkerContent>
+    </Marker>
+</div>

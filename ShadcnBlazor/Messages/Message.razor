@@ -1,0 +1,24 @@
+@inherits ShadcnBase
+
+<div data-slot="message"
+     data-align="@Align.ToString().ToLowerInvariant()"
+     class="@Classes"
+     @attributes="Props">
+    @ChildContent
+</div>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public MessageAlign Align { get; set; } = MessageAlign.Start;
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "group/message relative flex w-full min-w-0 gap-2 text-sm data-[align=end]:flex-row-reverse",
+            ClassName
+        );
+    }
+}

@@ -3,6 +3,7 @@
 @import "./shadcnblazor/default-theme.css";
 
 @import "./shadcnblazor/scrollbar.css";
+@import "./shadcnblazor/shimmer.css";
 
 @source "../**/*.razor";
 @source "../**/*.cs";

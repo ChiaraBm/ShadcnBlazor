@@ -1,0 +1,23 @@
+@inherits ShadcnBase
+
+<span data-slot="marker-icon"
+      aria-hidden="true"
+      class="@Classes"
+      @attributes="Props">
+    @ChildContent
+</span>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "size-4 shrink-0 [&_svg:not([class*='size-'])]:size-4",
+            ClassName
+        );
+    }
+}

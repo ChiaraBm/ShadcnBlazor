@@ -1,0 +1,34 @@
+﻿@using ShadcnBlazor.Bubbles
+
+<div class="flex w-full max-w-sm flex-col gap-8 py-12">
+    <Bubble Align="BubbleAlign.End">
+        <BubbleContent>Morning! Ready to poke at the new chat components?</BubbleContent>
+    </Bubble>
+    <BubbleGroup>
+        <Bubble Variant="BubbleVariant.Muted">
+            <BubbleContent>Ready. The Message port just landed.</BubbleContent>
+        </Bubble>
+        <Bubble Variant="BubbleVariant.Muted">
+            <BubbleContent>
+                Bubbles, markers and shimmer
+            </BubbleContent>
+            <BubbleReactions role="img" aria-label="Reaction: thumbs up">
+                <span>👍</span>
+            </BubbleReactions>
+        </Bubble>
+    </BubbleGroup>
+    <Bubble Align="BubbleAlign.End">
+        <BubbleContent>Perfect timing, I was about to demo it.</BubbleContent>
+    </Bubble>
+    <Bubble Variant="BubbleVariant.Muted">
+        <BubbleContent>
+            Save me a seat next time. I'll bring the coffee.
+        </BubbleContent>
+        <BubbleReactions role="img" aria-label="Reactions: thumbs up, fire, eyes, and 2 more">
+            <span>👍</span>
+            <span>🔥</span>
+            <span>👀</span>
+            <span>+2</span>
+        </BubbleReactions>
+    </Bubble>
+</div>
