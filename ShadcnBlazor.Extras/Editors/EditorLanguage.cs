@@ -16,5 +16,6 @@ public enum EditorLanguage
     Dockerfile = 11,
     Go = 12,
     Lua = 13,
-    Properties = 14
+    Properties = 14,
+    Csharp = 15
 }

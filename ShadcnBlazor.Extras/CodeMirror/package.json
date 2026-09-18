@@ -24,6 +24,7 @@
     "@codemirror/state": "^6.5.3",
     "@codemirror/view": "^6.39.8",
     "@fsegurai/codemirror-theme-bundle": "^6.3.0",
+    "@replit/codemirror-lang-csharp": "^6.2.0",
     "codemirror": "^6.0.2"
   },
   "devDependencies": {
