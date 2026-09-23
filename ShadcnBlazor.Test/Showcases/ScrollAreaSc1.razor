@@ -1,0 +1,160 @@
+﻿@using ShadcnBlazor.ScrollArea
+@using ShadcnBlazor.Separators
+
+<div class="mt-5">
+    <span class="underline-offset-4 group-hover:underline font-extrabold text-2xl">Vertical</span>
+    <p>Use <code>ScrollBar</code> with <code>Orientation="@ScrollBarOrientation.Vertical"</code> for vertical scrolling.</p>
+</div>
+
+<div class="group relative mt-4 mb-12 flex flex-col">
+<ScrollArea ClassName="h-72 w-48 rounded-md border">
+    <div class="p-4">
+        <h4 class="mb-4 text-sm leading-none font-medium">Items</h4>
+        @foreach (var item in Items)
+        {
+            <div class="text-sm">
+                @item
+            </div>
+            <Separator ClassName="my-2"/>
+        }
+    </div>
+</ScrollArea>
+</div>
+
+<div class="mt-5">
+    <span class="underline-offset-4 group-hover:underline font-extrabold text-2xl">Horizontal</span>
+    <p>Use <code>ScrollBar</code> with <code>Orientation="@ScrollBarOrientation.Horizontal"</code> for horizontal scrolling.</p>
+</div>
+
+<div class="group relative mt-4 mb-12 flex flex-col">
+    <ScrollArea ClassName="rounded-md border whitespace-nowrap w-80">
+        <div class="flex w-max space-x-4 p-4">
+            @foreach (var item in Items)
+            {
+                <div class="shrink-0">
+                    <div class="overflow-hidden rounded-md">
+                        @item
+                    </div>
+                </div>
+            }
+        </div>
+        <ScrollBar
+            Orientation="@ScrollBarOrientation.Horizontal"
+        />
+    </ScrollArea>
+</div>
+
+@code
+{
+    private List<string> Items { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Items =
+        [
+            "Jesper",
+            "Blo.by",
+            "Chiara",
+            "ShadcnBlazor",
+            "LucideBlazor",
+            "C#",
+            "Moonlight",
+            "shadcn/ui",
+            ".NET",
+            "ASP.NET Core",
+            "Blazor",
+            "Razor",
+            "TypeScript",
+            "JavaScript",
+            "React",
+            "Next.js",
+            "Tailwind CSS",
+            "Radix UI",
+            "Lucide",
+            "GitHub",
+            "Git",
+            "Rust",
+            "Kotlin",
+            "Go",
+            "Java",
+            "PostgreSQL",
+            "Redis",
+            "Docker",
+            "Linux",
+            "Fedora",
+            "Proxmox",
+            "Hetzner",
+            "Cloudflare",
+            "Minecraft",
+            "PaperMC",
+            "Velocity",
+            "Spigot",
+            "Discord",
+            "Discord.js",
+            "Node.js",
+            "Prisma",
+            "SQLite",
+            "REST API",
+            "GraphQL",
+            "WebSockets",
+            "gRPC",
+            "OpenAPI",
+            "Swagger",
+            "Tauri",
+            "Electron",
+            "Vite",
+            "pnpm",
+            "npm",
+            "Gradle",
+            "NuGet",
+            "Maven",
+            "Figma",
+            "Framer",
+            "Obsidian",
+            "Notion",
+            "VS Code",
+            "JetBrains",
+            "Rider",
+            "IntelliJ IDEA",
+            "Visual Studio",
+            "GitHub Actions",
+            "CI/CD",
+            "Open Source",
+            "UI/UX",
+            "Design Systems",
+            "Dark Mode",
+            "Material Design",
+            "Fluent UI",
+            "Heroicons",
+            "Tabler Icons",
+            "Font Awesome",
+            "Aceternity UI",
+            "Magic UI",
+            "21st.dev",
+            "Vercel",
+            "Supabase",
+            "Firebase",
+            "Cloudflare Workers",
+            "Railway",
+            "Coolify",
+            "Grafana",
+            "Prometheus",
+            "InfluxDB",
+            "MQTT",
+            "Linux",
+            "Networking",
+            "API Design",
+            "Software Architecture",
+            "Full Stack",
+            "Backend",
+            "Frontend",
+            "DevOps",
+            "Automation",
+            "AI",
+            "LLM",
+            "Ollama",
+            "Local AI"
+        ];
+    }
+
+}
