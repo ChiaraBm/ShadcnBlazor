@@ -1,25 +1,124 @@
+@using System.Globalization
+@using System.Text
 @inherits ShadcnBase
 
-<div
-    data-slot="scroll-area-scrollbar"
-    data-orientation="@Orientation.ToString().ToLower()"
-    orientation="@Orientation.ToString().ToLower()"
-    @attributes="Props"
-    class="@Classes"
->
-    <div data-slot="scroll-area-thumb"
-         class="relative flex-1 rounded-full bg-border">
+@if (
+    ScrollArea.ScrollBarVisibility == ScrollBarVisibility.Visible)
+{
+    <div
+        data-slot="scroll-area-scrollbar"
+        data-orientation="@Orientation.ToString().ToLower()"
+        data-state="@ScrollArea.ScrollBarVisibility.ToString().ToLower()"
+        data-horizontal="@(Orientation == ScrollBarOrientation.Horizontal)"
+        data-vertical="@(Orientation == ScrollBarOrientation.Vertical)"
+        @attributes="Props"
+        class="@Classes"
+        style="@BuildStyle()"
+    >
+        <div data-slot="scroll-area-thumb"
+             data-state="@ScrollArea.ScrollBarVisibility.ToString().ToLower()"
+             class="relative flex-1 rounded-full bg-border"
+             style="@BuildThumbStyle()"
+        >
+        </div>
     </div>
-</div>
+}
 
 @code
 {
+    [CascadingParameter] public required ScrollArea ScrollArea { get; set; }
     [Parameter] public ScrollBarOrientation Orientation { get; set; } = ScrollBarOrientation.Vertical;
+
+    internal double TransformTx = 0;
+    internal double TransformTy = 0;
+
     private string? Classes;
+    private ScrollbarStyles ScrollbarStyle { get; set; } = new();
+    private ScrollBarThumbStyles ScrollBarThumbStyle { get; set; } = new();
 
     protected override void OnParametersSet()
     {
-        Classes = Cn("flex touch-none p-px transition-colors select-none data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent", ClassName);
+        ScrollArea.ScrollBar ??= this;
+
+        Classes = Cn(
+            "absolute flex touch-none p-px transition-colors select-none data-horizontal:border-l-transparent data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent",
+            ClassName);
+
+        switch (ScrollArea.ScrollAreaDirection)
+        {
+            case ScrollAreaDirection.Ltr:
+                if (Orientation == ScrollBarOrientation.Vertical)
+                    ScrollbarStyle.Right = 0;
+                else
+                    ScrollbarStyle.Left = 0;
+                break;
+            case ScrollAreaDirection.Rtl:
+                if (Orientation == ScrollBarOrientation.Vertical)
+                    ScrollbarStyle.Left = 0;
+                else
+                    ScrollbarStyle.Right = 0;
+                break;
+        }
+
+        switch (Orientation)
+        {
+            case ScrollBarOrientation.Vertical:
+                ScrollbarStyle.Top = 0;
+                ScrollbarStyle.Bottom = 10;
+                ScrollBarThumbStyle.Height = 10;
+                break;
+            case ScrollBarOrientation.Horizontal:
+                ScrollBarThumbStyle.Width = 10;
+                ScrollbarStyle.Bottom = 0;
+                break;
+        }
+    }
+
+    private string BuildStyle()
+    {
+        var sb = new StringBuilder();
+        if (ScrollbarStyle.Top != null)
+            sb.Append($"top: {ScrollbarStyle.Top.Value.ToString(CultureInfo.InvariantCulture)}px;");
+        if (ScrollbarStyle.Left != null)
+            sb.Append($"left: {ScrollbarStyle.Left.Value.ToString(CultureInfo.InvariantCulture)}px;");
+        if (ScrollbarStyle.Right != null)
+            sb.Append($"right: {ScrollbarStyle.Right.Value.ToString(CultureInfo.InvariantCulture)}px;");
+        if (ScrollbarStyle.Bottom != null)
+            sb.Append($"bottom: {ScrollbarStyle.Bottom.Value.ToString(CultureInfo.InvariantCulture)}px;");
+        return sb.ToString();
+    }
+
+    private string BuildThumbStyle()
+    {
+        var sb = new StringBuilder();
+        sb.Append($"transform: translate3d({TransformTx.ToString(CultureInfo.InvariantCulture)}px, {TransformTy.ToString(CultureInfo.InvariantCulture)}px, 0px);");
+        if (ScrollBarThumbStyle.Width != null)
+        {
+            sb.Append($"width: {ScrollBarThumbStyle.Width.Value.ToString(CultureInfo.InvariantCulture)}px;");
+        }
+
+        if (ScrollBarThumbStyle.Height != null)
+        {
+            sb.Append($"height: {ScrollBarThumbStyle.Height.Value.ToString(CultureInfo.InvariantCulture)}px;");
+        }
+
+        return sb.ToString();
+    }
+
+    internal async Task RefreshAsync() => await InvokeAsync(StateHasChanged);
+
+    internal class ScrollbarStyles
+    {
+        public double? Left { get; set; }
+        public double? Top { get; set; }
+        public double? Right { get; set; }
+        public double? Bottom { get; set; }
+    }
+
+    internal class ScrollBarThumbStyles
+    {
+        public double? Width { get; set; }
+        public double? Height { get; set; }
     }
 
 }

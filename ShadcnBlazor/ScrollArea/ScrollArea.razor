@@ -1,26 +1,106 @@
+@using System.Text.Json
 @inherits ShadcnBase
 
-<div
-    data-slot="scroll-area"
-    class="@Classes"
-    @attributes="Props">
+<CascadingValue TValue="ScrollArea" Value="this">
     <div
-        data-slot="scroll-area-viewport"
-        class="overflow-auto size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1">
-        @ChildContent
+        data-slot="scroll-area"
+        class="@Classes"
+        @attributes="Props"
+        @onmouseover="@OnHoverAsync"
+        @onmouseleave="@OnLeaveAsync"
+        @onscroll="OnScroll"
+    >
+        <style>
+            [data-radix-scroll-area-viewport] {
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            [data-radix-scroll-area-viewport]::-webkit-scrollbar {
+                display: none
+            }
+        </style>
+        <div
+            data-radix-scroll-area-viewport
+            data-slot="scroll-area-viewport"
+            class="size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1"
+            style="overflow: scroll">
+            @ChildContent
+        </div>
+        @if (ShouldRenderScrollBar)
+        {
+            <ScrollBar/>
+        }
     </div>
-    <ScrollBar/>
-</div>
+</CascadingValue>
 
 @code
 {
+    // TODO: Enable scrollbar when content is hidden.
     [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public ScrollAreaType? ScrollAreaType { get; set; } = ShadcnBlazor.ScrollArea.ScrollAreaType.Hover;
+    [Parameter] public ScrollAreaDirection? ScrollAreaDirection { get; set; } = ShadcnBlazor.ScrollArea.ScrollAreaDirection.Ltr;
+    [Parameter] public int ScrollHideDelay { get; set; } = 600;
+
+    internal ScrollBarVisibility ScrollBarVisibility = ScrollBarVisibility.Hidden;
+    internal ScrollBar? ScrollBar = null;
+    internal bool ShouldRenderScrollBar = false;
 
     private string? Classes;
 
     protected override void OnParametersSet()
     {
         Classes = Cn("relative", ClassName);
+        if (ScrollAreaType == ShadcnBlazor.ScrollArea.ScrollAreaType.Always)
+            ScrollBarVisibility = ScrollBarVisibility.Visible;
     }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        if (ScrollBar == null)
+        {
+            ShouldRenderScrollBar = true;
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+    private async Task OnHoverAsync(MouseEventArgs args)
+    {
+        if (ScrollAreaType != ShadcnBlazor.ScrollArea.ScrollAreaType.Hover) return;
+        await Task.Delay(ScrollHideDelay);
+        ScrollBarVisibility = ScrollBarVisibility.Visible;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task OnLeaveAsync()
+    {
+        if (ScrollAreaType != ShadcnBlazor.ScrollArea.ScrollAreaType.Hover) return;
+        await Task.Delay(ScrollHideDelay);
+        ScrollBarVisibility = ScrollBarVisibility.Hidden;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task OnScroll(EventArgs args)
+    {
+        Console.WriteLine(JsonSerializer.Serialize(args));
+        ScrollBarVisibility = ScrollBarVisibility.Visible;
+
+        switch (ScrollBar.Orientation)
+        {
+            case ScrollBarOrientation.Horizontal:
+
+                break;
+            case ScrollBarOrientation.Vertical:
+
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        await ScrollBar.RefreshAsync();
+        await InvokeAsync(StateHasChanged);
+    }
 }
