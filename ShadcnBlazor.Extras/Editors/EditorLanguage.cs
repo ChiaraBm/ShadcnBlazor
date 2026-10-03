@@ -17,5 +17,6 @@ public enum EditorLanguage
     Go = 12,
     Lua = 13,
     Properties = 14,
-    Csharp = 15
+    Csharp = 15,
+    Nix = 16
 }

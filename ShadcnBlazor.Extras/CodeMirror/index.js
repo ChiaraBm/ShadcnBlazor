@@ -18,6 +18,7 @@ import {properties} from "@codemirror/legacy-modes/mode/properties";
 import {StreamLanguage} from "@codemirror/language"
 import {githubDark} from "@fsegurai/codemirror-theme-bundle";
 import {csharp} from "@replit/codemirror-lang-csharp";
+import {nix} from "@replit/codemirror-lang-nix";
 
 const roundedTheme = EditorView.theme({
     "&": {
@@ -72,9 +73,12 @@ function getLanguageExtension(language) {
 
         case "properties":
             return StreamLanguage.define(properties);
-            
+
         case "csharp":
             return csharp();
+
+        case "nix":
+            return nix();
 
         default:
             return javascript();
