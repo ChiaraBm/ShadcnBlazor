@@ -1,0 +1,122 @@
+@using System.Text.Json
+@using Microsoft.JSInterop
+@inherits ShadcnBase
+@inject ScrollBarInteropService ScrollBarInteropService
+
+<CascadingValue TValue="ScrollArea" Value="this">
+    <div
+        data-slot="scroll-area"
+        class="@Classes"
+        @attributes="@Props"
+        @onmouseenter="@OnHoverAsync"
+        @onmouseleave="@OnHoverEndAsync"
+    >
+        <style>
+            [data-shadcnblazor-scroll-area-viewport] {
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            [data-shadcnblazor-scroll-area-viewport]::-webkit-scrollbar {
+                display: none
+            }
+        </style>
+        <div
+            @ref="ScrollAreaElement"
+            data-shadcnblazor-scroll-area-viewport
+            data-slot="scroll-area-viewport"
+            class="size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1"
+            style="overflow: scroll"
+            @onscroll="OnScroll"
+        >
+            @ChildContent
+        </div>
+        @if (ShouldRenderScrollBar)
+        {
+            <ScrollBar/>
+        }
+    </div>
+</CascadingValue>
+
+@code
+{
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public ScrollAreaType? ScrollAreaType { get; set; } = ShadcnBlazor.ScrollArea.ScrollAreaType.Hover;
+    [Parameter] public ScrollAreaDirection? ScrollAreaDirection { get; set; } = ShadcnBlazor.ScrollArea.ScrollAreaDirection.Ltr;
+    [Parameter] public int ScrollHideDelay { get; set; } = 600;
+
+    internal ScrollBar? ScrollBar = null;
+    internal ElementReference ScrollAreaElement;
+
+
+    private CancelDebouncer HideDebouncer;
+    private Debouncer ScrollDebouncer;
+    private bool IsScrolling = false;
+    private bool ShouldRenderScrollBar = false;
+    private string? Classes;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        HideDebouncer = new CancelDebouncer(TimeSpan.FromMilliseconds(ScrollHideDelay));
+        ScrollDebouncer = new Debouncer(ScrollHideDelay - 1);
+        Classes = Cn("relative", ClassName);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        if (ScrollBar == null)
+            ShouldRenderScrollBar = true;
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task OnHoverAsync(MouseEventArgs args)
+    {
+        if (ScrollAreaType != ShadcnBlazor.ScrollArea.ScrollAreaType.Hover) return;
+
+        await ScrollBar.Hide(false);
+    }
+
+    private async Task OnHoverEndAsync()
+    {
+        if (ScrollAreaType != ShadcnBlazor.ScrollArea.ScrollAreaType.Hover) return;
+        var onHoverEndDebouncer = new Debouncer(ScrollHideDelay);
+        onHoverEndDebouncer.Debounce(async () => { await ScrollBar.Hide(true); });
+    }
+
+    private async Task OnScroll(EventArgs args)
+    {
+        await ScrollBar.Hide(false);
+
+        if (ScrollAreaType == ShadcnBlazor.ScrollArea.ScrollAreaType.Scroll)
+        {
+            IsScrolling = true;
+            HideDebouncer.Start(async () =>
+            {
+                if (!IsScrolling) await ScrollBar.Hide(true);
+            });
+            ScrollDebouncer.Debounce(() => IsScrolling = false);
+        }
+
+        var scrollBarScrollLength = await ScrollBarInteropService.GetScrollBarScrollLengthAsync(ScrollAreaElement, ScrollBar.Orientation);
+
+        switch (ScrollBar.Orientation)
+        {
+            case ScrollBarOrientation.Horizontal:
+                ScrollBar.TransformTx = scrollBarScrollLength.ThumbLeft;
+                break;
+            case ScrollBarOrientation.Vertical:
+                ScrollBar.TransformTy = scrollBarScrollLength.ThumbTop;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        await ScrollBar.RefreshAsync();
+        await InvokeAsync(StateHasChanged);
+    }
+
+}

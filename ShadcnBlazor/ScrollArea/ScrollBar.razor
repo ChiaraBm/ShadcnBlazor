@@ -1,0 +1,152 @@
+@using System.Globalization
+@using System.Text
+@using Microsoft.JSInterop
+@inherits ShadcnBase
+@inject ScrollBarInteropService ScrollBarInteropService
+
+@if (!IsHidden)
+{
+    <div
+        @ref="@TrackElement"
+        @attributes="@Props"
+        data-slot="scroll-area-scrollbar"
+        data-orientation="@Orientation.ToString().ToLower()"
+        data-state="@(IsHidden ? "hidden" : "visible")"
+        data-horizontal="@(Orientation == ScrollBarOrientation.Horizontal)"
+        data-vertical="@(Orientation == ScrollBarOrientation.Vertical)"
+        class="@Classes"
+        style="@BuildStyle()"
+    >
+        <div
+            @ref="@ThumbElement"
+            data-slot="scroll-area-thumb"
+            data-state="@(IsHidden ? "hidden" : "visible")"
+            class="relative flex-1 rounded-full bg-border"
+            style="@BuildThumbStyle()"
+        >
+        </div>
+    </div>
+}
+
+@code
+{
+    [CascadingParameter] public required ScrollArea ScrollArea { get; set; }
+    [Parameter] public ScrollBarOrientation Orientation { get; set; } = ScrollBarOrientation.Vertical;
+
+    internal double TransformTx = 0;
+    internal double TransformTy = 0;
+    internal bool IsHidden = true;
+
+    private string? Classes;
+    private ElementReference TrackElement;
+    private ElementReference ThumbElement;
+    private ScrollBarStyle ScrollBarStyle { get; set; } = new();
+    private ScrollBarThumbStyles ScrollBarThumbStyle { get; set; } = new();
+
+    protected override void OnParametersSet()
+    {
+        ScrollArea.ScrollBar ??= this;
+
+        Classes = Cn(
+            "absolute flex touch-none p-px transition-colors select-none data-horizontal:w-[calc(100%-10px)] data-horizontal:border-l-transparent data-horizontal:h-2.5 data-horizontal:flex-col data-horizontal:border-t data-horizontal:border-t-transparent data-vertical:h-full data-vertical:w-2.5 data-vertical:border-l data-vertical:border-l-transparent",
+            ClassName);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            new Debouncer(1).Debounce(async () =>
+                await ScrollBarInteropService.AttachAsync(
+                    ScrollArea.ScrollAreaElement, TrackElement, ThumbElement, Orientation));
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (ScrollArea.ScrollAreaType == ScrollAreaType.Always)
+            await Hide(false);
+
+        if (ScrollArea.ScrollAreaType == ScrollAreaType.Auto)
+        {
+            var isContentOverflowing = await ScrollBarInteropService.IsContentOverflowingAsync(
+                ScrollArea.ScrollAreaElement, Orientation
+            );
+            if (isContentOverflowing)
+                await Hide(false);
+        }
+
+        var scrollBarThumbSize = await ScrollBarInteropService.GetScrollBarThumbSizeAsync(ScrollArea.ScrollAreaElement);
+        switch (ScrollArea.ScrollAreaDirection)
+        {
+            case ScrollAreaDirection.Ltr:
+                if (Orientation == ScrollBarOrientation.Vertical)
+                    ScrollBarStyle.Right = 0;
+                else
+                    ScrollBarStyle.Left = 0;
+                break;
+            case ScrollAreaDirection.Rtl:
+                if (Orientation == ScrollBarOrientation.Vertical)
+                    ScrollBarStyle.Left = 0;
+                else
+                    ScrollBarStyle.Right = 0;
+                break;
+        }
+
+        switch (Orientation)
+        {
+            case ScrollBarOrientation.Vertical:
+                ScrollBarThumbStyle.Height = scrollBarThumbSize.ScrollBarVerticalSize;
+                ScrollBarStyle.Top = 0;
+                ScrollBarStyle.Bottom = 10;
+                break;
+            case ScrollBarOrientation.Horizontal:
+                ScrollBarThumbStyle.Width = scrollBarThumbSize.ScrollBarHorizontalSize;
+                ScrollBarStyle.Bottom = 0;
+                ScrollBarStyle.Left = 10;
+                ScrollBarStyle.Right = 10;
+                break;
+        }
+    }
+
+    private string BuildStyle()
+    {
+        var sb = new StringBuilder();
+        sb.Append("touch-action: none;");
+        sb.Append("user-select: none;");
+        if (ScrollBarStyle.Top != null)
+            sb.Append($"top: {ScrollBarStyle.Top.Value.ToString(CultureInfo.InvariantCulture)}px;");
+        if (ScrollBarStyle.Left != null)
+            sb.Append($"left: {ScrollBarStyle.Left.Value.ToString(CultureInfo.InvariantCulture)}px;");
+        if (ScrollBarStyle.Right != null)
+            sb.Append($"right: {ScrollBarStyle.Right.Value.ToString(CultureInfo.InvariantCulture)}px;");
+        if (ScrollBarStyle.Bottom != null)
+            sb.Append($"bottom: {ScrollBarStyle.Bottom.Value.ToString(CultureInfo.InvariantCulture)}px;");
+        return sb.ToString();
+    }
+
+    private string BuildThumbStyle()
+    {
+        var sb = new StringBuilder();
+        sb.Append("touch-action: none;");
+        sb.Append("user-select: none;");
+        sb.Append($"transform: translate3d({TransformTx.ToString(CultureInfo.InvariantCulture)}px, {TransformTy.ToString(CultureInfo.InvariantCulture)}px, 0px);");
+        if (ScrollBarThumbStyle.Width != null)
+        {
+            sb.Append($"width: {ScrollBarThumbStyle.Width.Value.ToString(CultureInfo.InvariantCulture)}px;");
+        }
+
+        if (ScrollBarThumbStyle.Height != null)
+        {
+            sb.Append($"height: {ScrollBarThumbStyle.Height.Value.ToString(CultureInfo.InvariantCulture)}px;");
+        }
+
+        return sb.ToString();
+    }
+
+    internal async Task RefreshAsync() => await InvokeAsync(StateHasChanged);
+
+    internal async Task Hide(bool hide)
+    {
+        IsHidden = hide;
+        await RefreshAsync();
+    }
+}
