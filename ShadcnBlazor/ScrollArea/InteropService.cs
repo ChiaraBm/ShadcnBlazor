@@ -3,11 +3,11 @@ using Microsoft.JSInterop;
 
 namespace ShadcnBlazor.ScrollArea;
 
-public class ScrollBarInteropService
+public class InteropService
 {
     private readonly IJSRuntime JsRuntime;
 
-    public ScrollBarInteropService(IJSRuntime jsRuntime)
+    public InteropService(IJSRuntime jsRuntime)
     {
         JsRuntime = jsRuntime;
     }
@@ -22,8 +22,10 @@ public class ScrollBarInteropService
 
     internal async Task<ScrollBarThumbSize> GetScrollBarThumbSizeAsync(ElementReference track)
     {
-        return await JsRuntime.InvokeAsync<ScrollBarThumbSize>("shadcnBlazor.scrollBar.getScrollBarThumbSize",
-            track);
+        return await JsRuntime.InvokeAsync<ScrollBarThumbSize>(
+            "shadcnBlazor.scrollBar.getScrollBarThumbSize",
+            track
+        );
     }
 
     internal async Task<ScrollBarScrollLength> GetScrollBarScrollLengthAsync(ElementReference area,
@@ -35,11 +37,18 @@ public class ScrollBarInteropService
         );
     }
 
-    internal async Task AttachAsync(ElementReference area, ElementReference track,
-        ElementReference thumb, ScrollBarOrientation orientation)
+    internal async Task AttachAsync(
+        ElementReference area,
+        ElementReference track,
+        ElementReference thumb,
+        ScrollBarOrientation orientation
+    )
     {
-        await JsRuntime.InvokeVoidAsync("shadcnBlazor.scrollBar.attachScrollBar", area, track, thumb,
-            orientation.ToString().ToLowerInvariant());
+        await JsRuntime.InvokeVoidAsync(
+            "shadcnBlazor.scrollBar.attachScrollBar",
+            area, track, thumb,
+            orientation.ToString().ToLowerInvariant()
+        );
     }
 
     /// <summary>

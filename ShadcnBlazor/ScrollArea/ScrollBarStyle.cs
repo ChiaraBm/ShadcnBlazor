@@ -1,6 +1,6 @@
 namespace ShadcnBlazor.ScrollArea;
 
-public class ScrollBarStyle
+internal class ScrollBarStyle
 {
     public double? Left { get; set; }
     public double? Top { get; set; }
