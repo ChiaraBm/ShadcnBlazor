@@ -40,6 +40,10 @@ window.shadcnBlazor.scrollBar = {
     },
 
     attachScrollBar: (area, track, thumb, type) => {
+        
+        console.log(type)
+        console.log(thumb)
+        
         if (!(area instanceof HTMLElement) || !(track instanceof HTMLElement) || !(thumb instanceof HTMLElement)) return;
         const horizontal = String(type).toLowerCase() === 'horizontal';
 

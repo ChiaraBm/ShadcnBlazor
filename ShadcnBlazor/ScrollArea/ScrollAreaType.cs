@@ -2,8 +2,8 @@ namespace ShadcnBlazor.ScrollArea;
 
 public enum ScrollAreaType
 {
-    Auto,
-    Always,
-    Hover,
-    Scroll
+    Auto = 0,
+    Always = 1,
+    Hover = 2,
+    Scroll = 3
 }

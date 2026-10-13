@@ -2,6 +2,6 @@ namespace ShadcnBlazor.ScrollArea;
 
 public enum ScrollAreaDirection
 {
-    Ltr,
-    Rtl,
+    Ltr = 0,
+    Rtl = 1,
 }
