@@ -1,36 +1,45 @@
-﻿name: "Nuget: publish"
+name: "Nuget: publish"
 
 on:
-  workflow_dispatch:
   push:
-    paths:
-      - "ShadcnBlazor/**.csproj"
-      - "ShadcnBlazor.Extras/**.csproj"
-    branches:
-      - main
+    tags:
+      - "v*"
 
 jobs:
   publish:
     runs-on: ubuntu-latest
-    
+
     # Enable OIDC for package publishing
     permissions:
       id-token: write
       contents: read
-    
+
     steps:
       ## Setup environment:
-      
+
       # Fetch the code
       - name: Checkout code
         uses: actions/checkout@v3
-      
+
+      # Derive the package version from the tag name (e.g. v1.0.21 -> 1.0.21)
+      - name: Derive version from tag
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          VERSION="${TAG#v}"
+          if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+([.-][0-9A-Za-z.+-]+)?$ ]]; then
+            echo "::error::Tag '$TAG' is not a valid version. Use a semver tag prefixed with 'v', e.g. v1.0.21."
+            exit 1
+          fi
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          echo "Publishing version $VERSION"
+
       # Install dotnet 9
       - name: Install .NET SDK
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 9.0
-      
+
       # Install bun
       - name: Install Bun
         uses: oven-sh/setup-bun@v2
@@ -41,37 +50,38 @@ jobs:
         uses: NuGet/login@v1
         with:
           user: ${{ secrets.NUGET_USERNAME }}
-      
+
       ## Build:
-      
+
       # CodeMirror
       - run: bun i
         working-directory: ShadcnBlazor.Extras/CodeMirror
 
       - run: bun run build
         working-directory: ShadcnBlazor.Extras/CodeMirror
-        
+
       # Class list
       - run: bun i
         working-directory: ShadcnBlazor.Test/Styles
-        
+
       - run: bun run build
         working-directory: ShadcnBlazor.Test/Styles
-      
+
       ## Publish:
-      
-      # ShadcnBlazor
-      - name: Publish ShadcnBlazor
-        uses: alirezanet/publish-nuget@v3.1.0
-        with:
-          PROJECT_FILE_PATH: ShadcnBlazor/ShadcnBlazor.csproj
-          TAG_COMMIT: false
-          NUGET_KEY: ${{ steps.login.outputs.NUGET_API_KEY }}
-      
-      # ShadcnBlazor.Extras
-      - name: Publish ShadcnBlazor.Extras
-        uses: alirezanet/publish-nuget@v3.1.0
-        with:
-          PROJECT_FILE_PATH: ShadcnBlazor.Extras/ShadcnBlazor.Extras.csproj
-          TAG_COMMIT: false
-          NUGET_KEY: ${{ steps.login.outputs.NUGET_API_KEY }}
+
+      - name: Pack packages
+        run: |
+          dotnet pack ShadcnBlazor/ShadcnBlazor.csproj -c Release -p:Version="$VERSION" -o artifacts
+          dotnet pack ShadcnBlazor.Extras/ShadcnBlazor.Extras.csproj -c Release -p:Version="$VERSION" -o artifacts
+
+      # Push them to nuget.org
+      - name: Publish to NuGet
+        run: |
+          dotnet nuget push artifacts/ShadcnBlazor.$VERSION.nupkg \
+            -s https://api.nuget.org/v3/index.json \
+            -k "${{ steps.login.outputs.NUGET_API_KEY }}" \
+            --no-symbols
+          dotnet nuget push artifacts/ShadcnBlazor.Extras.$VERSION.nupkg \
+            -s https://api.nuget.org/v3/index.json \
+            -k "${{ steps.login.outputs.NUGET_API_KEY }}" \
+            --no-symbols
