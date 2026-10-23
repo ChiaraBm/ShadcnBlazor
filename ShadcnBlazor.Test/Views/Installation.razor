@@ -38,7 +38,7 @@
             </CardHeader>
             <CardContent>
                 <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm"><code
-                        class="font-mono">@NpmInitContent</code></pre>
+                        class="font-mono">@Constants.NpmInitContent</code></pre>
             </CardContent>
         </Card>
 
@@ -55,7 +55,7 @@
             </CardHeader>
             <CardContent>
                 <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm"><code
-                        class="font-mono">@NpmInstallPostcssContent</code></pre>
+                        class="font-mono">@Constants.NpmInstallPostcssContent</code></pre>
             </CardContent>
         </Card>
 
@@ -74,7 +74,7 @@
             </CardHeader>
             <CardContent>
                 <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm"><code
-                        class="font-mono">@PostCssContent</code></pre>
+                        class="font-mono">@Constants.PostCssContent</code></pre>
             </CardContent>
         </Card>
 
@@ -105,7 +105,7 @@
             </CardHeader>
             <CardContent>
                 <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm"><code
-                        class="font-mono">@InstallNugetContent</code></pre>
+                        class="font-mono">@Constants.InstallNugetContent</code></pre>
             </CardContent>
         </Card>
 
@@ -123,7 +123,7 @@
             </CardHeader>
             <CardContent>
                 <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm"><code
-                        class="font-mono">@PortalRazor</code></pre>
+                        class="font-mono">@Constants.PortalRazor</code></pre>
             </CardContent>
         </Card>
 
@@ -140,34 +140,9 @@
             </CardHeader>
             <CardContent>
                 <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm"><code
-                        class="font-mono">@ServiceCollectionContent</code></pre>
+                        class="font-mono">@Constants.ServiceCollectionContent</code></pre>
             </CardContent>
         </Card>
-
-        <Card>
-            <CardHeader>
-                <CardAction>
-                    <div
-                        class="flex size-8 items-center justify-center rounded-full bg-violet-500/15 text-sm font-semibold text-violet-400">
-                        7
-                    </div>
-                </CardAction>
-                <CardTitle>
-                    Deploy Styles and use Tailwindcss
-                </CardTitle>
-                <CardDescription>
-                    Build your solution, then the styles and leave the watch running while you develop
-                </CardDescription>
-            </CardHeader>
-            <CardContent>
-                <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm">
-                    <code class="font-mono">
-                        @DevelopStyles
-                    </code>
-                </pre>
-            </CardContent>
-        </Card>
-
     </div>
 </section>
 
@@ -196,7 +171,7 @@
             </CardHeader>
             <CardContent>
                 <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm"><code
-                        class="font-mono">@StylesContent</code></pre>
+                        class="font-mono">@Constants.StylesContent</code></pre>
             </CardContent>
         </Card>
 
@@ -215,7 +190,7 @@
             </CardHeader>
             <CardContent>
                 <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm"><code
-                        class="font-mono">@HtmlContent</code></pre>
+                        class="font-mono">@Constants.HtmlContent</code></pre>
             </CardContent>
         </Card>
 
@@ -228,13 +203,13 @@
                     </div>
                 </CardAction>
                 <CardTitle>Build the styles</CardTitle>
-                <CardDescription>Run the PostCSS build command from the Styles folder. Keep it running in the background
-                    while developing so Tailwind can rebuild your styles.
+                <CardDescription>
+                    Build your solution, then the styles and leave the watch running while you develop
                 </CardDescription>
             </CardHeader>
             <CardContent>
                 <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm"><code
-                        class="font-mono">@BuildCommandContent</code></pre>
+                        class="font-mono">@Constants.BuildCommandContent</code></pre>
             </CardContent>
         </Card>
 
@@ -296,14 +271,5 @@
 
 @code
 {
-    private const string NpmInitContent = "mkdir Styles\nnpm init";
-    private const string NpmInstallPostcssContent = "npm install tailwindcss @tailwindcss/postcss postcss postcss-cli tw-animate-css";
-    private const string PostCssContent = "export default {\n  plugins: {\n    \"@tailwindcss/postcss\": {},\n  }\n}";
-    private const string InstallNugetContent = "dotnet add package ShadcnBlazor";
-    private const string PortalRazor = "<!-- MainLayout.razor -->\n<PortalOutlet />";
-    private const string ServiceCollectionContent = "// Program.cs\nusing ShadcnBlazor;\n\nbuilder.Services.AddShadcnBlazor();";
-    private const string DevelopStyles = "npx postcss styles.css -o ../wwwroot/style.min.css --watch";
-    private const string StylesContent = "@import \"tailwindcss\";\n@import \"tw-animate-css\";\n\n@import \"../bin/ShadcnBlazor/scrollbar.css\";\n@import \"../bin/ShadcnBlazor/default-theme.css\";\n@source \"../bin/ShadcnBlazor/ShadcnBlazor.map\";\n\n@source \"../**/*.razor\";\n@source \"../**/*.cs\";\n@source \"../**/*.html\";\n\n@custom-variant dark (&:is(.dark *));\n\n#blazor-error-ui {\n    display: none;\n}\n\n@layer base {\n    * {\n        @apply border-border outline-ring/50;\n    }\n    body {\n        @apply bg-background text-foreground;\n    }\n}";
-    private const string HtmlContent = "...\n<link rel=\"stylesheet\" href=\"/style.min.css\"/>\n...\n\n\n...\n<script src=\"/_content/ShadcnBlazor/interop.js\" defer></script>\n...";
-    private const string BuildCommandContent = "npx postcss styles.css -o ../wwwroot/style.min.css --watch";
+
 }
