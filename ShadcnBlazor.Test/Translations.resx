@@ -1,0 +1,1347 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="Views.Index.HeroTaglinePrefix" xml:space="preserve">
+        <value>A Blazor port of the popular</value>
+    </data>
+    <data name="Views.Index.HeroTaglineSuffix" xml:space="preserve">
+        <value>component library. Same component names, same look, same Tailwind-based theming but written for .NET.</value>
+    </data>
+    <data name="Views.Index.HeroBadgeTailwind" xml:space="preserve">
+        <value>Tailwind CSS v4</value>
+    </data>
+    <data name="Views.Index.HeroBadgeMitLicense" xml:space="preserve">
+        <value>MIT License</value>
+    </data>
+    <data name="Views.Index.HeroBadgeComponents" xml:space="preserve">
+        <value>50+ components</value>
+    </data>
+    <data name="Views.Index.HeroButtonGetStarted" xml:space="preserve">
+        <value>Get started</value>
+    </data>
+    <data name="Views.Index.HeroButtonBrowseComponents" xml:space="preserve">
+        <value>Browse components</value>
+    </data>
+    <data name="Views.Index.HeroButtonBlocks" xml:space="preserve">
+        <value>Blocks</value>
+    </data>
+    <data name="Views.Index.HeroStatCoreComponents" xml:space="preserve">
+        <value>46 core components</value>
+    </data>
+    <data name="Views.Index.HeroStatExtras" xml:space="preserve">
+        <value>11 extras</value>
+    </data>
+    <data name="Views.Index.HeroStatNuGetPackages" xml:space="preserve">
+        <value>2 NuGet packages</value>
+    </data>
+    <data name="Views.Index.WhatIs_Eyebrow" xml:space="preserve">
+        <value>What is ShadcnBlazor?</value>
+    </data>
+    <data name="Views.Index.WhatIs_Title" xml:space="preserve">
+        <value>The shadcn/ui look, natively in Blazor</value>
+    </data>
+    <data name="Views.Index.WhatIs_Description" xml:space="preserve">
+        <value>ShadcnBlazor brings the shadcn/ui component style to Blazor. You get the same component names, the same look and the same Tailwind-based theming, just written for .NET. Every component can be tried in the</value>
+    </data>
+    <data name="Views.Index.WhatIs_LiveDemo" xml:space="preserve">
+        <value>live demo</value>
+    </data>
+    <data name="Views.Index.WhatIs_Styling" xml:space="preserve">
+        <value>Styling is Tailwind CSS v4, so theming, custom variants and dark mode work the way you'd expect from the original.</value>
+    </data>
+    <data name="Views.Index.WhatIs_CoreDescription" xml:space="preserve">
+        <value>The core component set. A port of the shadcn/ui library.</value>
+    </data>
+    <data name="Views.Index.WhatIs_ExtrasDescription" xml:space="preserve">
+        <value>Extra components that don't exist in shadcn/ui, built because Blazor apps needed them.</value>
+    </data>
+    <data name="Views.Index.Gallery_Eyebrow" xml:space="preserve">
+        <value>Component gallery</value>
+    </data>
+    <data name="Views.Index.Gallery_Title" xml:space="preserve">
+        <value>Built with ShadcnBlazor</value>
+    </data>
+    <data name="Views.Index.Gallery_Description" xml:space="preserve">
+        <value>Of few examples from our library of components</value>
+    </data>
+    <data name="Views.Index.GalleryButtonTitle" xml:space="preserve">
+        <value>Button</value>
+    </data>
+    <data name="Views.Index.GalleryButtonDescription" xml:space="preserve">
+        <value>Available in a variety of styles and sizes</value>
+    </data>
+    <data name="Views.Index.GalleryButtonDefault" xml:space="preserve">
+        <value>Default</value>
+    </data>
+    <data name="Views.Index.GalleryButtonSecondary" xml:space="preserve">
+        <value>Secondary</value>
+    </data>
+    <data name="Views.Index.GalleryButtonOutline" xml:space="preserve">
+        <value>Outline</value>
+    </data>
+    <data name="Views.Index.GalleryButtonGhost" xml:space="preserve">
+        <value>Ghost</value>
+    </data>
+    <data name="Views.Index.GalleryButtonDestructive" xml:space="preserve">
+        <value>Destructive</value>
+    </data>
+    <data name="Views.Index.GalleryButtonSubmitAria" xml:space="preserve">
+        <value>Submit</value>
+    </data>
+    <data name="Views.Index.GalleryBadgeTitle" xml:space="preserve">
+        <value>Badge</value>
+    </data>
+    <data name="Views.Index.GalleryBadgeDescription" xml:space="preserve">
+        <value>Display a badge or make something look badged</value>
+    </data>
+    <data name="Views.Index.GalleryBadgeDefault" xml:space="preserve">
+        <value>Default</value>
+    </data>
+    <data name="Views.Index.GalleryBadgeSecondary" xml:space="preserve">
+        <value>Secondary</value>
+    </data>
+    <data name="Views.Index.GalleryBadgeDestructive" xml:space="preserve">
+        <value>Destructive</value>
+    </data>
+    <data name="Views.Index.GalleryBadgeOutline" xml:space="preserve">
+        <value>Outline</value>
+    </data>
+    <data name="Views.Index.GalleryBadgeNew" xml:space="preserve">
+        <value>New</value>
+    </data>
+    <data name="Views.Index.GalleryInputTitle" xml:space="preserve">
+        <value>Input</value>
+    </data>
+    <data name="Views.Index.GalleryInputDescription" xml:space="preserve">
+        <value>Display a form input field</value>
+    </data>
+    <data name="Views.Index.GalleryInputEmailLabel" xml:space="preserve">
+        <value>Email</value>
+    </data>
+    <data name="Views.Index.GalleryInputPasswordLabel" xml:space="preserve">
+        <value>Password</value>
+    </data>
+    <data name="Views.Index.GallerySwitchTitle" xml:space="preserve">
+        <value>Switch &amp; Checkbox</value>
+    </data>
+    <data name="Views.Index.GallerySwitchDescription" xml:space="preserve">
+        <value>Toggle between two states</value>
+    </data>
+    <data name="Views.Index.GallerySwitchNotificationsLabel" xml:space="preserve">
+        <value>Enable notifications</value>
+    </data>
+    <data name="Views.Index.GallerySwitchAcceptTermsLabel" xml:space="preserve">
+        <value>Accept terms and conditions</value>
+    </data>
+    <data name="Views.Index.GalleryRadioTitle" xml:space="preserve">
+        <value>Radio Group</value>
+    </data>
+    <data name="Views.Index.GalleryRadioDescription" xml:space="preserve">
+        <value>A set of custom radio buttons</value>
+    </data>
+    <data name="Views.Index.GalleryRadioDefault" xml:space="preserve">
+        <value>Default</value>
+    </data>
+    <data name="Views.Index.GalleryRadioComfortable" xml:space="preserve">
+        <value>Comfortable</value>
+    </data>
+    <data name="Views.Index.GalleryRadioCompact" xml:space="preserve">
+        <value>Compact</value>
+    </data>
+    <data name="Views.Index.GallerySliderTitle" xml:space="preserve">
+        <value>Slider</value>
+    </data>
+    <data name="Views.Index.GallerySliderDescription" xml:space="preserve">
+        <value>Input component to select a value from a range</value>
+    </data>
+    <data name="Views.Index.GallerySliderValueLabel" xml:space="preserve">
+        <value>Value: </value>
+    </data>
+    <data name="Views.Index.GalleryProgressTitle" xml:space="preserve">
+        <value>Progress</value>
+    </data>
+    <data name="Views.Index.GalleryProgressDescription" xml:space="preserve">
+        <value>Display progress bar — this one updates itself</value>
+    </data>
+    <data name="Views.Index.GalleryTabsTitle" xml:space="preserve">
+        <value>Tabs</value>
+    </data>
+    <data name="Views.Index.GalleryTabsDescription" xml:space="preserve">
+        <value>A set of layered sections displayed one at a time</value>
+    </data>
+    <data name="Views.Index.GalleryTabsAccountTrigger" xml:space="preserve">
+        <value>Account</value>
+    </data>
+    <data name="Views.Index.GalleryTabsPasswordTrigger" xml:space="preserve">
+        <value>Password</value>
+    </data>
+    <data name="Views.Index.GalleryTabsAccountBody" xml:space="preserve">
+        <value>Make changes to your account here. Click save when you're done.</value>
+    </data>
+    <data name="Views.Index.GalleryTabsPasswordBody" xml:space="preserve">
+        <value>Change your password here. After saving, you'll be logged out.</value>
+    </data>
+    <data name="Views.Index.GalleryAccordionTitle" xml:space="preserve">
+        <value>Accordion</value>
+    </data>
+    <data name="Views.Index.GalleryAccordionDescription" xml:space="preserve">
+        <value>A vertically stacked set of interactive headings</value>
+    </data>
+    <data name="Views.Index.GalleryAccordionAccessibleTrigger" xml:space="preserve">
+        <value>Is it accessible?</value>
+    </data>
+    <data name="Views.Index.GalleryAccordionAccessibleContent" xml:space="preserve">
+        <value>Yes. It adheres to the WAI-ARIA design pattern.</value>
+    </data>
+    <data name="Views.Index.GalleryAccordionStyledTrigger" xml:space="preserve">
+        <value>Is it styled?</value>
+    </data>
+    <data name="Views.Index.GalleryAccordionStyledContent" xml:space="preserve">
+        <value>Yes. It comes with default styles that match the theme.</value>
+    </data>
+    <data name="Views.Index.GalleryAlertTitle" xml:space="preserve">
+        <value>Alert</value>
+    </data>
+    <data name="Views.Index.GalleryAlertDescription" xml:space="preserve">
+        <value>Display a callout for user attention</value>
+    </data>
+    <data name="Views.Index.GalleryAlertSuccessTitle" xml:space="preserve">
+        <value>Success! Your changes have been saved</value>
+    </data>
+    <data name="Views.Index.GalleryAlertSuccessDescription" xml:space="preserve">
+        <value>This is an alert with icon, title and description.</value>
+    </data>
+    <data name="Views.Index.GalleryAvatarTitle" xml:space="preserve">
+        <value>Avatar</value>
+    </data>
+    <data name="Views.Index.GalleryAvatarDescription" xml:space="preserve">
+        <value>Images with fallbacks to represent a user</value>
+    </data>
+    <data name="Views.Index.GallerySkeletonTitle" xml:space="preserve">
+        <value>Skeleton</value>
+    </data>
+    <data name="Views.Index.GallerySkeletonDescription" xml:space="preserve">
+        <value>Use as a placeholder during loading</value>
+    </data>
+    <data name="Views.Index.GalleryKbdTitle" xml:space="preserve">
+        <value>Kbd</value>
+    </data>
+    <data name="Views.Index.GalleryKbdDescription" xml:space="preserve">
+        <value>Display a sequence of keys as a shortcut</value>
+    </data>
+    <data name="Views.Index.GalleryTooltipTitle" xml:space="preserve">
+        <value>Tooltip</value>
+    </data>
+    <data name="Views.Index.GalleryTooltipDescription" xml:space="preserve">
+        <value>A popup for displaying contextual information — hover the button</value>
+    </data>
+    <data name="Views.Index.GalleryTooltipHoverMe" xml:space="preserve">
+        <value>Hover me</value>
+    </data>
+    <data name="Views.Index.GalleryTooltipAddToLibrary" xml:space="preserve">
+        <value>Add to library</value>
+    </data>
+    <data name="Views.Index.GallerySeparatorTitle" xml:space="preserve">
+        <value>Separator</value>
+    </data>
+    <data name="Views.Index.GallerySeparatorDescription" xml:space="preserve">
+        <value>A subtle separator to divide content</value>
+    </data>
+    <data name="Views.Index.GallerySeparatorHeading" xml:space="preserve">
+        <value>ShadcnBlazor</value>
+    </data>
+    <data name="Views.Index.GallerySeparatorTagline" xml:space="preserve">
+        <value>An open-source UI component library.</value>
+    </data>
+    <data name="Views.Index.GallerySeparatorBlog" xml:space="preserve">
+        <value>Blog</value>
+    </data>
+    <data name="Views.Index.GallerySeparatorDocs" xml:space="preserve">
+        <value>Docs</value>
+    </data>
+    <data name="Views.Index.GallerySeparatorSource" xml:space="preserve">
+        <value>Source</value>
+    </data>
+    <data name="Views.Index.GallerySpinnerTitle" xml:space="preserve">
+        <value>Spinner</value>
+    </data>
+    <data name="Views.Index.GallerySpinnerDescription" xml:space="preserve">
+        <value>A spinner for loading states</value>
+    </data>
+    <data name="Views.Index.GallerySpinnerProcessing" xml:space="preserve">
+        <value>Processing payment...</value>
+    </data>
+    <data name="Views.Index.GallerySelectTitle" xml:space="preserve">
+        <value>Select</value>
+    </data>
+    <data name="Views.Index.GallerySelectDescription" xml:space="preserve">
+        <value>Display an option list for user selection</value>
+    </data>
+    <data name="Views.Index.GallerySelectPlaceholder" xml:space="preserve">
+        <value>Select a fruit</value>
+    </data>
+    <data name="Views.Index.GallerySelectFruitsLabel" xml:space="preserve">
+        <value>Fruits</value>
+    </data>
+    <data name="Views.Index.GallerySelectApple" xml:space="preserve">
+        <value>Apple</value>
+    </data>
+    <data name="Views.Index.GallerySelectBanana" xml:space="preserve">
+        <value>Banana</value>
+    </data>
+    <data name="Views.Index.GallerySelectBlueberry" xml:space="preserve">
+        <value>Blueberry</value>
+    </data>
+    <data name="Views.Index.GallerySelectGrapes" xml:space="preserve">
+        <value>Grapes</value>
+    </data>
+    <data name="Views.Index.GallerySelectPineapple" xml:space="preserve">
+        <value>Pineapple</value>
+    </data>
+    <data name="Views.Index.GalleryPaginationTitle" xml:space="preserve">
+        <value>Pagination</value>
+    </data>
+    <data name="Views.Index.GalleryPaginationDescription" xml:space="preserve">
+        <value>Navigation links to move between pages</value>
+    </data>
+    <data name="Views.Index.GalleryToggleTitle" xml:space="preserve">
+        <value>Toggle</value>
+    </data>
+    <data name="Views.Index.GalleryToggleDescription" xml:space="preserve">
+        <value>A button that can be toggled on and off</value>
+    </data>
+    <data name="Views.Index.GalleryToggleBookmarkAria" xml:space="preserve">
+        <value>Toggle bookmark</value>
+    </data>
+    <data name="Views.Index.GalleryToggleBookmark" xml:space="preserve">
+        <value>Bookmark</value>
+    </data>
+    <data name="Views.Index.GalleryItemTitle" xml:space="preserve">
+        <value>Item</value>
+    </data>
+    <data name="Views.Index.GalleryItemDescription" xml:space="preserve">
+        <value>A container for pieces of content</value>
+    </data>
+    <data name="Views.Index.GalleryItemVerifiedTitle" xml:space="preserve">
+        <value>Your profile has been verified</value>
+    </data>
+    <data name="Views.Index.GalleryItemVerifiedDescription" xml:space="preserve">
+        <value>Welcome to the club</value>
+    </data>
+    <data name="Views.Index.QuickStart_Eyebrow" xml:space="preserve">
+        <value>Quick start</value>
+    </data>
+    <data name="Views.Index.QuickStart_Title" xml:space="preserve">
+        <value>Up and running in minutes</value>
+    </data>
+    <data name="Views.Index.QuickStart_Description" xml:space="preserve">
+        <value>The full step-by-step guide lives on the</value>
+    </data>
+    <data name="Views.Index.QuickStart_InstallationPage" xml:space="preserve">
+        <value>installation page</value>
+    </data>
+    <data name="Views.Index.QuickStart_Step1Title" xml:space="preserve">
+        <value>Install the package</value>
+    </data>
+    <data name="Views.Index.QuickStart_Step1Description" xml:space="preserve">
+        <value>Add the NuGet package to your project</value>
+    </data>
+    <data name="Views.Index.QuickStart_Step2Title" xml:space="preserve">
+        <value>Set up Tailwind</value>
+    </data>
+    <data name="Views.Index.QuickStart_Step2Description" xml:space="preserve">
+        <value>Initialize a node project in a Styles folder</value>
+    </data>
+    <data name="Views.Index.QuickStart_Step3Title" xml:space="preserve">
+        <value>Add the base styles</value>
+    </data>
+    <data name="Views.Index.QuickStart_Step3Description" xml:space="preserve">
+        <value>Pull in the base styles shipped with the package</value>
+    </data>
+    <data name="Views.Index.QuickStart_Step4Title" xml:space="preserve">
+        <value>Wire it up</value>
+    </data>
+    <data name="Views.Index.QuickStart_Step4Description" xml:space="preserve">
+        <value>Register the services and build the solution and then your styles</value>
+    </data>
+    <data name="Views.Index.Extras_Eyebrow" xml:space="preserve">
+        <value>Extras</value>
+    </data>
+    <data name="Views.Index.Extras_Title" xml:space="preserve">
+        <value>More than shadcn/ui</value>
+    </data>
+    <data name="Views.Index.Extras_Description" xml:space="preserve">
+        <value>ShadcnBlazor.Extras has no shadcn/ui equivalent. These components exist because Blazor apps needed them.</value>
+    </data>
+    <data name="Views.Index.ExtrasItem_ComboboxTitle" xml:space="preserve">
+        <value>Combobox</value>
+    </data>
+    <data name="Views.Index.ExtrasItem_ComboboxDescription" xml:space="preserve">
+        <value>Searchable select that loads items asynchronously based on the search term</value>
+    </data>
+    <data name="Views.Index.ExtrasItem_EditorTitle" xml:space="preserve">
+        <value>Editor</value>
+    </data>
+    <data name="Views.Index.ExtrasItem_EditorDescription" xml:space="preserve">
+        <value>CodeMirror-based code editor</value>
+    </data>
+    <data name="Views.Index.ExtrasItem_FileDropzoneTitle" xml:space="preserve">
+        <value>File Dropzone</value>
+    </data>
+    <data name="Views.Index.ExtrasItem_FileDropzoneDescription" xml:space="preserve">
+        <value>Drag &amp; drop file uploads, including chunked uploads</value>
+    </data>
+    <data name="Views.Index.ExtrasItem_FileManagerTitle" xml:space="preserve">
+        <value>File Manager</value>
+    </data>
+    <data name="Views.Index.ExtrasItem_FileManagerDescription" xml:space="preserve">
+        <value>Full file browser with navigation, selection, context menu and toolbar</value>
+    </data>
+    <data name="Views.Index.ExtrasItem_FormHandlerTitle" xml:space="preserve">
+        <value>Form Handler</value>
+    </data>
+    <data name="Views.Index.ExtrasItem_FormHandlerDescription" xml:space="preserve">
+        <value>Enhanced EditForm with validation summary and a submit button</value>
+    </data>
+    <data name="Views.Index.ExtrasItem_InputTagsTitle" xml:space="preserve">
+        <value>Input Tags</value>
+    </data>
+    <data name="Views.Index.ExtrasItem_InputTagsDescription" xml:space="preserve">
+        <value>Tag input</value>
+    </data>
+    <data name="Views.Index.ExtrasItem_LazyLoaderTitle" xml:space="preserve">
+        <value>Lazy Loader</value>
+    </data>
+    <data name="Views.Index.ExtrasItem_LazyLoaderDescription" xml:space="preserve">
+        <value>Keeps a loading indicator up until your load callback finishes</value>
+    </data>
+    <data name="Views.Index.ExtrasItem_ToastTitle" xml:space="preserve">
+        <value>Toast</value>
+    </data>
+    <data name="Views.Index.ExtrasItem_ToastDescription" xml:space="preserve">
+        <value>Toast notifications with a few different designs</value>
+    </data>
+    <data name="Views.Index.ExtrasItem_WorkerButtonTitle" xml:space="preserve">
+        <value>Worker Button</value>
+    </data>
+    <data name="Views.Index.ExtrasItem_WorkerButtonDescription" xml:space="preserve">
+        <value>Button that runs an async handler and shows a spinner while it works</value>
+    </data>
+    <data name="Views.Index.ExtrasItem_CrashHandlerTitle" xml:space="preserve">
+        <value>Crash Handler</value>
+    </data>
+    <data name="Views.Index.ExtrasItem_CrashHandlerDescription" xml:space="preserve">
+        <value>Error boundary that renders a crash UI instead of blowing up the page</value>
+    </data>
+    <data name="Views.Index.ExtrasItem_AlertDialogTitle" xml:space="preserve">
+        <value>Alert / Dialog / Alert Dialog</value>
+    </data>
+    <data name="Views.Index.ExtrasItem_AlertDialogDescription" xml:space="preserve">
+        <value>Service-based launchers so you can show them from anywhere via an injected service</value>
+    </data>
+    <data name="Views.Index.Roadmap_Title" xml:space="preserve">
+        <value>Roadmap</value>
+    </data>
+    <data name="Views.Index.Roadmap_Description" xml:space="preserve">
+        <value>Currently in progress</value>
+    </data>
+    <data name="Views.Index.Roadmap_Chart" xml:space="preserve">
+        <value>Chart</value>
+    </data>
+    <data name="Views.Index.Roadmap_NavigationMenu" xml:space="preserve">
+        <value>Navigation Menu</value>
+    </data>
+    <data name="Views.Index.Roadmap_Resizable" xml:space="preserve">
+        <value>Resizable</value>
+    </data>
+    <data name="Views.Index.Roadmap_ScrollArea" xml:space="preserve">
+        <value>Scroll Area</value>
+    </data>
+    <data name="Views.Index.Cta_Heading" xml:space="preserve">
+        <value>Ready to build something beautiful?</value>
+    </data>
+    <data name="Views.Index.Cta_Paragraph" xml:space="preserve">
+        <value>Install the package, wire up Tailwind and start composing your UI out of ready-made, themeable components.</value>
+    </data>
+    <data name="Views.Index.Cta_ButtonGetStarted" xml:space="preserve">
+        <value>Get started</value>
+    </data>
+    <data name="Views.Index.Cta_ButtonBrowseComponents" xml:space="preserve">
+        <value>Browse components</value>
+    </data>
+    <data name="Views.Index.Footer_License" xml:space="preserve">
+        <value>Released under the MIT License</value>
+    </data>
+    <data name="Views.Index.Footer_GitHub" xml:space="preserve">
+        <value>GitHub</value>
+    </data>
+    <data name="Views.Index.Footer_NuGet" xml:space="preserve">
+        <value>NuGet</value>
+    </data>
+    <data name="Views.Index.Footer_Blocks" xml:space="preserve">
+        <value>Blocks</value>
+    </data>
+    <data name="Views.Installation.PageKicker" xml:space="preserve">
+        <value>Getting started</value>
+    </data>
+    <data name="Views.Installation.PageTitle" xml:space="preserve">
+        <value>Installation</value>
+    </data>
+    <data name="Views.Installation.IntroText" xml:space="preserve">
+        <value>Installing ShadcnBlazor takes only a few minutes. Set up Tailwind, add the NuGet package and build your styles.</value>
+    </data>
+    <data name="Views.Installation.TailwindKicker" xml:space="preserve">
+        <value>Tailwind CSS</value>
+    </data>
+    <data name="Views.Installation.StylingPipelineHeading" xml:space="preserve">
+        <value>Set up the styling pipeline</value>
+    </data>
+    <data name="Views.Installation.StylingPipelineIntro" xml:space="preserve">
+        <value>ShadcnBlazor is styled with Tailwind CSS v4, so the first step is setting up the build tooling in a Styles folder.</value>
+    </data>
+    <data name="Views.Installation.CreateStylesFolderTitle" xml:space="preserve">
+        <value>Create the Styles folder</value>
+    </data>
+    <data name="Views.Installation.CreateStylesFolderDescription" xml:space="preserve">
+        <value>Create a Styles folder in your Blazor project and initialize a new Node.js project in it.</value>
+    </data>
+    <data name="Views.Installation.InstallTailwindPostcssTitle" xml:space="preserve">
+        <value>Install Tailwind &amp; PostCSS</value>
+    </data>
+    <data name="Views.Installation.InstallTailwindPostcssDescription" xml:space="preserve">
+        <value>Install Tailwind CSS, PostCSS and the animation utilities.</value>
+    </data>
+    <data name="Views.Installation.CreatePostCssConfigTitle" xml:space="preserve">
+        <value>Create postcss.config.mjs</value>
+    </data>
+    <data name="Views.Installation.CreatePostCssConfigDescription" xml:space="preserve">
+        <value>Create a file called postcss.config.mjs in the Styles folder with the following content.</value>
+    </data>
+    <data name="Views.Installation.NuGetKicker" xml:space="preserve">
+        <value>NuGet</value>
+    </data>
+    <data name="Views.Installation.InstallShadcnBlazorHeading" xml:space="preserve">
+        <value>Install ShadcnBlazor</value>
+    </data>
+    <data name="Views.Installation.InstallIntro" xml:space="preserve">
+        <value>Add the package to your project and wire it up in a couple of lines.</value>
+    </data>
+    <data name="Views.Installation.AddNuGetPackageTitle" xml:space="preserve">
+        <value>Add the NuGet package</value>
+    </data>
+    <data name="Views.Installation.AddNuGetPackageDescription" xml:space="preserve">
+        <value>Install the ShadcnBlazor NuGet package via your IDE or the command line.</value>
+    </data>
+    <data name="Views.Installation.AddPortalOutletTitle" xml:space="preserve">
+        <value>Add the PortalOutlet</value>
+    </data>
+    <data name="Views.Installation.AddPortalOutletDescription" xml:space="preserve">
+        <value>Add the PortalOutlet component before the end of the body tag in your main layout.</value>
+    </data>
+    <data name="Views.Installation.RegisterServicesTitle" xml:space="preserve">
+        <value>Register the services</value>
+    </data>
+    <data name="Views.Installation.RegisterServicesDescription" xml:space="preserve">
+        <value>Add the service collection extension call to your Program.cs file.</value>
+    </data>
+    <data name="Views.Installation.BaseStylesKicker" xml:space="preserve">
+        <value>Base styles</value>
+    </data>
+    <data name="Views.Installation.BaseStylesHeading" xml:space="preserve">
+        <value>Add the base styles &amp; build</value>
+    </data>
+    <data name="Views.Installation.BaseStylesIntro" xml:space="preserve">
+        <value>Create the main styles file, reference it in index.html and start the PostCSS build.</value>
+    </data>
+    <data name="Views.Installation.CreateStylesCssTitle" xml:space="preserve">
+        <value>Create styles.css</value>
+    </data>
+    <data name="Views.Installation.CreateStylesCssDescription" xml:space="preserve">
+        <value>Create the main styles file called styles.css in the Styles folder with the following content.</value>
+    </data>
+    <data name="Views.Installation.UpdateIndexHtmlTitle" xml:space="preserve">
+        <value>Update index.html</value>
+    </data>
+    <data name="Views.Installation.UpdateIndexHtmlDescription" xml:space="preserve">
+        <value>Add a link tag to your generated stylesheet in the head section of index.html, and add the interop script import before the Blazor WebAssembly script import.</value>
+    </data>
+    <data name="Views.Installation.BuildStylesTitle" xml:space="preserve">
+        <value>Build the styles</value>
+    </data>
+    <data name="Views.Installation.BuildStylesDescription" xml:space="preserve">
+        <value>Build your solution, then the styles and leave the watch running while you develop</value>
+    </data>
+    <data name="Views.Installation.NextStepsHeading" xml:space="preserve">
+        <value>Next steps</value>
+    </data>
+    <data name="Views.Installation.NextStepsIntro" xml:space="preserve">
+        <value>Now that ShadcnBlazor is set up, take a look at what's available.</value>
+    </data>
+    <data name="Views.Installation.ComponentsTitle" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Installation.ComponentsDescription" xml:space="preserve">
+        <value>Browse the core component library.</value>
+    </data>
+    <data name="Views.Installation.ExtrasTitle" xml:space="preserve">
+        <value>Extras</value>
+    </data>
+    <data name="Views.Installation.ExtrasDescription" xml:space="preserve">
+        <value>Components that go beyond shadcn/ui.</value>
+    </data>
+    <data name="Views.Installation.BlocksTitle" xml:space="preserve">
+        <value>Blocks</value>
+    </data>
+    <data name="Views.Installation.BlocksDescription" xml:space="preserve">
+        <value>Ready-made compositions to kick-start your UI.</value>
+    </data>
+    <data name="Views.Blocks.PageKicker" xml:space="preserve">
+        <value>Library</value>
+    </data>
+    <data name="Views.Blocks.PageTitle" xml:space="preserve">
+        <value>Blocks</value>
+    </data>
+    <data name="Views.Blocks.IntroText" xml:space="preserve">
+        <value>Here you can find all the blocks available in the library. Pick a category to browse ready-made compositions.</value>
+    </data>
+    <data name="Views.Blocks.BlocksCount" xml:space="preserve">
+        <value>{0} blocks</value>
+    </data>
+    <data name="Views.Blocks.CategoriesCount" xml:space="preserve">
+        <value>{0} categories</value>
+    </data>
+    <data name="Views.Blocks.ShowAllCategories" xml:space="preserve">
+        <value>Show all categories</value>
+    </data>
+    <data name="Views.Blocks.SheetCategoriesTitle" xml:space="preserve">
+        <value>Categories</value>
+    </data>
+    <data name="Views.Blocks.Close" xml:space="preserve">
+        <value>Close</value>
+    </data>
+    <data name="Views.Blocks.CategoriesTitle" xml:space="preserve">
+        <value>Categories</value>
+    </data>
+    <data name="Views.Blocks.NoGroup" xml:space="preserve">
+        <value>No group :c</value>
+    </data>
+    <data name="Views.Blocks.Copy" xml:space="preserve">
+        <value>Copy</value>
+    </data>
+    <data name="Views.Components.Index.PageKicker" xml:space="preserve">
+        <value>Library</value>
+    </data>
+    <data name="Views.Components.Index.PageTitle" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.Index.IntroText" xml:space="preserve">
+        <value>Here you can find all the components available in the library. We are working on porting more components.</value>
+    </data>
+    <data name="Views.Components.Index.AvailableCount" xml:space="preserve">
+        <value>{0} available</value>
+    </data>
+    <data name="Views.Components.Index.InProgressCount" xml:space="preserve">
+        <value>{0} in progress</value>
+    </data>
+    <data name="Views.Components.Index.ComingSoon" xml:space="preserve">
+        <value>Coming soon</value>
+    </data>
+    <data name="Views.Extras.Index.PageKicker" xml:space="preserve">
+        <value>Library</value>
+    </data>
+    <data name="Views.Extras.Index.PageTitle" xml:space="preserve">
+        <value>Extra Components</value>
+    </data>
+    <data name="Views.Extras.Index.IntroText" xml:space="preserve">
+        <value>Here you can find components created specially for ShadcnBlazor that cannot be found in the original shadcn library.</value>
+    </data>
+    <data name="Views.Extras.Index.AvailableCount" xml:space="preserve">
+        <value>{0} available</value>
+    </data>
+    <data name="Views.Extras.Index.InProgressCount" xml:space="preserve">
+        <value>{0} in progress</value>
+    </data>
+    <data name="Views.Extras.Index.ComingSoon" xml:space="preserve">
+        <value>Coming soon</value>
+    </data>
+    <data name="Views.Components.AccordionDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.AccordionDemo.Title" xml:space="preserve">
+        <value>Accordion</value>
+    </data>
+    <data name="Views.Components.AccordionDemo.Description" xml:space="preserve">
+        <value>A vertically stacked set of interactive headings that each reveal a section of content.</value>
+    </data>
+    <data name="Views.Components.AlertDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.AlertDemo.Title" xml:space="preserve">
+        <value>Alert</value>
+    </data>
+    <data name="Views.Components.AlertDemo.Description" xml:space="preserve">
+        <value>Displays a callout for user attention.</value>
+    </data>
+    <data name="Views.Components.AlertDialogDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.AlertDialogDemo.Title" xml:space="preserve">
+        <value>Alert Dialog</value>
+    </data>
+    <data name="Views.Components.AlertDialogDemo.Description" xml:space="preserve">
+        <value>A modal dialog that interrupts the user with important content and expects a response.</value>
+    </data>
+    <data name="Views.Components.AvatarDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.AvatarDemo.Title" xml:space="preserve">
+        <value>Avatar</value>
+    </data>
+    <data name="Views.Components.AvatarDemo.Description" xml:space="preserve">
+        <value>An image element with a fallback for representing the user.</value>
+    </data>
+    <data name="Views.Components.BadgeDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.BadgeDemo.Title" xml:space="preserve">
+        <value>Badge</value>
+    </data>
+    <data name="Views.Components.BadgeDemo.Description" xml:space="preserve">
+        <value>Displays a badge or a component that looks like a badge.</value>
+    </data>
+    <data name="Views.Components.BreadcrumbDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.BreadcrumbDemo.Title" xml:space="preserve">
+        <value>Breadcrumb</value>
+    </data>
+    <data name="Views.Components.BreadcrumbDemo.Description" xml:space="preserve">
+        <value>Displays the path to the current resource using a hierarchy of links.</value>
+    </data>
+    <data name="Views.Components.BubbleDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.BubbleDemo.Title" xml:space="preserve">
+        <value>Bubble</value>
+    </data>
+    <data name="Views.Components.BubbleDemo.Description" xml:space="preserve">
+        <value>A chat bubble with variants, alignment, and reactions.</value>
+    </data>
+    <data name="Views.Components.ButtonDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.ButtonDemo.Title" xml:space="preserve">
+        <value>Button</value>
+    </data>
+    <data name="Views.Components.ButtonDemo.Description" xml:space="preserve">
+        <value>Displays a button or a component that looks like a button.</value>
+    </data>
+    <data name="Views.Components.ButtonGroupDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.ButtonGroupDemo.Title" xml:space="preserve">
+        <value>Button Group</value>
+    </data>
+    <data name="Views.Components.ButtonGroupDemo.Description" xml:space="preserve">
+        <value>A container that groups related buttons together with consistent styling.</value>
+    </data>
+    <data name="Views.Components.CalendarDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.CalendarDemo.Title" xml:space="preserve">
+        <value>Calendar</value>
+    </data>
+    <data name="Views.Components.CalendarDemo.Description" xml:space="preserve">
+        <value>A date field component that allows users to enter and edit date.</value>
+    </data>
+    <data name="Views.Components.CardDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.CardDemo.Title" xml:space="preserve">
+        <value>Card</value>
+    </data>
+    <data name="Views.Components.CardDemo.Description" xml:space="preserve">
+        <value>Displays a card with header, content, and footer.</value>
+    </data>
+    <data name="Views.Components.CarouselDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.CarouselDemo.Title" xml:space="preserve">
+        <value>Carousel</value>
+    </data>
+    <data name="Views.Components.CarouselDemo.Description" xml:space="preserve">
+        <value>A simple carousel</value>
+    </data>
+    <data name="Views.Components.CheckboxDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.CheckboxDemo.Title" xml:space="preserve">
+        <value>Checkbox</value>
+    </data>
+    <data name="Views.Components.CheckboxDemo.Description" xml:space="preserve">
+        <value>A control that allows the user to toggle between checked and not checked.</value>
+    </data>
+    <data name="Views.Components.CollapsibleDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.CollapsibleDemo.Title" xml:space="preserve">
+        <value>Collapsible</value>
+    </data>
+    <data name="Views.Components.CollapsibleDemo.Description" xml:space="preserve">
+        <value>An interactive component which expands/collapses a panel.</value>
+    </data>
+    <data name="Views.Components.CommandDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.CommandDemo.Title" xml:space="preserve">
+        <value>Command</value>
+    </data>
+    <data name="Views.Components.CommandDemo.Description" xml:space="preserve">
+        <value>Fast, composable, unstyled command menu for Blazor.</value>
+    </data>
+    <data name="Views.Components.ContextMenuDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.ContextMenuDemo.Title" xml:space="preserve">
+        <value>Context Menu</value>
+    </data>
+    <data name="Views.Components.ContextMenuDemo.Description" xml:space="preserve">
+        <value>Displays a menu to the user — such as a set of actions or functions — triggered by a button.</value>
+    </data>
+    <data name="Views.Components.DataTableDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.DataTableDemo.Title" xml:space="preserve">
+        <value>Data Table</value>
+    </data>
+    <data name="Views.Components.DataTableDemo.Description" xml:space="preserve">
+        <value>Data goes brrrrrrrrrr</value>
+    </data>
+    <data name="Views.Components.DatePickerDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.DatePickerDemo.Title" xml:space="preserve">
+        <value>Date Picker</value>
+    </data>
+    <data name="Views.Components.DatePickerDemo.Description" xml:space="preserve">
+        <value>A date picker component with range and presets.</value>
+    </data>
+    <data name="Views.Components.DialogDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.DialogDemo.Title" xml:space="preserve">
+        <value>Dialog</value>
+    </data>
+    <data name="Views.Components.DialogDemo.Description" xml:space="preserve">
+        <value>A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.</value>
+    </data>
+    <data name="Views.Components.DrawerDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.DrawerDemo.Title" xml:space="preserve">
+        <value>Drawer</value>
+    </data>
+    <data name="Views.Components.DrawerDemo.Description" xml:space="preserve">
+        <value>A drawer component for Blazor.</value>
+    </data>
+    <data name="Views.Components.DropdownMenuDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.DropdownMenuDemo.Title" xml:space="preserve">
+        <value>Dropdown Menu</value>
+    </data>
+    <data name="Views.Components.DropdownMenuDemo.Description" xml:space="preserve">
+        <value>Displays a menu to the user — such as a set of actions or functions — triggered by a button.</value>
+    </data>
+    <data name="Views.Components.EmptyDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.EmptyDemo.Title" xml:space="preserve">
+        <value>Empty</value>
+    </data>
+    <data name="Views.Components.EmptyDemo.Description" xml:space="preserve">
+        <value>Use the Empty component to display an empty state.</value>
+    </data>
+    <data name="Views.Components.FieldDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.FieldDemo.Title" xml:space="preserve">
+        <value>Field</value>
+    </data>
+    <data name="Views.Components.FieldDemo.Description" xml:space="preserve">
+        <value>Combine labels, controls, and help text to compose accessible form fields and grouped inputs.</value>
+    </data>
+    <data name="Views.Components.HoverCardDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.HoverCardDemo.Title" xml:space="preserve">
+        <value>Hover Card</value>
+    </data>
+    <data name="Views.Components.HoverCardDemo.Description" xml:space="preserve">
+        <value>For sighted users to preview content available behind a link.</value>
+    </data>
+    <data name="Views.Components.InputDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.InputDemo.Title" xml:space="preserve">
+        <value>Input</value>
+    </data>
+    <data name="Views.Components.InputDemo.Description" xml:space="preserve">
+        <value>Displays a form input field or a component that looks like an input field.</value>
+    </data>
+    <data name="Views.Components.InputGroupDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.InputGroupDemo.Title" xml:space="preserve">
+        <value>Input Group</value>
+    </data>
+    <data name="Views.Components.InputGroupDemo.Description" xml:space="preserve">
+        <value>Display additional information or actions to an input or textarea.</value>
+    </data>
+    <data name="Views.Components.InputOTPDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.InputOTPDemo.Title" xml:space="preserve">
+        <value>InputOTP</value>
+    </data>
+    <data name="Views.Components.InputOTPDemo.Description" xml:space="preserve">
+        <value>An intuitive way of letting the user input an one time passcode (otp)</value>
+    </data>
+    <data name="Views.Components.ItemDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.ItemDemo.Title" xml:space="preserve">
+        <value>Item</value>
+    </data>
+    <data name="Views.Components.ItemDemo.Description" xml:space="preserve">
+        <value>A versatile component that you can use to display any content.</value>
+    </data>
+    <data name="Views.Components.KbdDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.KbdDemo.Title" xml:space="preserve">
+        <value>Kbd</value>
+    </data>
+    <data name="Views.Components.KbdDemo.Description" xml:space="preserve">
+        <value>Used to display textual user input from keyboard.</value>
+    </data>
+    <data name="Views.Components.LabelDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.LabelDemo.Title" xml:space="preserve">
+        <value>Label</value>
+    </data>
+    <data name="Views.Components.LabelDemo.Description" xml:space="preserve">
+        <value>Renders an accessible label associated with controls.</value>
+    </data>
+    <data name="Views.Components.MarkerDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.MarkerDemo.Title" xml:space="preserve">
+        <value>Marker</value>
+    </data>
+    <data name="Views.Components.MarkerDemo.Description" xml:space="preserve">
+        <value>An inline marker for status, notes, and separators in a conversation.</value>
+    </data>
+    <data name="Views.Components.MenubarDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.MenubarDemo.Title" xml:space="preserve">
+        <value>Menubar</value>
+    </data>
+    <data name="Views.Components.MenubarDemo.Description" xml:space="preserve">
+        <value>A visually persistent menu common in desktop applications that provides quick access to a consistent set of commands.</value>
+    </data>
+    <data name="Views.Components.MessageDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.MessageDemo.Title" xml:space="preserve">
+        <value>Message</value>
+    </data>
+    <data name="Views.Components.MessageDemo.Description" xml:space="preserve">
+        <value>A chat message with an avatar, content, and optional header and footer.</value>
+    </data>
+    <data name="Views.Components.NativeSelectDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.NativeSelectDemo.Title" xml:space="preserve">
+        <value>Native Select</value>
+    </data>
+    <data name="Views.Components.NativeSelectDemo.Description" xml:space="preserve">
+        <value>A styled native HTML select element with consistent design system integration.</value>
+    </data>
+    <data name="Views.Components.PaginationDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.PaginationDemo.Title" xml:space="preserve">
+        <value>Pagination</value>
+    </data>
+    <data name="Views.Components.PaginationDemo.Description" xml:space="preserve">
+        <value>Pagination with page navigation, next and previous links.</value>
+    </data>
+    <data name="Views.Components.PopoverDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.PopoverDemo.Title" xml:space="preserve">
+        <value>Popover</value>
+    </data>
+    <data name="Views.Components.PopoverDemo.Description" xml:space="preserve">
+        <value>Displays rich content in a portal, triggered by a button.</value>
+    </data>
+    <data name="Views.Components.ProgressDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.ProgressDemo.Title" xml:space="preserve">
+        <value>Progress</value>
+    </data>
+    <data name="Views.Components.ProgressDemo.Description" xml:space="preserve">
+        <value>Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.</value>
+    </data>
+    <data name="Views.Components.RadioGroupDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.RadioGroupDemo.Title" xml:space="preserve">
+        <value>Radio Group</value>
+    </data>
+    <data name="Views.Components.RadioGroupDemo.Description" xml:space="preserve">
+        <value>A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.</value>
+    </data>
+    <data name="Views.Components.ScrollAreaDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.ScrollAreaDemo.Title" xml:space="preserve">
+        <value>ScrollArea</value>
+    </data>
+    <data name="Views.Components.ScrollAreaDemo.Description" xml:space="preserve">
+        <value>Augments native scroll functionality for custom, cross-browser styling.</value>
+    </data>
+    <data name="Views.Components.SelectDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.SelectDemo.Title" xml:space="preserve">
+        <value>Select</value>
+    </data>
+    <data name="Views.Components.SelectDemo.Description" xml:space="preserve">
+        <value>Provides a selection input</value>
+    </data>
+    <data name="Views.Components.SeparatorDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.SeparatorDemo.Title" xml:space="preserve">
+        <value>Separator</value>
+    </data>
+    <data name="Views.Components.SeparatorDemo.Description" xml:space="preserve">
+        <value>Visually or semantically separates content.</value>
+    </data>
+    <data name="Views.Components.SheetDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.SheetDemo.Title" xml:space="preserve">
+        <value>Sheet</value>
+    </data>
+    <data name="Views.Components.SheetDemo.Description" xml:space="preserve">
+        <value>Extends the Dialog component to display content that complements the main content of the screen.</value>
+    </data>
+    <data name="Views.Components.SkeletonDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.SkeletonDemo.Title" xml:space="preserve">
+        <value>Skeleton</value>
+    </data>
+    <data name="Views.Components.SkeletonDemo.Description" xml:space="preserve">
+        <value>Use to show a placeholder while content is loading.</value>
+    </data>
+    <data name="Views.Components.SliderDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.SliderDemo.Title" xml:space="preserve">
+        <value>Slider</value>
+    </data>
+    <data name="Views.Components.SliderDemo.Description" xml:space="preserve">
+        <value>An input where the user selects a value from within a given range.</value>
+    </data>
+    <data name="Views.Components.SonnerDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.SonnerDemo.Title" xml:space="preserve">
+        <value>Sonner</value>
+    </data>
+    <data name="Views.Components.SonnerDemo.Description" xml:space="preserve">
+        <value>An opinionated toast component for Blazor.</value>
+    </data>
+    <data name="Views.Components.SpinnerDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.SpinnerDemo.Title" xml:space="preserve">
+        <value>Spinner</value>
+    </data>
+    <data name="Views.Components.SpinnerDemo.Description" xml:space="preserve">
+        <value>An indicator that can be used to show a loading state.</value>
+    </data>
+    <data name="Views.Components.SwitchDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.SwitchDemo.Title" xml:space="preserve">
+        <value>Switch</value>
+    </data>
+    <data name="Views.Components.SwitchDemo.Description" xml:space="preserve">
+        <value>A control that allows the user to toggle between checked and not checked.</value>
+    </data>
+    <data name="Views.Components.TableDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.TableDemo.Title" xml:space="preserve">
+        <value>Table</value>
+    </data>
+    <data name="Views.Components.TableDemo.Description" xml:space="preserve">
+        <value>A responsive table component.</value>
+    </data>
+    <data name="Views.Components.TabsDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.TabsDemo.Title" xml:space="preserve">
+        <value>Tabs</value>
+    </data>
+    <data name="Views.Components.TabsDemo.Description" xml:space="preserve">
+        <value>A set of layered sections of content—known as tab panels—that are displayed one at a time.</value>
+    </data>
+    <data name="Views.Components.ToggleDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.ToggleDemo.Title" xml:space="preserve">
+        <value>Toggle</value>
+    </data>
+    <data name="Views.Components.ToggleDemo.Description" xml:space="preserve">
+        <value>A two-state button that can be either on or off.</value>
+    </data>
+    <data name="Views.Components.ToggleGroupDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.ToggleGroupDemo.Title" xml:space="preserve">
+        <value>Toggle Group</value>
+    </data>
+    <data name="Views.Components.ToggleGroupDemo.Description" xml:space="preserve">
+        <value>A set of two-state buttons that can be toggled on or off.</value>
+    </data>
+    <data name="Views.Components.TooltipDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.TooltipDemo.Title" xml:space="preserve">
+        <value>Tooltip</value>
+    </data>
+    <data name="Views.Components.TooltipDemo.Description" xml:space="preserve">
+        <value>A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.</value>
+    </data>
+    <data name="Views.Extras.AlertDemo.Category" xml:space="preserve">
+        <value>Extras</value>
+    </data>
+    <data name="Views.Extras.AlertDemo.Title" xml:space="preserve">
+        <value>Alerts</value>
+    </data>
+    <data name="Views.Extras.AlertDemo.Description" xml:space="preserve">
+        <value>Alerts</value>
+    </data>
+    <data name="Views.Extras.AlertDialogDemo.Category" xml:space="preserve">
+        <value>Extras</value>
+    </data>
+    <data name="Views.Extras.AlertDialogDemo.Title" xml:space="preserve">
+        <value>Alert Dialogs</value>
+    </data>
+    <data name="Views.Extras.AlertDialogDemo.Description" xml:space="preserve">
+        <value>Alert Dialogs</value>
+    </data>
+    <data name="Views.Extras.ComboboxDemo.Category" xml:space="preserve">
+        <value>Extras</value>
+    </data>
+    <data name="Views.Extras.ComboboxDemo.Title" xml:space="preserve">
+        <value>Combobox</value>
+    </data>
+    <data name="Views.Extras.ComboboxDemo.Description" xml:space="preserve">
+        <value>Combobox</value>
+    </data>
+    <data name="Views.Extras.CrashHandlerDemo.Category" xml:space="preserve">
+        <value>Extras</value>
+    </data>
+    <data name="Views.Extras.CrashHandlerDemo.Title" xml:space="preserve">
+        <value>Crash Handler</value>
+    </data>
+    <data name="Views.Extras.CrashHandlerDemo.Description" xml:space="preserve">
+        <value>Crash Handler</value>
+    </data>
+    <data name="Views.Extras.DialogDemo.Category" xml:space="preserve">
+        <value>Extras</value>
+    </data>
+    <data name="Views.Extras.DialogDemo.Title" xml:space="preserve">
+        <value>Dialog</value>
+    </data>
+    <data name="Views.Extras.DialogDemo.Description" xml:space="preserve">
+        <value>Dialog</value>
+    </data>
+    <data name="Views.Extras.EditorDemo.Category" xml:space="preserve">
+        <value>Extras</value>
+    </data>
+    <data name="Views.Extras.EditorDemo.Title" xml:space="preserve">
+        <value>Editor</value>
+    </data>
+    <data name="Views.Extras.EditorDemo.Description" xml:space="preserve">
+        <value>Editor</value>
+    </data>
+    <data name="Views.Extras.FileDropzoneDemo.Category" xml:space="preserve">
+        <value>Extras</value>
+    </data>
+    <data name="Views.Extras.FileDropzoneDemo.Title" xml:space="preserve">
+        <value>File Dropzone</value>
+    </data>
+    <data name="Views.Extras.FileDropzoneDemo.Description" xml:space="preserve">
+        <value>File Dropzone</value>
+    </data>
+    <data name="Views.Extras.FileManagerDemo.Category" xml:space="preserve">
+        <value>Extras</value>
+    </data>
+    <data name="Views.Extras.FileManagerDemo.Title" xml:space="preserve">
+        <value>File Manager</value>
+    </data>
+    <data name="Views.Extras.FileManagerDemo.Description" xml:space="preserve">
+        <value>File Manager</value>
+    </data>
+    <data name="Views.Extras.FormHandlerDemo.Category" xml:space="preserve">
+        <value>Extras</value>
+    </data>
+    <data name="Views.Extras.FormHandlerDemo.Title" xml:space="preserve">
+        <value>Form Handler</value>
+    </data>
+    <data name="Views.Extras.FormHandlerDemo.Description" xml:space="preserve">
+        <value>Form Handler</value>
+    </data>
+    <data name="Views.Extras.InputTagsDemo.Category" xml:space="preserve">
+        <value>Extras</value>
+    </data>
+    <data name="Views.Extras.InputTagsDemo.Title" xml:space="preserve">
+        <value>Input Tags</value>
+    </data>
+    <data name="Views.Extras.InputTagsDemo.Description" xml:space="preserve">
+        <value>Input Tags</value>
+    </data>
+    <data name="Views.Extras.LazyLoaderDemo.Category" xml:space="preserve">
+        <value>Extras</value>
+    </data>
+    <data name="Views.Extras.LazyLoaderDemo.Title" xml:space="preserve">
+        <value>Lazy Loader</value>
+    </data>
+    <data name="Views.Extras.LazyLoaderDemo.Description" xml:space="preserve">
+        <value>Shows a loading indicator until the load callback is finished</value>
+    </data>
+    <data name="Views.Extras.ToastDemo.Category" xml:space="preserve">
+        <value>Extras</value>
+    </data>
+    <data name="Views.Extras.ToastDemo.Title" xml:space="preserve">
+        <value>Toast</value>
+    </data>
+    <data name="Views.Extras.ToastDemo.Description" xml:space="preserve">
+        <value>Toasts</value>
+    </data>
+    <data name="Views.Extras.WButtonDemo.Category" xml:space="preserve">
+        <value>Extras</value>
+    </data>
+    <data name="Views.Extras.WButtonDemo.Title" xml:space="preserve">
+        <value>Worker Button</value>
+    </data>
+    <data name="Views.Extras.WButtonDemo.Description" xml:space="preserve">
+        <value>Worker Buttons</value>
+    </data>
+    <data name="ExtraShowcases.Components.ExampleDialog.Title" xml:space="preserve">
+        <value>Share your feedback</value>
+    </data>
+    <data name="ExtraShowcases.Components.ExampleDialog.Description" xml:space="preserve">
+        <value>We'd love to hear your thoughts on how we can improve.</value>
+    </data>
+    <data name="ExtraShowcases.Components.ExampleDialog.FeedbackLabel" xml:space="preserve">
+        <value>Your feedback</value>
+    </data>
+    <data name="ExtraShowcases.Components.ExampleDialog.FeedbackPlaceholder" xml:space="preserve">
+        <value>Tell us what you think...</value>
+    </data>
+    <data name="ExtraShowcases.Components.ExampleDialog.Cancel" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="ExtraShowcases.Components.ExampleDialog.Submit" xml:space="preserve">
+        <value>Submit Feedback</value>
+    </data>
+    <data name="ExtraShowcases.Components.ExampleDialog.SubmittedTitle" xml:space="preserve">
+        <value>Feedback has been submitted</value>
+    </data>
+    <data name="ExtraShowcases.Components.ExampleDialog.SubmittedDescription" xml:space="preserve">
+        <value>Some random next further explaining something</value>
+    </data>
+    <data name="Partials.AppHeader.GetStarted" xml:space="preserve">
+        <value>Get started</value>
+    </data>
+    <data name="Partials.AppSidebar.Installation" xml:space="preserve">
+        <value>Installation</value>
+    </data>
+    <data name="Partials.AppSidebar.Components" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Partials.AppSidebar.Extras" xml:space="preserve">
+        <value>Extras</value>
+    </data>
+    <data name="Partials.AppSidebar.Blocks" xml:space="preserve">
+        <value>Blocks</value>
+    </data>
+    <data name="Partials.LanguageSelector.SelectLanguagePlaceholder" xml:space="preserve">
+        <value>Select language</value>
+    </data>
+    <data name="Partials.NavUser.UpgradeToPro" xml:space="preserve">
+        <value>Upgrade to Pro</value>
+    </data>
+    <data name="Partials.NavUser.Account" xml:space="preserve">
+        <value>Account</value>
+    </data>
+    <data name="Partials.NavUser.Billing" xml:space="preserve">
+        <value>Billing</value>
+    </data>
+    <data name="Partials.NavUser.Notifications" xml:space="preserve">
+        <value>Notifications</value>
+    </data>
+    <data name="Partials.NavUser.Logout" xml:space="preserve">
+        <value>Log out</value>
+    </data>
+    <data name="Components.CopyBlockDialog.DialogDescription" xml:space="preserve">
+        <value>Copy and paste the block into your project</value>
+    </data>
+    <data name="Components.CopyBlockDialog.CopyButton" xml:space="preserve">
+        <value>Copy to clipboard</value>
+    </data>
+    <data name="Components.CopyBlockDialog.Close" xml:space="preserve">
+        <value>Close</value>
+    </data>
+    <data name="Components.CopyBlockDialog.CopySuccessTitle" xml:space="preserve">
+        <value>Copy Success</value>
+    </data>
+    <data name="Components.CopyBlockDialog.CopySuccessDescription" xml:space="preserve">
+        <value>Successfully copied block to clipboard</value>
+    </data>
+    <data name="Components.CopyBlockDialog.CopyErrorTitle" xml:space="preserve">
+        <value>Copy Error</value>
+    </data>
+    <data name="Components.CopyBlockDialog.CopyErrorDescription" xml:space="preserve">
+        <value>Unable to copy block to clipboard</value>
+    </data>
+</root>

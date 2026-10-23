@@ -14,7 +14,7 @@
 <DialogHeader>
     <DialogTitle>@Entry.DisplayName - @Entry.Group</DialogTitle>
     <DialogDescription>
-        Copy and paste the block into your project
+        @Translations.Components_CopyBlockDialog_DialogDescription
     </DialogDescription>
 </DialogHeader>
 <LazyLoader Load="LoadAsync">
@@ -25,11 +25,11 @@
 <DialogFooter>
     <Button @onclick="CopyAsync">
         <CopyIcon/>
-        Copy to clipboard
+        @Translations.Components_CopyBlockDialog_CopyButton
     </Button>
     <DialogClose>
         <Slot>
-            <Button Variant="ButtonVariant.Outline" @attributes="context">Close</Button>
+            <Button Variant="ButtonVariant.Outline" @attributes="context">@Translations.Components_CopyBlockDialog_Close</Button>
         </Slot>
     </DialogClose>
 </DialogFooter>
@@ -57,15 +57,15 @@
         if (success)
         {
             await ToastService.SuccessAsync(
-                "Copy Success",
-                "Successfully copied block to clipboard"
+                Translations.Components_CopyBlockDialog_CopySuccessTitle,
+                Translations.Components_CopyBlockDialog_CopySuccessDescription
             );
         }
         else
         {
             await ToastService.ErrorAsync(
-                "Copy Error",
-                "Unable to copy block to clipboard"
+                Translations.Components_CopyBlockDialog_CopyErrorTitle,
+                Translations.Components_CopyBlockDialog_CopyErrorDescription
             );
         }
     }

@@ -15,7 +15,7 @@ public class DeleteOperation : FsMultiOperationBase
         builder.OpenComponent<TrashIcon>(0);
         builder.CloseComponent();
 
-        builder.AddContent(1, "Delete");
+        builder.AddContent(1, Translations.FileManagers_DeleteOperation_Label);
     };
 
     public override int Order => 10;
@@ -39,12 +39,12 @@ public class DeleteOperation : FsMultiOperationBase
     )
     {
         var itemsList = fsEntries.Length > 3
-            ? string.Join(", ", fsEntries.Take(3).Select(x => x.Name)) + $" and {fsEntries.Length - 3} more"
+            ? string.Join(", ", fsEntries.Take(3).Select(x => x.Name)) + string.Format(Translations.FileManagers_DeleteOperation_MoreSuffix, fsEntries.Length - 3)
             : string.Join(", ", fsEntries.Select(x => x.Name));
 
         await AlertDialogService.ConfirmDangerAsync(
-            $"Deletion of {fsEntries.Length} item(s)",
-            $"Do you really want to delete these item(s): {itemsList}",
+            string.Format(Translations.FileManagers_DeleteOperation_ConfirmTitle, fsEntries.Length),
+            string.Format(Translations.FileManagers_DeleteOperation_ConfirmDescription, itemsList),
             async () =>
             {
                 foreach (var entry in fsEntries)

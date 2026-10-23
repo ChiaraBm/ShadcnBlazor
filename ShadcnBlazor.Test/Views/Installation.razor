@@ -5,20 +5,19 @@
 
 <!-- Page header -->
 <header>
-    <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">Getting started</div>
-    <h1 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Installation</h1>
+    <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">@Translations.Views_Installation_PageKicker</div>
+    <h1 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">@Translations.Views_Installation_PageTitle</h1>
     <p class="mt-4 max-w-2xl text-muted-foreground">
-        Installing ShadcnBlazor takes only a few minutes. Set up Tailwind, add the NuGet package and build your styles.
+        @Translations.Views_Installation_IntroText
     </p>
 </header>
 
 <!-- Set up Tailwind -->
 <section class="mt-16">
-    <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">Tailwind CSS</div>
-    <h2 class="mt-3 text-2xl font-bold tracking-tight">Set up the styling pipeline</h2>
+    <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">@Translations.Views_Installation_TailwindKicker</div>
+    <h2 class="mt-3 text-2xl font-bold tracking-tight">@Translations.Views_Installation_StylingPipelineHeading</h2>
     <p class="mt-3 max-w-2xl text-muted-foreground">
-        ShadcnBlazor is styled with Tailwind CSS v4, so the first step is setting up the build tooling in a Styles
-        folder.
+        @Translations.Views_Installation_StylingPipelineIntro
     </p>
 
     <div class="mt-8 grid gap-4 lg:grid-cols-2">
@@ -31,9 +30,8 @@
                         1
                     </div>
                 </CardAction>
-                <CardTitle>Create the Styles folder</CardTitle>
-                <CardDescription>Create a Styles folder in your Blazor project and initialize a new Node.js project in
-                    it.
+                <CardTitle>@Translations.Views_Installation_CreateStylesFolderTitle</CardTitle>
+                <CardDescription>@Translations.Views_Installation_CreateStylesFolderDescription
                 </CardDescription>
             </CardHeader>
             <CardContent>
@@ -50,8 +48,8 @@
                         2
                     </div>
                 </CardAction>
-                <CardTitle>Install Tailwind &amp; PostCSS</CardTitle>
-                <CardDescription>Install Tailwind CSS, PostCSS and the animation utilities.</CardDescription>
+                <CardTitle>@Translations.Views_Installation_InstallTailwindPostcssTitle</CardTitle>
+                <CardDescription>@Translations.Views_Installation_InstallTailwindPostcssDescription</CardDescription>
             </CardHeader>
             <CardContent>
                 <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm"><code
@@ -67,9 +65,8 @@
                         3
                     </div>
                 </CardAction>
-                <CardTitle>Create postcss.config.mjs</CardTitle>
-                <CardDescription>Create a file called postcss.config.mjs in the Styles folder with the following
-                    content.
+                <CardTitle>@Translations.Views_Installation_CreatePostCssConfigTitle</CardTitle>
+                <CardDescription>@Translations.Views_Installation_CreatePostCssConfigDescription
                 </CardDescription>
             </CardHeader>
             <CardContent>
@@ -83,10 +80,10 @@
 
 <!-- Install ShadcnBlazor -->
 <section class="mt-16">
-    <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">NuGet</div>
-    <h2 class="mt-3 text-2xl font-bold tracking-tight">Install ShadcnBlazor</h2>
+    <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">@Translations.Views_Installation_NuGetKicker</div>
+    <h2 class="mt-3 text-2xl font-bold tracking-tight">@Translations.Views_Installation_InstallShadcnBlazorHeading</h2>
     <p class="mt-3 max-w-2xl text-muted-foreground">
-        Add the package to your project and wire it up in a couple of lines.
+        @Translations.Views_Installation_InstallIntro
     </p>
 
     <div class="mt-8 grid gap-4 lg:grid-cols-2">
@@ -99,8 +96,8 @@
                         4
                     </div>
                 </CardAction>
-                <CardTitle>Add the NuGet package</CardTitle>
-                <CardDescription>Install the ShadcnBlazor NuGet package via your IDE or the command line.
+                <CardTitle>@Translations.Views_Installation_AddNuGetPackageTitle</CardTitle>
+                <CardDescription>@Translations.Views_Installation_AddNuGetPackageDescription
                 </CardDescription>
             </CardHeader>
             <CardContent>
@@ -117,8 +114,8 @@
                         5
                     </div>
                 </CardAction>
-                <CardTitle>Add the PortalOutlet</CardTitle>
-                <CardDescription>Add the PortalOutlet component before the end of the body tag in your main layout.
+                <CardTitle>@Translations.Views_Installation_AddPortalOutletTitle</CardTitle>
+                <CardDescription>@Translations.Views_Installation_AddPortalOutletDescription
                 </CardDescription>
             </CardHeader>
             <CardContent>
@@ -135,8 +132,8 @@
                         6
                     </div>
                 </CardAction>
-                <CardTitle>Register the services</CardTitle>
-                <CardDescription>Add the service collection extension call to your Program.cs file.</CardDescription>
+                <CardTitle>@Translations.Views_Installation_RegisterServicesTitle</CardTitle>
+                <CardDescription>@Translations.Views_Installation_RegisterServicesDescription</CardDescription>
             </CardHeader>
             <CardContent>
                 <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm"><code
@@ -148,10 +145,10 @@
 
 <!-- Base styles & build -->
 <section class="mt-16">
-    <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">Base styles</div>
-    <h2 class="mt-3 text-2xl font-bold tracking-tight">Add the base styles &amp; build</h2>
+    <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">@Translations.Views_Installation_BaseStylesKicker</div>
+    <h2 class="mt-3 text-2xl font-bold tracking-tight">@Translations.Views_Installation_BaseStylesHeading</h2>
     <p class="mt-3 max-w-2xl text-muted-foreground">
-        Create the main styles file, reference it in index.html and start the PostCSS build.
+        @Translations.Views_Installation_BaseStylesIntro
     </p>
 
     <div class="mt-8 grid gap-4 lg:grid-cols-2">
@@ -164,9 +161,8 @@
                         7
                     </div>
                 </CardAction>
-                <CardTitle>Create styles.css</CardTitle>
-                <CardDescription>Create the main styles file called styles.css in the Styles folder with the following
-                    content.
+                <CardTitle>@Translations.Views_Installation_CreateStylesCssTitle</CardTitle>
+                <CardDescription>@Translations.Views_Installation_CreateStylesCssDescription
                 </CardDescription>
             </CardHeader>
             <CardContent>
@@ -183,9 +179,8 @@
                         8
                     </div>
                 </CardAction>
-                <CardTitle>Update index.html</CardTitle>
-                <CardDescription>Add a link tag to your generated stylesheet in the head section of index.html, and add
-                    the interop script import before the Blazor WebAssembly script import.
+                <CardTitle>@Translations.Views_Installation_UpdateIndexHtmlTitle</CardTitle>
+                <CardDescription>@Translations.Views_Installation_UpdateIndexHtmlDescription
                 </CardDescription>
             </CardHeader>
             <CardContent>
@@ -202,10 +197,8 @@
                         9
                     </div>
                 </CardAction>
-                <CardTitle>Build the styles</CardTitle>
-                <CardDescription>
-                    Build your solution, then the styles and leave the watch running while you develop
-                </CardDescription>
+                <CardTitle>@Translations.Views_Installation_BuildStylesTitle</CardTitle>
+                <CardDescription>@Translations.Views_Installation_BuildStylesDescription</CardDescription>
             </CardHeader>
             <CardContent>
                 <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm"><code
@@ -218,9 +211,9 @@
 
 <!-- Next steps -->
 <section class="mt-16">
-    <h2 class="text-2xl font-bold tracking-tight">Next steps</h2>
+    <h2 class="text-2xl font-bold tracking-tight">@Translations.Views_Installation_NextStepsHeading</h2>
     <p class="mt-3 max-w-2xl text-muted-foreground">
-        Now that ShadcnBlazor is set up, take a look at what's available.
+        @Translations.Views_Installation_NextStepsIntro
     </p>
 
     <div class="mt-8 grid gap-4 md:grid-cols-3">
@@ -232,8 +225,8 @@
                         <ShapesIcon ClassName="size-6"/>
                     </div>
                     <div class="grow">
-                        <CardTitle>Components</CardTitle>
-                        <CardDescription>Browse the core component library.</CardDescription>
+                        <CardTitle>@Translations.Views_Installation_ComponentsTitle</CardTitle>
+                        <CardDescription>@Translations.Views_Installation_ComponentsDescription</CardDescription>
                     </div>
                 </CardContent>
             </Card>
@@ -246,8 +239,8 @@
                         <SparklesIcon ClassName="size-6"/>
                     </div>
                     <div class="grow">
-                        <CardTitle>Extras</CardTitle>
-                        <CardDescription>Components that go beyond shadcn/ui.</CardDescription>
+                        <CardTitle>@Translations.Views_Installation_ExtrasTitle</CardTitle>
+                        <CardDescription>@Translations.Views_Installation_ExtrasDescription</CardDescription>
                     </div>
                 </CardContent>
             </Card>
@@ -260,8 +253,8 @@
                         <BlocksIcon ClassName="size-6"/>
                     </div>
                     <div class="grow">
-                        <CardTitle>Blocks</CardTitle>
-                        <CardDescription>Ready-made compositions to kick-start your UI.</CardDescription>
+                        <CardTitle>@Translations.Views_Installation_BlocksTitle</CardTitle>
+                        <CardDescription>@Translations.Views_Installation_BlocksDescription</CardDescription>
                     </div>
                 </CardContent>
             </Card>

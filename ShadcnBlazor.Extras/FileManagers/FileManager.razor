@@ -198,16 +198,16 @@ else
                                   ValueChanged="ToggleAllAsync"/>
                     </TableHead>
                     <TableHead>
-                        Name
+                        @Translations.FileManagers_FileManager_NameColumn
                     </TableHead>
                     <TableHead ClassName="hidden sm:table-cell">
-                        Size
+                        @Translations.FileManagers_FileManager_SizeColumn
                     </TableHead>
                     <TableHead ClassName="hidden lg:table-cell">
-                        Created at
+                        @Translations.FileManagers_FileManager_CreatedAtColumn
                     </TableHead>
                     <TableHead ClassName="hidden lg:table-cell">
-                        Updated at
+                        @Translations.FileManagers_FileManager_UpdatedAtColumn
                     </TableHead>
                     <TableHead></TableHead>
                 </TableRow>
@@ -224,7 +224,7 @@ else
                                     <FolderUpIcon ClassName="text-amber-300"/>
 
                                     <a href="#" @onclick="GoUpAsync" @onclick:preventDefault>
-                                        Go up
+                                        @Translations.FileManagers_FileManager_GoUp
                                     </a>
                                 </div>
                             </TableCell>
@@ -253,9 +253,9 @@ else
                                             <EmptyMedia Variant="EmptyMediaVariant.Icon">
                                                 <SearchIcon/>
                                             </EmptyMedia>
-                                            <EmptyTitle>No files found</EmptyTitle>
+                                            <EmptyTitle>@Translations.FileManagers_FileManager_NoFilesFoundTitle</EmptyTitle>
                                             <EmptyDescription>
-                                                No files or folders have been found for your request
+                                                @Translations.FileManagers_FileManager_NoFilesFoundDescription
                                             </EmptyDescription>
                                         </EmptyHeader>
                                     </Empty>

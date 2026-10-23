@@ -14,7 +14,7 @@ public class DownloadOperation : FsMultiOperationBase
     {
         builder.OpenComponent<HardDriveDownloadIcon>(0);
         builder.CloseComponent();
-        builder.AddContent(1, "Download");
+        builder.AddContent(1, Translations.FileManagers_DownloadOperation_Label);
     };
 
     public override int Order => 0;
@@ -52,8 +52,8 @@ public class DownloadOperation : FsMultiOperationBase
         }
 
         await ToastService.ErrorAsync(
-            "Download Error",
-            $"Unable to download {fsEntry.Name}: Not supported"
+            Translations.FileManagers_DownloadOperation_ErrorTitle,
+            string.Format(Translations.FileManagers_DownloadOperation_ErrorDescription, fsEntry.Name)
         );
     }
 

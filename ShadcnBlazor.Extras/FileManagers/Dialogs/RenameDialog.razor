@@ -9,9 +9,9 @@
 @inherits ShadcnBlazor.Extras.AlertDialogs.AlertDialogBase
 
 <AlertDialogHeader>
-    <AlertDialogTitle>Rename @FsEntry.Name</AlertDialogTitle>
+    <AlertDialogTitle>@string.Format(Translations.FileManagers_RenameDialog_Title, FsEntry.Name)</AlertDialogTitle>
     <AlertDialogDescription>
-        Enter a new name
+        @Translations.FileManagers_RenameDialog_Description
     </AlertDialogDescription>
 </AlertDialogHeader>
 <EnhancedEditForm @ref="EditForm" Model="Form" OnValidSubmit="OnValidSubmit">
@@ -23,13 +23,13 @@
         <TextInputField
             @bind-Value="Form.Name"
             ClassName="mt-2"
-            placeholder="Name..."/>
+            placeholder="@Translations.FileManagers_RenameDialog_NamePlaceholder"/>
     </div>
 </EnhancedEditForm>
 
 <AlertDialogFooter>
-    <AlertDialogCancel>Cancel</AlertDialogCancel>
-    <WButton OnClick="EditForm.SubmitAsync">Rename</WButton>
+    <AlertDialogCancel>@Translations.FileManagers_RenameDialog_Cancel</AlertDialogCancel>
+    <WButton OnClick="EditForm.SubmitAsync">@Translations.FileManagers_RenameDialog_Rename</WButton>
 </AlertDialogFooter>
 
 @code

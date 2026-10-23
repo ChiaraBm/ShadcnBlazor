@@ -22,7 +22,7 @@ public sealed class UnarchiveOperation : FsSingleOperationBase
     {
         builder.OpenComponent<ArchiveRestoreIcon>(0);
         builder.CloseComponent();
-        builder.AddContent(1, "Unarchive");
+        builder.AddContent(1, Translations.FileManagers_UnarchiveOperation_Label);
     };
 
     public override int Order => 0;
@@ -54,8 +54,8 @@ public sealed class UnarchiveOperation : FsSingleOperationBase
         if (format == null) // This should never be the case, cause our filter should not even give the option to unarchive when unsupported
         {
             await ToastService.ErrorAsync(
-                "Unarchive Error",
-                $"Unable to unarchive {fsEntry.Name}: Unsupported format"
+                Translations.FileManagers_UnarchiveOperation_ErrorTitle,
+                string.Format(Translations.FileManagers_UnarchiveOperation_ErrorDescription, fsEntry.Name)
             );
 
             return;
@@ -65,20 +65,20 @@ public sealed class UnarchiveOperation : FsSingleOperationBase
         {
             parameters[nameof(LocationSelectDialog.DefaultPath)] = workingDirectory;
             parameters[nameof(LocationSelectDialog.FsAccess)] = fsAccess;
-            parameters[nameof(LocationSelectDialog.Title)] = "Select location to unarchive";
-            parameters[nameof(LocationSelectDialog.Description)] = "Select location to unarchive the items to";
+            parameters[nameof(LocationSelectDialog.Title)] = Translations.FileManagers_UnarchiveOperation_Title;
+            parameters[nameof(LocationSelectDialog.Description)] = Translations.FileManagers_UnarchiveOperation_Description;
             parameters[nameof(LocationSelectDialog.OnSubmit)] = async (string selectedPath) =>
             {
                 await ToastService.ProgressAsync(
-                    "Unarchiving",
-                    "Extracting content",
+                    Translations.FileManagers_UnarchiveOperation_ProgressTitle,
+                    Translations.FileManagers_UnarchiveOperation_ProgressDescription,
                     async toast =>
                     {
                         await archiveAccess.UnarchiveAsync(
                             UnixPath.Combine(workingDirectory, fsEntry.Name),
                             format,
                             selectedPath,
-                            message => toast.UpdateAsync($"Unarchiving item(s) from {fsEntry.Name}", message)
+                            message => toast.UpdateAsync(string.Format(Translations.FileManagers_UnarchiveOperation_ProgressUpdate, fsEntry.Name), message)
                         );
 
                         await fileManager.RefreshAsync();

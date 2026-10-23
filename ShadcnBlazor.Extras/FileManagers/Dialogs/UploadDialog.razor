@@ -20,9 +20,9 @@
                         <EmptyMedia Variant="EmptyMediaVariant.Icon">
                             <PackageOpenIcon/>
                         </EmptyMedia>
-                        <EmptyTitle>Drop to start upload</EmptyTitle>
+                        <EmptyTitle>@Translations.FileManagers_UploadDialog_DropTitle</EmptyTitle>
                         <EmptyDescription>
-                            Drop your files and folders to start uploading them
+                            @Translations.FileManagers_UploadDialog_DropDescription
                         </EmptyDescription>
                     </EmptyHeader>
                 </Empty>
@@ -34,9 +34,9 @@
                         <EmptyMedia Variant="EmptyMediaVariant.Icon">
                             <CloudUploadIcon/>
                         </EmptyMedia>
-                        <EmptyTitle>Click to select files to upload</EmptyTitle>
+                        <EmptyTitle>@Translations.FileManagers_UploadDialog_ClickTitle</EmptyTitle>
                         <EmptyDescription>
-                            Or drop them on here. Files and folders are supported
+                            @Translations.FileManagers_UploadDialog_ClickDescription
                         </EmptyDescription>
                     </EmptyHeader>
                 </Empty>
@@ -71,8 +71,8 @@
         if (stream.Length > FileManager.Options.UploadLimit)
         {
             await ToastService.ErrorAsync(
-                "Unable Error",
-                $"Unable to upload {fileName}: Maximum upload size exceeded"
+                Translations.FileManagers_UploadDialog_ErrorTitle,
+                string.Format(Translations.FileManagers_UploadDialog_ErrorDescription, fileName)
             );
 
             return;
@@ -86,8 +86,8 @@
                 if (stream.Length > FileManager.Options.WriteLimit)
                 {
                     await ToastService.ErrorAsync(
-                        "Unable Error",
-                        $"Unable to upload {fileName}: Maximum upload size exceeded"
+                        Translations.FileManagers_UploadDialog_ErrorTitle,
+                        string.Format(Translations.FileManagers_UploadDialog_ErrorDescription, fileName)
                     );
                 }
                 

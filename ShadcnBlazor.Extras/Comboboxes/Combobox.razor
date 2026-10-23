@@ -38,7 +38,7 @@
             <Command OnItemClicked="OnItemClickedAsync">
                 <CommandList>
                     <CommandEmpty>
-                        No items found
+                        @Translations.Comboboxes_Combobox_NoItemsFound
                     </CommandEmpty>
                     <CommandGroup>
                         @foreach (var item in Items)
@@ -72,8 +72,8 @@
     [Parameter] public Func<TItem, string> ValueSelector { get; set; } = item => item.ToString();
     [Parameter] public int DebounceMs { get; set; } = 250;
 
-    [Parameter] public string SearchPlaceholder { get; set; } = "Search items...";
-    [Parameter] public string FieldPlaceholder { get; set; } = "Select item...";
+    [Parameter] public string SearchPlaceholder { get; set; } = Translations.Comboboxes_Combobox_SearchPlaceholder;
+    [Parameter] public string FieldPlaceholder { get; set; } = Translations.Comboboxes_Combobox_FieldPlaceholder;
 
     public delegate Task<TItem[]> ItemLoader(string? searchTerm);
 

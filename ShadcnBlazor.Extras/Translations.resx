@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="Alerts.ErrorAlert.Dismiss" xml:space="preserve">
+        <value>Dismiss</value>
+    </data>
+    <data name="Alerts.InfoAlert.Dismiss" xml:space="preserve">
+        <value>Dismiss</value>
+    </data>
+    <data name="Alerts.WarningAlert.Dismiss" xml:space="preserve">
+        <value>Dismiss</value>
+    </data>
+    <data name="Alerts.SuccessAlert.Dismiss" xml:space="preserve">
+        <value>Dismiss</value>
+    </data>
+    <data name="AlertDialogs.ConfirmAlertDialog.Cancel" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="AlertDialogs.ConfirmAlertDialog.Confirm" xml:space="preserve">
+        <value>Confirm</value>
+    </data>
+    <data name="AlertDialogs.ConfirmDangerAlertDialog.Cancel" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="AlertDialogs.ConfirmDangerAlertDialog.Confirm" xml:space="preserve">
+        <value>Confirm</value>
+    </data>
+    <data name="AlertDialogs.ErrorAlertDialog.Close" xml:space="preserve">
+        <value>Close</value>
+    </data>
+    <data name="AlertDialogs.InfoAlertDialog.Close" xml:space="preserve">
+        <value>Close</value>
+    </data>
+    <data name="AlertDialogs.SuccessAlertDialog.Close" xml:space="preserve">
+        <value>Close</value>
+    </data>
+    <data name="AlertDialogs.WarningAlertDialog.Close" xml:space="preserve">
+        <value>Close</value>
+    </data>
+    <data name="Comboboxes.Combobox.NoItemsFound" xml:space="preserve">
+        <value>No items found</value>
+    </data>
+    <data name="Comboboxes.Combobox.SearchPlaceholder" xml:space="preserve">
+        <value>Search items...</value>
+    </data>
+    <data name="Comboboxes.Combobox.FieldPlaceholder" xml:space="preserve">
+        <value>Select item...</value>
+    </data>
+    <data name="FileDropzone.FileDropzone.UploadCompletedTitle" xml:space="preserve">
+        <value>Upload completed</value>
+    </data>
+    <data name="FileDropzone.FileDropzone.UploadCompletedDescription" xml:space="preserve">
+        <value>Uploaded {0} file(s)</value>
+    </data>
+    <data name="FileDropzone.UploadToast.Uploading" xml:space="preserve">
+        <value>Uploading...</value>
+    </data>
+    <data name="Forms.SubmitButton.ProgressText" xml:space="preserve">
+        <value>Submitting</value>
+    </data>
+    <data name="Forms.FormValidationSummary.Title" xml:space="preserve">
+        <value>Following issues were found:</value>
+    </data>
+    <data name="FileManagers.FileManager.NameColumn" xml:space="preserve">
+        <value>Name</value>
+    </data>
+    <data name="FileManagers.FileManager.SizeColumn" xml:space="preserve">
+        <value>Size</value>
+    </data>
+    <data name="FileManagers.FileManager.CreatedAtColumn" xml:space="preserve">
+        <value>Created at</value>
+    </data>
+    <data name="FileManagers.FileManager.UpdatedAtColumn" xml:space="preserve">
+        <value>Updated at</value>
+    </data>
+    <data name="FileManagers.FileManager.GoUp" xml:space="preserve">
+        <value>Go up</value>
+    </data>
+    <data name="FileManagers.FileManager.NoFilesFoundTitle" xml:space="preserve">
+        <value>No files found</value>
+    </data>
+    <data name="FileManagers.FileManager.NoFilesFoundDescription" xml:space="preserve">
+        <value>No files or folders have been found for your request</value>
+    </data>
+    <data name="FileManagers.Open.UnableToOpenTitle" xml:space="preserve">
+        <value>Unable to open file</value>
+    </data>
+    <data name="FileManagers.Open.UnableToOpenDescription" xml:space="preserve">
+        <value>Unable to open the file {0}. No provider available</value>
+    </data>
+    <data name="FileManagers.ArchiveOperation.Label" xml:space="preserve">
+        <value>Archive</value>
+    </data>
+    <data name="FileManagers.DeleteOperation.Label" xml:space="preserve">
+        <value>Delete</value>
+    </data>
+    <data name="FileManagers.DeleteOperation.ConfirmTitle" xml:space="preserve">
+        <value>Deletion of {0} item(s)</value>
+    </data>
+    <data name="FileManagers.DeleteOperation.ConfirmDescription" xml:space="preserve">
+        <value>Do you really want to delete these item(s): {0}</value>
+    </data>
+    <data name="FileManagers.DeleteOperation.MoreSuffix" xml:space="preserve">
+        <value> and {0} more</value>
+    </data>
+    <data name="FileManagers.DownloadOperation.Label" xml:space="preserve">
+        <value>Download</value>
+    </data>
+    <data name="FileManagers.DownloadOperation.ErrorTitle" xml:space="preserve">
+        <value>Download Error</value>
+    </data>
+    <data name="FileManagers.DownloadOperation.ErrorDescription" xml:space="preserve">
+        <value>Unable to download {0}: Not supported</value>
+    </data>
+    <data name="FileManagers.MoveOperation.Label" xml:space="preserve">
+        <value>Move</value>
+    </data>
+    <data name="FileManagers.MoveOperation.Title" xml:space="preserve">
+        <value>Move {0} item(s)</value>
+    </data>
+    <data name="FileManagers.MoveOperation.Description" xml:space="preserve">
+        <value>Select a location to move the item(s) to</value>
+    </data>
+    <data name="FileManagers.RenameOperation.Label" xml:space="preserve">
+        <value>Rename</value>
+    </data>
+    <data name="FileManagers.UnarchiveOperation.Label" xml:space="preserve">
+        <value>Unarchive</value>
+    </data>
+    <data name="FileManagers.UnarchiveOperation.ErrorTitle" xml:space="preserve">
+        <value>Unarchive Error</value>
+    </data>
+    <data name="FileManagers.UnarchiveOperation.ErrorDescription" xml:space="preserve">
+        <value>Unable to unarchive {0}: Unsupported format</value>
+    </data>
+    <data name="FileManagers.UnarchiveOperation.Title" xml:space="preserve">
+        <value>Select location to unarchive</value>
+    </data>
+    <data name="FileManagers.UnarchiveOperation.Description" xml:space="preserve">
+        <value>Select location to unarchive the items to</value>
+    </data>
+    <data name="FileManagers.UnarchiveOperation.ProgressTitle" xml:space="preserve">
+        <value>Unarchiving</value>
+    </data>
+    <data name="FileManagers.UnarchiveOperation.ProgressDescription" xml:space="preserve">
+        <value>Extracting content</value>
+    </data>
+    <data name="FileManagers.UnarchiveOperation.ProgressUpdate" xml:space="preserve">
+        <value>Unarchiving item(s) from {0}</value>
+    </data>
+    <data name="FileManagers.UploadOperation.Label" xml:space="preserve">
+        <value>Upload</value>
+    </data>
+    <data name="FileManagers.ArchiveDialog.Title" xml:space="preserve">
+        <value>Create Archive</value>
+    </data>
+    <data name="FileManagers.ArchiveDialog.Description" xml:space="preserve">
+        <value>Enter the name of the file</value>
+    </data>
+    <data name="FileManagers.ArchiveDialog.FormatPlaceholder" xml:space="preserve">
+        <value>Select a archive format</value>
+    </data>
+    <data name="FileManagers.ArchiveDialog.NamePlaceholder" xml:space="preserve">
+        <value>Filename...</value>
+    </data>
+    <data name="FileManagers.ArchiveDialog.Cancel" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="FileManagers.ArchiveDialog.Continue" xml:space="preserve">
+        <value>Continue</value>
+    </data>
+    <data name="FileManagers.ArchiveDialog.FormatRequired" xml:space="preserve">
+        <value>You need to select a valid archive format</value>
+    </data>
+    <data name="FileManagers.ArchiveDialog.ArchivingTitle" xml:space="preserve">
+        <value>Archiving</value>
+    </data>
+    <data name="FileManagers.ArchiveDialog.ArchivingDescription" xml:space="preserve">
+        <value>Creating archive {0}</value>
+    </data>
+    <data name="FileManagers.ArchiveDialog.ArchivingProgress" xml:space="preserve">
+        <value>Archiving {0} item(s) to {1}</value>
+    </data>
+    <data name="FileManagers.LocationSelectDialog.NameColumn" xml:space="preserve">
+        <value>Name</value>
+    </data>
+    <data name="FileManagers.LocationSelectDialog.GoUp" xml:space="preserve">
+        <value>Go up</value>
+    </data>
+    <data name="FileManagers.LocationSelectDialog.Cancel" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="FileManagers.LocationSelectDialog.SelectLocation" xml:space="preserve">
+        <value>Select Location</value>
+    </data>
+    <data name="FileManagers.NewDirectoryDialog.Title" xml:space="preserve">
+        <value>Create Directory</value>
+    </data>
+    <data name="FileManagers.NewDirectoryDialog.Description" xml:space="preserve">
+        <value>Enter the name of the directory</value>
+    </data>
+    <data name="FileManagers.NewDirectoryDialog.NamePlaceholder" xml:space="preserve">
+        <value>Name...</value>
+    </data>
+    <data name="FileManagers.NewDirectoryDialog.Cancel" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="FileManagers.NewDirectoryDialog.Create" xml:space="preserve">
+        <value>Create</value>
+    </data>
+    <data name="FileManagers.NewFileDialog.Title" xml:space="preserve">
+        <value>Create File</value>
+    </data>
+    <data name="FileManagers.NewFileDialog.Description" xml:space="preserve">
+        <value>Enter the name of the file</value>
+    </data>
+    <data name="FileManagers.NewFileDialog.NamePlaceholder" xml:space="preserve">
+        <value>Filename...</value>
+    </data>
+    <data name="FileManagers.NewFileDialog.Cancel" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="FileManagers.NewFileDialog.Create" xml:space="preserve">
+        <value>Create</value>
+    </data>
+    <data name="FileManagers.RenameDialog.Title" xml:space="preserve">
+        <value>Rename {0}</value>
+    </data>
+    <data name="FileManagers.RenameDialog.Description" xml:space="preserve">
+        <value>Enter a new name</value>
+    </data>
+    <data name="FileManagers.RenameDialog.NamePlaceholder" xml:space="preserve">
+        <value>Name...</value>
+    </data>
+    <data name="FileManagers.RenameDialog.Cancel" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="FileManagers.RenameDialog.Rename" xml:space="preserve">
+        <value>Rename</value>
+    </data>
+    <data name="FileManagers.UploadDialog.DropTitle" xml:space="preserve">
+        <value>Drop to start upload</value>
+    </data>
+    <data name="FileManagers.UploadDialog.DropDescription" xml:space="preserve">
+        <value>Drop your files and folders to start uploading them</value>
+    </data>
+    <data name="FileManagers.UploadDialog.ClickTitle" xml:space="preserve">
+        <value>Click to select files to upload</value>
+    </data>
+    <data name="FileManagers.UploadDialog.ClickDescription" xml:space="preserve">
+        <value>Or drop them on here. Files and folders are supported</value>
+    </data>
+    <data name="FileManagers.UploadDialog.ErrorTitle" xml:space="preserve">
+        <value>Unable Error</value>
+    </data>
+    <data name="FileManagers.UploadDialog.ErrorDescription" xml:space="preserve">
+        <value>Unable to upload {0}: Maximum upload size exceeded</value>
+    </data>
+</root>

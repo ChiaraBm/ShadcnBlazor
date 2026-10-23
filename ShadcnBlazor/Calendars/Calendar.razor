@@ -26,7 +26,7 @@
                     <span data-disabled="false"
                           class="relative has-focus:border-ring border border-input shadow-xs has-focus:ring-ring/50 has-focus:ring-[3px] rounded-md rdp-dropdown_root">
                         <select class="absolute bg-popover inset-0 opacity-0"
-                                aria-label="Choose the Month"
+                                aria-label="@Translations.Calendars_ChooseMonth"
                                 @onchange="OnMonthInput">
                             @foreach (var month in Months)
                             {
@@ -48,7 +48,7 @@
                           class="relative has-focus:border-ring border border-input shadow-xs has-focus:ring-ring/50 has-focus:ring-[3px] rounded-md rdp-dropdown_root">
                         <select @onchange="OnYearInput"
                             class="absolute bg-popover inset-0 opacity-0 rdp-dropdown rdp-years_dropdown"
-                            aria-label="Choose the Year">
+                            aria-label="@Translations.Calendars_ChooseYear">
                             @foreach (var year in Years)
                             {
                                 <option value="@year" selected="@(year == Current.Year)">@year</option>

@@ -13,9 +13,9 @@
 @inject ToastService ToastService
 
 <AlertDialogHeader>
-    <AlertDialogTitle>Create Archive</AlertDialogTitle>
+    <AlertDialogTitle>@Translations.FileManagers_ArchiveDialog_Title</AlertDialogTitle>
     <AlertDialogDescription>
-        Enter the name of the file
+        @Translations.FileManagers_ArchiveDialog_Description
     </AlertDialogDescription>
 </AlertDialogHeader>
 <EnhancedEditForm @ref="EditForm" Model="Form" OnValidSubmit="OnValidSubmit">
@@ -26,7 +26,7 @@
 
         <Select @bind-Value="SelectedFormatString" @bind-Value:after="SuggestName">
             <SelectTrigger ClassName="w-full">
-                <SelectValue Placeholder="Select a archive format"/>
+                <SelectValue Placeholder="@Translations.FileManagers_ArchiveDialog_FormatPlaceholder"/>
             </SelectTrigger>
             <SelectContent>
                 @foreach (var archiveFormat in FsAccess.ArchiveFormats)
@@ -40,13 +40,13 @@
 
         <TextInputField
             @bind-Value="Form.Name"
-            placeholder="Filename..."/>
+            placeholder="@Translations.FileManagers_ArchiveDialog_NamePlaceholder"/>
     </div>
 </EnhancedEditForm>
 
 <AlertDialogFooter>
-    <AlertDialogCancel>Cancel</AlertDialogCancel>
-    <WButton OnClick="EditForm.SubmitAsync">Continue</WButton>
+    <AlertDialogCancel>@Translations.FileManagers_ArchiveDialog_Cancel</AlertDialogCancel>
+    <WButton OnClick="EditForm.SubmitAsync">@Translations.FileManagers_ArchiveDialog_Continue</WButton>
 </AlertDialogFooter>
 
 @code
@@ -72,13 +72,13 @@
     {
         if (SelectedFormat == null)
         {
-            validationMessageStore.Add(new FieldIdentifier(Form, string.Empty), "You need to select a valid archive format");
+            validationMessageStore.Add(new FieldIdentifier(Form, string.Empty), Translations.FileManagers_ArchiveDialog_FormatRequired);
             return false;
         }
 
         await ToastService.ProgressAsync(
-            "Archiving",
-            $"Creating archive {Form.Name}",
+            Translations.FileManagers_ArchiveDialog_ArchivingTitle,
+            string.Format(Translations.FileManagers_ArchiveDialog_ArchivingDescription, Form.Name),
             async toast =>
             {
                 await FsAccess.ArchiveAsync(
@@ -86,7 +86,7 @@
                     WorkingDirectory,
                     SelectedFormat,
                     FsEntries,
-                    message => toast.UpdateAsync($"Archiving {FsEntries.Length} item(s) to {Form.Name}", message)
+                    message => toast.UpdateAsync(string.Format(Translations.FileManagers_ArchiveDialog_ArchivingProgress, FsEntries.Length, Form.Name), message)
                 );
 
                 await FileManager.RefreshAsync();

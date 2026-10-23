@@ -42,7 +42,7 @@
                         <InputGroupInput @bind-Value="SearchTerm"
                                          BindEvent="oninput"
                                          @bind-Value:after="OnSearchChangedAsync"
-                                         placeholder="Search..."
+                                         placeholder="@Translations.DataGrids_SearchPlaceholder"
                                          type="search">
                         </InputGroupInput>
                     }
@@ -50,7 +50,7 @@
                     {
                         <InputGroupInput @bind-Value="SearchTerm"
                                          @bind-Value:after="OnSearchChangedAsync"
-                                         placeholder="Search..."
+                                         placeholder="@Translations.DataGrids_SearchPlaceholder"
                                          type="search">
                         </InputGroupInput>
                     }
@@ -68,7 +68,7 @@
                             <Slot>
                                 <Button @attributes="context" Variant="ButtonVariant.Outline">
                                     <SlidersHorizontalIcon/>
-                                    <span class="hidden md:block">Filter</span>
+                                    <span class="hidden md:block">@Translations.DataGrids_Filter</span>
                                 </Button>
                             </Slot>
                         </PopoverTrigger>
@@ -85,7 +85,7 @@
                                         </Label>
                                         <TextInputField
                                             id="@column.Title"
-                                            placeholder="Filter for..."
+                                            placeholder="@Translations.DataGrids_Filter_Placeholder"
                                             @bind-Value="column.Filter"
                                             ClassName="col-span-2 h-8"/>
                                     </div>
@@ -94,7 +94,7 @@
                                 <div class="flex justify-center items-center">
                                     <Button @onclick="ApplyFilterAsync"
                                             Size="ButtonSize.Sm">
-                                        Apply
+                                        @Translations.DataGrids_Filter_Apply
                                     </Button>
                                 </div>
                             </div>
@@ -109,7 +109,9 @@
                             <Slot>
                                 <Button Variant="ButtonVariant.Outline" @attributes="context">
                                     <Columns3CogIcon/>
-                                    <span class="hidden md:block">Columns</span>
+                                    <span class="hidden md:block">
+                                        @Translations.DataGrids_Columns
+                                    </span>
                                 </Button>
                             </Slot>
                         </DropdownMenuTrigger>
@@ -159,9 +161,9 @@
                                             <EmptyMedia Variant="EmptyMediaVariant.Icon">
                                                 <SearchIcon/>
                                             </EmptyMedia>
-                                            <EmptyTitle>No items found</EmptyTitle>
+                                            <EmptyTitle>@Translations.DataGrids_NoItems_Title</EmptyTitle>
                                             <EmptyDescription>
-                                                No items have been found for your request
+                                                @Translations.DataGrids_NoItems_Description
                                             </EmptyDescription>
                                         </EmptyHeader>
                                     </Empty>
@@ -187,7 +189,7 @@
 
     <div class="flex items-center justify-end md:justify-between mt-1.5">
         <div class="hidden md:block text-muted-foreground text-sm">
-            Showing @(StartIndex + 1)-@(StartIndex + Items.Length) of @(TotalItems) items
+            @string.Format(Translations.DataGrids_Pagination_Current, StartIndex + 1, StartIndex + Items.Length, TotalItems)
         </div>
         <div class="flex items-center gap-x-1">
             <Button disabled="@(IsLoading || CurrentPage == 0)"
@@ -202,14 +204,14 @@
                     Variant="ButtonVariant.Outline"
                     Size="ButtonSize.Sm">
                 <ChevronLeftIcon/>
-                <span class="hidden md:block">Previous</span>
+                <span class="hidden md:block">@Translations.DataGrids_Pagination_Previous</span>
             </Button>
 
             <Button disabled="@(IsLoading || CurrentPage == MaximumPage)"
                     @onclick="() => NavigateAsync(1)"
                     Variant="ButtonVariant.Outline"
                     Size="ButtonSize.Sm">
-                <span class="hidden md:block">Next</span>
+                <span class="hidden md:block">@Translations.DataGrids_Pagination_Next</span>
                 <ChevronRightIcon/>
             </Button>
             <Button disabled="@(IsLoading || CurrentPage == MaximumPage)"

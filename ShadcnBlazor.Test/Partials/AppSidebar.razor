@@ -51,7 +51,7 @@
     </SidebarContent>
 
     <SidebarFooter>
-        <NavUser />
+        <LanguageSelector />
     </SidebarFooter>
 </Sidebar>
 
@@ -64,28 +64,28 @@
         Items.AddRange([
             new()
             {
-                Name = "Installation",
+                Name = Translations.Partials_AppSidebar_Installation,
                 IconType = typeof(WrenchIcon),
                 Path = "/installation",
                 IsExactPath = true
             },
             new()
             {
-                Name = "Components",
+                Name = Translations.Partials_AppSidebar_Components,
                 IconType = typeof(ShapesIcon),
                 Path = "/components",
                 IsExactPath = false
             },
             new()
             {
-                Name = "Extras",
+                Name = Translations.Partials_AppSidebar_Extras,
                 IconType = typeof(SparklesIcon),
                 Path = "/extras",
                 IsExactPath = false
             },
             new()
             {
-                Name = "Blocks",
+                Name = Translations.Partials_AppSidebar_Blocks,
                 IconType = typeof(BlocksIcon),
                 Path = "/blocks",
                 IsExactPath = false

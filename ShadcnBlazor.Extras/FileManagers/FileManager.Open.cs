@@ -16,8 +16,8 @@ public partial class FileManager
         if (openOperation == null)
         {
             await ToastService.ErrorAsync(
-                "Unable to open file",
-                $"Unable to open the file {fsEntry.Name}. No provider available"
+                Translations.FileManagers_Open_UnableToOpenTitle,
+                string.Format(Translations.FileManagers_Open_UnableToOpenDescription, fsEntry.Name)
             );
             return;
         }

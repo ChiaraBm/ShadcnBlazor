@@ -1,6 +1,7 @@
-using ShadcnBlazor;
-using ShadcnBlazor.Extras;
+using Microsoft.AspNetCore.Localization;
 using ShadcnBlazor.Test;
+using ShadcnBlazor.Test.Helper;
+using ShadcnBlazor.Test.Server.Helpers;
 using ShadcnBlazor.Test.Server.UI;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +14,15 @@ builder.Services.AddTest();
 
 builder.Services.AddScoped(_ => new HttpClient());
 
+builder.Services.AddScoped<ILanguageSelectorService, LanguageSelectorService>();
+
 var app = builder.Build();
+
+app.UseRequestLocalization(new RequestLocalizationOptions()
+    .AddSupportedCultures("en-US", "de")
+    .AddSupportedUICultures("en-US", "de")
+    .AddInitialRequestCultureProvider(new CookieRequestCultureProvider())
+);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
