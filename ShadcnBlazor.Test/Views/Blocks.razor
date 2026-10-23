@@ -16,10 +16,10 @@
 
 <!-- Page header -->
 <header>
-    <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">Library</div>
-    <h1 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Blocks</h1>
+    <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">@Translations.Views_Blocks_PageKicker</div>
+    <h1 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">@Translations.Views_Blocks_PageTitle</h1>
     <p class="mt-4 max-w-2xl text-muted-foreground">
-        Here you can find all the blocks available in the library. Pick a category to browse ready-made compositions.
+        @Translations.Views_Blocks_IntroText
     </p>
 </header>
 
@@ -27,11 +27,11 @@
 <div class="mt-6 flex flex-wrap gap-2">
     <Badge Variant="BadgeVariant.Secondary" ClassName="gap-1.5 py-1">
         <span class="size-1.5 rounded-full bg-violet-400"></span>
-        @TotalBlocks blocks
+        @string.Format(Translations.Views_Blocks_BlocksCount, TotalBlocks)
     </Badge>
     <Badge Variant="BadgeVariant.Secondary" ClassName="gap-1.5 py-1">
         <span class="size-1.5 rounded-full bg-violet-400"></span>
-        @GroupCount categories
+        @string.Format(Translations.Views_Blocks_CategoriesCount, GroupCount)
     </Badge>
 </div>
 
@@ -41,14 +41,14 @@
             <div class="block lg:hidden my-8">
                 <Button Variant="ButtonVariant.Outline" ClassName="w-full" @attributes="context">
                     <MenuIcon />
-                    Show all categories
+                    @Translations.Views_Blocks_ShowAllCategories
                 </Button>
             </div>
         </Slot>
     </SheetTrigger>
     <SheetContent>
         <SheetHeader>
-            <SheetTitle>Categories</SheetTitle>
+            <SheetTitle>@Translations.Views_Blocks_SheetCategoriesTitle</SheetTitle>
         </SheetHeader>
         <div class="p-3">
             <SidebarMenu>
@@ -69,7 +69,7 @@
         <SheetFooter>
             <SheetClose>
                 <Slot>
-                    <Button Variant="ButtonVariant.Outline" @attributes="context">Close</Button>
+                    <Button Variant="ButtonVariant.Outline" @attributes="context">@Translations.Views_Blocks_Close</Button>
                 </Slot>
             </SheetClose>
         </SheetFooter>
@@ -82,7 +82,7 @@
     <div class="hidden lg:flex grow-0">
         <Card ClassName="max-h-fit">
             <CardHeader>
-                <CardTitle>Categories</CardTitle>
+                <CardTitle>@Translations.Views_Blocks_CategoriesTitle</CardTitle>
             </CardHeader>
             <CardContent>
                 <SidebarMenu>
@@ -105,7 +105,7 @@
     <div class="flex grow">
         @if (Group is null)
         {
-            <div>No group :c</div>
+            <div>@Translations.Views_Blocks_NoGroup</div>
         }
         else
         {
@@ -122,7 +122,7 @@
                             </CardTitle>
                             <CardAction>
                                 <Button @onclick="() => LaunchCopyAsync(blockEntry)" Variant="ButtonVariant.Outline" Size="ButtonSize.Sm">
-                                    <CopyIcon /> Copy
+                                    <CopyIcon /> @Translations.Views_Blocks_Copy
                                 </Button>
                             </CardAction>
                         </CardHeader>

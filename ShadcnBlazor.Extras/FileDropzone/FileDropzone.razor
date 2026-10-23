@@ -114,8 +114,8 @@
         UploadToast = null;
 
         await ToastService.InfoAsync(
-            "Upload completed",
-            $"Uploaded {FilesUploaded} file(s)"
+            Translations.FileDropzone_FileDropzone_UploadCompletedTitle,
+            string.Format(Translations.FileDropzone_FileDropzone_UploadCompletedDescription, FilesUploaded)
         );
         
         FilesUploaded = 0;

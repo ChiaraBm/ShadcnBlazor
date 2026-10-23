@@ -9,9 +9,9 @@
 @inherits ShadcnBlazor.Extras.AlertDialogs.AlertDialogBase
 
 <AlertDialogHeader>
-    <AlertDialogTitle>Create File</AlertDialogTitle>
+    <AlertDialogTitle>@Translations.FileManagers_NewFileDialog_Title</AlertDialogTitle>
     <AlertDialogDescription>
-        Enter the name of the file
+        @Translations.FileManagers_NewFileDialog_Description
     </AlertDialogDescription>
 </AlertDialogHeader>
 <EnhancedEditForm @ref="EditForm" Model="Form" OnValidSubmit="OnValidSubmit">
@@ -23,13 +23,13 @@
         <TextInputField
             @bind-Value="Form.Name"
             ClassName="mt-2"
-            placeholder="Filename..."/>
+            placeholder="@Translations.FileManagers_NewFileDialog_NamePlaceholder"/>
     </div>
 </EnhancedEditForm>
 
 <AlertDialogFooter>
-    <AlertDialogCancel>Cancel</AlertDialogCancel>
-    <WButton OnClick="EditForm.SubmitAsync">Create</WButton>
+    <AlertDialogCancel>@Translations.FileManagers_NewFileDialog_Cancel</AlertDialogCancel>
+    <WButton OnClick="EditForm.SubmitAsync">@Translations.FileManagers_NewFileDialog_Create</WButton>
 </AlertDialogFooter>
 
 @code

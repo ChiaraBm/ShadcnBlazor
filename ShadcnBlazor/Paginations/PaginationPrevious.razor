@@ -2,13 +2,13 @@
 @using ShadcnBlazor.Buttons
 @inherits ShadcnBase
 
-<PaginationLink aria-label="Go to previous page"
+<PaginationLink aria-label="@Translations.Paginations_PreviousAriaLabel"
                 Size="Size"
                 ClassName="@Classes"
                 @attributes="Props">
-    
+
     <ChevronLeftIcon />
-    <span class="hidden sm:block">Previous</span>
+    <span class="hidden sm:block">@Translations.Paginations_Previous</span>
 </PaginationLink>
 
 @code

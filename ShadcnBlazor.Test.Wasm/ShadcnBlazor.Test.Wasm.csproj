@@ -8,11 +8,13 @@
 
         <WasmEnableSIMD>true</WasmEnableSIMD>
         <PublishTrimmed>true</PublishTrimmed>
+        <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.19" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.19" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="10.0.13" />
     </ItemGroup>
 
     <ItemGroup>

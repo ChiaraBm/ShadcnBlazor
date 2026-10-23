@@ -80,7 +80,7 @@
         <TableHeader>
             <TableRow>
                 <TableHead>
-                    Name
+                    @Translations.FileManagers_LocationSelectDialog_NameColumn
                 </TableHead>
             </TableRow>
         </TableHeader>
@@ -95,7 +95,7 @@
                                 <FolderIcon ClassName="text-amber-500"/>
 
                                 <a href="#" @onclick="GoUpAsync" @onclick:preventDefault>
-                                    Go up
+                                    @Translations.FileManagers_LocationSelectDialog_GoUp
                                 </a>
                             </div>
                         </TableCell>
@@ -150,8 +150,8 @@
 </div>
 
 <DialogFooter>
-    <Button @onclick="CloseAsync" Variant="ButtonVariant.Outline">Cancel</Button>
-    <WButton OnClick="OnSubmitAsync">Select Location</WButton>
+    <Button @onclick="CloseAsync" Variant="ButtonVariant.Outline">@Translations.FileManagers_LocationSelectDialog_Cancel</Button>
+    <WButton OnClick="OnSubmitAsync">@Translations.FileManagers_LocationSelectDialog_SelectLocation</WButton>
 </DialogFooter>
 
 @code

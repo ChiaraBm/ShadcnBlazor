@@ -10,8 +10,4 @@
     <ItemGroup>
       <ProjectReference Include="..\ShadcnBlazor.Test\ShadcnBlazor.Test.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="wwwroot\" />
-    </ItemGroup>
 </Project>

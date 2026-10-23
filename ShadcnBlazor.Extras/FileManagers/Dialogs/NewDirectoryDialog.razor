@@ -9,9 +9,9 @@
 @inherits ShadcnBlazor.Extras.AlertDialogs.AlertDialogBase
 
 <AlertDialogHeader>
-    <AlertDialogTitle>Create Directory</AlertDialogTitle>
+    <AlertDialogTitle>@Translations.FileManagers_NewDirectoryDialog_Title</AlertDialogTitle>
     <AlertDialogDescription>
-        Enter the name of the directory
+        @Translations.FileManagers_NewDirectoryDialog_Description
     </AlertDialogDescription>
 </AlertDialogHeader>
 <EnhancedEditForm @ref="EditForm" Model="Form" OnValidSubmit="OnValidSubmit">
@@ -23,13 +23,13 @@
         <TextInputField
             @bind-Value="Form.Name"
             ClassName="mt-2"
-            placeholder="Name..."/>
+            placeholder="@Translations.FileManagers_NewDirectoryDialog_NamePlaceholder"/>
     </div>
 </EnhancedEditForm>
 
 <AlertDialogFooter>
-    <AlertDialogCancel>Cancel</AlertDialogCancel>
-    <WButton OnClick="EditForm.SubmitAsync">Create</WButton>
+    <AlertDialogCancel>@Translations.FileManagers_NewDirectoryDialog_Cancel</AlertDialogCancel>
+    <WButton OnClick="EditForm.SubmitAsync">@Translations.FileManagers_NewDirectoryDialog_Create</WButton>
 </AlertDialogFooter>
 
 @code

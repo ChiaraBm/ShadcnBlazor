@@ -12,7 +12,7 @@ public class MoveOperation : FsMultiOperationBase
     {
         builder.OpenComponent<HandIcon>(0);
         builder.CloseComponent();
-        builder.AddContent(1, "Move");
+        builder.AddContent(1, Translations.FileManagers_MoveOperation_Label);
     };
 
     public override int Order => 2;
@@ -30,8 +30,8 @@ public class MoveOperation : FsMultiOperationBase
         {
             parameters[nameof(LocationSelectDialog.DefaultPath)] = workingDirectory;
             parameters[nameof(LocationSelectDialog.FsAccess)] = fsAccess;
-            parameters[nameof(LocationSelectDialog.Title)] = $"Move {fsEntries.Length} item(s)";
-            parameters[nameof(LocationSelectDialog.Description)] = "Select a location to move the item(s) to";
+            parameters[nameof(LocationSelectDialog.Title)] = string.Format(Translations.FileManagers_MoveOperation_Title, fsEntries.Length);
+            parameters[nameof(LocationSelectDialog.Description)] = Translations.FileManagers_MoveOperation_Description;
             parameters[nameof(LocationSelectDialog.Filter)] = (string path, FsEntry entry) =>
             {
                 return !(path == workingDirectory && fsEntries.Any(x => x.Name == entry.Name));

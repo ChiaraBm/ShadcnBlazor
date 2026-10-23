@@ -62,6 +62,15 @@
       <Compile Update="FileManagers\FileManager.Open.cs">
         <DependentUpon>FileManager.razor</DependentUpon>
       </Compile>
+      <EmbeddedResource Update="Translations.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Translations.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <Compile Update="Translations.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Translations.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>

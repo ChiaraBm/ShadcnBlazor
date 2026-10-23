@@ -10,28 +10,28 @@
 @inject AlertDialogService AlertDialogService
 
 <DialogHeader>
-    <DialogTitle>Share your feedback</DialogTitle>
+    <DialogTitle>@Translations.ExtraShowcases_Components_ExampleDialog_Title</DialogTitle>
     <DialogDescription>
-        We'd love to hear your thoughts on how we can improve.
+        @Translations.ExtraShowcases_Components_ExampleDialog_Description
     </DialogDescription>
 </DialogHeader>
 <div class="space-y-2">
-    <Label for="feedback">Your feedback</Label>
+    <Label for="feedback">@Translations.ExtraShowcases_Components_ExampleDialog_FeedbackLabel</Label>
     <TextareaField
           ClassName="min-h-[120px]"
           id="feedback"
-          placeholder="Tell us what you think..."/>
+          placeholder="@Translations.ExtraShowcases_Components_ExampleDialog_FeedbackPlaceholder"/>
 </div>
 <DialogFooter>
     <DialogClose>
         <Slot>
             <Button Type="button" Variant="ButtonVariant.Outline" @attributes="context">
-                Cancel
+                @Translations.ExtraShowcases_Components_ExampleDialog_Cancel
             </Button>
         </Slot>
     </DialogClose>
     <Button @onclick="OnSubmitAsync" Type="button">
-        Submit Feedback
+        @Translations.ExtraShowcases_Components_ExampleDialog_Submit
     </Button>
 </DialogFooter>
 
@@ -39,7 +39,7 @@
 {
     private async Task OnSubmitAsync()
     {
-        await AlertDialogService.InfoAsync("Feedback has been submitted", "Some random next further explaining something");
+        await AlertDialogService.InfoAsync(Translations.ExtraShowcases_Components_ExampleDialog_SubmittedTitle, Translations.ExtraShowcases_Components_ExampleDialog_SubmittedDescription);
         await Dialog.CloseAsync();
     }
 }

@@ -1,0 +1,42 @@
+@using System.Globalization
+@using ShadcnBlazor.Selects
+@using ShadcnBlazor.Test.Helper
+
+@inject ILanguageSelectorService SelectorService
+@inject NavigationManager Navigation
+
+<Select @bind-Value="_currentLanguage" @bind-Value:after="OnLanguageChangedAsync">
+    <SelectTrigger ClassName="w-full [&>span]:w-full [&>span]:justify-center">
+        <SelectValue Placeholder="@Translations.Partials_LanguageSelector_SelectLanguagePlaceholder" />
+    </SelectTrigger>
+    <SelectContent ClassName="w-[230px] text-center">
+        <SelectGroup>
+            @foreach (var language in _languages)
+            {
+                <SelectItem ClassName="text-center" Value="@language.Key">@language.Value</SelectItem>
+            }
+        </SelectGroup>
+    </SelectContent>
+</Select>
+
+@code
+{
+    private Dictionary<string, string> _languages = new()
+    {
+        { "en", "🇬🇧 English" },
+        { "de", "🇩🇪 Deutsch" },
+    };
+
+    private string _currentLanguage;
+
+    protected override void OnInitialized()
+    {
+        _currentLanguage = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+    }
+
+    private async Task OnLanguageChangedAsync()
+    {
+        await SelectorService.SelectAsync(_currentLanguage);
+        Navigation.Refresh(true);
+    }
+}

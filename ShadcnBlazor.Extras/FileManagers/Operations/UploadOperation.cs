@@ -13,7 +13,7 @@ public sealed class UploadOperation : FsToolbarOperationBase
     {
         builder.OpenComponent<UploadIcon>(0);
         builder.CloseComponent();
-        builder.AddContent(1, "Upload");
+        builder.AddContent(1, Translations.FileManagers_UploadOperation_Label);
     };
 
     public override int Order => -100;

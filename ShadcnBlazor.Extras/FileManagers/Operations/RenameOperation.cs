@@ -15,7 +15,7 @@ public sealed class RenameOperation : FsSingleOperationBase
         builder.OpenComponent<PencilIcon>(0);
         builder.CloseComponent();
         
-        builder.AddContent(1, "Rename");
+        builder.AddContent(1, Translations.FileManagers_RenameOperation_Label);
     };
 
     public override int Order => 0;

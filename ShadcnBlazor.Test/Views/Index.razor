@@ -53,37 +53,37 @@
             </h1>
 
             <p class="mx-auto mt-5 max-w-2xl text-balance text-lg text-muted-foreground">
-                A Blazor port of the popular
+                @Translations.Views_Index_HeroTaglinePrefix
                 <a href="https://ui.shadcn.com/"
                    class="text-violet-400 underline-offset-4 hover:underline">shadcn/ui</a>
-                component library. Same component names, same look, same Tailwind-based theming but written for .NET.
+                @Translations.Views_Index_HeroTaglineSuffix
             </p>
 
             <div class="mt-7 flex flex-wrap items-center justify-center gap-2">
                 <Badge>.NET 9</Badge>
-                <Badge Variant="BadgeVariant.Secondary">Tailwind CSS v4</Badge>
-                <Badge Variant="BadgeVariant.Secondary">MIT License</Badge>
-                <Badge Variant="BadgeVariant.Outline">50+ components</Badge>
+                <Badge Variant="BadgeVariant.Secondary">@Translations.Views_Index_HeroBadgeTailwind</Badge>
+                <Badge Variant="BadgeVariant.Secondary">@Translations.Views_Index_HeroBadgeMitLicense</Badge>
+                <Badge Variant="BadgeVariant.Outline">@Translations.Views_Index_HeroBadgeComponents</Badge>
             </div>
 
             <div class="mt-9 flex flex-wrap items-center justify-center gap-3">
                 <Button Size="ButtonSize.Lg">
                     <Slot>
                         <a href="/installation" @attributes="context">
-                            Get started
+                            @Translations.Views_Index_HeroButtonGetStarted
                             <ArrowRightIcon/>
                         </a>
                     </Slot>
                 </Button>
                 <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Lg">
                     <Slot>
-                        <a href="/components" @attributes="context">Browse components</a>
+                        <a href="/components" @attributes="context">@Translations.Views_Index_HeroButtonBrowseComponents</a>
                     </Slot>
                 </Button>
                 <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Lg">
                     <Slot>
                         <a href="/blocks" @attributes="context">
-                            Blocks
+                            @Translations.Views_Index_HeroButtonBlocks
                             <ArrowRightIcon/>
                         </a>
                     </Slot>
@@ -93,15 +93,15 @@
             <div class="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm text-muted-foreground">
                 <div class="flex items-center gap-2">
                     <ShapesIcon class="size-4 text-violet-400"/>
-                    46 core components
+                    @Translations.Views_Index_HeroStatCoreComponents
                 </div>
                 <div class="flex items-center gap-2">
                     <SparklesIcon class="size-4 text-violet-400"/>
-                    11 extras
+                    @Translations.Views_Index_HeroStatExtras
                 </div>
                 <div class="flex items-center gap-2">
                     <BlocksIcon class="size-4 text-violet-400"/>
-                    2 NuGet packages
+                    @Translations.Views_Index_HeroStatNuGetPackages
                 </div>
             </div>
         </div>
@@ -111,19 +111,16 @@
     <section class="mt-24">
         <div class="grid items-center gap-10 lg:grid-cols-2">
             <div>
-                <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">What is ShadcnBlazor?</div>
+                <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">@Translations.Views_Index_WhatIs_Eyebrow</div>
                 <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
-                    The shadcn/ui look, natively in Blazor
+                    @Translations.Views_Index_WhatIs_Title
                 </h2>
                 <p class="mt-5 text-muted-foreground">
-                    ShadcnBlazor brings the shadcn/ui component style to Blazor. You get the same component names, the
-                    same look and the same Tailwind-based theming, just written for .NET. Every component can be tried
-                    in the
-                    <a href="/blocks" class="text-violet-400 underline-offset-4 hover:underline">live demo</a>.
+                    @Translations.Views_Index_WhatIs_Description
+                    <a href="/blocks" class="text-violet-400 underline-offset-4 hover:underline">@Translations.Views_Index_WhatIs_LiveDemo</a>.
                 </p>
                 <p class="mt-4 text-muted-foreground">
-                    Styling is Tailwind CSS v4, so theming, custom variants and dark mode work the way you'd expect from
-                    the original.
+                    @Translations.Views_Index_WhatIs_Styling
                 </p>
             </div>
 
@@ -137,7 +134,7 @@
                             </div>
                             <div>
                                 <CardTitle>ShadcnBlazor</CardTitle>
-                                <CardDescription>The core component set. A port of the shadcn/ui library.
+                                <CardDescription>@Translations.Views_Index_WhatIs_CoreDescription
                                 </CardDescription>
                             </div>
                         </a>
@@ -152,9 +149,7 @@
                             </div>
                             <div>
                                 <CardTitle>ShadcnBlazor.Extras</CardTitle>
-                                <CardDescription>Extra components that don't exist in shadcn/ui, built because Blazor
-                                    apps
-                                    needed them.
+                                <CardDescription>@Translations.Views_Index_WhatIs_ExtrasDescription
                                 </CardDescription>
                             </div>
                         </a>
@@ -167,10 +162,10 @@
     <!-- Component gallery -->
     <section class="mt-24">
         <div class="mx-auto max-w-2xl text-center">
-            <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">Component gallery</div>
-            <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Built with ShadcnBlazor</h2>
+            <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">@Translations.Views_Index_Gallery_Eyebrow</div>
+            <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">@Translations.Views_Index_Gallery_Title</h2>
             <p class="mt-4 text-muted-foreground">
-                Of few examples from our library of components
+                @Translations.Views_Index_Gallery_Description
             </p>
         </div>
 
@@ -179,17 +174,17 @@
             <!-- Button -->
             <Card ClassName="md:col-span-2">
                 <CardHeader>
-                    <CardTitle>Button</CardTitle>
-                    <CardDescription>Available in a variety of styles and sizes</CardDescription>
+                    <CardTitle>@Translations.Views_Index_GalleryButtonTitle</CardTitle>
+                    <CardDescription>@Translations.Views_Index_GalleryButtonDescription</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div class="flex flex-wrap items-center gap-2">
-                        <Button>Default</Button>
-                        <Button Variant="ButtonVariant.Secondary">Secondary</Button>
-                        <Button Variant="ButtonVariant.Outline">Outline</Button>
-                        <Button Variant="ButtonVariant.Ghost">Ghost</Button>
-                        <Button Variant="ButtonVariant.Destructive">Destructive</Button>
-                        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Icon" aria-label="Submit">
+                        <Button>@Translations.Views_Index_GalleryButtonDefault</Button>
+                        <Button Variant="ButtonVariant.Secondary">@Translations.Views_Index_GalleryButtonSecondary</Button>
+                        <Button Variant="ButtonVariant.Outline">@Translations.Views_Index_GalleryButtonOutline</Button>
+                        <Button Variant="ButtonVariant.Ghost">@Translations.Views_Index_GalleryButtonGhost</Button>
+                        <Button Variant="ButtonVariant.Destructive">@Translations.Views_Index_GalleryButtonDestructive</Button>
+                        <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Icon" aria-label="@Translations.Views_Index_GalleryButtonSubmitAria">
                             <ArrowUpIcon/>
                         </Button>
                     </div>
@@ -199,20 +194,20 @@
             <!-- Badge -->
             <Card>
                 <CardHeader>
-                    <CardTitle>Badge</CardTitle>
-                    <CardDescription>Display a badge or make something look badged</CardDescription>
+                    <CardTitle>@Translations.Views_Index_GalleryBadgeTitle</CardTitle>
+                    <CardDescription>@Translations.Views_Index_GalleryBadgeDescription</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div class="flex flex-wrap gap-2">
-                        <Badge>Default</Badge>
-                        <Badge Variant="BadgeVariant.Secondary">Secondary</Badge>
-                        <Badge Variant="BadgeVariant.Destructive">Destructive</Badge>
-                        <Badge Variant="BadgeVariant.Outline">Outline</Badge>
+                        <Badge>@Translations.Views_Index_GalleryBadgeDefault</Badge>
+                        <Badge Variant="BadgeVariant.Secondary">@Translations.Views_Index_GalleryBadgeSecondary</Badge>
+                        <Badge Variant="BadgeVariant.Destructive">@Translations.Views_Index_GalleryBadgeDestructive</Badge>
+                        <Badge Variant="BadgeVariant.Outline">@Translations.Views_Index_GalleryBadgeOutline</Badge>
                     </div>
                     <div class="mt-3 flex flex-wrap gap-2">
                         <Badge Variant="BadgeVariant.Secondary" ClassName="bg-violet-500/15 text-violet-400">
                             <SparklesIcon ClassName="size-3"/>
-                            New
+                            @Translations.Views_Index_GalleryBadgeNew
                         </Badge>
                         <Badge ClassName="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums">8</Badge>
                         <Badge
@@ -227,18 +222,18 @@
             <!-- Input -->
             <Card>
                 <CardHeader>
-                    <CardTitle>Input</CardTitle>
-                    <CardDescription>Display a form input field</CardDescription>
+                    <CardTitle>@Translations.Views_Index_GalleryInputTitle</CardTitle>
+                    <CardDescription>@Translations.Views_Index_GalleryInputDescription</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div class="grid gap-4">
                         <div class="grid gap-2">
-                            <Label for="hero-email">Email</Label>
+                            <Label for="hero-email">@Translations.Views_Index_GalleryInputEmailLabel</Label>
                             <TextInputField @bind-Value="Email" id="hero-email" Type="email"
                                             placeholder="m@example.com"/>
                         </div>
                         <div class="grid gap-2">
-                            <Label for="hero-password">Password</Label>
+                            <Label for="hero-password">@Translations.Views_Index_GalleryInputPasswordLabel</Label>
                             <TextInputField @bind-Value="Password" id="hero-password" Type="password"
                                             placeholder="••••••••"/>
                         </div>
@@ -249,18 +244,18 @@
             <!-- Switch & Checkbox -->
             <Card>
                 <CardHeader>
-                    <CardTitle>Switch &amp; Checkbox</CardTitle>
-                    <CardDescription>Toggle between two states</CardDescription>
+                    <CardTitle>@Translations.Views_Index_GallerySwitchTitle</CardTitle>
+                    <CardDescription>@Translations.Views_Index_GallerySwitchDescription</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div class="flex flex-col gap-4">
                         <div class="flex items-center gap-3">
                             <Switch @bind-Value="SwitchValue" id="hero-switch"/>
-                            <Label for="hero-switch">Enable notifications</Label>
+                            <Label for="hero-switch">@Translations.Views_Index_GallerySwitchNotificationsLabel</Label>
                         </div>
                         <div class="flex items-center gap-3">
                             <Checkbox @bind-Value="CheckboxValue" id="hero-checkbox"/>
-                            <Label for="hero-checkbox">Accept terms and conditions</Label>
+                            <Label for="hero-checkbox">@Translations.Views_Index_GallerySwitchAcceptTermsLabel</Label>
                         </div>
                     </div>
                 </CardContent>
@@ -269,22 +264,22 @@
             <!-- Radio Group -->
             <Card>
                 <CardHeader>
-                    <CardTitle>Radio Group</CardTitle>
-                    <CardDescription>A set of custom radio buttons</CardDescription>
+                    <CardTitle>@Translations.Views_Index_GalleryRadioTitle</CardTitle>
+                    <CardDescription>@Translations.Views_Index_GalleryRadioDescription</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <RadioGroup DefaultValue="comfortable">
                         <div class="flex items-center gap-3">
                             <RadioGroupItem Value="default" id="hero-radio-1"/>
-                            <Label for="hero-radio-1">Default</Label>
+                            <Label for="hero-radio-1">@Translations.Views_Index_GalleryRadioDefault</Label>
                         </div>
                         <div class="flex items-center gap-3">
                             <RadioGroupItem Value="comfortable" id="hero-radio-2"/>
-                            <Label for="hero-radio-2">Comfortable</Label>
+                            <Label for="hero-radio-2">@Translations.Views_Index_GalleryRadioComfortable</Label>
                         </div>
                         <div class="flex items-center gap-3">
                             <RadioGroupItem Value="compact" id="hero-radio-3"/>
-                            <Label for="hero-radio-3">Compact</Label>
+                            <Label for="hero-radio-3">@Translations.Views_Index_GalleryRadioCompact</Label>
                         </div>
                     </RadioGroup>
                 </CardContent>
@@ -293,11 +288,11 @@
             <!-- Slider -->
             <Card>
                 <CardHeader>
-                    <CardTitle>Slider</CardTitle>
-                    <CardDescription>Input component to select a value from a range</CardDescription>
+                    <CardTitle>@Translations.Views_Index_GallerySliderTitle</CardTitle>
+                    <CardDescription>@Translations.Views_Index_GallerySliderDescription</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <div class="mb-3 text-sm text-muted-foreground">Value: @SliderValue</div>
+                    <div class="mb-3 text-sm text-muted-foreground">@Translations.Views_Index_GallerySliderValueLabel@SliderValue</div>
                     <Slider Min="0" Max="100" @bind-Value="SliderValue"/>
                 </CardContent>
             </Card>
@@ -305,8 +300,8 @@
             <!-- Progress -->
             <Card>
                 <CardHeader>
-                    <CardTitle>Progress</CardTitle>
-                    <CardDescription>Display progress bar — this one updates itself</CardDescription>
+                    <CardTitle>@Translations.Views_Index_GalleryProgressTitle</CardTitle>
+                    <CardDescription>@Translations.Views_Index_GalleryProgressDescription</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div class="mb-3 text-sm text-muted-foreground">@ProgressValue%</div>
@@ -317,23 +312,23 @@
             <!-- Tabs -->
             <Card>
                 <CardHeader>
-                    <CardTitle>Tabs</CardTitle>
-                    <CardDescription>A set of layered sections displayed one at a time</CardDescription>
+                    <CardTitle>@Translations.Views_Index_GalleryTabsTitle</CardTitle>
+                    <CardDescription>@Translations.Views_Index_GalleryTabsDescription</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Tabs DefaultValue="account">
                         <TabsList>
-                            <TabsTrigger Value="account">Account</TabsTrigger>
-                            <TabsTrigger Value="password">Password</TabsTrigger>
+                            <TabsTrigger Value="account">@Translations.Views_Index_GalleryTabsAccountTrigger</TabsTrigger>
+                            <TabsTrigger Value="password">@Translations.Views_Index_GalleryTabsPasswordTrigger</TabsTrigger>
                         </TabsList>
                         <TabsContent Value="account">
                             <p class="text-sm text-muted-foreground">
-                                Make changes to your account here. Click save when you're done.
+                                @Translations.Views_Index_GalleryTabsAccountBody
                             </p>
                         </TabsContent>
                         <TabsContent Value="password">
                             <p class="text-sm text-muted-foreground">
-                                Change your password here. After saving, you'll be logged out.
+                                @Translations.Views_Index_GalleryTabsPasswordBody
                             </p>
                         </TabsContent>
                     </Tabs>
@@ -343,21 +338,21 @@
             <!-- Accordion -->
             <Card>
                 <CardHeader>
-                    <CardTitle>Accordion</CardTitle>
-                    <CardDescription>A vertically stacked set of interactive headings</CardDescription>
+                    <CardTitle>@Translations.Views_Index_GalleryAccordionTitle</CardTitle>
+                    <CardDescription>@Translations.Views_Index_GalleryAccordionDescription</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Accordion Type="AccordionType.Single" DefaultValue="item-1" ClassName="w-full">
                         <AccordionItem Value="item-1">
-                            <AccordionTrigger>Is it accessible?</AccordionTrigger>
+                            <AccordionTrigger>@Translations.Views_Index_GalleryAccordionAccessibleTrigger</AccordionTrigger>
                             <AccordionContent>
-                                Yes. It adheres to the WAI-ARIA design pattern.
+                                @Translations.Views_Index_GalleryAccordionAccessibleContent
                             </AccordionContent>
                         </AccordionItem>
                         <AccordionItem Value="item-2">
-                            <AccordionTrigger>Is it styled?</AccordionTrigger>
+                            <AccordionTrigger>@Translations.Views_Index_GalleryAccordionStyledTrigger</AccordionTrigger>
                             <AccordionContent>
-                                Yes. It comes with default styles that match the theme.
+                                @Translations.Views_Index_GalleryAccordionStyledContent
                             </AccordionContent>
                         </AccordionItem>
                     </Accordion>
@@ -367,15 +362,15 @@
             <!-- Alert -->
             <Card>
                 <CardHeader>
-                    <CardTitle>Alert</CardTitle>
-                    <CardDescription>Display a callout for user attention</CardDescription>
+                    <CardTitle>@Translations.Views_Index_GalleryAlertTitle</CardTitle>
+                    <CardDescription>@Translations.Views_Index_GalleryAlertDescription</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Alert>
                         <CircleCheckBigIcon/>
-                        <AlertTitle>Success! Your changes have been saved</AlertTitle>
+                        <AlertTitle>@Translations.Views_Index_GalleryAlertSuccessTitle</AlertTitle>
                         <AlertDescription>
-                            This is an alert with icon, title and description.
+                            @Translations.Views_Index_GalleryAlertSuccessDescription
                         </AlertDescription>
                     </Alert>
                 </CardContent>
@@ -384,8 +379,8 @@
             <!-- Avatar -->
             <Card>
                 <CardHeader>
-                    <CardTitle>Avatar</CardTitle>
-                    <CardDescription>Images with fallbacks to represent a user</CardDescription>
+                    <CardTitle>@Translations.Views_Index_GalleryAvatarTitle</CardTitle>
+                    <CardDescription>@Translations.Views_Index_GalleryAvatarDescription</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div class="flex items-center gap-3">
@@ -407,8 +402,8 @@
             <!-- Skeleton -->
             <Card>
                 <CardHeader>
-                    <CardTitle>Skeleton</CardTitle>
-                    <CardDescription>Use as a placeholder during loading</CardDescription>
+                    <CardTitle>@Translations.Views_Index_GallerySkeletonTitle</CardTitle>
+                    <CardDescription>@Translations.Views_Index_GallerySkeletonDescription</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div class="flex items-center gap-4">
@@ -424,8 +419,8 @@
             <!-- Kbd -->
             <Card>
                 <CardHeader>
-                    <CardTitle>Kbd</CardTitle>
-                    <CardDescription>Display a sequence of keys as a shortcut</CardDescription>
+                    <CardTitle>@Translations.Views_Index_GalleryKbdTitle</CardTitle>
+                    <CardDescription>@Translations.Views_Index_GalleryKbdDescription</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div class="flex flex-col items-start gap-3">
@@ -446,18 +441,18 @@
             <!-- Tooltip -->
             <Card>
                 <CardHeader>
-                    <CardTitle>Tooltip</CardTitle>
-                    <CardDescription>A popup for displaying contextual information — hover the button</CardDescription>
+                    <CardTitle>@Translations.Views_Index_GalleryTooltipTitle</CardTitle>
+                    <CardDescription>@Translations.Views_Index_GalleryTooltipDescription</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Tooltip>
                         <TooltipTrigger>
                             <Slot>
-                                <Button Variant="ButtonVariant.Outline" @attributes="context">Hover me</Button>
+                                <Button Variant="ButtonVariant.Outline" @attributes="context">@Translations.Views_Index_GalleryTooltipHoverMe</Button>
                             </Slot>
                         </TooltipTrigger>
                         <TooltipContent Side="PositionSide.Top">
-                            <p>Add to library</p>
+                            <p>@Translations.Views_Index_GalleryTooltipAddToLibrary</p>
                         </TooltipContent>
                     </Tooltip>
                 </CardContent>
@@ -466,21 +461,21 @@
             <!-- Separator -->
             <Card>
                 <CardHeader>
-                    <CardTitle>Separator</CardTitle>
-                    <CardDescription>A subtle separator to divide content</CardDescription>
+                    <CardTitle>@Translations.Views_Index_GallerySeparatorTitle</CardTitle>
+                    <CardDescription>@Translations.Views_Index_GallerySeparatorDescription</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div class="space-y-1">
-                        <h4 class="text-sm leading-none font-medium">ShadcnBlazor</h4>
-                        <p class="text-muted-foreground text-sm">An open-source UI component library.</p>
+                        <h4 class="text-sm leading-none font-medium">@Translations.Views_Index_GallerySeparatorHeading</h4>
+                        <p class="text-muted-foreground text-sm">@Translations.Views_Index_GallerySeparatorTagline</p>
                     </div>
                     <Separator ClassName="my-4"/>
                     <div class="flex h-5 items-center gap-4 text-sm">
-                        <div>Blog</div>
+                        <div>@Translations.Views_Index_GallerySeparatorBlog</div>
                         <Separator Orientation="SeparatorOrientation.Vertical"/>
-                        <div>Docs</div>
+                        <div>@Translations.Views_Index_GallerySeparatorDocs</div>
                         <Separator Orientation="SeparatorOrientation.Vertical"/>
-                        <div>Source</div>
+                        <div>@Translations.Views_Index_GallerySeparatorSource</div>
                     </div>
                 </CardContent>
             </Card>
@@ -488,8 +483,8 @@
             <!-- Spinner -->
             <Card>
                 <CardHeader>
-                    <CardTitle>Spinner</CardTitle>
-                    <CardDescription>A spinner for loading states</CardDescription>
+                    <CardTitle>@Translations.Views_Index_GallerySpinnerTitle</CardTitle>
+                    <CardDescription>@Translations.Views_Index_GallerySpinnerDescription</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Item Variant="ItemVariant.Muted">
@@ -497,7 +492,7 @@
                             <Spinner/>
                         </ItemMedia>
                         <ItemContent>
-                            <ItemTitle>Processing payment...</ItemTitle>
+                            <ItemTitle>@Translations.Views_Index_GallerySpinnerProcessing</ItemTitle>
                         </ItemContent>
                         <ItemContent ClassName="flex-none justify-end">
                             <span class="text-sm tabular-nums">$100.00</span>
@@ -509,22 +504,22 @@
             <!-- Select -->
             <Card>
                 <CardHeader>
-                    <CardTitle>Select</CardTitle>
-                    <CardDescription>Display an option list for user selection</CardDescription>
+                    <CardTitle>@Translations.Views_Index_GallerySelectTitle</CardTitle>
+                    <CardDescription>@Translations.Views_Index_GallerySelectDescription</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Select>
                         <SelectTrigger ClassName="w-full">
-                            <SelectValue Placeholder="Select a fruit"/>
+                            <SelectValue Placeholder="@Translations.Views_Index_GallerySelectPlaceholder"/>
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                                <SelectLabel>Fruits</SelectLabel>
-                                <SelectItem Value="apple">Apple</SelectItem>
-                                <SelectItem Value="banana">Banana</SelectItem>
-                                <SelectItem Value="blueberry">Blueberry</SelectItem>
-                                <SelectItem Value="grapes">Grapes</SelectItem>
-                                <SelectItem Value="pineapple">Pineapple</SelectItem>
+                                <SelectLabel>@Translations.Views_Index_GallerySelectFruitsLabel</SelectLabel>
+                                <SelectItem Value="apple">@Translations.Views_Index_GallerySelectApple</SelectItem>
+                                <SelectItem Value="banana">@Translations.Views_Index_GallerySelectBanana</SelectItem>
+                                <SelectItem Value="blueberry">@Translations.Views_Index_GallerySelectBlueberry</SelectItem>
+                                <SelectItem Value="grapes">@Translations.Views_Index_GallerySelectGrapes</SelectItem>
+                                <SelectItem Value="pineapple">@Translations.Views_Index_GallerySelectPineapple</SelectItem>
                             </SelectGroup>
                         </SelectContent>
                     </Select>
@@ -534,8 +529,8 @@
             <!-- Pagination -->
             <Card>
                 <CardHeader>
-                    <CardTitle>Pagination</CardTitle>
-                    <CardDescription>Navigation links to move between pages</CardDescription>
+                    <CardTitle>@Translations.Views_Index_GalleryPaginationTitle</CardTitle>
+                    <CardDescription>@Translations.Views_Index_GalleryPaginationDescription</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Pagination>
@@ -566,16 +561,16 @@
             <!-- Toggle -->
             <Card>
                 <CardHeader>
-                    <CardTitle>Toggle</CardTitle>
-                    <CardDescription>A button that can be toggled on and off</CardDescription>
+                    <CardTitle>@Translations.Views_Index_GalleryToggleTitle</CardTitle>
+                    <CardDescription>@Translations.Views_Index_GalleryToggleDescription</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Toggle
-                        aria-label="Toggle bookmark"
+                        aria-label="@Translations.Views_Index_GalleryToggleBookmarkAria"
                         Variant="ToggleVariant.Outline"
                         ClassName="data-[state=on]:bg-transparent data-[state=on]:*:[svg]:fill-violet-500 data-[state=on]:*:[svg]:stroke-violet-500">
                         <BookmarkIcon/>
-                        Bookmark
+                        @Translations.Views_Index_GalleryToggleBookmark
                     </Toggle>
                 </CardContent>
             </Card>
@@ -583,8 +578,8 @@
             <!-- Item -->
             <Card>
                 <CardHeader>
-                    <CardTitle>Item</CardTitle>
-                    <CardDescription>A container for pieces of content</CardDescription>
+                    <CardTitle>@Translations.Views_Index_GalleryItemTitle</CardTitle>
+                    <CardDescription>@Translations.Views_Index_GalleryItemDescription</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Item Variant="ItemVariant.Muted">
@@ -592,8 +587,8 @@
                             <BadgeCheckIcon ClassName="size-4"/>
                         </ItemMedia>
                         <ItemContent>
-                            <ItemTitle>Your profile has been verified</ItemTitle>
-                            <ItemDescription>Welcome to the club</ItemDescription>
+                            <ItemTitle>@Translations.Views_Index_GalleryItemVerifiedTitle</ItemTitle>
+                            <ItemDescription>@Translations.Views_Index_GalleryItemVerifiedDescription</ItemDescription>
                         </ItemContent>
                         <ItemActions>
                             <ChevronRightIcon ClassName="size-4"/>
@@ -608,11 +603,11 @@
     <!-- Quick start -->
     <section class="mt-24">
         <div class="mx-auto max-w-2xl text-center">
-            <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">Quick start</div>
-            <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Up and running in minutes</h2>
+            <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">@Translations.Views_Index_QuickStart_Eyebrow</div>
+            <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">@Translations.Views_Index_QuickStart_Title</h2>
             <p class="mt-4 text-muted-foreground">
-                The full step-by-step guide lives on the
-                <a href="/installation" class="text-violet-400 underline-offset-4 hover:underline">installation page</a>.
+                @Translations.Views_Index_QuickStart_Description
+                <a href="/installation" class="text-violet-400 underline-offset-4 hover:underline">@Translations.Views_Index_QuickStart_InstallationPage</a>.
             </p>
         </div>
 
@@ -626,8 +621,8 @@
                             1
                         </div>
                     </CardAction>
-                    <CardTitle>Install the package</CardTitle>
-                    <CardDescription>Add the NuGet package to your project</CardDescription>
+                    <CardTitle>@Translations.Views_Index_QuickStart_Step1Title</CardTitle>
+                    <CardDescription>@Translations.Views_Index_QuickStart_Step1Description</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm max-w-[80vw]"><code
@@ -643,8 +638,8 @@
                             2
                         </div>
                     </CardAction>
-                    <CardTitle>Set up Tailwind</CardTitle>
-                    <CardDescription>Initialize a node project in a Styles folder</CardDescription>
+                    <CardTitle>@Translations.Views_Index_QuickStart_Step2Title</CardTitle>
+                    <CardDescription>@Translations.Views_Index_QuickStart_Step2Description</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm max-w-[80vw]">
@@ -664,8 +659,8 @@
                             3
                         </div>
                     </CardAction>
-                    <CardTitle>Add the base styles</CardTitle>
-                    <CardDescription>Pull in the base styles shipped with the package</CardDescription>
+                    <CardTitle>@Translations.Views_Index_QuickStart_Step3Title</CardTitle>
+                    <CardDescription>@Translations.Views_Index_QuickStart_Step3Description</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm max-w-[80vw]"><code
@@ -681,8 +676,8 @@
                             4
                         </div>
                     </CardAction>
-                    <CardTitle>Wire it up</CardTitle>
-                    <CardDescription>Register the services and build your styles</CardDescription>
+                    <CardTitle>@Translations.Views_Index_QuickStart_Step4Title</CardTitle>
+                    <CardDescription>@Translations.Views_Index_QuickStart_Step4Description</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <pre class="overflow-x-auto rounded-lg border bg-muted/40 p-4 text-sm max-w-[80vw]"><code
@@ -700,10 +695,10 @@
     <!-- Extras -->
     <section class="mt-24">
         <div class="mx-auto max-w-2xl text-center">
-            <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">Extras</div>
-            <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">More than shadcn/ui</h2>
+            <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">@Translations.Views_Index_Extras_Eyebrow</div>
+            <h2 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">@Translations.Views_Index_Extras_Title</h2>
             <p class="mt-4 text-muted-foreground">
-                ShadcnBlazor.Extras has no shadcn/ui equivalent. These components exist because Blazor apps needed them.
+                @Translations.Views_Index_Extras_Description
             </p>
         </div>
 
@@ -713,8 +708,8 @@
                     <SearchIcon ClassName="size-4 text-violet-400"/>
                 </ItemMedia>
                 <ItemContent>
-                    <ItemTitle>Combobox</ItemTitle>
-                    <ItemDescription>Searchable select that loads items asynchronously based on the search term
+                    <ItemTitle>@Translations.Views_Index_ExtrasItem_ComboboxTitle</ItemTitle>
+                    <ItemDescription>@Translations.Views_Index_ExtrasItem_ComboboxDescription
                     </ItemDescription>
                 </ItemContent>
             </Item>
@@ -723,8 +718,8 @@
                     <FileCodeIcon ClassName="size-4 text-violet-400"/>
                 </ItemMedia>
                 <ItemContent>
-                    <ItemTitle>Editor</ItemTitle>
-                    <ItemDescription>CodeMirror-based code editor</ItemDescription>
+                    <ItemTitle>@Translations.Views_Index_ExtrasItem_EditorTitle</ItemTitle>
+                    <ItemDescription>@Translations.Views_Index_ExtrasItem_EditorDescription</ItemDescription>
                 </ItemContent>
             </Item>
             <Item Variant="ItemVariant.Outline" ClassName="w-full transition-colors hover:bg-accent/30">
@@ -732,8 +727,8 @@
                     <CloudUploadIcon ClassName="size-4 text-violet-400"/>
                 </ItemMedia>
                 <ItemContent>
-                    <ItemTitle>File Dropzone</ItemTitle>
-                    <ItemDescription>Drag &amp; drop file uploads, including chunked uploads</ItemDescription>
+                    <ItemTitle>@Translations.Views_Index_ExtrasItem_FileDropzoneTitle</ItemTitle>
+                    <ItemDescription>@Translations.Views_Index_ExtrasItem_FileDropzoneDescription</ItemDescription>
                 </ItemContent>
             </Item>
             <Item Variant="ItemVariant.Outline" ClassName="w-full transition-colors hover:bg-accent/30">
@@ -741,8 +736,8 @@
                     <FolderIcon ClassName="size-4 text-violet-400"/>
                 </ItemMedia>
                 <ItemContent>
-                    <ItemTitle>File Manager</ItemTitle>
-                    <ItemDescription>Full file browser with navigation, selection, context menu and toolbar
+                    <ItemTitle>@Translations.Views_Index_ExtrasItem_FileManagerTitle</ItemTitle>
+                    <ItemDescription>@Translations.Views_Index_ExtrasItem_FileManagerDescription
                     </ItemDescription>
                 </ItemContent>
             </Item>
@@ -751,8 +746,8 @@
                     <FileTextIcon ClassName="size-4 text-violet-400"/>
                 </ItemMedia>
                 <ItemContent>
-                    <ItemTitle>Form Handler</ItemTitle>
-                    <ItemDescription>Enhanced EditForm with validation summary and a submit button</ItemDescription>
+                    <ItemTitle>@Translations.Views_Index_ExtrasItem_FormHandlerTitle</ItemTitle>
+                    <ItemDescription>@Translations.Views_Index_ExtrasItem_FormHandlerDescription</ItemDescription>
                 </ItemContent>
             </Item>
             <Item Variant="ItemVariant.Outline" ClassName="w-full transition-colors hover:bg-accent/30">
@@ -760,8 +755,8 @@
                     <FileBracesIcon ClassName="size-4 text-violet-400"/>
                 </ItemMedia>
                 <ItemContent>
-                    <ItemTitle>Input Tags</ItemTitle>
-                    <ItemDescription>Tag input</ItemDescription>
+                    <ItemTitle>@Translations.Views_Index_ExtrasItem_InputTagsTitle</ItemTitle>
+                    <ItemDescription>@Translations.Views_Index_ExtrasItem_InputTagsDescription</ItemDescription>
                 </ItemContent>
             </Item>
             <Item Variant="ItemVariant.Outline" ClassName="w-full transition-colors hover:bg-accent/30">
@@ -769,8 +764,8 @@
                     <LoaderCircleIcon ClassName="size-4 text-violet-400"/>
                 </ItemMedia>
                 <ItemContent>
-                    <ItemTitle>Lazy Loader</ItemTitle>
-                    <ItemDescription>Keeps a loading indicator up until your load callback finishes</ItemDescription>
+                    <ItemTitle>@Translations.Views_Index_ExtrasItem_LazyLoaderTitle</ItemTitle>
+                    <ItemDescription>@Translations.Views_Index_ExtrasItem_LazyLoaderDescription</ItemDescription>
                 </ItemContent>
             </Item>
             <Item Variant="ItemVariant.Outline" ClassName="w-full transition-colors hover:bg-accent/30">
@@ -778,8 +773,8 @@
                     <BellIcon ClassName="size-4 text-violet-400"/>
                 </ItemMedia>
                 <ItemContent>
-                    <ItemTitle>Toast</ItemTitle>
-                    <ItemDescription>Toast notifications with a few different designs</ItemDescription>
+                    <ItemTitle>@Translations.Views_Index_ExtrasItem_ToastTitle</ItemTitle>
+                    <ItemDescription>@Translations.Views_Index_ExtrasItem_ToastDescription</ItemDescription>
                 </ItemContent>
             </Item>
             <Item Variant="ItemVariant.Outline" ClassName="w-full transition-colors hover:bg-accent/30">
@@ -787,8 +782,8 @@
                     <WrenchIcon ClassName="size-4 text-violet-400"/>
                 </ItemMedia>
                 <ItemContent>
-                    <ItemTitle>Worker Button</ItemTitle>
-                    <ItemDescription>Button that runs an async handler and shows a spinner while it works
+                    <ItemTitle>@Translations.Views_Index_ExtrasItem_WorkerButtonTitle</ItemTitle>
+                    <ItemDescription>@Translations.Views_Index_ExtrasItem_WorkerButtonDescription
                     </ItemDescription>
                 </ItemContent>
             </Item>
@@ -797,8 +792,8 @@
                     <CircleAlertIcon ClassName="size-4 text-violet-400"/>
                 </ItemMedia>
                 <ItemContent>
-                    <ItemTitle>Crash Handler</ItemTitle>
-                    <ItemDescription>Error boundary that renders a crash UI instead of blowing up the page
+                    <ItemTitle>@Translations.Views_Index_ExtrasItem_CrashHandlerTitle</ItemTitle>
+                    <ItemDescription>@Translations.Views_Index_ExtrasItem_CrashHandlerDescription
                     </ItemDescription>
                 </ItemContent>
             </Item>
@@ -807,9 +802,8 @@
                     <MessageSquareIcon ClassName="size-4 text-violet-400"/>
                 </ItemMedia>
                 <ItemContent>
-                    <ItemTitle>Alert / Dialog / Alert Dialog</ItemTitle>
-                    <ItemDescription>Service-based launchers so you can show them from anywhere via an injected
-                        service
+                    <ItemTitle>@Translations.Views_Index_ExtrasItem_AlertDialogTitle</ItemTitle>
+                    <ItemDescription>@Translations.Views_Index_ExtrasItem_AlertDialogDescription
                     </ItemDescription>
                 </ItemContent>
             </Item>
@@ -820,22 +814,22 @@
     <section class="mt-24">
         <Card>
             <CardHeader>
-                <CardTitle>Roadmap</CardTitle>
-                <CardDescription>Currently in progress</CardDescription>
+                <CardTitle>@Translations.Views_Index_Roadmap_Title</CardTitle>
+                <CardDescription>@Translations.Views_Index_Roadmap_Description</CardDescription>
             </CardHeader>
             <CardContent>
                 <div class="flex flex-wrap gap-2">
                     <Badge Variant="BadgeVariant.Secondary" ClassName="gap-1.5 py-1">
                         <span class="size-1.5 animate-pulse rounded-full bg-violet-400"></span>
-                        Chart
+                        @Translations.Views_Index_Roadmap_Chart
                     </Badge>
                     <Badge Variant="BadgeVariant.Secondary" ClassName="gap-1.5 py-1">
                         <span class="size-1.5 animate-pulse rounded-full bg-violet-400"></span>
-                        Navigation Menu
+                        @Translations.Views_Index_Roadmap_NavigationMenu
                     </Badge>
                     <Badge Variant="BadgeVariant.Secondary" ClassName="gap-1.5 py-1">
                         <span class="size-1.5 animate-pulse rounded-full bg-violet-400"></span>
-                        Resizable
+                        @Translations.Views_Index_Roadmap_Resizable
                     </Badge>
                 </div>
             </CardContent>
@@ -849,23 +843,22 @@
             <div
                 class="pointer-events-none absolute -top-24 left-1/2 h-48 w-96 -translate-x-1/2 rounded-full bg-violet-600/20 blur-3xl"></div>
             <CardContent ClassName="relative flex flex-col items-center gap-4 py-12 text-center">
-                <h2 class="text-2xl font-bold tracking-tight sm:text-3xl">Ready to build something beautiful?</h2>
+                <h2 class="text-2xl font-bold tracking-tight sm:text-3xl">@Translations.Views_Index_Cta_Heading</h2>
                 <p class="max-w-xl text-muted-foreground">
-                    Install the package, wire up Tailwind and start composing your UI out of ready-made, themeable
-                    components.
+                    @Translations.Views_Index_Cta_Paragraph
                 </p>
                 <div class="mt-2 flex flex-wrap justify-center gap-3">
                     <Button Size="ButtonSize.Lg">
                         <Slot>
                             <a href="/installation" @attributes="context">
-                                Get started
+                                @Translations.Views_Index_Cta_ButtonGetStarted
                                 <ArrowRightIcon/>
                             </a>
                         </Slot>
                     </Button>
                     <Button Variant="ButtonVariant.Outline" Size="ButtonSize.Lg">
                         <Slot>
-                            <a href="/components" @attributes="context">Browse components</a>
+                            <a href="/components" @attributes="context">@Translations.Views_Index_Cta_ButtonBrowseComponents</a>
                         </Slot>
                     </Button>
                 </div>
@@ -880,16 +873,16 @@
                 <img src="/_content/ShadcnBlazor.Test/shadcnblazor.svg" alt="ShadcnBlazor logo" class="size-8"/>
                 <div>
                     <div class="text-sm font-semibold">ShadcnBlazor</div>
-                    <div class="text-muted-foreground text-xs">Released under the MIT License</div>
+                    <div class="text-muted-foreground text-xs">@Translations.Views_Index_Footer_License</div>
                 </div>
             </div>
             <div class="flex items-center gap-5 text-sm">
                 <a href="https://github.com/ChiaraBm/ShadcnBlazor" target="_blank" rel="noreferrer"
-                   class="text-muted-foreground transition-colors hover:text-foreground">GitHub</a>
+                   class="text-muted-foreground transition-colors hover:text-foreground">@Translations.Views_Index_Footer_GitHub</a>
                 <a href="https://www.nuget.org/packages/ShadcnBlazor" target="_blank" rel="noreferrer"
-                   class="text-muted-foreground transition-colors hover:text-foreground">NuGet</a>
+                   class="text-muted-foreground transition-colors hover:text-foreground">@Translations.Views_Index_Footer_NuGet</a>
                 <a href="/blocks"
-                   class="text-muted-foreground transition-colors hover:text-foreground">Blocks</a>
+                   class="text-muted-foreground transition-colors hover:text-foreground">@Translations.Views_Index_Footer_Blocks</a>
             </div>
         </div>
     </footer>

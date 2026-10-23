@@ -12,7 +12,7 @@ public sealed class ArchiveOperation : FsMultiOperationBase
     {
         builder.OpenComponent<ArchiveIcon>(0);
         builder.CloseComponent();
-        builder.AddContent(1, "Archive");
+        builder.AddContent(1, Translations.FileManagers_ArchiveOperation_Label);
     };
 
     public override int Order => 0;

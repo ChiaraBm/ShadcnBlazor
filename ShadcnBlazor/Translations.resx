@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="DataGrids.SearchPlaceholder" xml:space="preserve">
+        <value>Search...</value>
+    </data>
+    <data name="DataGrids.Filter" xml:space="preserve">
+        <value>Filter</value>
+    </data>
+    <data name="DataGrids.Filter.Placeholder" xml:space="preserve">
+        <value>Filter for...</value>
+    </data>
+    <data name="DataGrids.Filter.Apply" xml:space="preserve">
+        <value>Apply</value>
+    </data>
+    <data name="DataGrids.Columns" xml:space="preserve">
+        <value>Columns</value>
+    </data>
+    <data name="DataGrids.NoItems.Title" xml:space="preserve">
+        <value>No items found</value>
+    </data>
+    <data name="DataGrids.NoItems.Description" xml:space="preserve">
+        <value>No items have been found for your request</value>
+    </data>
+    <data name="DataGrids.Pagination.Current" xml:space="preserve">
+        <value>Showing {0}-{1} of {2} items</value>
+    </data>
+    <data name="DataGrids.Pagination.Previous" xml:space="preserve">
+        <value>Previous</value>
+    </data>
+    <data name="DataGrids.Pagination.Next" xml:space="preserve">
+        <value>Next</value>
+    </data>
+    <data name="Breadcrumbs.AriaLabel" xml:space="preserve">
+        <value>Breadcrumb</value>
+    </data>
+    <data name="Calendars.ChooseMonth" xml:space="preserve">
+        <value>Choose the Month</value>
+    </data>
+    <data name="Calendars.ChooseYear" xml:space="preserve">
+        <value>Choose the Year</value>
+    </data>
+    <data name="Carousels.NextSlide" xml:space="preserve">
+        <value>Next slide</value>
+    </data>
+    <data name="Carousels.PreviousSlide" xml:space="preserve">
+        <value>Previous slide</value>
+    </data>
+    <data name="DatePickers.SelectDate" xml:space="preserve">
+        <value>Select date</value>
+    </data>
+    <data name="Dialogs.Close" xml:space="preserve">
+        <value>Close</value>
+    </data>
+    <data name="Paginations.Next" xml:space="preserve">
+        <value>Next</value>
+    </data>
+    <data name="Paginations.Previous" xml:space="preserve">
+        <value>Previous</value>
+    </data>
+    <data name="Paginations.NextAriaLabel" xml:space="preserve">
+        <value>Go to next page</value>
+    </data>
+    <data name="Paginations.PreviousAriaLabel" xml:space="preserve">
+        <value>Go to previous page</value>
+    </data>
+    <data name="Paginations.AriaLabel" xml:space="preserve">
+        <value>Pagination</value>
+    </data>
+    <data name="Sidebars.ToggleSidebar" xml:space="preserve">
+        <value>Toggle Sidebar</value>
+    </data>
+    <data name="Sidebars.Sidebar" xml:space="preserve">
+        <value>Sidebar</value>
+    </data>
+    <data name="Sidebars.MobileDescription" xml:space="preserve">
+        <value>Displays the mobile sidebar.</value>
+    </data>
+</root>
