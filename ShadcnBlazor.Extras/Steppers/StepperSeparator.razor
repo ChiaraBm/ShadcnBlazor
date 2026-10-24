@@ -1,0 +1,31 @@
+@inherits ShadcnBase
+
+@if (!Stepper.IsLastStep(Item.Value))
+{
+    <div data-slot="stepper-separator"
+         data-state="@Stepper.GetState(Item.Value, asSeparator: true).ToDataString()"
+         data-orientation="@Stepper.Orientation.ToDataString()"
+         role="separator"
+         aria-hidden="true"
+         aria-orientation="@Stepper.Orientation.ToDataString()"
+         class="@Classes"
+         @attributes="Props">
+    </div>
+}
+
+@code
+{
+    [CascadingParameter] public Stepper Stepper { get; set; }
+    [CascadingParameter] public StepperItem Item { get; set; }
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "bg-border transition-colors data-[state=active]:bg-primary data-[state=completed]:bg-primary",
+            Stepper.Orientation == StepperOrientation.Horizontal ? "h-px flex-1" : "h-10 w-px",
+            ClassName
+        );
+    }
+}

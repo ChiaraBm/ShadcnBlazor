@@ -1,0 +1,132 @@
+@inherits ShadcnBase
+
+<div data-slot="stepper"
+     data-orientation="@Orientation.ToDataString()"
+     data-disabled="@Disabled"
+     class="@Classes"
+     @attributes="Props">
+    <CascadingValue Value="this" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
+</div>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    [Parameter] public string? Value { get; set; } = "";
+    [Parameter] public string? DefaultValue { get; set; } = "";
+    [Parameter] public EventCallback<string> OnValueChanged { get; set; }
+
+    [Parameter] public StepperOrientation Orientation { get; set; } = StepperOrientation.Horizontal;
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public bool Interactive { get; set; } = true;
+
+    public string Id { get; } = Guid.NewGuid().ToString("N");
+    public string GetTriggerId(string value) => $"{Id}-trigger-{GetPositionOf(value)}";
+
+    public int Position => GetPositionOf(Value);
+    public bool CanGoPrevious => Position > 0 && Position < Steps.Count;
+    public bool CanGoNext => Position >= 0 && Position < Steps.Count - 1;
+
+    private List<string> Steps { get; } = [];
+    private HashSet<string> CompletedSteps { get; } = [];
+
+    private string? Classes;
+
+    protected override void OnInitialized()
+    {
+        if(!string.IsNullOrWhiteSpace(DefaultValue))
+            Value = DefaultValue;
+    }
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "flex gap-6",
+            Orientation == StepperOrientation.Horizontal ? "w-full flex-col" : "flex-row",
+            ClassName
+        );
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        // StepperItem children register their steps during the first render,
+        // after this component has already rendered its Prev/Next descendants.
+        // Re-render once so those descendants compute their disabled state
+        // against the now-populated step list.
+        if (!firstRender)
+            return;
+        
+        if (string.IsNullOrEmpty(Value) && Steps.Count > 0)
+            Value = Steps[0];
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public async Task SwitchAsync(string value)
+    {
+        Value = value;
+        await InvokeAsync(StateHasChanged);
+        
+        await OnValueChanged.InvokeAsync(value);
+    }
+
+    public async Task NextAsync()
+    {
+        if (!CanGoNext)
+            return;
+
+        await SwitchAsync(Steps[Position + 1]);
+    }
+
+    public async Task PreviousAsync()
+    {
+        if (!CanGoPrevious)
+            return;
+
+        await SwitchAsync(Steps[Position - 1]);
+    }
+
+    public void RegisterStep(string value, bool completed)
+    {
+        if (!Steps.Contains(value))
+            Steps.Add(value);
+
+        if (completed)
+            CompletedSteps.Add(value);
+        else
+            CompletedSteps.Remove(value);
+    }
+
+    public StepperState GetState(string value, bool asSeparator = false)
+    {
+        if (IsCompleted(value))
+            return StepperState.Completed;
+
+        if (IsActive(value))
+            return asSeparator ? StepperState.Inactive : StepperState.Active;
+
+        return StepperState.Inactive;
+    }
+
+    public bool IsLastStep(string? value)
+    {
+        if(value is null)
+            return false;
+        
+        return Steps.IndexOf(value) == Steps.Count - 1;
+    }
+
+    public int GetPositionOf(string? value)
+        => value is null ? -1 : Steps.IndexOf(value);
+
+    private bool IsCompleted(string value)
+        => CompletedSteps.Contains(value) || IsBeforeActiveStep(value);
+
+    public bool IsActive(string value)
+        => Value is not null && Value.Equals(value, StringComparison.OrdinalIgnoreCase);
+
+    private bool IsBeforeActiveStep(string value)
+        => !string.IsNullOrEmpty(Value) && Steps.IndexOf(Value) > Steps.IndexOf(value);
+}

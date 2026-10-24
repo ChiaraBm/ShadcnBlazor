@@ -1,0 +1,38 @@
+@using ShadcnBlazor.Extras.Steppers
+
+<Stepper DefaultValue="workspace" ClassName="w-full max-w-md">
+    <StepperList>
+        @foreach (var step in Steps)
+        {
+            <StepperItem Value="@step.Value" @key="step.Value">
+                <StepperTrigger>
+                    <StepperIndicator/>
+                </StepperTrigger>
+                <StepperSeparator/>
+            </StepperItem>
+        }
+    </StepperList>
+    @foreach (var step in Steps)
+    {
+        <StepperContent Value="@step.Value" @key="step.Value"
+                        ClassName="flex flex-col items-center gap-4 rounded-md border bg-card p-4 text-card-foreground">
+            <div class="flex flex-col items-center gap-px text-center">
+                <h3 class="text-lg font-semibold">@step.Title</h3>
+                <p class="text-sm text-muted-foreground">@step.Description</p>
+            </div>
+        </StepperContent>
+    }
+</Stepper>
+
+@code
+{
+    private static readonly Step[] Steps =
+    [
+        new("workspace", "Create workspace", "Name your team and pick a region"),
+        new("members", "Invite members", "Add the people you'll work with"),
+        new("tools", "Connect tools", "Link the apps your team already uses"),
+        new("ready", "You're set", "Everything's configured and ready")
+    ];
+
+    record Step(string Value, string Title, string Description);
+}

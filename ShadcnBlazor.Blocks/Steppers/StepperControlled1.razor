@@ -1,0 +1,51 @@
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Extras.Steppers
+
+<div class="flex w-full max-w-md flex-col gap-4">
+    <Stepper Value="@_step" OnValueChanged="@(v => _step = v)">
+        <StepperList>
+            @foreach (var step in Steps)
+            {
+                <StepperItem Value="@step.Value" @key="step.Value">
+                    <StepperTrigger>
+                        <StepperIndicator/>
+                        <StepperTitle>@step.Title</StepperTitle>
+                    </StepperTrigger>
+                    <StepperSeparator ClassName="mx-3"/>
+                </StepperItem>
+            }
+        </StepperList>
+    </Stepper>
+    <div class="flex items-center justify-between">
+        <Button Variant="ButtonVariant.Outline" Disabled="@(_index <= 0)" @onclick="GoBack">Back</Button>
+        <p class="text-sm text-muted-foreground">Step @(_index + 1) of @Steps.Length</p>
+        <Button Disabled="@(_index >= Steps.Length - 1)" @onclick="GoForward">Continue</Button>
+    </div>
+</div>
+
+@code
+{
+    private string _step = "details";
+    private int _index => Array.FindIndex(Steps, s => s.Value == _step);
+
+    private void GoBack()
+    {
+        if (_index > 0)
+            _step = Steps[_index - 1].Value;
+    }
+
+    private void GoForward()
+    {
+        if (_index < Steps.Length - 1)
+            _step = Steps[_index + 1].Value;
+    }
+
+    private static readonly Step[] Steps =
+    [
+        new("details", "Details"),
+        new("cover", "Cover"),
+        new("release", "Release")
+    ];
+
+    record Step(string Value, string Title);
+}

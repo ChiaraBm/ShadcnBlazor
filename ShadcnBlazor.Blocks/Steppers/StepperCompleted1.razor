@@ -1,0 +1,32 @@
+@using ShadcnBlazor.Extras.Steppers
+
+<Stepper DefaultValue="progress" ClassName="w-full max-w-3xl">
+    <StepperList>
+        @foreach (var step in Steps)
+        {
+            <StepperItem Value="@step.Value" Completed="@step.Completed" @key="step.Value">
+                <StepperTrigger>
+                    <StepperIndicator/>
+                    <div class="flex flex-col gap-px">
+                        <StepperTitle>@step.Title</StepperTitle>
+                        <StepperDescription>@step.Description</StepperDescription>
+                    </div>
+                </StepperTrigger>
+                <StepperSeparator ClassName="mx-4"/>
+            </StepperItem>
+        }
+    </StepperList>
+</Stepper>
+
+@code
+{
+    private static readonly Step[] Steps =
+    [
+        new("logged", "Logged", "Ticket opened", true),
+        new("triaged", "Triaged", "Assigned to a queue", true),
+        new("progress", "In progress", "Work underway", false),
+        new("resolved", "Resolved", "Closed and archived", false)
+    ];
+
+    record Step(string Value, string Title, string Description, bool Completed);
+}

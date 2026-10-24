@@ -1,0 +1,42 @@
+@inherits ShadcnBase
+
+@using LucideBlazor
+
+@{
+    var state = Stepper.GetState(Item.Value);
+}
+
+<div data-slot="stepper-indicator"
+     data-state="@state.ToDataString()"
+     class="@Classes"
+     @attributes="Props">
+    @if (ChildContent is not null)
+    {
+        @ChildContent.Invoke(state);
+    }
+    else if (state == StepperState.Completed)
+    {
+        <CheckIcon ClassName="size-4"/>
+    }
+    else
+    {
+        @(Stepper.GetPositionOf(Item.Value) + 1)
+    }
+</div>
+
+@code
+{
+    [CascadingParameter] public Stepper Stepper { get; set; }
+    [CascadingParameter] public StepperItem Item { get; set; }
+    [Parameter] public RenderFragment<StepperState>? ChildContent { get; set; }
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "flex size-7 shrink-0 items-center justify-center rounded-full border-2 border-muted bg-background text-sm font-medium text-muted-foreground transition-colors data-[state=active]:border-primary data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=completed]:border-primary data-[state=completed]:bg-primary data-[state=completed]:text-primary-foreground",
+            ClassName
+        );
+    }
+}

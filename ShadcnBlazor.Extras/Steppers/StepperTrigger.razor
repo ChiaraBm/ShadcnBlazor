@@ -1,0 +1,44 @@
+@inherits ShadcnBase
+
+<button data-slot="stepper-trigger"
+        id="@Stepper.GetTriggerId(Item.Value)"
+        role="tab"
+        data-state="@Stepper.GetState(Item.Value).ToDataString()"
+        data-disabled="@IsDisabled"
+        aria-selected="@IsActive"
+        type="button"
+        disabled="@IsDisabled"
+        class="@Classes"
+        @onclick="HandleClickAsync"
+        @attributes="Props">
+    @ChildContent
+</button>
+
+@code
+{
+    [CascadingParameter] public Stepper Stepper { get; set; }
+    [CascadingParameter] public StepperItem Item { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private bool IsDisabled => Item.Disabled || Stepper.Disabled;
+    private bool IsActive => Stepper.IsActive(Item.Value);
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "inline-flex items-center justify-center gap-3 rounded-md text-left transition-all outline-none not-has-data-[slot=description]:rounded-full not-has-data-[slot=title]:rounded-full focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+            Stepper.Interactive ? "not-disabled:cursor-pointer" : "",
+            ClassName
+        );
+    }
+
+    private async Task HandleClickAsync()
+    {
+        if(!Stepper.Interactive)
+            return;
+        
+        await Stepper.SwitchAsync(Item.Value);
+    }
+}

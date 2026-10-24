@@ -1248,6 +1248,15 @@
     <data name="Views.Extras.LazyLoaderDemo.Description" xml:space="preserve">
         <value>Shows a loading indicator until the load callback is finished</value>
     </data>
+    <data name="Views.Extras.StepperDemo.Category" xml:space="preserve">
+        <value>Extras</value>
+    </data>
+    <data name="Views.Extras.StepperDemo.Title" xml:space="preserve">
+        <value>Stepper</value>
+    </data>
+    <data name="Views.Extras.StepperDemo.Description" xml:space="preserve">
+        <value>A series of steps that guide users through a multi-step process.</value>
+    </data>
     <data name="Views.Extras.ToastDemo.Category" xml:space="preserve">
         <value>Extras</value>
     </data>

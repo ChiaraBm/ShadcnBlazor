@@ -1,0 +1,52 @@
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Extras.Steppers
+
+<Stepper @ref="_stepper" DefaultValue="account" ClassName="w-full max-w-md">
+    <StepperList>
+        @foreach (var step in Steps)
+        {
+            <StepperItem Value="@step.Value" @key="step.Value">
+                <StepperTrigger>
+                    <StepperIndicator/>
+                </StepperTrigger>
+                <StepperSeparator/>
+            </StepperItem>
+        }
+    </StepperList>
+    @foreach (var step in Steps)
+    {
+        <StepperContent Value="@step.Value" @key="step.Value"
+                        ClassName="flex flex-col items-center gap-4 rounded-md border bg-card p-4 text-card-foreground">
+            <div class="flex flex-col items-center gap-px text-center">
+                <h3 class="text-lg font-semibold">@step.Title</h3>
+                <p class="text-sm text-muted-foreground">@step.Description</p>
+            </div>
+            
+            <div class="flex justify-end">
+                @if (_stepper.CanGoNext)
+                {
+                    <Button @onclick="() => _stepper.NextAsync()" Variant="ButtonVariant.Outline">Next</Button>
+                }
+                else
+                {
+                    <Button>Done</Button>
+                }
+            </div>
+        </StepperContent>
+    }
+</Stepper>
+
+@code
+{
+    private Stepper _stepper;
+    
+    private static readonly Step[] Steps =
+    [
+        new("account", "Account Setup", "Create your account and verify email"),
+        new("profile", "Profile Information", "Add your personal details and preferences"),
+        new("payment", "Payment Details", "Set up billing and payment methods"),
+        new("complete", "Complete Setup", "Review and finish your account setup")
+    ];
+
+    record Step(string Value, string Title, string Description);
+}

@@ -1,0 +1,22 @@
+@inherits ShadcnBase
+
+<span data-slot="description"
+      class="@Classes"
+      @attributes="Props">
+    @ChildContent
+</span>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "text-xs text-muted-foreground",
+            ClassName
+        );
+    }
+}

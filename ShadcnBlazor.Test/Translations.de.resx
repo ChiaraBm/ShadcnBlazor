@@ -1241,6 +1241,15 @@
     <data name="Views.Extras.LazyLoaderDemo.Description" xml:space="preserve">
         <value>Zeigt einen Ladeindikator an, bis der Ladecallback abgeschlossen ist</value>
     </data>
+    <data name="Views.Extras.StepperDemo.Category" xml:space="preserve">
+        <value>Extras</value>
+    </data>
+    <data name="Views.Extras.StepperDemo.Title" xml:space="preserve">
+        <value>Schrittassistent</value>
+    </data>
+    <data name="Views.Extras.StepperDemo.Description" xml:space="preserve">
+        <value>Eine Reihe von Schritten, die Benutzer durch einen mehrstufigen Prozess führen.</value>
+    </data>
     <data name="Views.Extras.ToastDemo.Category" xml:space="preserve">
         <value>Extras</value>
     </data>
