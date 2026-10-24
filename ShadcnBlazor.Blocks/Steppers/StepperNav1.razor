@@ -1,0 +1,47 @@
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Extras.Steppers
+
+<Stepper DefaultValue="welcome" ClassName="w-full max-w-md">
+    <StepperList>
+        @foreach (var step in Steps)
+        {
+            <StepperItem Value="@step.Value" @key="step.Value">
+                <StepperTrigger>
+                    <StepperIndicator/>
+                </StepperTrigger>
+                <StepperSeparator/>
+            </StepperItem>
+        }
+    </StepperList>
+    @foreach (var step in Steps)
+    {
+        <StepperContent Value="@step.Value" @key="step.Value" ClassName="rounded-md border bg-card p-4 text-card-foreground">
+            <h3 class="font-semibold">@step.Title</h3>
+            <p class="mt-1 text-sm text-muted-foreground">@step.Body</p>
+        </StepperContent>
+    }
+    <div class="flex justify-between">
+        <StepperPrev>
+            <Slot>
+                <Button Variant="ButtonVariant.Outline" @attributes="context">Previous</Button>
+            </Slot>
+        </StepperPrev>
+        <StepperNext>
+            <Slot>
+                <Button @attributes="context">Next</Button>
+            </Slot>
+        </StepperNext>
+    </div>
+</Stepper>
+
+@code
+{
+    private static readonly Step[] Steps =
+    [
+        new("welcome", "Welcome", "A quick tour before you start."),
+        new("preferences", "Preferences", "Set how things look for you."),
+        new("ready", "Ready", "You're all set to go.")
+    ];
+
+    record Step(string Value, string Title, string Body);
+}

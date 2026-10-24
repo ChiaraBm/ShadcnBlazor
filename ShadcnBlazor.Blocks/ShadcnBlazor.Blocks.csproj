@@ -17,5 +17,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ShadcnBlazor\ShadcnBlazor.csproj" />
+      <ProjectReference Include="..\ShadcnBlazor.Extras\ShadcnBlazor.Extras.csproj" />
     </ItemGroup>
 </Project>

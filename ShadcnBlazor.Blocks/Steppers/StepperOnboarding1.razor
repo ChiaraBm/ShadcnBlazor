@@ -1,0 +1,59 @@
+@using System.Diagnostics.CodeAnalysis
+@using LucideBlazor
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Extras.Steppers
+
+<Stepper DefaultValue="welcome" ClassName="w-full max-w-md">
+    <StepperList>
+        @foreach (var step in Steps)
+        {
+            <StepperItem Value="@step.Value" @key="step.Value">
+                <StepperTrigger>
+                    <StepperIndicator ChildContent="Indicator(step.Icon)"/>
+                </StepperTrigger>
+                <StepperSeparator/>
+            </StepperItem>
+        }
+    </StepperList>
+    @foreach (var step in Steps)
+    {
+        <StepperContent Value="@step.Value" @key="step.Value"
+                        ClassName="flex flex-col items-center gap-2 rounded-md border p-6 text-center">
+            <h3 class="text-lg font-semibold">@step.Title</h3>
+            <p class="text-sm text-muted-foreground">@step.Body</p>
+        </StepperContent>
+    }
+    <div class="flex justify-between">
+        <StepperPrev>
+            <Slot>
+                <Button Variant="ButtonVariant.Ghost" @attributes="context">Skip</Button>
+            </Slot>
+        </StepperPrev>
+        <StepperNext>
+            <Slot>
+                <Button @attributes="context">Continue</Button>
+            </Slot>
+        </StepperNext>
+    </div>
+</Stepper>
+
+@code
+{
+    private static readonly Dictionary<string, object> IconSize = new()
+    {
+        ["ClassName"] = "size-3.5"
+    };
+
+    private RenderFragment<StepperState> Indicator(Type icon) => _ =>
+        @<DynamicComponent Type="@icon" Parameters="IconSize"/>;
+
+    private static readonly Step[] Steps =
+    [
+        new("welcome", "Welcome", "Set up your workspace in a couple of steps.", typeof(RocketIcon)),
+        new("team", "Invite your team", "Add the people who'll build with you.", typeof(UserPlusIcon)),
+        new("board", "Create a board", "Start from a template or a blank canvas.", typeof(LayoutGridIcon)),
+        new("alerts", "Turn on alerts", "Know the moment something needs you.", typeof(BellRingIcon))
+    ];
+
+    record Step(string Value, string Title, string Body, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type Icon);
+}

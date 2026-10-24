@@ -1,0 +1,40 @@
+@using ShadcnBlazor.Extras.Steppers
+
+<Stepper DefaultValue="transit" Orientation="StepperOrientation.Vertical" ClassName="w-full max-w-lg">
+    <StepperList>
+        @foreach (var step in Steps)
+        {
+            <StepperItem Value="@step.Value" @key="step.Value">
+                <StepperTrigger ClassName="not-last:pb-6">
+                    <StepperIndicator/>
+                    <div class="flex flex-col gap-1">
+                        <StepperTitle>@step.Title</StepperTitle>
+                        <StepperDescription>@step.Description</StepperDescription>
+                    </div>
+                </StepperTrigger>
+                <StepperSeparator ClassName="absolute inset-y-0 top-5 left-3.5 -z-10 -order-1 h-full -translate-x-1/2"/>
+            </StepperItem>
+        }
+    </StepperList>
+    @foreach (var step in Steps)
+    {
+        <StepperContent Value="@step.Value" @key="step.Value"
+                        ClassName="flex flex-col gap-2 rounded-lg border bg-card p-4 text-card-foreground">
+            <h4 class="font-semibold">@step.Title</h4>
+            <p class="text-sm text-muted-foreground">@step.Description</p>
+        </StepperContent>
+    }
+</Stepper>
+
+@code
+{
+    private static readonly Step[] Steps =
+    [
+        new("ordered", "Ordered", "We've received your order"),
+        new("packed", "Packed", "Your items are boxed"),
+        new("transit", "In transit", "On its way to you"),
+        new("signed", "Signed", "Delivered and confirmed")
+    ];
+
+    record Step(string Value, string Title, string Description);
+}

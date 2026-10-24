@@ -1,0 +1,32 @@
+@using ShadcnBlazor.Extras.Steppers
+
+<Stepper DefaultValue="testing" Interactive="false" ClassName="w-full max-w-3xl">
+    <StepperList>
+        @foreach (var step in Steps)
+        {
+            <StepperItem Value="@step.Value" @key="step.Value">
+                <StepperTrigger>
+                    <StepperIndicator/>
+                    <div class="flex flex-col gap-px">
+                        <StepperTitle>@step.Title</StepperTitle>
+                        <StepperDescription>@step.Description</StepperDescription>
+                    </div>
+                </StepperTrigger>
+                <StepperSeparator ClassName="mx-4"/>
+            </StepperItem>
+        }
+    </StepperList>
+</Stepper>
+
+@code
+{
+    private static readonly Step[] Steps =
+    [
+        new("queued", "Queued", "Waiting in line"),
+        new("compiling", "Compiling", "Building sources"),
+        new("testing", "Testing", "Running the suite"),
+        new("artifacts", "Artifacts", "Packages ready")
+    ];
+
+    record Step(string Value, string Title, string Description);
+}

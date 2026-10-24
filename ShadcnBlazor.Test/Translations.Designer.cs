@@ -2505,6 +2505,24 @@ namespace ShadcnBlazor.Test {
             }
         }
         
+        internal static string Views_Extras_StepperDemo_Category {
+            get {
+                return ResourceManager.GetString("Views.Extras.StepperDemo.Category", resourceCulture);
+            }
+        }
+        
+        internal static string Views_Extras_StepperDemo_Title {
+            get {
+                return ResourceManager.GetString("Views.Extras.StepperDemo.Title", resourceCulture);
+            }
+        }
+        
+        internal static string Views_Extras_StepperDemo_Description {
+            get {
+                return ResourceManager.GetString("Views.Extras.StepperDemo.Description", resourceCulture);
+            }
+        }
+        
         internal static string Views_Extras_ToastDemo_Category {
             get {
                 return ResourceManager.GetString("Views.Extras.ToastDemo.Category", resourceCulture);

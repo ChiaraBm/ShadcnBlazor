@@ -90,7 +90,8 @@
         new(false, "combobox", "Combobox", typeof(SearchIcon)),
         new(false, "fileDropzone", "File Dropzone", typeof(CloudUploadIcon)),
         new(false, "editor", "Editor", typeof(FileCodeIcon)),
-        new(false, "fileManager", "File Manager", typeof(FolderIcon))
+        new(false, "fileManager", "File Manager", typeof(FolderIcon)),
+        new(false, "stepper", "Stepper", typeof(CheckCheckIcon)),
     ];
 
     record ComponentItem(bool InProgress, string Url, string Name, [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] Type IconType);

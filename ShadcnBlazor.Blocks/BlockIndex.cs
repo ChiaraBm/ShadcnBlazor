@@ -13,6 +13,7 @@ using ShadcnBlazor.Blocks.Progress;
 using ShadcnBlazor.Blocks.RadioGroups;
 using ShadcnBlazor.Blocks.Sheets;
 using ShadcnBlazor.Blocks.Spinners;
+using ShadcnBlazor.Blocks.Steppers;
 using ShadcnBlazor.Blocks.Tabs;
 
 namespace ShadcnBlazor.Blocks;
@@ -74,7 +75,26 @@ public class BlockIndex
         new("Notification List Sheet", "Sheets", typeof(NotificationListSheet)),
         new("Spinner in Item", "Items", typeof(SpinnerInItem)),
         new("Spinner in Empty State", "Spinners", typeof(SpinnerInEmptyState)),
-        new("Tabs with Count Badges", "Tabs", typeof(TabsAdvanced1))
+        new("Tabs with Count Badges", "Tabs", typeof(TabsAdvanced1)),
+        new("Basic horizontal", "Steppers", typeof(StepperBasic1)),
+        new("With titles", "Steppers", typeof(StepperLabeled1)),
+        new("With titles and descriptions", "Steppers", typeof(StepperLabeled2)),
+        new("Titles under indicators", "Steppers", typeof(StepperInline1)),
+        new("Compact indicators", "Steppers", typeof(StepperCompact1)),
+        new("Segmented separators", "Steppers", typeof(StepperSegmented1)),
+        new("Custom indicator icons", "Steppers", typeof(StepperIcons1)),
+        new("Required and optional badges", "Steppers", typeof(StepperBadge1)),
+        new("Completed steps", "Steppers", typeof(StepperCompleted1)),
+        new("Non-interactive progress", "Steppers", typeof(StepperNoninteractive1)),
+        new("Vertical orientation", "Steppers", typeof(StepperVertical1)),
+        new("Vertical with navigation", "Steppers", typeof(StepperVerticalNav1)),
+        new("Previous and next", "Steppers", typeof(StepperNav1)),
+        new("Step panels only", "Steppers", typeof(StepperContent1)),
+        new("Controlled value", "Steppers", typeof(StepperControlled1)),
+        new("Disabled steps", "Steppers", typeof(StepperDisabled1)),
+        new("Synced progress bar", "Steppers", typeof(StepperProgressBar1)),
+        new("Icon onboarding", "Steppers", typeof(StepperOnboarding1)),
+        new("Multi-step form", "Steppers", typeof(StepperForm1))
     ];
 }
 

@@ -1,0 +1,97 @@
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Extras.Steppers
+@using ShadcnBlazor.Inputs
+@using ShadcnBlazor.Labels
+
+<div class="w-full max-w-lg">
+    <Stepper @ref="_stepper">
+        <StepperList>
+            @foreach (var step in Steps)
+            {
+                <StepperItem Value="@step.Value" @key="step.Value">
+                    <StepperTrigger>
+                        <StepperIndicator/>
+                        <div class="flex flex-col gap-px">
+                            <StepperTitle>@step.Title</StepperTitle>
+                            <StepperDescription>@step.Description</StepperDescription>
+                        </div>
+                    </StepperTrigger>
+                    <StepperSeparator ClassName="mx-4"/>
+                </StepperItem>
+            }
+        </StepperList>
+
+        <StepperContent Value="company" ClassName="flex flex-col gap-4">
+            <div class="grid grid-cols-2 gap-4">
+                <div class="flex flex-col gap-1.5">
+                    <Label>Company</Label>
+                    <TextInputField @bind-Value="_company"/>
+                </div>
+                <div class="flex flex-col gap-1.5">
+                    <Label>Contact</Label>
+                    <TextInputField @bind-Value="_contact"/>
+                </div>
+            </div>
+            <div class="flex flex-col gap-1.5">
+                <Label>Email</Label>
+                <TextInputField @bind-Value="_email"/>
+            </div>
+        </StepperContent>
+
+        <StepperContent Value="about" ClassName="flex flex-col gap-4">
+            <div class="flex flex-col gap-1.5">
+                <Label>Bio</Label>
+                <TextareaInputField @bind-Value="_bio" ClassName="min-h-28"/>
+                <span class="text-xs text-muted-foreground">A short note about your organisation.</span>
+            </div>
+        </StepperContent>
+
+        <StepperContent Value="work" ClassName="flex flex-col gap-4">
+            <div class="flex flex-col gap-1.5">
+                <Label>Tax ID</Label>
+                <TextInputField @bind-Value="_taxId"/>
+            </div>
+        </StepperContent>
+
+        <div class="mt-4 flex items-center justify-between">
+            <StepperPrev>
+                <Slot>
+                    <Button Variant="ButtonVariant.Outline" @attributes="context">Previous</Button>
+                </Slot>
+            </StepperPrev>
+            <p class="text-sm text-muted-foreground">Step @(_stepper.Position + 1) of @Steps.Length</p>
+            @if (!_stepper.CanGoNext)
+            {
+                <Button>Complete</Button>
+            }
+            else
+            {
+                <StepperNext>
+                    <Slot>
+                        <Button @attributes="context">Next</Button>
+                    </Slot>
+                </StepperNext>
+            }
+        </div>
+    </Stepper>
+</div>
+
+@code
+{
+    private Stepper _stepper;
+
+    private string _taxId;
+    private string _bio;
+    private string _company;
+    private string _contact;
+    private string _email;
+
+    private static readonly Step[] Steps =
+    [
+        new("company", "Company", "Organisation details"),
+        new("about", "About", "Tell us more"),
+        new("work", "Work", "Professional details")
+    ];
+
+    record Step(string Value, string Title, string Description);
+}

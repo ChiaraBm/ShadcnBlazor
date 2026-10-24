@@ -1,0 +1,30 @@
+@inherits ShadcnBase
+
+<div data-slot="stepper-content"
+     role="tabpanel"
+     aria-labelledby="@Stepper.GetTriggerId(Value)"
+     data-state="@((IsActive ? StepperState.Active : StepperState.Inactive).ToDataString())"
+     hidden="@(!IsActive)"
+     class="@Classes"
+     @attributes="Props">
+    @ChildContent
+</div>
+
+@code
+{
+    [CascadingParameter] public Stepper Stepper { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public string Value { get; set; } = "";
+
+    private bool IsActive => Stepper.IsActive(Value);
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "flex-1 outline-none",
+            ClassName
+        );
+    }
+}

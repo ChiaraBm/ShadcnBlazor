@@ -1,0 +1,50 @@
+@using ShadcnBlazor.Buttons
+@using ShadcnBlazor.Extras.Steppers
+
+<Stepper @ref="_stepper" DefaultValue="objective" ClassName="w-full max-w-md">
+    <StepperList>
+        @foreach (var step in Steps)
+        {
+            <StepperItem Value="@step.Value" @key="step.Value">
+                <StepperTrigger>
+                    <StepperIndicator/>
+                </StepperTrigger>
+                <StepperSeparator/>
+            </StepperItem>
+        }
+    </StepperList>
+    @foreach (var step in Steps)
+    {
+        <StepperContent Value="@step.Value" @key="step.Value" ClassName="rounded-md border bg-card p-5">
+            <h3 class="text-lg font-semibold">@step.Title</h3>
+            <p class="mt-2 text-sm text-muted-foreground">@step.Body</p>
+        </StepperContent>
+    }
+    <div class="flex items-center justify-between">
+        <StepperPrev>
+            <Slot>
+                <Button Variant="ButtonVariant.Outline" @attributes="context">Previous</Button>
+            </Slot>
+        </StepperPrev>
+        <p class="text-sm text-muted-foreground">Step @(_stepper.Position + 1) of @Steps.Length</p>
+        <StepperNext>
+            <Slot>
+                <Button @attributes="context">Next</Button>
+            </Slot>
+        </StepperNext>
+    </div>
+</Stepper>
+
+@code
+{
+    private Stepper _stepper;
+
+    private static readonly Step[] Steps =
+    [
+        new("objective", "Set the objective", "What does a win look like?"),
+        new("segment", "Pick a segment", "Who should see this first?"),
+        new("copy", "Write the copy", "Keep the main CTA short and clear.")
+    ];
+
+    record Step(string Value, string Title, string Body);
+}

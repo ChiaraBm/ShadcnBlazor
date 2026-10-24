@@ -1,0 +1,29 @@
+@using ShadcnBlazor.Extras.Steppers
+
+<Stepper DefaultValue="staging" ClassName="w-full max-w-2xl">
+    <StepperList>
+        @foreach (var step in Steps)
+        {
+            <StepperItem Value="@step.Value" @key="step.Value">
+                <StepperTrigger>
+                    <StepperIndicator/>
+                    <StepperTitle>@step.Title</StepperTitle>
+                </StepperTrigger>
+                <StepperSeparator ClassName="mx-3"/>
+            </StepperItem>
+        }
+    </StepperList>
+</Stepper>
+
+@code
+{
+    private static readonly Step[] Steps =
+    [
+        new("draft", "Draft"),
+        new("staging", "Staging"),
+        new("canary", "Canary"),
+        new("live", "Live")
+    ];
+
+    record Step(string Value, string Title);
+}

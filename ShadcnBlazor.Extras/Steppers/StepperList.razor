@@ -1,0 +1,27 @@
+@inherits ShadcnBase
+
+<div data-slot="stepper-list"
+     role="tablist"
+     aria-orientation="@Stepper.Orientation.ToDataString()"
+     data-orientation="@Stepper.Orientation.ToDataString()"
+     class="@Classes"
+     @attributes="Props">
+    @ChildContent
+</div>
+
+@code
+{
+    [CascadingParameter] public Stepper Stepper { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private string? Classes;
+
+    protected override void OnParametersSet()
+    {
+        Classes = Cn(
+            "flex outline-none",
+            Stepper.Orientation == StepperOrientation.Horizontal ? "flex-row items-center" : "flex-col items-start",
+            ClassName
+        );
+    }
+}
