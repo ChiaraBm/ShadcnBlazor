@@ -2714,5 +2714,23 @@ namespace ShadcnBlazor.Test {
                 return ResourceManager.GetString("Components.CopyBlockDialog.CopyErrorDescription", resourceCulture);
             }
         }
+        
+        internal static string Views_Components_NavigationMenuDemo_Category {
+            get {
+                return ResourceManager.GetString("Views.Components.NavigationMenuDemo.Category", resourceCulture);
+            }
+        }
+        
+        internal static string Views_Components_NavigationMenuDemo_Title {
+            get {
+                return ResourceManager.GetString("Views.Components.NavigationMenuDemo.Title", resourceCulture);
+            }
+        }
+        
+        internal static string Views_Components_NavigationMenuDemo_Description {
+            get {
+                return ResourceManager.GetString("Views.Components.NavigationMenuDemo.Description", resourceCulture);
+            }
+        }
     }
 }

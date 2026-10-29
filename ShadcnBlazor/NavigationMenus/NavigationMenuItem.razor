@@ -1,0 +1,70 @@
+@inherits ShadcnBase
+
+<li class="@_classes" data-slot="navigation-menu-item" @attributes="Props">
+    <CascadingValue IsFixed="true" TValue="NavigationMenuItem" Value="this">
+        @ChildContent
+    </CascadingValue>
+
+    @if (ShouldRenderContent)
+    {
+        <NavigationMenuIndicator DataState="@(IsOpen ? "visible" : "hidden")" />
+    }
+</li>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [CascadingParameter] public NavigationMenu Parent { get; set; }
+
+    internal NavigationMenuContent? Content { get; set; }
+    internal NavigationMenuTrigger? Trigger { get; set; }
+
+    internal int Index { get; set; }
+    internal string? Motion { get; set; }
+
+    public bool IsOpen { get; private set; }
+    internal bool ShouldRenderContent { get; private set; }
+
+    private string? _classes;
+
+    protected override void OnInitialized()
+    {
+        Parent.RegisterItem(this);
+    }
+
+    protected override void OnParametersSet()
+    {
+        _classes = Cn("relative", ClassName);
+    }
+
+    internal Task OnTriggerEnterAsync() => Parent.OnTriggerEnterAsync(this);
+    internal Task OnTriggerLeaveAsync() => Parent.OnTriggerLeaveAsync(this);
+    internal Task OnContentEnterAsync() => Parent.OnContentEnterAsync(this);
+    internal Task OnContentLeaveAsync() => Parent.OnContentLeaveAsync(this);
+    internal Task OnTriggerClickAsync() => Parent.OnTriggerClickAsync(this);
+
+    internal Task CloseByLinkAsync() => Parent.CloseActiveAsync();
+
+    internal async Task OpenAsync()
+    {
+        IsOpen = true;
+        ShouldRenderContent = true;
+
+        await InvokeAsync(StateHasChanged);
+        await InvokeAsync(() => Trigger?.RequestRender());
+    }
+
+    internal async Task CloseAsync()
+    {
+        IsOpen = false;
+
+        await InvokeAsync(StateHasChanged).ContinueWith(async _ =>
+        {
+            await Task.Delay(100);
+
+            ShouldRenderContent = false;
+            await InvokeAsync(StateHasChanged);
+            await InvokeAsync(() => Trigger?.RequestRender());
+        });
+    }
+}

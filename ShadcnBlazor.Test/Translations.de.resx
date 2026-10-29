@@ -1346,4 +1346,13 @@
     <data name="Components.CopyBlockDialog.CopyErrorDescription" xml:space="preserve">
         <value>Baustein konnte nicht in die Zwischenablage kopiert werden</value>
     </data>
+    <data name="Views.Components.NavigationMenuDemo.Category" xml:space="preserve">
+        <value>Komponenten</value>
+    </data>
+    <data name="Views.Components.NavigationMenuDemo.Title" xml:space="preserve">
+        <value>Navigations Menu</value>
+    </data>
+    <data name="Views.Components.NavigationMenuDemo.Description" xml:space="preserve">
+        <value>Eine Kollektion von Links um durch die Webseite zu navigieren</value>
+    </data>
 </root>

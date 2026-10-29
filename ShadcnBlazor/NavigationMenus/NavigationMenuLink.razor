@@ -1,0 +1,44 @@
+@inherits ShadcnBase
+
+@if (Slot is not null)
+{
+    @Slot.Invoke(_attributes)
+}
+else
+{
+    <a @attributes="_attributes">
+        @ChildContent
+    </a>
+}
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public RenderFragment<Dictionary<string, object?>>? Slot { get; set; }
+    [CascadingParameter] public NavigationMenuItem? Parent { get; set; }
+
+    private Dictionary<string, object?> _attributes;
+
+    protected override void OnParametersSet()
+    {
+        _attributes = new()
+        {
+            ["class"] = Cn("flex items-center gap-2 rounded-lg p-2 text-sm transition-all outline-none hover:bg-muted focus:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-1 in-data-[slot=navigation-menu-content]:rounded-md data-active:bg-muted/50 data-active:hover:bg-muted data-active:focus:bg-muted [&_svg:not([class*='size-'])]:size-4", ClassName),
+            ["data-slot"] = "navigation-menu-link",
+            ["onclick"] = EventCallback.Factory.Create(this, async () =>
+            {
+                if(Parent is not null)
+                    await Parent.CloseByLinkAsync();
+            })
+        };
+
+        if (Parent?.IsOpen == true)
+            _attributes["data-active"] = "true";
+
+        if (Props is null)
+            return;
+
+        foreach (var prop in Props)
+            _attributes[prop.Key] = prop.Value;
+    }
+}

@@ -1,0 +1,70 @@
+@using LucideBlazor
+@inherits ShadcnBase
+
+<button type="button" @ref="TriggerElement" @attributes="_attributes"
+        @onmouseenter="OnMouseEnterAsync"
+        @onmouseleave="OnMouseLeaveAsync"
+        @onclick="OnTriggerClickAsync">
+    @ChildContent
+
+    <ChevronDownIcon
+        ClassName="relative top-px ml-1 size-3 transition duration-300 group-data-popup-open/navigation-menu-trigger:rotate-180 group-data-open/navigation-menu-trigger:rotate-180"
+        aria-hidden="true"
+    />
+</button>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [CascadingParameter] public NavigationMenuItem Parent { get; set; }
+
+    internal bool IsInHover { get; private set; }
+    internal ElementReference TriggerElement { get; set; }
+
+    internal void RequestRender() => StateHasChanged();
+
+    private Dictionary<string, object?> _attributes;
+
+    private string _navigationMenuTriggerStyle = "group/navigation-menu-trigger cursor-pointer inline-flex h-9 w-max items-center justify-center rounded-lg px-2.5 py-1.5 text-sm font-medium transition-all outline-none hover:bg-muted focus:bg-muted focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 data-popup-open:bg-muted/50 data-popup-open:hover:bg-muted data-open:bg-muted/50 data-open:hover:bg-muted data-open:focus:bg-muted";
+
+    protected override void OnInitialized()
+    {
+        Parent.Trigger = this;
+    }
+
+    protected override void OnParametersSet()
+    {
+        _attributes = new()
+        {
+            ["class"] = Cn(_navigationMenuTriggerStyle, "group", ClassName),
+            ["data-slot"] = "navigation-menu-trigger",
+            ["data-state"] = Parent.IsOpen ? "open" : "closed"
+        };
+        
+        if (Parent.IsOpen)
+        {
+            _attributes["data-open"] = "true";
+            _attributes["data-popup-open"] = "true";
+        }
+        
+        if(Props is null)
+            return;
+        
+        foreach (var prop in Props)
+            _attributes[prop.Key] = prop.Value;
+    }
+
+    private async Task OnMouseEnterAsync()
+    {
+        IsInHover = true;
+        await Parent.OnTriggerEnterAsync();
+    }
+
+    private async Task OnMouseLeaveAsync()
+    {
+        IsInHover = false;
+        await Parent.OnTriggerLeaveAsync();
+    }
+
+    private Task OnTriggerClickAsync() => Parent.OnTriggerClickAsync();
+}

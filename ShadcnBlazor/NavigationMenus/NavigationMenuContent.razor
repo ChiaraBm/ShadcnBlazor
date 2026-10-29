@@ -1,0 +1,91 @@
+@using Microsoft.AspNetCore.Components.Sections
+@using ShadcnBlazor.Interop
+@using ShadcnBlazor.Portals
+@inherits ShadcnBase
+
+@inject PositionService PositionService
+
+@if (Parent.ShouldRenderContent)
+{
+    <SectionContent SectionName="@PortalNames.NavigationMenu">
+        <div @ref="PositionElement" style="@PositionStyle" class="fixed top-0 left-0 z-50">
+            <div @attributes="_attributes"
+                 @onmouseenter="OnMouseEnterAsync"
+                 @onmouseleave="OnMouseLeaveAsync">
+                @ChildContent
+            </div>
+        </div>
+    </SectionContent>
+}
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [CascadingParameter] public NavigationMenuItem Parent { get; set; }
+
+    internal bool IsInHover { get; private set; }
+
+    private ElementReference PositionElement;
+    private string PositionStyle = PositionService.Position.OffCanvasCss;
+    private bool IsPositioned;
+
+    private Dictionary<string, object?> _attributes;
+
+    protected override void OnInitialized()
+    {
+        Parent.Content = this;
+    }
+
+    protected override void OnParametersSet()
+    {
+        _attributes = new()
+        {
+            ["class"] = Cn("p-1 ease-[cubic-bezier(0.22,1,0.36,1)] rounded-lg bg-popover text-popover-foreground shadow ring-1 ring-foreground/10 duration-300 data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 data-[motion^=from-]:animate-in data-[motion^=from-]:fade-in data-[motion^=to-]:animate-out data-[motion^=to-]:fade-out **:data-[slot=navigation-menu-link]:focus:ring-0 **:data-[slot=navigation-menu-link]:focus:outline-none data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95", ClassName),
+            ["data-slot"] = "navigation-menu-content",
+            ["data-state"] = Parent.IsOpen ? "open" : "closed",
+            ["data-motion"] = Parent.Motion,
+            [Parent.IsOpen ? "data-open" : "data-closed"] = "true"
+        };
+        
+        if(Props is null)
+            return;
+
+        foreach (var prop in Props)
+            _attributes[prop.Key] = prop.Value;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (Parent.ShouldRenderContent && !IsPositioned && Parent.Trigger is not null)
+        {
+            var position = await PositionService.PositionAroundAsync(
+                Parent.Trigger.TriggerElement,
+                PositionElement,
+                PositionSide.Bottom,
+                PositionAlignment.Start,
+                6
+            );
+
+            PositionStyle = position.ToCssStyle();
+            IsPositioned = true;
+
+            await InvokeAsync(StateHasChanged);
+        }
+        else
+            IsPositioned = false;
+    }
+    
+    internal void Refresh() => StateHasChanged();
+
+    private async Task OnMouseEnterAsync()
+    {
+        IsInHover = true;
+        await Parent.OnContentEnterAsync();
+    }
+
+    private async Task OnMouseLeaveAsync()
+    {
+        IsInHover = false;
+        await Parent.OnContentLeaveAsync();
+    }
+}
