@@ -1353,4 +1353,13 @@
     <data name="Components.CopyBlockDialog.CopyErrorDescription" xml:space="preserve">
         <value>Unable to copy block to clipboard</value>
     </data>
+    <data name="Views.Components.NavigationMenuDemo.Category" xml:space="preserve">
+        <value>Components</value>
+    </data>
+    <data name="Views.Components.NavigationMenuDemo.Title" xml:space="preserve">
+        <value>Navigation Menu</value>
+    </data>
+    <data name="Views.Components.NavigationMenuDemo.Description" xml:space="preserve">
+        <value>A collection of links for navigating websites.</value>
+    </data>
 </root>

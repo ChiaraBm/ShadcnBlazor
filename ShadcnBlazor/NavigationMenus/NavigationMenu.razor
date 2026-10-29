@@ -1,0 +1,142 @@
+@inherits ShadcnBase
+
+<nav class="@_classes" data-slot="navigation-menu" @attributes="Props">
+    <CascadingValue IsFixed="true" TValue="NavigationMenu" Value="this">
+        @ChildContent
+    </CascadingValue>
+</nav>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public int OpenDelay { get; set; } = 150;
+    [Parameter] public int CloseDelay { get; set; } = 150;
+    [Parameter] public int SkipDelay { get; set; } = 300;
+
+    internal NavigationMenuItem? ActiveItem { get; private set; }
+    internal IReadOnlyList<NavigationMenuItem> Items => _items;
+
+    private string? _classes;
+    private readonly List<NavigationMenuItem> _items = [];
+    private CancelDebouncer _openDebouncer;
+    private CancelDebouncer _closeDebouncer;
+    private DateTime _lastOpened = DateTime.MinValue;
+
+    protected override void OnInitialized()
+    {
+        _openDebouncer = new CancelDebouncer(TimeSpan.FromMilliseconds(OpenDelay));
+        _closeDebouncer = new CancelDebouncer(TimeSpan.FromMilliseconds(CloseDelay));
+    }
+
+    protected override void OnParametersSet()
+    {
+        _classes = Cn("group/navigation-menu relative flex max-w-max flex-1 items-center justify-center", ClassName);
+    }
+
+    internal void RegisterItem(NavigationMenuItem item)
+    {
+        item.Index = _items.Count;
+        _items.Add(item);
+    }
+
+    internal async Task OnTriggerEnterAsync(NavigationMenuItem item)
+    {
+        await _closeDebouncer.CancelAsync();
+
+        if (item.IsOpen)
+            return;
+
+        var skipDelay = (DateTime.Now - _lastOpened).TotalMilliseconds <= SkipDelay;
+
+        if (skipDelay)
+            await SelectAsync(item);
+        else
+            _openDebouncer.Start(() => SelectAsync(item));
+    }
+
+    internal async Task OnTriggerLeaveAsync(NavigationMenuItem item)
+    {
+        if (item.Content?.IsInHover == true)
+            return;
+
+        if (item.IsOpen)
+            _closeDebouncer.Start(() => CloseItemAsync(item));
+        else
+            await _openDebouncer.CancelAsync();
+    }
+
+    internal async Task OnTriggerClickAsync(NavigationMenuItem item)
+    {
+        if (item.IsOpen)
+            await CloseItemAsync(item);
+        else
+            await SelectAsync(item);
+    }
+
+    internal async Task OnContentEnterAsync(NavigationMenuItem item)
+    {
+        await _closeDebouncer.CancelAsync();
+    }
+
+    internal async Task OnContentLeaveAsync(NavigationMenuItem item)
+    {
+        if (item.Trigger?.IsInHover == true)
+            return;
+
+        if (item.IsOpen)
+            _closeDebouncer.Start(() => CloseItemAsync(item));
+        else
+            await _openDebouncer.CancelAsync();
+    }
+
+    internal async Task SelectAsync(NavigationMenuItem item)
+    {
+        var previous = ActiveItem;
+
+        if (previous is not null && previous != item)
+        {
+            var forward = item.Index > previous.Index;
+
+            previous.Motion = forward ? "to-start" : "to-end";
+            item.Motion = forward ? "from-end" : "from-start";
+
+            await InvokeAsync(() => previous.Content?.Refresh());
+            await previous.CloseAsync();
+        }
+        else
+        {
+            item.Motion = null;
+        }
+
+        ActiveItem = item;
+        _lastOpened = DateTime.Now;
+
+        await item.OpenAsync();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    internal async Task CloseActiveAsync()
+    {
+        await _openDebouncer.CancelAsync();
+        await _closeDebouncer.CancelAsync();
+
+        if (ActiveItem is not { } item)
+            return;
+
+        ActiveItem = null;
+
+        await item.CloseAsync();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task CloseItemAsync(NavigationMenuItem item)
+    {
+        if (ActiveItem != item)
+            return;
+
+        ActiveItem = null;
+
+        await item.CloseAsync();
+        await InvokeAsync(StateHasChanged);
+    }
+}

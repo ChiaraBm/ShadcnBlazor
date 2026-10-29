@@ -1,0 +1,20 @@
+@inherits ShadcnBase
+
+<div class="@_classes" data-slot="navigation-menu-indicator" data-state="@DataState" @attributes="Props">
+    @ChildContent
+
+    <div class="relative top-[60%] h-2 w-2 rotate-45 rounded-tl-sm bg-border shadow-md"></div>
+</div>
+
+@code
+{
+    [Parameter] public string DataState { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private string? _classes;
+
+    protected override void OnParametersSet()
+    {
+        _classes = Cn("absolute left-1/2 top-full z-1 flex h-1.5 -translate-x-1/2 items-end justify-center overflow-hidden pointer-events-none data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:animate-in data-[state=visible]:fade-in", ClassName);
+    }
+}

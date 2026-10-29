@@ -1,0 +1,17 @@
+@inherits ShadcnBase
+
+<ul class="@_classes" data-slot="navigation-menu-list" @attributes="Props">
+    @ChildContent
+</ul>
+
+@code
+{
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private string? _classes;
+
+    protected override void OnParametersSet()
+    {
+        _classes = Cn("group flex flex-1 list-none items-center justify-center gap-0", ClassName);
+    }
+}

@@ -1,0 +1,18 @@
+﻿@page "/components/navigationMenu"
+@using ShadcnBlazor.Test.Components
+@using ShadcnBlazor.Test.Showcases
+
+<!-- Page header -->
+<header>
+    <div class="text-sm font-semibold tracking-widest text-violet-400 uppercase">@Translations.Views_Components_NavigationMenuDemo_Category</div>
+    <h1 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">@Translations.Views_Components_NavigationMenuDemo_Title</h1>
+    <p class="mt-4 max-w-2xl text-muted-foreground">
+        @Translations.Views_Components_NavigationMenuDemo_Description
+    </p>
+</header>
+
+<div class="mt-8">
+    <div class="max-w-6xl">
+        <Showcase Folder="Showcases" T="NavigationMenuSc1" />
+    </div>
+</div>

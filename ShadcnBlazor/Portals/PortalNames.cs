@@ -12,6 +12,7 @@ internal static class PortalNames
     internal const string HoverCard = "HoverCard";
     internal const string Menubar = "Menubar";
     internal const string MenubarSub = "MenubarSub";
+    internal const string NavigationMenu = "NavigationMenu";
     internal const string Popover = "Popover";
     internal const string Select = "Select";
     internal const string Sheet = "Sheet";

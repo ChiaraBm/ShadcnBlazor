@@ -1,0 +1,79 @@
+@using ShadcnBlazor.NavigationMenus
+
+<NavigationMenu>
+    <NavigationMenuList>
+        <NavigationMenuItem>
+            <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
+            <NavigationMenuContent>
+                <ul class="w-96">
+                    @ListItem("Introduction", "Re-usable components built with Tailwind CSS.", "#")
+                    @ListItem("Installation", "How to install dependencies and structure your app.", "#")
+                    @ListItem("Typography", "Styles for headings, paragraphs, lists...etc", "#")
+                </ul>
+            </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuItem ClassName="hidden md:flex">
+            <NavigationMenuTrigger>Components</NavigationMenuTrigger>
+            <NavigationMenuContent>
+                <ul class="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                    @foreach (var item in _items)
+                    {
+                        @ListItem(item.Title, item.Description, item.Href);
+                    }
+                </ul>
+            </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+            <NavigationMenuLink>
+                <Slot>
+                    <a @attributes="context" href="#">Docs</a>
+                </Slot>
+            </NavigationMenuLink>
+        </NavigationMenuItem>
+    </NavigationMenuList>
+</NavigationMenu>
+
+<div class="mt-[20vh]"></div>
+
+@code
+{
+    private record ComponentItem(string Title, string Href, string Description);
+
+    private ComponentItem[] _items;
+
+    protected override void OnInitialized()
+    {
+        _items =
+        [
+            new ComponentItem("Alert Dialog", "#", "A modal dialog that interrupts the user with important content and expects a response."),
+            new ComponentItem("Hover Card", "#", "For sighted users to preview content available behind a link."),
+            new ComponentItem("Progress", "#", "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar."),
+            new ComponentItem("Scroll-area", "#", "Visually or semantically separates content."),
+            new ComponentItem("Tabs", "#", "A set of layered sections of content—known as tab panels—that are displayed one at a time."),
+            new ComponentItem("Tooltip", "#", "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.")
+        ];
+    }
+
+    private RenderFragment ListItem(
+        string title,
+        string content,
+        string href
+    )
+    {
+        return __builder =>
+        {
+            <li>
+                <NavigationMenuLink>
+                    <Slot>
+                        <a @attributes="context" href="@href">
+                            <div class="flex flex-col gap-1 text-sm">
+                                <div class="leading-none font-medium">@title</div>
+                                <div class="line-clamp-2 text-muted-foreground">@content</div>
+                            </div>
+                        </a>
+                    </Slot>
+                </NavigationMenuLink>
+            </li>
+        };
+    }
+}
