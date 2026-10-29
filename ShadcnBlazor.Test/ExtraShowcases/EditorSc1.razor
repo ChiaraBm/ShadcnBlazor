@@ -37,11 +37,7 @@
     private string CurrentLanguage
     {
         get => InnerLanguage.ToString();
-        set
-        {
-            InnerLanguage = Enum.Parse<EditorLanguage>(value);
-            Console.WriteLine(InnerLanguage);
-        }
+        set => InnerLanguage = Enum.Parse<EditorLanguage>(value);
     }
 
     private EditorLanguage InnerLanguage = EditorLanguage.Javascript;
