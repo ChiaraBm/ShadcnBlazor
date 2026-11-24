@@ -6,5 +6,6 @@
     <Project Path="ShadcnBlazor.Test/ShadcnBlazor.Test.csproj" />
   </Folder>
   <Project Path="ShadcnBlazor.Extras/ShadcnBlazor.Extras.csproj" />
+  <Project Path="ShadcnBlazor.Mcp/ShadcnBlazor.Mcp.csproj" />
   <Project Path="ShadcnBlazor/ShadcnBlazor.csproj" />
 </Solution>
